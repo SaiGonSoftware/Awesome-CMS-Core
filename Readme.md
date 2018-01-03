@@ -1,7 +1,7 @@
-# Awesome Cms Core
+# Awesome Cms Core - Simple solution to build website using cms
 
 <img src="img/cms.jpg" width="100%"/>
 
-This project provide simple solution to build website using cms. Please read Docs.md for setup, prerequisites and project architecture
+Please read Docs.md for setup, prerequisites and project architecture
 
 
