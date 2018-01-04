@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  awesomecmscore:
+    image: awesomecmscore
+    build:
+      context: .
+      dockerfile: AwesomeCMSCore\Dockerfile
+
+  module1:
+    image: module1
+    build:
+      context: .
+      dockerfile: Module1\Dockerfile
+
+
+  webapplication1:
+    image: webapplication1
+    build:
+      context: .
+      dockerfile: WebApplication1\Dockerfile
+
