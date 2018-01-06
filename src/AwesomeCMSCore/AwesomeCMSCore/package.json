@@ -1,0 +1,14 @@
+{
+  "name": "AwesomeCMSCore",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Awesome-CMS-Core/Awesome-CMS-Core",
+  "author": "TonyHudson",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-folder-list": "^1.1.0"
+  }
+}
