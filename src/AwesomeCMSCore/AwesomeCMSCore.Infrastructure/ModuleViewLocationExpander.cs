@@ -11,20 +11,28 @@ namespace AwesomeCMSCore.Infrastructure
         private const string MODULE_KEY = "module";
         public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)
         {
-            context.Values.TryGetValue(MODULE_KEY, out string module);
-            if(!string.IsNullOrWhiteSpace(module))
+            if (context.Values.ContainsKey(MODULE_KEY))
             {
-                var moduleViewLocations = new string[]
-                   {
+                var module = context.Values[MODULE_KEY];
+                if (!string.IsNullOrWhiteSpace(MODULE_KEY))
+                {
+                    var moduleViewLocations = new string[]
+                       {
                         $"/Modules/{module}/Views/{{1}}/{{0}}.cshtml",
                         $"/Modules/{module}/Views/Shared/{{0}}.cshtml",
-                   };
+                       };
 
-                viewLocations = moduleViewLocations.Concat(viewLocations);
+                    viewLocations = moduleViewLocations.Concat(viewLocations);
+                }
             }
+            
             return viewLocations;
         }
 
+        /// <summary>
+        /// Help to extract module name
+        /// </summary>
+        /// <param name="context"></param>
         public void PopulateValues(ViewLocationExpanderContext context)
         {
             var controllerName = context.ActionContext.ActionDescriptor.DisplayName;

@@ -46,7 +46,7 @@ namespace AwesomeCMSCore
             }
 
             app.UseStaticFiles();
-
+            app.ServeStaticModuleFile(GlobalConfiguration.Modules);
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

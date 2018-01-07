@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         copy: {
             main: {
                 expand: true,
-                src: ['../Modules/**/Views/**','../Modules/**/bin/Debug/netcoreapp2.0/**/*.*'],
+                src: ['../Modules/**/Views/**', '../Modules/**/bin/Debug/**/**/*.*', '../Modules/**/wwwroot/**',],
                 dest: './Modules/',
             },
         }
