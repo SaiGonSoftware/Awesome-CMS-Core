@@ -1,8 +1,10 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AwesomeCMSCore.Infrastructure;
+using AwesomeCMSCore.Module.Entities.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -101,6 +103,13 @@ namespace AwesomeCMSCore.Extension
             builder.Populate(services);
             var container = builder.Build();
             container.Resolve<IServiceProvider>();
+            return services;
+        }
+
+        public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContextPool<ApplicationDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("AwesomeCMSCore")));
             return services;
         }
     }

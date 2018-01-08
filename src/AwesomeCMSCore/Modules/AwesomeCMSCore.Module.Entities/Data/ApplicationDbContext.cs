@@ -11,29 +11,13 @@ namespace AwesomeCMSCore.Module.Entities.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        private readonly IOptions<AppConfig> _config;
+        public DbSet<Media> Medias { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<TagGroup> TagGroups { get; set; }
+        public DbSet<Tags> Tags { get; set; }
 
-        public ApplicationDbContext(IOptions<AppConfig> Config)
+        public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-            _config = Config;
-        }
-
-        public ApplicationDbContext()
-            : base()
-        {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(_config.Value.ConnectionString);
-        }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
         }
     }
 }

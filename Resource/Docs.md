@@ -6,4 +6,12 @@
 - [ElasticSearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html)
 - [ReactJS](https://reactjs.org/docs/hello-world.html)
 - [Autofac](http://autofaccn.readthedocs.io/en/latest/integration/aspnetcore.html)
+
+### Run the project
+- Restore npm package
+- Change your db source in appsetting.json and appsetting.dev.json
+- To generate migrations simply follow this [link](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/migrations). 
+Navigate to Awesome-CMS-Core\src\AwesomeCMSCore\AwesomeCMSCore to run migration command
+
 ### Project Architecture (Update later)
+- Thank to [thienn](https://github.com/thiennn/) for your modular architect. Without your help I wouldnt complish this.

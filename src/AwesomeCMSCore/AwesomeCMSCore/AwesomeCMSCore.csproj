@@ -16,9 +16,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AwesomeCMSCore.Infrastructure\AwesomeCMSCore.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\AwesomeCMSCore.Module.Entities\AwesomeCMSCore.Module.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+    <ItemGroup>
+        <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
     <Folder Include="Modules\" />
   </ItemGroup>
 
