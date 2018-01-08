@@ -1,5 +1,6 @@
 ﻿using AwesomeCMSCore.Infrastructure;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using System;
@@ -30,5 +31,19 @@ namespace AwesomeCMSCore.Extension
             }
             return app;
         }
+
+        public static IApplicationBuilder SetupEnv(this IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            return app;
+        }  
     }
 }
