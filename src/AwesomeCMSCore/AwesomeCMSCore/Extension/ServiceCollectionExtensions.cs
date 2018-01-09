@@ -50,6 +50,7 @@ namespace AwesomeCMSCore.Extension
                         }
                     }
 
+                    //add to globalconfiguration module
                     if (assembly.FullName.Contains(moduleFolder.Name))
                     {
                         modules.Add(new ModuleInfo
@@ -61,6 +62,7 @@ namespace AwesomeCMSCore.Extension
                     }
                 }
             }
+
             GlobalConfiguration.Modules = modules;
             return services;
         }
@@ -80,7 +82,7 @@ namespace AwesomeCMSCore.Extension
             var moduleInitializerInterface = typeof(IModuleInitializer);
             foreach(var module in modules)
             {
-                // Register controller from modules
+                // Register controller from modules to main web host
                 mvcBuilder.AddApplicationPart(module.Assembly);
 
                 // Register dependency in modules
@@ -98,11 +100,14 @@ namespace AwesomeCMSCore.Extension
             {
                 builder.RegisterAssemblyTypes(module.Assembly).AsImplementedInterfaces();
             }
+
             builder.RegisterInstance(configuration);
             builder.RegisterInstance(hostingEnvironment);
             builder.Populate(services);
+
             var container = builder.Build();
             container.Resolve<IServiceProvider>();
+
             return services;
         }
 
@@ -110,6 +115,7 @@ namespace AwesomeCMSCore.Extension
         {
             services.AddDbContextPool<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("AwesomeCMSCore")));
+
             return services;
         }
     }

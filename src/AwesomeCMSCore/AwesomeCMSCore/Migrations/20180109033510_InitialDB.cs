@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AwesomeCMSCore.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,6 +60,22 @@ namespace AwesomeCMSCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TagGroups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Themes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    DateCreate = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Path = table.Column<string>(nullable: true),
+                    Thumbnail = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Themes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -324,6 +340,9 @@ namespace AwesomeCMSCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "Themes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

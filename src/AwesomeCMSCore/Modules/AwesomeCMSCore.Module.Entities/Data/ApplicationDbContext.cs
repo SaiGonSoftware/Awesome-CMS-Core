@@ -14,7 +14,8 @@ namespace AwesomeCMSCore.Module.Entities.Data
         public DbSet<Media> Medias { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<TagGroup> TagGroups { get; set; }
-        public DbSet<Tags> Tags { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Theme> Themes { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {

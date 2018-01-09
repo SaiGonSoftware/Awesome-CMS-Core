@@ -11,8 +11,8 @@ using System;
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180108162435_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20180109033510_InitialDB")]
+    partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,23 +73,7 @@ namespace AwesomeCMSCore.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.TagGroup", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DateCreate");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TagGroups");
-                });
-
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Tags", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Tag", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -107,6 +91,42 @@ namespace AwesomeCMSCore.Migrations
                     b.HasIndex("TagGroupId");
 
                     b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.TagGroup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreate");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TagGroups");
+                });
+
+            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Theme", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreate");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Path");
+
+                    b.Property<string>("Thumbnail");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Themes");
                 });
 
             modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.User", b =>
@@ -277,7 +297,7 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Post", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Module.Entities.Entities.Tags", "Tags")
+                    b.HasOne("AwesomeCMSCore.Module.Entities.Entities.Tag", "Tags")
                         .WithMany()
                         .HasForeignKey("TagsId");
 
@@ -286,7 +306,7 @@ namespace AwesomeCMSCore.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Tags", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Tag", b =>
                 {
                     b.HasOne("AwesomeCMSCore.Module.Entities.Entities.TagGroup", "TagGroup")
                         .WithMany("Tags")

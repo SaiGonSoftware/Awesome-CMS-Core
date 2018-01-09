@@ -4,9 +4,10 @@ using System.Text;
 
 namespace AwesomeCMSCore.Module.Entities.Entities
 {
-    public class TagGroup: BaseEntity
+    public class Theme: BaseEntity
     {
         public string Name { get; set; }
-        public IList<Tag> Tags { get; set; }
+        public string Thumbnail { get; set; }
+        public string Path { get; set; }
     }
 }

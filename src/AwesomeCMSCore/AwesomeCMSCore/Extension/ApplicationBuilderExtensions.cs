@@ -13,6 +13,13 @@ namespace AwesomeCMSCore.Extension
 {
     public static class ApplicationBuilderExtension
     {
+        /// <summary>
+        /// Serve static file base on module
+        /// To access module static file simply use /ModuleName/path-to-file
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="modules"></param>
+        /// <returns></returns>
         public static IApplicationBuilder ServeStaticModuleFile(this IApplicationBuilder app, IList<ModuleInfo> modules)
         {
             foreach (var module in modules)
@@ -29,6 +36,7 @@ namespace AwesomeCMSCore.Extension
                     RequestPath = new PathString("/" + module.ShortName)
                 });
             }
+
             return app;
         }
 
@@ -43,7 +51,20 @@ namespace AwesomeCMSCore.Extension
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             return app;
         }  
+
+        public static IApplicationBuilder UseCustomizeMvc(this IApplicationBuilder app)
+        {
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            return app;
+        }
     }
 }
