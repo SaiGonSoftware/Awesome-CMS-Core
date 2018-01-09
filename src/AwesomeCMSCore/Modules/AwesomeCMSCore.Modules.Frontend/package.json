@@ -1,0 +1,26 @@
+{
+    "name": "AwesomeCMSCore",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/Awesome-CMS-Core/Awesome-CMS-Core",
+    "author": "TonyHudson",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "webpack"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "bootstrap": "^4.0.0-beta.2",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "jquery": "^3.2.1",
+        "node-sass": "^4.7.2",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "sass-loader": "^6.0.6",
+        "css-loader": "^0.28.8",
+        "style-loader": "^0.19.0",
+        "uglifyjs-webpack-plugin": "^1.0.1",
+        "webpack": "^3.8.1",
+        "webpack-hot-middleware": "^2.20.0"
+    }
+}
