@@ -29,3 +29,5 @@ Currently I use grunt to watch for any change happend in FrontEnd folder using w
 - Run npm start insde D:\Study\Awesome-CMS-Core\src\AwesomeCMSCore\Modules\AwesomeCMSCore.Modules.Frontend
 ```
 ### Project Architecture (Update later)
+
+<img src="Awesome CMS Architect.png" width="100%"/>
