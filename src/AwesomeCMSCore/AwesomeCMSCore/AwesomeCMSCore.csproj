@@ -25,6 +25,7 @@
 
     <ItemGroup>
     <Folder Include="Modules\" />
+    <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
 </Project>

@@ -9,6 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, "wwwroot/dist"),
     filename: "bundle.js"
   },
+  
   plugins: [extractCSS, new webpack.optimize.UglifyJsPlugin()],
   module: {
     rules: [

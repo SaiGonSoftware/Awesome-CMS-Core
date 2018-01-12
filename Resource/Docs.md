@@ -13,9 +13,19 @@
 - Web API
 
 ### Run the project
-- Restore npm package
+
+**For backend**
 - Change your db source in appsetting.json and appsetting.dev.json
 - To generate migrations simply follow this [link](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/migrations). 
 Navigate to Awesome-CMS-Core\src\AwesomeCMSCore\AwesomeCMSCore to run migration command
 
+**For frontend**
+- Restore npm package
+
+Currently I use grunt to watch for any change happend in FrontEnd folder using webpack so we need to run 2 command 
+
+```
+- Run grunt inside Awesome-CMS-Core\src\AwesomeCMSCore\AwesomeCMSCore
+- Run npm start insde D:\Study\Awesome-CMS-Core\src\AwesomeCMSCore\Modules\AwesomeCMSCore.Modules.Frontend
+```
 ### Project Architecture (Update later)
