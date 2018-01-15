@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AwesomeCMSCore.Infrastructure;
+using AwesomeCMSCore.Infrastructure.Config;
+using AwesomeCMSCore.Infrastructure.Module;
 using AwesomeCMSCore.Module.Entities.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.CodeAnalysis;

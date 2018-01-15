@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AwesomeCMSCore.Infrastructure
+namespace AwesomeCMSCore.Infrastructure.Module
 {
     public interface IModuleInitializer
     {

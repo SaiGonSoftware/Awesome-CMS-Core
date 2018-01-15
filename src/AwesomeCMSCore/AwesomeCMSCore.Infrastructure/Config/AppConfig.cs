@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AwesomeCMSCore.Infrastructure
+namespace AwesomeCMSCore.Infrastructure.Config
 {
     public class AppConfig
     {

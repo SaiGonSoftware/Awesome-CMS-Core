@@ -1,8 +1,9 @@
-﻿using System;
+﻿using AwesomeCMSCore.Infrastructure.Module;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AwesomeCMSCore.Infrastructure
+namespace AwesomeCMSCore.Infrastructure.Config
 {
     public static class GlobalConfiguration
     {

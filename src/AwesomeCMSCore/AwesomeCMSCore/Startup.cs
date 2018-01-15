@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Extension;
 using AwesomeCMSCore.Infrastructure;
+using AwesomeCMSCore.Infrastructure.Config;
+using AwesomeCMSCore.Infrastructure.IdentityServer;
+using AwesomeCMSCore.Infrastructure.Module.Views;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -31,12 +34,17 @@ namespace AwesomeCMSCore
             //ModuleViewLocationExpander is used to help the view engine lookup up the right module folder the views
             services.Configure<RazorViewEngineOptions>(options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
             services.AddCustomizedMvc(GlobalConfiguration.Modules, _configuration, _hostingEnvironment);
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
+                .AddInMemoryClients(IdentityServerConfig.GetClients()); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.SetupEnv(env);
+            app.UseIdentityServer();
             app.UseStaticFiles();
             app.ServeStaticModuleFile(GlobalConfiguration.Modules);
             app.UseAuthentication();

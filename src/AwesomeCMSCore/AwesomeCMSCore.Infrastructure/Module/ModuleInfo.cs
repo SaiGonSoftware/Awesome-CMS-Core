@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace AwesomeCMSCore.Infrastructure
+namespace AwesomeCMSCore.Infrastructure.Module
 {
     public class ModuleInfo
     {

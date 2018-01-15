@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AwesomeCMSCore.Infrastructure
+namespace AwesomeCMSCore.Infrastructure.Module.Views
 {
     public class ModuleViewLocationExpander : IViewLocationExpander
     {
