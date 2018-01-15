@@ -19,6 +19,7 @@
 * http://trevorelwell.me/atom-error-const-is-available-in-es6-use-esversion-6/
 
 Identity Server 4
-* http://docs.identityserver.io/en/dev/quickstarts
+* http://docs.identityserver.io/en/dev/intro/big_picture.html
 * http://docs.identityserver.io/en/dev/quickstarts/8_entity_framework.html#refentityframeworkquickstart
 * http://docs.identityserver.io/en/dev/topics/crypto.html#refcrypto
+* https://github.com/IdentityServer/IdentityServer4.Samples
