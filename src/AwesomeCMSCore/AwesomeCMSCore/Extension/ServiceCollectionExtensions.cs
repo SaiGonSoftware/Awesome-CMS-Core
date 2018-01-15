@@ -5,6 +5,7 @@ using AwesomeCMSCore.Infrastructure.Config;
 using AwesomeCMSCore.Infrastructure.Module;
 using AwesomeCMSCore.Modules.Entities.Data;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +17,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
-
 namespace AwesomeCMSCore.Extension
 {
     public static class ServiceCollectionExtensions
@@ -27,7 +27,7 @@ namespace AwesomeCMSCore.Extension
             var moduleRootFolder = new DirectoryInfo(Path.Combine(contentRootPath, "Modules"));
             var moduleFolders = moduleRootFolder.GetDirectories();
 
-            foreach(var moduleFolder in moduleFolders)
+            foreach (var moduleFolder in moduleFolders)
             {
                 var binFolder = new DirectoryInfo(Path.Combine(moduleFolder.FullName, "bin"));
                 if (!binFolder.Exists)
@@ -35,14 +35,14 @@ namespace AwesomeCMSCore.Extension
                     continue;
                 }
 
-                foreach(var file in binFolder.GetFileSystemInfos("*.dll", SearchOption.AllDirectories))
+                foreach (var file in binFolder.GetFileSystemInfos("*.dll", SearchOption.AllDirectories))
                 {
                     Assembly assembly;
                     try
                     {
                         assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(file.FullName);
                     }
-                    catch(FileLoadException)
+                    catch (FileLoadException)
                     {
                         // Get loaded assembly
                         assembly = Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(file.Name)));
@@ -73,6 +73,13 @@ namespace AwesomeCMSCore.Extension
         {
             var mvcBuilder = services
                 .AddMvc()
+                // fix assembly ref for web api
+                .ConfigureApplicationPartManager(manager =>
+                {
+                    var oldMetadataReferenceFeatureProvider = manager.FeatureProviders.First(f => f is MetadataReferenceFeatureProvider);
+                    manager.FeatureProviders.Remove(oldMetadataReferenceFeatureProvider);
+                    manager.FeatureProviders.Add(new ReferencesMetadataReferenceFeatureProvider());
+                })
                 .AddRazorOptions(o =>
                 {
                     foreach (var module in modules)
@@ -82,7 +89,7 @@ namespace AwesomeCMSCore.Extension
                 });
 
             var moduleInitializerInterface = typeof(IModuleInitializer);
-            foreach(var module in modules)
+            foreach (var module in modules)
             {
                 // Register controller from modules to main web host
                 mvcBuilder.AddApplicationPart(module.Assembly);
@@ -90,7 +97,7 @@ namespace AwesomeCMSCore.Extension
                 // Register dependency in modules
                 var moduleInitializerType =
                     module.Assembly.GetTypes().FirstOrDefault(x => typeof(IModuleInitializer).IsAssignableFrom(x));
-                if ((moduleInitializerType !=null) && (moduleInitializerType != typeof(IModuleInitializer)))
+                if ((moduleInitializerType != null) && (moduleInitializerType != typeof(IModuleInitializer)))
                 {
                     var moduleInitializer = (IModuleInitializer)Activator.CreateInstance(moduleInitializerType);
                     moduleInitializer.Init(services);
@@ -98,7 +105,7 @@ namespace AwesomeCMSCore.Extension
             }
 
             var builder = new ContainerBuilder();
-            foreach(var module in GlobalConfiguration.Modules)
+            foreach (var module in GlobalConfiguration.Modules)
             {
                 builder.RegisterAssemblyTypes(module.Assembly).AsImplementedInterfaces();
             }
@@ -121,5 +128,5 @@ namespace AwesomeCMSCore.Extension
             return services;
         }
     }
-   
+
 }

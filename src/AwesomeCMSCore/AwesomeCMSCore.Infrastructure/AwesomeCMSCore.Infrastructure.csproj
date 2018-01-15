@@ -1,19 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>netcoreapp2.0</TargetFramework>
     </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.0.2" />
     <PackageReference Include="IdentityServer4" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.2" />  
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Microsoft.AspNetCore.Mvc.Razor">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.mvc.razor\2.0.1\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
-      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.dependencyinjection.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.CodeAnalysis">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.codeanalysis.common\2.3.1\lib\netstandard1.3\Microsoft.CodeAnalysis.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

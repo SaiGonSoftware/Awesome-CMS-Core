@@ -13,7 +13,7 @@ namespace AwesomeCMSCore.Modules.Console
         private static async Task MainAsync()
         {
             // discover endpoints from metadata
-            var disco = await DiscoveryClient.GetAsync("http://localhost:7695");
+            var disco = await DiscoveryClient.GetAsync("http://localhost:5000");
             if (disco.IsError)
             {
                 System.Console.WriteLine(disco.Error);
@@ -37,7 +37,7 @@ namespace AwesomeCMSCore.Modules.Console
             var client = new HttpClient();
             client.SetBearerToken(tokenResponse.AccessToken);
 
-            var response = await client.GetAsync("http://localhost:7696/identity");
+            var response = await client.GetAsync("http://localhost:5001/identity");
             if (!response.IsSuccessStatusCode)
             {
                 System.Console.WriteLine(response.StatusCode);

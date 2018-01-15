@@ -38,7 +38,7 @@ namespace AwesomeCMSCore
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
-                .AddInMemoryClients(IdentityServerConfig.GetClients()); ;
+                .AddInMemoryClients(IdentityServerConfig.GetClients());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
