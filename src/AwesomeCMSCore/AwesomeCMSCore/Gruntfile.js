@@ -12,7 +12,8 @@ module.exports = function (grunt) {
                 src: [
                     "../Modules/**/Views/**",
                     "../Modules/**/bin/Debug/**/**/*.*",
-                    "../Modules/**/wwwroot/**"
+                    "../Modules/**/wwwroot/**",
+                    "!../Modules/AwesomeCMSCore.Modules.Console/**"
                 ],
                 dest: "./Modules/"
             },

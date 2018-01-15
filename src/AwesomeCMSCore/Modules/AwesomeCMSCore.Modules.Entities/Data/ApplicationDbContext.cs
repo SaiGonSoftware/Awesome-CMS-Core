@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AwesomeCMSCore.Module.Entities.Data
+namespace AwesomeCMSCore.Modules.Entities.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {

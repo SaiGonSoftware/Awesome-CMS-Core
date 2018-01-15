@@ -9,6 +9,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="IdentityServer4" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AwesomeCMSCore.Infrastructure\AwesomeCMSCore.Infrastructure.csproj" />
-    <ProjectReference Include="..\Modules\AwesomeCMSCore.Module.Entities\AwesomeCMSCore.Module.Entities.csproj" />
+    <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
   </ItemGroup>
 
     <ItemGroup>

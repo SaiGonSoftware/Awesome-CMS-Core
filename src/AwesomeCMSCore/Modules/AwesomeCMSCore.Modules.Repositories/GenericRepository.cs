@@ -1,4 +1,4 @@
-﻿using AwesomeCMSCore.Module.Entities.Data;
+﻿using AwesomeCMSCore.Modules.Entities.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

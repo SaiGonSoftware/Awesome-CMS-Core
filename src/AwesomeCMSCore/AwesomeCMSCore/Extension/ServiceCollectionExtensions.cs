@@ -3,7 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using AwesomeCMSCore.Infrastructure;
 using AwesomeCMSCore.Infrastructure.Config;
 using AwesomeCMSCore.Infrastructure.Module;
-using AwesomeCMSCore.Module.Entities.Data;
+using AwesomeCMSCore.Modules.Entities.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
