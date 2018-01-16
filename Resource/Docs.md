@@ -9,9 +9,9 @@
 - [Autofac](http://autofaccn.readthedocs.io/en/latest/integration/aspnetcore.html)
 - Google Drive API
 - Drag&Drop (Self develop)
-- ASP.Net Core 2.0
+- [ASP.Net Core 2.0](https://www.microsoft.com/net/download/windows)
 - Web API
-- [Identity Server 4](http://docs.identityserver.io/en/dev/quickstarts)
+- [Identity Server 4](http://docs.identityserver.io/en/dev/intro/big_picture.html)
 
 ### Run the project
 
