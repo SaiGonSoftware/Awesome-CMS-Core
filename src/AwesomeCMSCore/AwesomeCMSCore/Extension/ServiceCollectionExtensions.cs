@@ -132,7 +132,6 @@ namespace AwesomeCMSCore.Extension
         {
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
-                .AddTestUsers(IdentityServerConfig.GetUsers())
                 // this adds the config data from DB (clients, resources)
                 .AddConfigurationStore(options =>
                 {

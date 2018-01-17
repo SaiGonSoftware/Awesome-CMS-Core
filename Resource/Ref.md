@@ -24,3 +24,8 @@ Identity Server 4
 * http://docs.identityserver.io/en/dev/quickstarts/8_entity_framework.html#refentityframeworkquickstart
 * http://docs.identityserver.io/en/dev/topics/crypto.html#refcrypto
 * https://github.com/IdentityServer/IdentityServer4.Samples
+* https://social.technet.microsoft.com/wiki/contents/articles/37169.secure-your-netcore-web-applications-using-identityserver-4.aspx
+* https://www.scottbrady91.com/Identity-Server/Getting-Started-with-IdentityServer-4
+
+Package Migration
+* https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
