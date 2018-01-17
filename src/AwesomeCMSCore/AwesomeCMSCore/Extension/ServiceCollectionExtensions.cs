@@ -16,6 +16,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using AwesomeCMSCore.Infrastructure.IdentityServer;
+using Microsoft.AspNetCore.Identity;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -125,6 +126,8 @@ namespace AwesomeCMSCore.Extension
             services.AddDbContextPool<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("AwesomeCMSCore")));
 
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
             return services;
         }
 
@@ -136,13 +139,13 @@ namespace AwesomeCMSCore.Extension
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
-                        builder.UseSqlServer(configuration.GetConnectionString("IndentityServer"), sql => sql.MigrationsAssembly("AwesomeCMSCore"));
+                        builder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), sql => sql.MigrationsAssembly("AwesomeCMSCore"));
                 })
                 // this adds the operational data from DB (codes, tokens, consents)
                 .AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
-                        builder.UseSqlServer(configuration.GetConnectionString("IndentityServer"), sql => sql.MigrationsAssembly("AwesomeCMSCore"));
+                        builder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), sql => sql.MigrationsAssembly("AwesomeCMSCore"));
 
                     // this enables automatic token cleanup. this is optional.
                     options.EnableTokenCleanup = true;

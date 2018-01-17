@@ -1,7 +1,10 @@
 ﻿using AwesomeCMSCore.Infrastructure.Module;
+using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using System.IO;
@@ -63,5 +66,19 @@ namespace AwesomeCMSCore.Extension
 
             return app;
         }
+
+        public static IApplicationBuilder InitializeDbTestData(this IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>()
+                   .Database.Migrate();
+                scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>()
+                    .Database.Migrate();
+            }
+
+            return app;
+        }
+        
     }
 }

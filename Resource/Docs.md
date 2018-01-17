@@ -19,6 +19,7 @@
 - Change your db source in appsetting.json and appsetting.dev.json
 - To generate migrations simply follow this [link](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/migrations). 
 Navigate to Awesome-CMS-Core\src\AwesomeCMSCore\AwesomeCMSCore to run migration command
+- Run `dotnet ef migrations add InitialIdentityServerMigration -c PersistedGrantDbContext` insde Awesome-CMS-Core\src\AwesomeCMSCore\AwesomeCMSCore
 
 **For frontend**
 - Restore npm package
