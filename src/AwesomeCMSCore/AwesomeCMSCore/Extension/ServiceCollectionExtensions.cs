@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using AwesomeCMSCore.Infrastructure;
 using AwesomeCMSCore.Infrastructure.Config;
 using AwesomeCMSCore.Infrastructure.Module;
 using AwesomeCMSCore.Modules.Entities.Data;
@@ -16,7 +15,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
-using System.Threading.Tasks;
+using AwesomeCMSCore.Infrastructure.IdentityServer;
+
 namespace AwesomeCMSCore.Extension
 {
     public static class ServiceCollectionExtensions
@@ -127,6 +127,29 @@ namespace AwesomeCMSCore.Extension
 
             return services;
         }
-    }
 
+        public static IServiceCollection UseIdentityServer(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddTestUsers(IdentityServerConfig.GetUsers())
+                // this adds the config data from DB (clients, resources)
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = builder =>
+                        builder.UseSqlServer(configuration.GetConnectionString("IndentityServer"), sql => sql.MigrationsAssembly("AwesomeCMSCore"));
+                })
+                // this adds the operational data from DB (codes, tokens, consents)
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = builder =>
+                        builder.UseSqlServer(configuration.GetConnectionString("IndentityServer"), sql => sql.MigrationsAssembly("AwesomeCMSCore"));
+
+                    // this enables automatic token cleanup. this is optional.
+                    options.EnableTokenCleanup = true;
+                    options.TokenCleanupInterval = 30;
+                });
+            return services;
+        }
+    }
 }

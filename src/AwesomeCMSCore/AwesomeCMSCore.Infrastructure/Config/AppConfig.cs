@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AwesomeCMSCore.Infrastructure.Config
+﻿namespace AwesomeCMSCore.Infrastructure.Config
 {
     public class AppConfig
     {

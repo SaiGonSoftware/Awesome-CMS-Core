@@ -1,11 +1,6 @@
-﻿using AwesomeCMSCore.Infrastructure;
-using AwesomeCMSCore.Module.Entities.Entities;
+﻿using AwesomeCMSCore.Module.Entities.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AwesomeCMSCore.Modules.Entities.Data
 {

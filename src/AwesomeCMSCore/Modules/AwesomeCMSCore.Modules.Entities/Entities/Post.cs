@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AwesomeCMSCore.Module.Entities.Entities
+﻿namespace AwesomeCMSCore.Module.Entities.Entities
 {
     public class Post:BaseEntity
     {

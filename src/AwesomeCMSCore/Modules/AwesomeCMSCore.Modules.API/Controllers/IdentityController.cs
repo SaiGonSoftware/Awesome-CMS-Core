@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace AwesomeCMSCore.Module.API.Controllers
+namespace AwesomeCMSCore.Modules.API.Controllers
 {
     [Route("identity")]
     [Authorize]

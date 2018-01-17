@@ -1,7 +1,5 @@
 ﻿using AwesomeCMSCore.Infrastructure.Module;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AwesomeCMSCore.Infrastructure.Config
 {

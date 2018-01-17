@@ -1,14 +1,10 @@
-﻿using AwesomeCMSCore.Infrastructure;
-using AwesomeCMSCore.Infrastructure.Module;
+﻿using AwesomeCMSCore.Infrastructure.Module;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AwesomeCMSCore.Extension
 {

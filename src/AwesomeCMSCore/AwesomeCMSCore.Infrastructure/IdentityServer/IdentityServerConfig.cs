@@ -1,8 +1,6 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Test;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AwesomeCMSCore.Infrastructure.IdentityServer
 {
