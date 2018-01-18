@@ -150,7 +150,8 @@ namespace AwesomeCMSCore.Extension
                     // this enables automatic token cleanup. this is optional.
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 30;
-                });
+                })
+                .AddAspNetIdentity<IdentityUser>();
             return services;
         }
     }
