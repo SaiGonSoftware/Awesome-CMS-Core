@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace AwesomeCMSCore.Module.Entities.Entities
+namespace AwesomeCMSCore.Modules.Entities.Entities
 {
     public class User : IdentityUser
     {

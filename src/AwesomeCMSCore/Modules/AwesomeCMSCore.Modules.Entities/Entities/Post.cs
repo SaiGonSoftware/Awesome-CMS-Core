@@ -1,4 +1,4 @@
-﻿namespace AwesomeCMSCore.Module.Entities.Entities
+﻿namespace AwesomeCMSCore.Modules.Entities.Entities
 {
     public class Post:BaseEntity
     {

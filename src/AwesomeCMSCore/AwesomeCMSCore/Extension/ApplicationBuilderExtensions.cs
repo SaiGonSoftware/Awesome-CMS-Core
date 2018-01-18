@@ -8,6 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using System.IO;
+using AwesomeCMSCore.Modules.Entities.Data;
+using Microsoft.AspNetCore.Identity;
+using System.Linq;
+using AwesomeCMSCore.Infrastructure.IdentityServer;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -71,10 +75,23 @@ namespace AwesomeCMSCore.Extension
         {
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>()
-                   .Database.Migrate();
-                scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>()
-                    .Database.Migrate();
+                scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+                scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>().Database.Migrate();
+                scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+                if (userManager.Users.Any()) return app;
+                foreach (var testUser in Users.Get())
+                {
+                    var identityUser = new IdentityUser(testUser.Username)
+                    {
+                        Id = testUser.SubjectId
+                    };
+
+                    userManager.CreateAsync(identityUser, "Password123!").Wait();
+                    userManager.AddClaimsAsync(identityUser, testUser.Claims.ToList()).Wait();
+                }
             }
 
             return app;

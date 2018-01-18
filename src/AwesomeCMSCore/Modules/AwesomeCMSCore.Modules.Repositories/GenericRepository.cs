@@ -1,12 +1,12 @@
-﻿using AwesomeCMSCore.Modules.Entities.Data;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AwesomeCMSCore.Modules.Entities.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace AwesomeCMSCore.Module.Repositories
+namespace AwesomeCMSCore.Modules.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

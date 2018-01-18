@@ -152,6 +152,7 @@ namespace AwesomeCMSCore.Extension
                     options.TokenCleanupInterval = 30;
                 })
                 .AddAspNetIdentity<IdentityUser>();
+
             return services;
         }
     }

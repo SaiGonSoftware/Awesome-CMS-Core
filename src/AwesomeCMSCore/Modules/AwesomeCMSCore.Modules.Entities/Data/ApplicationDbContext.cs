@@ -1,4 +1,4 @@
-﻿using AwesomeCMSCore.Module.Entities.Entities;
+﻿using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

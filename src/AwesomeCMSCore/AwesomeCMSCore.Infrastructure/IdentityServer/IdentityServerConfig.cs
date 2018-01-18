@@ -1,6 +1,8 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Test;
 using System.Collections.Generic;
+using System.Security.Claims;
+using IdentityModel;
 
 namespace AwesomeCMSCore.Infrastructure.IdentityServer
 {
@@ -67,6 +69,24 @@ namespace AwesomeCMSCore.Infrastructure.IdentityServer
                         new Secret("secret".Sha256())
                     },
                     AllowedScopes = { "api1" }
+                }
+            };
+        }
+    }
+
+    public class Users
+    {
+        public static List<TestUser> Get()
+        {
+            return new List<TestUser> {
+                new TestUser {
+                    SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABE",
+                    Username = "phuc",
+                    Password = "070695",
+                    Claims = new List<Claim> {
+                        new Claim(JwtClaimTypes.Email, "ngohungphuc95@gmail.com"),
+                        new Claim(JwtClaimTypes.Role, "admin")
+                    }
                 }
             };
         }

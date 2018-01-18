@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AwesomeCMSCore.Module.Entities.Entities
+namespace AwesomeCMSCore.Modules.Entities.Entities
 {
     public class TagGroup: BaseEntity
     {
