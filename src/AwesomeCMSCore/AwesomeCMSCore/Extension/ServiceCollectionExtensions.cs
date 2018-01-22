@@ -15,7 +15,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
-using AwesomeCMSCore.Infrastructure.IdentityServer;
 using Microsoft.AspNetCore.Identity;
 
 namespace AwesomeCMSCore.Extension
@@ -77,8 +76,7 @@ namespace AwesomeCMSCore.Extension
                 // fix assembly ref for web api
                 .ConfigureApplicationPartManager(manager =>
                 {
-                    var oldMetadataReferenceFeatureProvider = manager.FeatureProviders.First(f => f is MetadataReferenceFeatureProvider);
-                    manager.FeatureProviders.Remove(oldMetadataReferenceFeatureProvider);
+                    manager.FeatureProviders.Remove(manager.FeatureProviders.First(f => f is MetadataReferenceFeatureProvider));
                     manager.FeatureProviders.Add(new ReferencesMetadataReferenceFeatureProvider());
                 })
                 .AddRazorOptions(o =>

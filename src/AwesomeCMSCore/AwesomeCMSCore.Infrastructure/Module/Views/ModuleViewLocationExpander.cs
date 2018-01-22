@@ -17,7 +17,7 @@ namespace AwesomeCMSCore.Infrastructure.Module.Views
                     var moduleViewLocations = new string[]
                        {
                         $"/Modules/{module}/Views/{{1}}/{{0}}.cshtml",
-                        $"/Modules/{module}/Views/Shared/{{0}}.cshtml",
+                        $"/Modules/{module}/Views/Shared/{{0}}.cshtml"
                        };
 
                     viewLocations = moduleViewLocations.Concat(viewLocations);
@@ -36,6 +36,10 @@ namespace AwesomeCMSCore.Infrastructure.Module.Views
             var controllerName = context.ActionContext.ActionDescriptor.DisplayName;
             // Get assembly name
             var moduleName = controllerName.Split('(', ')')[1];
+            if (moduleName != "AwesomeCMSCore")
+            {
+                context.Values[MODULE_KEY] = moduleName;
+            }
             context.Values[MODULE_KEY] = moduleName;
         }
     }

@@ -4,11 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.DependencyModel;
 
-namespace AwesomeCMSCore.Infrastructure.Config
+namespace Microsoft.AspNetCore.Mvc.Razor.Compilation
 {
     public class ReferencesMetadataReferenceFeatureProvider : IApplicationFeatureProvider<MetadataReferenceFeature>
     {
