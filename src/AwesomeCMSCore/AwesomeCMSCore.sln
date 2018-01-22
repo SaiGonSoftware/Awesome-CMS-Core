@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore", "AwesomeCMSCore\AwesomeCMSCore.csproj", "{75996395-D8CE-4437-B5ED-A99271CEED6E}"
 EndProject
@@ -19,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Admi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Frontend", "Modules\AwesomeCMSCore.Modules.Frontend\AwesomeCMSCore.Modules.Frontend.csproj", "{1D13E797-59A5-4DA3-8E75-404CB25F45F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeCMSCore.Modules.API", "Modules\AwesomeCMSCore.Modules.API\AwesomeCMSCore.Modules.API.csproj", "{0DA08C78-FCAD-40DB-9786-2A3236D97EDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Console", "Modules\AwesomeCMSCore.Modules.Console\AwesomeCMSCore.Modules.Console.csproj", "{A2E6E24D-730A-49CB-A7AB-6105E119DF38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeCMSCore.Modules.Console", "Modules\AwesomeCMSCore.Modules.Console\AwesomeCMSCore.Modules.Console.csproj", "{A2E6E24D-730A-49CB-A7AB-6105E119DF38}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeCMSCore.Modules.API", "Modules\AwesomeCMSCore.Modules.API\AwesomeCMSCore.Modules.API.csproj", "{8295D90B-4D89-4D56-961C-3F01C7DFE6C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,14 +57,14 @@ Global
 		{1D13E797-59A5-4DA3-8E75-404CB25F45F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D13E797-59A5-4DA3-8E75-404CB25F45F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D13E797-59A5-4DA3-8E75-404CB25F45F9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0DA08C78-FCAD-40DB-9786-2A3236D97EDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0DA08C78-FCAD-40DB-9786-2A3236D97EDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0DA08C78-FCAD-40DB-9786-2A3236D97EDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0DA08C78-FCAD-40DB-9786-2A3236D97EDE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A2E6E24D-730A-49CB-A7AB-6105E119DF38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A2E6E24D-730A-49CB-A7AB-6105E119DF38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2E6E24D-730A-49CB-A7AB-6105E119DF38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2E6E24D-730A-49CB-A7AB-6105E119DF38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8295D90B-4D89-4D56-961C-3F01C7DFE6C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8295D90B-4D89-4D56-961C-3F01C7DFE6C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8295D90B-4D89-4D56-961C-3F01C7DFE6C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8295D90B-4D89-4D56-961C-3F01C7DFE6C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,8 +75,8 @@ Global
 		{DFD53D91-B318-43CC-8B92-5B3F6C5CFAC1} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
 		{BABB2906-968C-412D-904F-44FAD893D173} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
 		{1D13E797-59A5-4DA3-8E75-404CB25F45F9} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
-		{0DA08C78-FCAD-40DB-9786-2A3236D97EDE} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
 		{A2E6E24D-730A-49CB-A7AB-6105E119DF38} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
+		{8295D90B-4D89-4D56-961C-3F01C7DFE6C9} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14095F44-17CE-422B-9875-A9597D2BD3B0}
