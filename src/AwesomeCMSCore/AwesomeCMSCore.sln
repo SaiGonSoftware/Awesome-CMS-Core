@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Fron
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Console", "Modules\AwesomeCMSCore.Modules.Console\AwesomeCMSCore.Modules.Console.csproj", "{A2E6E24D-730A-49CB-A7AB-6105E119DF38}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.API", "Modules\AwesomeCMSCore.Modules.API\AwesomeCMSCore.Modules.API.csproj", "{12138DB4-F6A2-4E38-A6A8-AA673A7E786C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{A2E6E24D-730A-49CB-A7AB-6105E119DF38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2E6E24D-730A-49CB-A7AB-6105E119DF38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2E6E24D-730A-49CB-A7AB-6105E119DF38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12138DB4-F6A2-4E38-A6A8-AA673A7E786C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12138DB4-F6A2-4E38-A6A8-AA673A7E786C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12138DB4-F6A2-4E38-A6A8-AA673A7E786C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12138DB4-F6A2-4E38-A6A8-AA673A7E786C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{DFD53D91-B318-43CC-8B92-5B3F6C5CFAC1} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
 		{1D13E797-59A5-4DA3-8E75-404CB25F45F9} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
 		{A2E6E24D-730A-49CB-A7AB-6105E119DF38} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
+		{12138DB4-F6A2-4E38-A6A8-AA673A7E786C} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14095F44-17CE-422B-9875-A9597D2BD3B0}
