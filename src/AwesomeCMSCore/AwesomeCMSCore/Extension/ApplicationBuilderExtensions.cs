@@ -1,5 +1,4 @@
 ﻿using AwesomeCMSCore.Infrastructure.Module;
-using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +10,9 @@ using System.IO;
 using AwesomeCMSCore.Modules.Entities.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
-using AwesomeCMSCore.Infrastructure.IdentityServer;
+using System;
+using AwesomeCMSCore.Modules.Entities.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -57,7 +58,7 @@ namespace AwesomeCMSCore.Extension
             }
 
             return app;
-        }  
+        }
 
         public static IApplicationBuilder UseCustomizeMvc(this IApplicationBuilder app)
         {
@@ -75,27 +76,29 @@ namespace AwesomeCMSCore.Extension
         {
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
-                scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>().Database.Migrate();
                 scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
-
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-
-                if (userManager.Users.Any()) return app;
-                foreach (var testUser in Users.Get())
+               
+                var tony = new User
                 {
-                    var identityUser = new IdentityUser(testUser.Username)
-                    {
-                        Id = testUser.SubjectId
-                    };
-
-                    userManager.CreateAsync(identityUser, "Password123!").Wait();
-                    userManager.AddClaimsAsync(identityUser, testUser.Claims.ToList()).Wait();
+                    Email = "ngohungphuc95@gmail.com",
+                    UserName = "tony",
+                    NormalizedUserName = "TonyHudson",
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true,
+                    LockoutEnabled = false,
+                    SecurityStamp = Guid.NewGuid().ToString()
+                };
+                
+                if (!userManager.Users.Any())
+                {
+                    userManager.CreateAsync(tony, "tony95!").Wait();
                 }
+
             }
 
             return app;
         }
-        
+
     }
 }

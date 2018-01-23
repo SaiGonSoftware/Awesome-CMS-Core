@@ -3,6 +3,9 @@ using AwesomeCMSCore.Modules.Entities.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
 namespace AwesomeCMSCore.Migrations
@@ -17,7 +20,7 @@ namespace AwesomeCMSCore.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Media", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Media", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -39,7 +42,7 @@ namespace AwesomeCMSCore.Migrations
                     b.ToTable("Medias");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Post", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Post", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -69,7 +72,7 @@ namespace AwesomeCMSCore.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Tag", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Tag", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -89,7 +92,7 @@ namespace AwesomeCMSCore.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.TagGroup", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.TagGroup", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -105,7 +108,7 @@ namespace AwesomeCMSCore.Migrations
                     b.ToTable("TagGroups");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Theme", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Theme", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -125,7 +128,7 @@ namespace AwesomeCMSCore.Migrations
                     b.ToTable("Themes");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.User", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -284,27 +287,148 @@ namespace AwesomeCMSCore.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Media", b =>
+            modelBuilder.Entity("OpenIddict.Models.OpenIddictApplication", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Module.Entities.Entities.User", "Owner")
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClientId")
+                        .IsRequired();
+
+                    b.Property<string>("ClientSecret");
+
+                    b.Property<string>("DisplayName");
+
+                    b.Property<string>("PostLogoutRedirectUris");
+
+                    b.Property<string>("RedirectUris");
+
+                    b.Property<byte[]>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Type")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId")
+                        .IsUnique();
+
+                    b.ToTable("OpenIddictApplications");
+                });
+
+            modelBuilder.Entity("OpenIddict.Models.OpenIddictAuthorization", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationId");
+
+                    b.Property<string>("Scopes");
+
+                    b.Property<string>("Status")
+                        .IsRequired();
+
+                    b.Property<string>("Subject")
+                        .IsRequired();
+
+                    b.Property<byte[]>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Type")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.ToTable("OpenIddictAuthorizations");
+                });
+
+            modelBuilder.Entity("OpenIddict.Models.OpenIddictScope", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<byte[]>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OpenIddictScopes");
+                });
+
+            modelBuilder.Entity("OpenIddict.Models.OpenIddictToken", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationId");
+
+                    b.Property<string>("AuthorizationId");
+
+                    b.Property<string>("Ciphertext");
+
+                    b.Property<DateTimeOffset?>("CreationDate");
+
+                    b.Property<DateTimeOffset?>("ExpirationDate");
+
+                    b.Property<string>("Hash");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("Subject")
+                        .IsRequired();
+
+                    b.Property<byte[]>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Type")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("AuthorizationId");
+
+                    b.HasIndex("Hash")
+                        .IsUnique()
+                        .HasFilter("[Hash] IS NOT NULL");
+
+                    b.ToTable("OpenIddictTokens");
+                });
+
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Media", b =>
+                {
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Post", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Post", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Module.Entities.Entities.Tag", "Tags")
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Tag", "Tags")
                         .WithMany()
                         .HasForeignKey("TagsId");
 
-                    b.HasOne("AwesomeCMSCore.Module.Entities.Entities.User", "User")
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Module.Entities.Entities.Tag", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Tag", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Module.Entities.Entities.TagGroup", "TagGroup")
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.TagGroup", "TagGroup")
                         .WithMany("Tags")
                         .HasForeignKey("TagGroupId");
                 });
@@ -319,7 +443,7 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Module.Entities.Entities.User")
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -327,7 +451,7 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Module.Entities.Entities.User")
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -340,7 +464,7 @@ namespace AwesomeCMSCore.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("AwesomeCMSCore.Module.Entities.Entities.User")
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -348,9 +472,29 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Module.Entities.Entities.User")
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("OpenIddict.Models.OpenIddictAuthorization", b =>
+                {
+                    b.HasOne("OpenIddict.Models.OpenIddictApplication", "Application")
+                        .WithMany("Authorizations")
+                        .HasForeignKey("ApplicationId");
+                });
+
+            modelBuilder.Entity("OpenIddict.Models.OpenIddictToken", b =>
+                {
+                    b.HasOne("OpenIddict.Models.OpenIddictApplication", "Application")
+                        .WithMany("Tokens")
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("OpenIddict.Models.OpenIddictAuthorization", "Authorization")
+                        .WithMany("Tokens")
+                        .HasForeignKey("AuthorizationId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

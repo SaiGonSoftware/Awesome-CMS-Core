@@ -1,0 +1,7 @@
+artifacts/
+coverage/
+scripts/
+typings/
+*.swp
+dist/
+npm-debug.log.*
