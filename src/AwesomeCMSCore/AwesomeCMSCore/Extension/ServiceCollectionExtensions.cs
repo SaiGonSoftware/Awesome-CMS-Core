@@ -21,6 +21,7 @@ using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.DependencyModel.Resolution;
 using Microsoft.DotNet.PlatformAbstractions;
 using AspNet.Security.OpenIdConnect.Primitives;
+using AwesomeCMSCore.Modules.Entities.Entities;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -124,7 +125,7 @@ namespace AwesomeCMSCore.Extension
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("AwesomeCMSCore")).UseOpenIddict());
            
             services
-                .AddIdentity<IdentityUser, IdentityRole>()
+                .AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 

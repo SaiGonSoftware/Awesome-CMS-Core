@@ -34,3 +34,6 @@ Identity Server sample repo
 
 Package Migration
 * https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
+
+OpenId
+* http://kerryritter.com/authorizing-your-net-core-mvc6-api-requests-with-openiddict-and-identity/

@@ -8,7 +8,8 @@ namespace AwesomeCMSCore.Modules.Entities.ViewModels
     public class LoginViewModel
     {
         [Required]
-        public string UserName { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -16,8 +17,5 @@ namespace AwesomeCMSCore.Modules.Entities.ViewModels
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
-
-        public string ReturnUrl { get; set; }
-
     }
 }
