@@ -8,6 +8,7 @@
 - [Webpack](https://webpack.js.org/)
 - Drag&Drop (Self develop)
 - [NodeJS](https://nodejs.org) Install lts version of node 
+- [React.NET](https://github.com/reactjs/React.NET)
 
 > Backend
 - [Visual Studio 2017 version 15.3 with .NET Core SDK 2.0](https://www.microsoft.com/net/core/)

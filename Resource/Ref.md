@@ -37,3 +37,7 @@ Package Migration
 
 OpenId
 * http://kerryritter.com/authorizing-your-net-core-mvc6-api-requests-with-openiddict-and-identity/
+
+React
+* https://github.com/JonPSmith/AspNetReactSamples
+* http://www.thereformedprogrammer.net/templates-for-building-react-front-ends-in-asp-net-core-and-mvc5/
