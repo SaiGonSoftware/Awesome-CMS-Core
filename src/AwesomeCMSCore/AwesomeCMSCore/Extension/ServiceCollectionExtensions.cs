@@ -22,6 +22,8 @@ using Microsoft.Extensions.DependencyModel.Resolution;
 using Microsoft.DotNet.PlatformAbstractions;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using Microsoft.AspNetCore.Http;
+using React.AspNet;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -123,7 +125,7 @@ namespace AwesomeCMSCore.Extension
         {
             services.AddDbContextPool<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("AwesomeCMSCore")).UseOpenIddict());
-           
+
             services
                 .AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -190,6 +192,13 @@ namespace AwesomeCMSCore.Extension
             //     });
 
             return services;
-        }  
+        }
+
+        public static IServiceCollection AddReactJS(this IServiceCollection services)
+        {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddReact();
+            return services;
+        }
     }
 }
