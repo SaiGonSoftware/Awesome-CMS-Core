@@ -14,6 +14,7 @@ Webpack
 * https://medium.com/javascript-training/beginner-s-guide-to-webpack-b1f1a3638460
 * https://medium.com/netscape/webpack-3-react-production-build-tips-d20507dba99a
 * https://github.com/webpack/webpack/issues/1189
+* https://medium.com/a-beginners-guide-for-webpack-2/multiple-entries-e1b3d83579bf
 
 es6 
 * http://trevorelwell.me/atom-error-const-is-available-in-es6-use-esversion-6/

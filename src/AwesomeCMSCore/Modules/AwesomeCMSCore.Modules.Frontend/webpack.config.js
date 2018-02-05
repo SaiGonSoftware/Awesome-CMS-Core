@@ -4,21 +4,23 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new ExtractTextPlugin("cmscore.css");
 
 module.exports = {
-  entry: "./wwwroot/js/app.js",
+  entry: {
+    app: "./wwwroot/js/app.js",
+    login: "./wwwroot/js/LoginForm.js"
+  },
   output: {
     path: path.resolve(__dirname, "wwwroot/dist"),
-    filename: "bundle.js"
+    filename: "[name].js"
   },
-  
   plugins: [extractCSS, new webpack.optimize.UglifyJsPlugin()],
   module: {
     rules: [
-      {
+      /* {
         test: /\.js$/,
         enforce: "pre",
         exclude: /node_modules/,
         loaders: "jshint-loader"
-      },
+      }, */
       {
         test: /\.scss$/,
         use: extractCSS.extract({
@@ -37,6 +39,11 @@ module.exports = {
           // use style-loader in development
           fallback: "style-loader"
         })
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "babel-loader"
       }
     ]
   },
