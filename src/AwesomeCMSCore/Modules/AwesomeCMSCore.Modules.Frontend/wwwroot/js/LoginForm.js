@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-
+import { Alert } from 'react-bootstrap';
 class LoginForm extends Component {
   render() {
-    return <p> Hello React project</p>;
+    return (
+      <Alert bsStyle="warning">
+        <strong>Holy guacamole!</strong> Best check yo self, you're not looking
+        too good.
+      </Alert>
+    );
   }
 }
 
