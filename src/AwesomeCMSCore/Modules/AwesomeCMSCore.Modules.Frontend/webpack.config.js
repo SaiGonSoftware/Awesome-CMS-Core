@@ -6,7 +6,7 @@ const extractCSS = new ExtractTextPlugin("cmscore.css");
 module.exports = {
   entry: {
     app: "./wwwroot/js/app.js",
-    login: "./wwwroot/js/LoginForm.js"
+    login: "./wwwroot/js/React/Account/LoginForm.js"
   },
   output: {
     path: path.resolve(__dirname, "wwwroot/dist"),

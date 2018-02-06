@@ -24,7 +24,15 @@ module.exports = function (grunt) {
                 src: [
                     "cmscore.css"
                 ],
-                dest: "./wwwroot/css/"
+                dest: "./wwwroot/dist/"
+            },
+            js: {
+                expand: true,
+                cwd: '../Modules/AwesomeCMSCore.Modules.Frontend/wwwroot/dist',
+                src: [
+                    "*.js"
+                ],
+                dest: "./wwwroot/dist/"
             },
             static: {
                 expand: true,
@@ -39,6 +47,13 @@ module.exports = function (grunt) {
             css: {
                 files: ["../Modules/**/wwwroot/dist/*.css"],
                 tasks: ["copy:css"],
+                options: {
+                    reload: true
+                }
+            },
+            js: {
+                files: ["../Modules/**/wwwroot/dist/*.js"],
+                tasks: ["copy:js"],
                 options: {
                     reload: true
                 }
