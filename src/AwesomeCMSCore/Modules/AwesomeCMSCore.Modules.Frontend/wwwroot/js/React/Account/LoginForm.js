@@ -1,32 +1,55 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import {
-  FormControl,
-  FormGroup,
-  Grid,
+  Container,
   Row,
   Col,
-  Button
-} from "react-bootstrap";
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input
+} from "reactstrap";
 
 class LoginForm extends Component {
   render() {
     return (
-      <form>
-        <Grid>
-          <Row className="show-grid" id={loginForm}>
-            <Col xs={12} md={12}>
-              <FormGroup>
-                <FormControl type="text" placeholder="Account" />
-              </FormGroup>
-              <FormGroup>
-                <FormControl type="password" placeholder="Password" />
-              </FormGroup>
-              <Button type="submit">Submit</Button>
-            </Col>
-          </Row>
-        </Grid>
-      </form>
+      <Container>
+        <Row>
+          <Col md="12" id="loginContainer">
+            <Form id="loginForm">
+              <div className="panel-heading">
+                <h3 className="panel-title">Admin portal</h3>
+              </div>
+              <div id="loginFormContent">
+                <FormGroup>
+                  <Label for="username" hidden>
+                    Email
+                  </Label>
+                  <Input
+                    type="text"
+                    name="username"
+                    id="username"
+                    placeholder="Username"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="password" hidden>
+                    Password
+                  </Label>
+                  <Input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                  />
+                </FormGroup>
+                <Button color="primary">Login</Button>
+              </div>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
