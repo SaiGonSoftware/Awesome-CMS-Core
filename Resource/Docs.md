@@ -5,6 +5,7 @@
 ## Prerequisites
 > Frontend
 - [ReactJS](https://reactjs.org/docs/hello-world.html)
+- [ReactStrap](https://reactstrap.github.io)
 - [Webpack](https://webpack.js.org/)
 - Drag&Drop (Self develop)
 - [NodeJS](https://nodejs.org) Install lts version of node 
