@@ -38,6 +38,14 @@ class LoginForm extends Component {
       grant_type: "password",
       scope: "offline_access"
     };
+    var body = "";
+    for (var key in data) {
+      if (body.length) {
+        body += "&";
+      }
+      body += key + "=";
+      body += encodeURIComponent(data[key]);
+    }
 
     let config = {
       headers: {
@@ -45,37 +53,14 @@ class LoginForm extends Component {
       }
     };
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:5000/connect/token");
-    var dataa = {
-      username: this.state.username,
-      password: this.state.password,
-      grant_type: "password",
-      // specify the resource, to match the audience in the jwt bearer middleware
-      resource: "http://localhost:5000/",
-      // offline_access: indicate refresh token is required
-      // profile: include custom fields
-      // email: include email address
-      scope: "offline_access"
-    };
-    var body = "";
-    for (var key in dataa) {
-      if (body.length) {
-        body += "&";
-      }
-      body += key + "=";
-      body += encodeURIComponent(data[key]);
-    }
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send(body);
-    /* axios
-      .post("http://localhost:5000/connect/token", data, config)
+    axios
+      .post("http://localhost:5000/connect/token", body, config)
       .then(function(response) {
         console.log(response);
       })
       .catch(function(error) {
         console.log(error.response);
-      }); */
+      });
   }
 
   render() {
