@@ -11,7 +11,6 @@ import {
   Input
 } from "reactstrap";
 import axios from "axios";
-import Formsy from "formsy-react";
 import AwesomeInput from "../Common/AwesomeInput";
 
 class LoginForm extends Component {
@@ -38,9 +37,8 @@ class LoginForm extends Component {
 
   login(event) {
     event.preventDefault();
-    console.log(this.state.username);
-    console.log(this.state.password);
-    /*  return axios({
+
+    return axios({
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -58,7 +56,16 @@ class LoginForm extends Component {
       })
       .catch(function(error) {
         console.log(error.response);
-      }); */
+      });
+  }
+
+  onChange(e) {
+    console.log(e.target.name);
+    console.log(e.target.value);
+
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   }
 
   render() {
@@ -66,12 +73,7 @@ class LoginForm extends Component {
       <Container>
         <Row>
           <Col md="12" id="loginContainer">
-            <Formsy
-              id="loginForm"
-              onValidSubmit={this.login}
-              onValid={this.enableButton}
-              onInvalid={this.disableButton}
-            >
+            <Form id="loginForm" onSubmit={this.login.bind(this)}>
               <div className="panel-heading">
                 <h3 className="panel-title"> Admin portal </h3>
               </div>
@@ -86,6 +88,8 @@ class LoginForm extends Component {
                     id="username"
                     placeholder="Username"
                     required
+                    value={this.state.username}
+                    onChange={username => this.onChange(username)}
                   />
                 </FormGroup>
                 <FormGroup>
@@ -98,17 +102,15 @@ class LoginForm extends Component {
                     id="password"
                     placeholder="Password"
                     required
+                    value={this.state.password}
+                    onChange={username => this.onChange(username)}
                   />
                 </FormGroup>
-                <Button
-                  color="primary"
-                  type="submit"
-                  disabled={!this.state.canSubmit}
-                >
+                <Button color="primary" type="submit">
                   Login
                 </Button>
               </div>
-            </Formsy>
+            </Form>
           </Col>
         </Row>
       </Container>

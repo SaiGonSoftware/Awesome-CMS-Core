@@ -25,13 +25,14 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
     "uglifyjs-webpack-plugin": "^1.0.1",
-    "webpack": "^3.8.1",
+    "webpack": "^3.10.0",
     "webpack-hot-middleware": "^2.20.0"
   },
   "dependencies": {
     "axios": "^0.17.1",
     "bootstrap": "^4.0.0",
     "formsy-react": "^1.1.3",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "reactstrap": "^5.0.0-beta"

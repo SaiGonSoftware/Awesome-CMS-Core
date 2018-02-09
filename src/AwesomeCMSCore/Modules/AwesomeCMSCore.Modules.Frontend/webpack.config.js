@@ -14,7 +14,7 @@ module.exports = {
   },
   plugins: [extractCSS, new webpack.optimize.UglifyJsPlugin()],
   module: {
-    rules: [
+    loaders: [
       /* {
         test: /\.js$/,
         enforce: "pre",
