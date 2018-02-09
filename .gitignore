@@ -288,4 +288,5 @@ __pycache__/
 *.xsd.cs
 
 *.db
+.vscode/
 /src/AwesomeCMSCore/.vs/AwesomeCMSCore

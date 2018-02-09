@@ -11,6 +11,8 @@ import {
   Input
 } from "reactstrap";
 import axios from "axios";
+import Formsy from "formsy-react";
+import AwesomeInput from "../Common/AwesomeInput";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -19,20 +21,26 @@ class LoginForm extends Component {
       username: "",
       password: "",
       error: "",
-      loading: false
+      loading: false,
+      canSubmit: false
     };
+    this.disableButton = this.disableButton.bind(this);
+    this.enableButton = this.enableButton.bind(this);
   }
 
-  onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
+
+  enableButton() {
+    this.setState({ canSubmit: true });
   }
 
   login(event) {
     event.preventDefault();
-
-    return axios({
+    console.log(this.state.username);
+    console.log(this.state.password);
+    /*  return axios({
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -50,7 +58,7 @@ class LoginForm extends Component {
       })
       .catch(function(error) {
         console.log(error.response);
-      });
+      }); */
   }
 
   render() {
@@ -58,7 +66,12 @@ class LoginForm extends Component {
       <Container>
         <Row>
           <Col md="12" id="loginContainer">
-            <Form id="loginForm" onSubmit={this.login.bind(this)}>
+            <Formsy
+              id="loginForm"
+              onValidSubmit={this.login}
+              onValid={this.enableButton}
+              onInvalid={this.disableButton}
+            >
               <div className="panel-heading">
                 <h3 className="panel-title"> Admin portal </h3>
               </div>
@@ -67,33 +80,35 @@ class LoginForm extends Component {
                   <Label for="username" hidden>
                     Email
                   </Label>
-                  <Input
+                  <AwesomeInput
                     type="text"
                     name="username"
                     id="username"
                     placeholder="Username"
-                    value={this.state.username}
-                    onChange={username => this.onChange(username)}
+                    required
                   />
                 </FormGroup>
                 <FormGroup>
                   <Label for="password" hidden>
                     Password
                   </Label>
-                  <Input
+                  <AwesomeInput
                     type="password"
                     name="password"
                     id="password"
                     placeholder="Password"
-                    value={this.state.password}
-                    onChange={username => this.onChange(username)}
+                    required
                   />
                 </FormGroup>
-                <Button color="primary" type="submit">
+                <Button
+                  color="primary"
+                  type="submit"
+                  disabled={!this.state.canSubmit}
+                >
                   Login
                 </Button>
               </div>
-            </Form>
+            </Formsy>
           </Col>
         </Row>
       </Container>
