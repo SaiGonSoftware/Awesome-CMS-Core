@@ -32,29 +32,19 @@ class LoginForm extends Component {
   login(event) {
     event.preventDefault();
 
-    let data = {
-      username: this.state.username,
-      password: this.state.password,
-      grant_type: "password",
-      scope: "offline_access"
-    };
-    var body = "";
-    for (var key in data) {
-      if (body.length) {
-        body += "&";
-      }
-      body += key + "=";
-      body += encodeURIComponent(data[key]);
-    }
-
-    let config = {
+    return axios({
+      method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
+      },
+      url: "http://localhost:5000/connect/token",
+      params: {
+        username: this.state.username,
+        password: this.state.password,
+        grant_type: "password",
+        scope: "offline_access"
       }
-    };
-
-    axios
-      .post("http://localhost:5000/connect/token", body, config)
+    })
       .then(function(response) {
         console.log(response);
       })
