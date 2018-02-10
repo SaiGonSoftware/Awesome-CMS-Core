@@ -20,9 +20,9 @@ class LoginForm extends Component {
     this.state = {
       username: "",
       password: "",
-      error: "",
       loading: false,
-      canSubmit: false
+      canSubmit: false,
+      formErrors: {username: '', password: ''},
     };
     this.disableButton = this.disableButton.bind(this);
     this.enableButton = this.enableButton.bind(this);
@@ -99,7 +99,11 @@ class LoginForm extends Component {
                     onChange={username => this.onChange(username)}
                   />
                 </FormGroup>
-                <Button color="primary" type="submit">
+                <Button
+                  color="primary"
+                  type="submit"
+                  disabled={!this.state.canSubmit}
+                >
                   Login
                 </Button>
               </div>

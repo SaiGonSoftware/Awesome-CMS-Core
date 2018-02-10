@@ -2,7 +2,7 @@ import "whatwg-fetch";
 
 export function fetch2(url, options={}) {
     options = {
-        // default options
+        // add other options here
         ...options,
     };
 
