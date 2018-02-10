@@ -1,64 +1,57 @@
 ﻿/// <binding AfterBuild='clean, copy:main, copy:static' />
-module.exports = function (grunt) {
-    grunt.loadNpmTasks("grunt-contrib-clean");
-    grunt.loadNpmTasks("grunt-contrib-copy");
-    grunt.loadNpmTasks("grunt-folder-list");
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.initConfig({
-        clean: ["./Modules/*"],
-        copy: {
-            main: {
-                expand: true,
-                src: [
-                    "../Modules/**/Views/**",
-                    "../Modules/**/bin/Debug/**/**/*.*",
-                    "../Modules/**/wwwroot/**",
-                    "!../Modules/AwesomeCMSCore.Modules.Console/**",
-                    "!../Modules/AwesomeCMSCore.Modules.Frontend/**"
-                ],
-                dest: "./Modules/"
-            },
-            css: {
-                expand: true,
-                cwd: '../Modules/AwesomeCMSCore.Modules.Frontend/wwwroot/dist',
-                src: [
-                    "cmscore.css"
-                ],
-                dest: "./wwwroot/dist/"
-            },
-            js: {
-                expand: true,
-                cwd: '../Modules/AwesomeCMSCore.Modules.Frontend/wwwroot/dist',
-                src: [
-                    "*.js"
-                ],
-                dest: "./wwwroot/dist/"
-            },
-            static: {
-                expand: true,
-                cwd: '../Modules/AwesomeCMSCore.Modules.Frontend/wwwroot/dist',
-                src: [
-                    "**",
-                ],
-                dest: "./wwwroot/dist/"
-            }
-        },
-        watch: {
-            css: {
-                files: ["../Modules/**/wwwroot/dist/*.css"],
-                tasks: ["copy:css"],
-                options: {
-                    reload: true
-                }
-            },
-            js: {
-                files: ["../Modules/**/wwwroot/dist/*.js"],
-                tasks: ["copy:js"],
-                options: {
-                    reload: true
-                }
-            }
+module.exports = function(grunt) {
+  require("jit-grunt")(grunt);
+  grunt.initConfig({
+    clean: ["./Modules/*"],
+    copy: {
+      main: {
+        expand: true,
+        src: [
+          "../Modules/**/Views/**",
+          "../Modules/**/bin/Debug/**/**/*.*",
+          "../Modules/**/wwwroot/**",
+          "!../Modules/AwesomeCMSCore.Modules.Console/**",
+          "!../Modules/AwesomeCMSCore.Modules.Frontend/**"
+        ],
+        dest: "./Modules/"
+      },
+      css: {
+        expand: true,
+        cwd: "../Modules/AwesomeCMSCore.Modules.Frontend/wwwroot/dist",
+        src: ["cmscore.css"],
+        dest: "./wwwroot/dist/"
+      },
+      js: {
+        expand: true,
+        cwd: "../Modules/AwesomeCMSCore.Modules.Frontend/wwwroot/dist",
+        src: ["*.js"],
+        dest: "./wwwroot/dist/"
+      },
+      static: {
+        expand: true,
+        cwd: "../Modules/AwesomeCMSCore.Modules.Frontend/wwwroot/dist",
+        src: ["**"],
+        dest: "./wwwroot/dist/"
+      }
+    },
+    watch: {
+      css: {
+        files: ["../Modules/**/wwwroot/dist/*.css"],
+        tasks: ["copy:css"],
+        options: {
+          reload: true,
+          spawn: false
         }
-    });
-    grunt.registerTask("default", ["watch"]);
+      },
+      js: {
+        files: ["../Modules/**/wwwroot/dist/*.js"],
+        tasks: ["copy:js"],
+        options: {
+          reload: true,
+          spawn: false
+        }
+      }
+    }
+  });
+  grunt.registerTask("default", ["watch"]);
 };

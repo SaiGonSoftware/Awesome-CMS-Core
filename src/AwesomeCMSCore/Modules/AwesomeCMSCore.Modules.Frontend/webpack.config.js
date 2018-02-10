@@ -2,9 +2,10 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new ExtractTextPlugin("cmscore.css");
-
+const whatwgfetch = require("whatwg-fetch");
 module.exports = {
   entry: {
+    whatwgfetch: "whatwg-fetch",
     app: "./wwwroot/js/app.js",
     login: "./wwwroot/js/React/Account/LoginForm.js"
   },

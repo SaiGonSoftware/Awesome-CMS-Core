@@ -10,8 +10,9 @@ import {
   Label,
   Input
 } from "reactstrap";
-import axios from "axios";
 import AwesomeInput from "../Common/AwesomeInput";
+import "whatwg-fetch";
+import { fetch2 } from "./../Helper/Fetch2";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -37,32 +38,24 @@ class LoginForm extends Component {
 
   login(event) {
     event.preventDefault();
-
-    return axios({
+    let options = {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      url: "http://localhost:5000/connect/token",
-      params: {
-        username: this.state.username,
-        password: this.state.password,
-        grant_type: "password",
-        scope: "offline_access"
-      }
-    })
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error.response);
-      });
+      body: new FormData(
+        this.state.username,
+        this.state.password,
+        "password",
+        "offline_access"
+      )
+    };
+    fetch2("http://localhost:5000/connect/token", options).then(response =>
+      console.log(response.json())
+    );
   }
 
   onChange(e) {
-    console.log(e.target.name);
-    console.log(e.target.value);
-
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -87,7 +80,7 @@ class LoginForm extends Component {
                     name="username"
                     id="username"
                     placeholder="Username"
-                    required
+                    required="required"
                     value={this.state.username}
                     onChange={username => this.onChange(username)}
                   />
@@ -101,7 +94,7 @@ class LoginForm extends Component {
                     name="password"
                     id="password"
                     placeholder="Password"
-                    required
+                    required="required"
                     value={this.state.password}
                     onChange={username => this.onChange(username)}
                   />

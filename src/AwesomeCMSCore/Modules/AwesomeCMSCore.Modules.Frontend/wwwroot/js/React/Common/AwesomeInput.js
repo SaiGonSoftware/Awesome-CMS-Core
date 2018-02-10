@@ -4,11 +4,6 @@ import { Input } from "reactstrap";
 class AwesomeInput extends Component {
   constructor(props) {
     super(props);
-    this.changeValue = this.changeValue.bind(this);
-  }
-
-  changeValue(e) {
-    console.log(e.target.value);
   }
 
   render() {
@@ -20,7 +15,9 @@ class AwesomeInput extends Component {
           type={this.props.type || "text"}
           name={this.props.name}
           placeholder={this.props.placeholder}
-          onChange={() => this.changeValue(this.props.onChange)}
+          onChange={this.props.onChange}
+          value={this.props.value}
+          required={this.props.required}
         />
       </div>
     );
