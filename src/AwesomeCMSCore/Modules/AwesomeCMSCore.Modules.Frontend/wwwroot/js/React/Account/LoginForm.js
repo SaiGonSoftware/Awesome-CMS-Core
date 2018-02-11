@@ -11,8 +11,16 @@ import {
   Input
 } from "reactstrap";
 import AwesomeInput from "../Common/AwesomeInput";
-import "whatwg-fetch";
 import { fetch2 } from "./../Helper/Fetch2";
+import env from "./../Helper/env";
+
+function validate(username, password) {
+  // true means invalid, so our conditions got reversed
+  return {
+    username: username.length === 0,
+    password: password.length === 0
+  };
+}
 
 class LoginForm extends Component {
   constructor(props) {
@@ -22,38 +30,39 @@ class LoginForm extends Component {
       password: "",
       loading: false,
       canSubmit: false,
-      formErrors: {username: '', password: ''},
+      touched: {
+        username: false,
+        password: false
+      }
     };
-    this.disableButton = this.disableButton.bind(this);
-    this.enableButton = this.enableButton.bind(this);
   }
 
-  disableButton() {
-    this.setState({ canSubmit: false });
+  canBeSubmitted() {
+    const errors = validate(this.state.username, this.state.password);
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+    return !isDisabled;
   }
 
-  enableButton() {
-    this.setState({ canSubmit: true });
-  }
+  login = e => {
+    if (!this.canBeSubmitted()) {
+      return;
+    }
 
-  login(event) {
-    event.preventDefault();
+    e.preventDefault();
+
     let options = {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      body: new FormData(
-        this.state.username,
-        this.state.password,
-        "password",
-        "offline_access"
+      body: new URLSearchParams(
+        `username=${this.state.username}&password=${
+          this.state.password
+        }&grant_type=password&scope=offline_access`
       )
     };
-    fetch2("http://localhost:5000/connect/token", options).then(response =>
-      console.log(response.json())
-    );
-  }
+    fetch2(env.authorizeUrl, options);
+  };
 
   onChange(e) {
     this.setState({
@@ -61,21 +70,38 @@ class LoginForm extends Component {
     });
   }
 
+  onBlur(e) {
+    this.setState({
+      touched: { ...this.state.touched, [e.target.name]: true }
+    });
+  }
+
   render() {
+    const errors = validate(this.state.username, this.state.password);
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+
+    const shouldMarkError = field => {
+      const hasError = errors[field];
+      const shouldShow = this.state.touched[field];
+
+      return hasError ? shouldShow : false;
+    };
+
     return (
       <Container>
         <Row>
           <Col md="12" id="loginContainer">
-            <Form id="loginForm" onSubmit={this.login.bind(this)}>
+            <Form id="loginForm" onSubmit={this.login}>
               <div className="panel-heading">
                 <h3 className="panel-title"> Admin portal </h3>
               </div>
               <div id="loginFormContent">
                 <FormGroup>
                   <Label for="username" hidden>
-                    Email
+                    Username
                   </Label>
                   <AwesomeInput
+                    className={shouldMarkError("username")}
                     type="text"
                     name="username"
                     id="username"
@@ -83,6 +109,7 @@ class LoginForm extends Component {
                     required="required"
                     value={this.state.username}
                     onChange={username => this.onChange(username)}
+                    onBlur={username => this.onBlur(username)}
                   />
                 </FormGroup>
                 <FormGroup>
@@ -90,20 +117,18 @@ class LoginForm extends Component {
                     Password
                   </Label>
                   <AwesomeInput
+                    className={shouldMarkError("password")}
                     type="password"
                     name="password"
                     id="password"
                     placeholder="Password"
                     required="required"
                     value={this.state.password}
-                    onChange={username => this.onChange(username)}
+                    onChange={password => this.onChange(password)}
+                    onBlur={password => this.onBlur(password)}
                   />
                 </FormGroup>
-                <Button
-                  color="primary"
-                  type="submit"
-                  disabled={!this.state.canSubmit}
-                >
+                <Button color="primary" type="submit" disabled={isDisabled}>
                   Login
                 </Button>
               </div>
