@@ -6,6 +6,7 @@
   "author": "TonyHudson",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "SET NODE_ENV=production& webpack -p",
     "start": "webpack"
   },
   "license": "MIT",
