@@ -6,7 +6,7 @@ const extractCSS = new ExtractTextPlugin("cmscore.css");
 module.exports = {
   entry: {
     app: "./wwwroot/js/app.js",
-    login: "./wwwroot/js/React/Account/LoginForm.js"
+    login: "./wwwroot/js/React/Account/LoginForm.jsx"
   },
   output: {
     path: path.resolve(__dirname, "wwwroot/dist"),
@@ -41,7 +41,7 @@ module.exports = {
         })
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: "babel-loader"
       }
