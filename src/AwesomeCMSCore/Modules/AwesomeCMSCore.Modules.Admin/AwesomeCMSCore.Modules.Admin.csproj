@@ -11,6 +11,7 @@
         <PackageReference Include="OpenIddict" Version="2.0.0-*" />
         <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-*" />
         <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-*" />
+        <PackageReference Include="React.AspNet" Version="3.2.0" />
     </ItemGroup>
 
     <ItemGroup>

@@ -10,7 +10,7 @@ import {
   Label,
   Input
 } from "reactstrap";
-import AwesomeInput from "../Common/AwesomeInput";
+import AwesomeInput from "../Common/AwesomeInput.jsx";
 import { fetch2 } from "./../Helper/Fetch2";
 import env from "./../Helper/env";
 

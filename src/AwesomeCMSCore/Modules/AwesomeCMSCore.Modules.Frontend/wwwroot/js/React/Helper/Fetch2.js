@@ -3,8 +3,8 @@ import "whatwg-fetch";
 export function fetch2(url, options={}) {
     options = {
         // add other options here
-        ...options,
-    };
+        ...options
+    }
 
     if(options.queryParams) {
         url += (url.indexOf('?') === -1 ? '?' : '&') + queryParams(options.queryParams);

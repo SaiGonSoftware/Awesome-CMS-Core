@@ -2,7 +2,7 @@
 module.exports = function(grunt) {
   require("jit-grunt")(grunt);
   grunt.initConfig({
-    clean: ["./Modules/*","./wwwroot/dist/*"],
+    clean: ["./Modules/*", "./wwwroot/dist/*"],
     copy: {
       main: {
         expand: true,
@@ -54,5 +54,9 @@ module.exports = function(grunt) {
     }
   });
   grunt.registerTask("default", ["watch"]);
-  grunt.registerTask("cleanup", ["clean", "copy:main", "copy:static"]);
+  grunt.registerTask("cleanup", [
+    "clean",
+    "copy:main",
+    "copy:static"
+  ]);
 };
