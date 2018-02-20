@@ -11,7 +11,7 @@ using System;
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180123170728_InitDB")]
+    [Migration("20180220175457_InitDB")]
     partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -298,15 +298,20 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("ClientSecret");
 
+                    b.Property<string>("ConcurrencyToken")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("ConsentType");
+
                     b.Property<string>("DisplayName");
+
+                    b.Property<string>("Permissions");
 
                     b.Property<string>("PostLogoutRedirectUris");
 
-                    b.Property<string>("RedirectUris");
+                    b.Property<string>("Properties");
 
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<string>("RedirectUris");
 
                     b.Property<string>("Type")
                         .IsRequired();
@@ -326,6 +331,11 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("ApplicationId");
 
+                    b.Property<string>("ConcurrencyToken")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Properties");
+
                     b.Property<string>("Scopes");
 
                     b.Property<string>("Status")
@@ -333,10 +343,6 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("Subject")
                         .IsRequired();
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("Type")
                         .IsRequired();
@@ -353,16 +359,24 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ConcurrencyToken")
+                        .IsConcurrencyToken();
+
                     b.Property<string>("Description");
+
+                    b.Property<string>("DisplayName");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<string>("Properties");
+
+                    b.Property<string>("Resources");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("OpenIddictScopes");
                 });
@@ -376,22 +390,23 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("AuthorizationId");
 
-                    b.Property<string>("Ciphertext");
+                    b.Property<string>("ConcurrencyToken")
+                        .IsConcurrencyToken();
 
                     b.Property<DateTimeOffset?>("CreationDate");
 
                     b.Property<DateTimeOffset?>("ExpirationDate");
 
-                    b.Property<string>("Hash");
+                    b.Property<string>("Payload");
+
+                    b.Property<string>("Properties");
+
+                    b.Property<string>("ReferenceId");
 
                     b.Property<string>("Status");
 
                     b.Property<string>("Subject")
                         .IsRequired();
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("Type")
                         .IsRequired();
@@ -402,9 +417,9 @@ namespace AwesomeCMSCore.Migrations
 
                     b.HasIndex("AuthorizationId");
 
-                    b.HasIndex("Hash")
+                    b.HasIndex("ReferenceId")
                         .IsUnique()
-                        .HasFilter("[Hash] IS NOT NULL");
+                        .HasFilter("[ReferenceId] IS NOT NULL");
 
                     b.ToTable("OpenIddictTokens");
                 });
@@ -490,13 +505,11 @@ namespace AwesomeCMSCore.Migrations
                 {
                     b.HasOne("OpenIddict.Models.OpenIddictApplication", "Application")
                         .WithMany("Tokens")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ApplicationId");
 
                     b.HasOne("OpenIddict.Models.OpenIddictAuthorization", "Authorization")
                         .WithMany("Tokens")
-                        .HasForeignKey("AuthorizationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuthorizationId");
                 });
 #pragma warning restore 612, 618
         }

@@ -47,7 +47,8 @@ class LoginForm extends Component {
     if (!this.canBeSubmitted()) {
       return;
     }
-
+    console.log(this.state.username);
+    console.log(this.state.password);
     e.preventDefault();
 
     let options = {
@@ -62,7 +63,7 @@ class LoginForm extends Component {
       )
     };
     fetch2(env.authorizeUrl, options).then(res => {
-      console.log(res);
+      console.log(res.json());
     });
   };
 

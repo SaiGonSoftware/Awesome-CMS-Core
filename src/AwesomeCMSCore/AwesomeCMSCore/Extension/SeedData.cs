@@ -32,8 +32,6 @@ namespace AwesomeCMSCore.Extension
                     SecurityStamp = Guid.NewGuid().ToString()
                 };
 
-                context.Database.Migrate();
-
                 var roles = new[]
                     {"Owner", "Administrator", "Editor"};
 
