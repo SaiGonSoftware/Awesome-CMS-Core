@@ -11,7 +11,9 @@ using AwesomeCMSCore.Modules.Entities.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System;
+using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -69,34 +71,6 @@ namespace AwesomeCMSCore.Extension
             });
 
             return app;
-        }
-
-        public static IApplicationBuilder InitializeDbTestData(this IApplicationBuilder app)
-        {
-            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-               
-                var tony = new User
-                {
-                    Email = "ngohungphuc95@gmail.com",
-                    UserName = "tony",
-                    NormalizedUserName = "TonyHudson",
-                    EmailConfirmed = true,
-                    PhoneNumberConfirmed = true,
-                    LockoutEnabled = false,
-                    SecurityStamp = Guid.NewGuid().ToString()
-                };
-                
-                if (!userManager.Users.Any())
-                {
-                    userManager.CreateAsync(tony, "tony95!").Wait();
-                }
-
-            }
-
-            return app;
-        }
+        } 
     }
 }

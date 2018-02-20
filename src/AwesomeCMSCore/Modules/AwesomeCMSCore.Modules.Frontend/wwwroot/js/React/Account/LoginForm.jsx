@@ -61,7 +61,9 @@ class LoginForm extends Component {
         }&grant_type=password&scope=offline_access`
       )
     };
-    fetch2(env.authorizeUrl, options);
+    fetch2(env.authorizeUrl, options).then(res => {
+      console.log(res);
+    });
   };
 
   onChange(e) {
