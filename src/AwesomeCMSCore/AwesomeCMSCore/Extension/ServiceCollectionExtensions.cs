@@ -23,7 +23,6 @@ using Microsoft.DotNet.PlatformAbstractions;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Http;
-using React.AspNet;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -191,13 +190,6 @@ namespace AwesomeCMSCore.Extension
             //         };
             //     });
 
-            return services;
-        }
-
-        public static IServiceCollection AddReactJS(this IServiceCollection services)
-        {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddReact();
             return services;
         }
     }

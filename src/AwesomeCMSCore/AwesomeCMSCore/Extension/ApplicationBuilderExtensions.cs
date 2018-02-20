@@ -12,8 +12,6 @@ using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System;
 using AwesomeCMSCore.Modules.Entities.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using React.AspNet;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -97,25 +95,6 @@ namespace AwesomeCMSCore.Extension
                 }
 
             }
-
-            return app;
-        }
-
-        public static IApplicationBuilder SetupReactJs(this IApplicationBuilder app)
-        {
-            app.UseReact(config =>
-            {
-                config
-                  .AddScript("~/wwwroot/dist/login.js");
-
-                // If you use an external build too (for example, Babel, Webpack,
-                // Browserify or Gulp), you can improve performance by disabling
-                // ReactJS.NET's version of Babel and loading the pre-transpiled
-                // scripts. Example:
-                //config
-                //  .SetLoadBabel(false)
-                //  .AddScriptWithoutTransform("~/Scripts/bundle.server.js");
-            });
 
             return app;
         }
