@@ -11,8 +11,10 @@ import {
   Input
 } from "reactstrap";
 import AwesomeInput from "../Common/AwesomeInput.jsx";
-import { fetch2 } from "./../Helper/Fetch2";
-import env from "./../Helper/env";
+import { fetch2 } from "../Helper/Fetch2";
+import env from "../Helper/env";
+import statusCode from "../Helper/StatusCode";
+import { navigateToUrl } from "../Helper/util";
 
 function validate(username, password) {
   // true means invalid, so our conditions got reversed
@@ -47,8 +49,7 @@ class LoginForm extends Component {
     if (!this.canBeSubmitted()) {
       return;
     }
-    console.log(this.state.username);
-    console.log(this.state.password);
+
     e.preventDefault();
 
     let options = {
@@ -62,8 +63,11 @@ class LoginForm extends Component {
         }&grant_type=password&scope=offline_access`
       )
     };
-    fetch2(env.authorizeUrl, options).then(res => {
-      console.log(res.json());
+    fetch2(env.authorizeUrl, options).then(function(response) {
+      if (response.status === statusCode.Success) {
+        //change later
+        navigateToUrl("/Account/Index");
+      }
     });
   };
 
