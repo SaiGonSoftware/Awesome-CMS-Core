@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Admin.Controllers
 {
-    [Authorize(AuthenticationSchemes = "AwesomeCMSCookie")]
+    [Authorize]
     public class PortalController : Controller
     {
         public IActionResult Index()

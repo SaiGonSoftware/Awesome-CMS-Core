@@ -9,6 +9,7 @@ using AspNet.Security.OpenIdConnect.Primitives;
 using AspNet.Security.OpenIdConnect.Server;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -96,7 +97,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
                 // Create a new authentication ticket, but reuse the properties stored
                 // in the refresh token, including the scopes originally granted.
                 var ticket = await CreateTicketAsync(request, user, info.Properties);
-              
+
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
             }
 
@@ -166,7 +167,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             }
 
             // add sign in cookie here since auth and refresh flow use this.
-            await SignInCookie(user.UserName, user.Email);
+            //await SignInCookie(user.UserName, user.Email);
             return ticket;
         }
 
@@ -187,10 +188,33 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
                 // create principal
                 ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
+                var authProperties = new AuthenticationProperties
+                {
+                    AllowRefresh = true,
+                    // Refreshing the authentication session should be allowed.
+
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                    // The time at which the authentication ticket expires. A 
+                    // value set here overrides the ExpireTimeSpan option of 
+                    // CookieAuthenticationOptions set with AddCookie.
+
+                    IsPersistent = true,
+                    // Whether the authentication session is persisted across 
+                    // multiple requests. Required when setting the 
+                    // ExpireTimeSpan option of CookieAuthenticationOptions 
+                    // set with AddCookie. Also required when setting 
+                    // ExpiresUtc.
+
+                    //IssuedUtc = <DateTimeOffset>,
+                    // The time at which the authentication ticket was issued.
+
+                    RedirectUri = "/Portal/Index"
+                    // The full path or absolute URI to be used as an http 
+                    // redirect response value.
+                };
+
                 // sign-in
-                await HttpContext.SignInAsync(
-                    scheme: "AwesomeCMSCookie",
-                    principal: principal);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
             }
             catch (Exception ex)
             {

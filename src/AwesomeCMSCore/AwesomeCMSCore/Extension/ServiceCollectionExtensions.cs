@@ -133,13 +133,6 @@ namespace AwesomeCMSCore.Extension
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddAuthentication("AwesomeCMSCookie")
-                .AddCookie("AwesomeCMSCookie", options =>
-                {
-                    options.LoginPath = "/Account/Login/";
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-                });
-
             // Configure Identity to use the same JWT claims as OpenIddict instead
             // of the legacy WS-Federation claims it uses by default (ClaimTypes),
             // which saves you from doing the mapping in your authorization controller.
@@ -171,30 +164,35 @@ namespace AwesomeCMSCore.Extension
                 // During development, you can disable the HTTPS requirement.
                 options.DisableHttpsRequirement();
 
+                // Enable scope validation, so that authorization and token requests
+                // that specify unregistered scopes are automatically rejected.
+                options.EnableScopeValidation();
+
                 // Note: to use JWT access tokens instead of the default
                 // encrypted format, the following lines are required:
                 //
-                options.AddEphemeralSigningKey();
-                options.UseJsonWebTokens();
+                //options.AddEphemeralSigningKey();
+                //options.UseJsonWebTokens();
             });
 
-            services.AddAuthentication();
-
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
-
             services.AddAuthentication()
-                 .AddJwtBearer(options =>
-                 {
-                     options.Authority = "http://localhost:5000/";
-                     options.Audience = "resource_server";
-                     options.RequireHttpsMetadata = false;
-                     options.TokenValidationParameters = new TokenValidationParameters
-                     {
-                         NameClaimType = OpenIdConnectConstants.Claims.Subject,
-                         RoleClaimType = OpenIdConnectConstants.Claims.Role
-                     };
-                 });
+                .AddOAuthValidation();
+
+            //JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            //JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
+
+            //services.AddAuthentication()
+            //     .AddJwtBearer(options =>
+            //     {
+            //         options.Authority = "http://localhost:5000/";
+            //         options.Audience = "resource_server";
+            //         options.RequireHttpsMetadata = false;
+            //         options.TokenValidationParameters = new TokenValidationParameters
+            //         {
+            //             NameClaimType = OpenIdConnectConstants.Claims.Subject,
+            //             RoleClaimType = OpenIdConnectConstants.Claims.Role
+            //         };
+            //     });
 
             return services;
         }
