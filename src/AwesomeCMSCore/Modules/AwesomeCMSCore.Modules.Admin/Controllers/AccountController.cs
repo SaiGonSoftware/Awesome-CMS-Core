@@ -1,12 +1,12 @@
-﻿using AwesomeCMSCore.Modules.Entities.Entities;
+﻿using System.Threading.Tasks;
+using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
-namespace AwesomeCMSCore.Modules.Client.Controllers
+namespace AwesomeCMSCore.Modules.Admin.Controllers
 {
     [Authorize]
     public class AccountController : Controller

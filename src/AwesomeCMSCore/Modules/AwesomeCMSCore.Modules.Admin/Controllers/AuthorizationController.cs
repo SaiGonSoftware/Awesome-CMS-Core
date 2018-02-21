@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Primitives;
@@ -33,10 +35,6 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
         [HttpPost("~/connect/token"), Produces("application/json")]
         public async Task<IActionResult> Exchange(OpenIdConnectRequest request)
         {
-            Debug.Assert(request.IsTokenRequest(),
-                "The OpenIddict binder for ASP.NET Core MVC is not registered. " +
-                "Make sure services.AddOpenIddict().AddMvcBinders() is correctly called.");
-
             if (request.IsPasswordGrantType())
             {
                 var user = await _userManager.FindByNameAsync(request.Username);
@@ -98,7 +96,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
                 // Create a new authentication ticket, but reuse the properties stored
                 // in the refresh token, including the scopes originally granted.
                 var ticket = await CreateTicketAsync(request, user, info.Properties);
-
+              
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
             }
 
@@ -167,7 +165,37 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
                 claim.SetDestinations(destinations);
             }
 
+            // add sign in cookie here since auth and refresh flow use this.
+            await SignInCookie(user.UserName, user.Email);
             return ticket;
+        }
+
+        private async Task SignInCookie(string userName, string email)
+        {
+            try
+            {
+                // create claims
+                List<Claim> claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, userName),
+                    new Claim(ClaimTypes.Email, email)
+                };
+
+                // create identity
+                ClaimsIdentity identity = new ClaimsIdentity(claims, "cookie");
+
+                // create principal
+                ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+
+                // sign-in
+                await HttpContext.SignInAsync(
+                    scheme: "AwesomeCMSCookie",
+                    principal: principal);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -22,7 +23,9 @@ using Microsoft.Extensions.DependencyModel.Resolution;
 using Microsoft.DotNet.PlatformAbstractions;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -130,6 +133,13 @@ namespace AwesomeCMSCore.Extension
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthentication("AwesomeCMSCookie")
+                .AddCookie("AwesomeCMSCookie", options =>
+                {
+                    options.LoginPath = "/Account/Login/";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                });
+
             // Configure Identity to use the same JWT claims as OpenIddict instead
             // of the legacy WS-Federation claims it uses by default (ClaimTypes),
             // which saves you from doing the mapping in your authorization controller.
@@ -164,31 +174,27 @@ namespace AwesomeCMSCore.Extension
                 // Note: to use JWT access tokens instead of the default
                 // encrypted format, the following lines are required:
                 //
-                // options.UseJsonWebTokens();
-                // options.AddEphemeralSigningKey();
+                options.AddEphemeralSigningKey();
+                options.UseJsonWebTokens();
             });
 
-            services.AddAuthentication()
-                .AddOAuthValidation();
+            services.AddAuthentication();
 
-            // If you prefer using JWT, don't forget to disable the automatic
-            // JWT -> WS-Federation claims mapping used by the JWT middleware:
-            //
-            // JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            // JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
-            //
-            // services.AddAuthentication()
-            //     .AddJwtBearer(options =>
-            //     {
-            //         options.Authority = "http://localhost:54895/";
-            //         options.Audience = "resource_server";
-            //         options.RequireHttpsMetadata = false;
-            //         options.TokenValidationParameters = new TokenValidationParameters
-            //         {
-            //             NameClaimType = OpenIdConnectConstants.Claims.Subject,
-            //             RoleClaimType = OpenIdConnectConstants.Claims.Role
-            //         };
-            //     });
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
+
+            services.AddAuthentication()
+                 .AddJwtBearer(options =>
+                 {
+                     options.Authority = "http://localhost:5000/";
+                     options.Audience = "resource_server";
+                     options.RequireHttpsMetadata = false;
+                     options.TokenValidationParameters = new TokenValidationParameters
+                     {
+                         NameClaimType = OpenIdConnectConstants.Claims.Subject,
+                         RoleClaimType = OpenIdConnectConstants.Claims.Role
+                     };
+                 });
 
             return services;
         }

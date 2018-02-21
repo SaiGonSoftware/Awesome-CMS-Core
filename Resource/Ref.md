@@ -50,3 +50,4 @@ ASP.Net
 * https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?tabs=aspnetcore2x
 * https://docs.microsoft.com/en-us/aspnet/core/security/authorization/roles
 * https://docs.microsoft.com/en-us/aspnet/core/security/authorization/claims
+* https://digitalmccullough.com/posts/aspnetcore-auth-system-demystified.html
