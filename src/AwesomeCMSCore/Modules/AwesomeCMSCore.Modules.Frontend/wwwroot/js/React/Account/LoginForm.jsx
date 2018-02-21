@@ -10,6 +10,7 @@ import {
   Label,
   Input
 } from "reactstrap";
+import toastr from 'toastr';
 import AwesomeInput from "../Common/AwesomeInput.jsx";
 import { fetch2 } from "../Helper/Fetch2";
 import env from "../Helper/env";
@@ -65,8 +66,9 @@ class LoginForm extends Component {
     };
     fetch2(env.authorizeUrl, options).then(function(response) {
       if (response.status === statusCode.Success) {
-        //change later
-        navigateToUrl("/Account/Index");
+        navigateToUrl("/Portal/Index");
+      } else {
+        toastr.error("Invalid credentials");
       }
     });
   };
