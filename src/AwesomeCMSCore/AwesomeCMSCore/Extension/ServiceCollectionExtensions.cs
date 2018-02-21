@@ -91,7 +91,6 @@ namespace AwesomeCMSCore.Extension
                     }
                 });
 
-            var moduleInitializerInterface = typeof(IModuleInitializer);
             foreach (var module in modules)
             {
                 // Register controller from modules to main web host
