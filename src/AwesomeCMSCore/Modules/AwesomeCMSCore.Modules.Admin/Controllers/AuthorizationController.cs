@@ -32,28 +32,31 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             _userManager = userManager;
         }
 
-        [HttpPost("~/connect/token")]
-        [Produces("application/json")]
+        [HttpPost("~/connect/token"), Produces("application/json")]
         public async Task<IActionResult> Exchange(OpenIdConnectRequest request)
         {
             if (request.IsPasswordGrantType())
             {
                 var user = await _userManager.FindByNameAsync(request.Username);
                 if (user == null)
+                {
                     return BadRequest(new OpenIdConnectResponse
                     {
                         Error = OpenIdConnectConstants.Errors.InvalidGrant,
                         ErrorDescription = "The username/password couple is invalid."
                     });
+                }
 
                 // Validate the username/password parameters and ensure the account is not locked out.
-                var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, true);
+                var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: true);
                 if (!result.Succeeded)
+                {
                     return BadRequest(new OpenIdConnectResponse
                     {
                         Error = OpenIdConnectConstants.Errors.InvalidGrant,
                         ErrorDescription = "The username/password couple is invalid."
                     });
+                }
 
                 // Create a new authentication ticket.
                 var ticket = await CreateTicketAsync(request, user);
@@ -61,7 +64,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
             }
 
-            if (request.IsRefreshTokenGrantType())
+            else if (request.IsRefreshTokenGrantType())
             {
                 // Retrieve the claims principal stored in the refresh token.
                 var info = await HttpContext.AuthenticateAsync(OpenIdConnectServerDefaults.AuthenticationScheme);
@@ -72,19 +75,23 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
                 // var user = _signInManager.ValidateSecurityStampAsync(info.Principal);
                 var user = await _userManager.GetUserAsync(info.Principal);
                 if (user == null)
+                {
                     return BadRequest(new OpenIdConnectResponse
                     {
                         Error = OpenIdConnectConstants.Errors.InvalidGrant,
                         ErrorDescription = "The refresh token is no longer valid."
                     });
+                }
 
                 // Ensure the user is still allowed to sign in.
                 if (!await _signInManager.CanSignInAsync(user))
+                {
                     return BadRequest(new OpenIdConnectResponse
                     {
                         Error = OpenIdConnectConstants.Errors.InvalidGrant,
                         ErrorDescription = "The user is no longer allowed to sign in."
                     });
+                }
 
                 // Create a new authentication ticket, but reuse the properties stored
                 // in the refresh token, including the scopes originally granted.
@@ -92,7 +99,6 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
 
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
             }
-
 
             return BadRequest(new OpenIdConnectResponse
             {
@@ -114,6 +120,10 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
                 OpenIdConnectServerDefaults.AuthenticationScheme);
 
             if (!request.IsRefreshTokenGrantType())
+            {
+                // Set the list of scopes granted to the client application.
+                // Note: the offline_access scope must be granted
+                // to allow OpenIddict to return a refresh token.
                 ticket.SetScopes(new[]
                 {
                     OpenIdConnectConstants.Scopes.OpenId,
@@ -122,6 +132,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
                     OpenIdConnectConstants.Scopes.OfflineAccess,
                     OpenIddictConstants.Scopes.Roles
                 }.Intersect(request.GetScopes()));
+            }
 
             ticket.SetResources("resource_server");
 
@@ -132,7 +143,10 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             foreach (var claim in ticket.Principal.Claims)
             {
                 // Never include the security stamp in the access and identity tokens, as it's a secret value.
-                if (claim.Type == _identityOptions.Value.ClaimsIdentity.SecurityStampClaimType) continue;
+                if (claim.Type == _identityOptions.Value.ClaimsIdentity.SecurityStampClaimType)
+                {
+                    continue;
+                }
 
                 var destinations = new List<string>
                 {
@@ -141,72 +155,17 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
 
                 // Only add the iterated claim to the id_token if the corresponding scope was granted to the client application.
                 // The other claims will only be added to the access_token, which is encrypted when using the default format.
-                if (claim.Type == OpenIdConnectConstants.Claims.Name &&
-                    ticket.HasScope(OpenIdConnectConstants.Scopes.Profile) ||
-                    claim.Type == OpenIdConnectConstants.Claims.Email &&
-                    ticket.HasScope(OpenIdConnectConstants.Scopes.Email) ||
-                    claim.Type == OpenIdConnectConstants.Claims.Role &&
-                    ticket.HasScope(OpenIddictConstants.Claims.Roles))
+                if ((claim.Type == OpenIdConnectConstants.Claims.Name && ticket.HasScope(OpenIdConnectConstants.Scopes.Profile)) ||
+                    (claim.Type == OpenIdConnectConstants.Claims.Email && ticket.HasScope(OpenIdConnectConstants.Scopes.Email)) ||
+                    (claim.Type == OpenIdConnectConstants.Claims.Role && ticket.HasScope(OpenIddictConstants.Claims.Roles)))
+                {
                     destinations.Add(OpenIdConnectConstants.Destinations.IdentityToken);
+                }
 
                 claim.SetDestinations(destinations);
             }
 
-            // add sign in cookie here since auth and refresh flow use this.
-            await SignInCookie(user.UserName, user.Email);
             return ticket;
-        }
-
-        private async Task SignInCookie(string userName, string email)
-        {
-            try
-            {
-                // create claims
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, userName),
-                    new Claim(ClaimTypes.Email, email)
-                };
-
-                // create identity
-                var identity = new ClaimsIdentity(claims, "cookie");
-
-                // create principal
-                var principal = new ClaimsPrincipal(identity);
-
-                var authProperties = new AuthenticationProperties
-                {
-                    AllowRefresh = true,
-                    // Refreshing the authentication session should be allowed.
-
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                    // The time at which the authentication ticket expires. A 
-                    // value set here overrides the ExpireTimeSpan option of 
-                    // CookieAuthenticationOptions set with AddCookie.
-
-                    IsPersistent = true,
-                    // Whether the authentication session is persisted across 
-                    // multiple requests. Required when setting the 
-                    // ExpireTimeSpan option of CookieAuthenticationOptions 
-                    // set with AddCookie. Also required when setting 
-                    // ExpiresUtc.
-
-                    //IssuedUtc = <DateTimeOffset>,
-                    // The time at which the authentication ticket was issued.
-
-                    RedirectUri = "/Portal/Index"
-                    // The full path or absolute URI to be used as an http 
-                    // redirect response value.
-                };
-
-                // sign-in
-                await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme , principal,
-                    authProperties);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
     }
 }
