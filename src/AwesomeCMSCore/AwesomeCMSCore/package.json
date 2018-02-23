@@ -5,7 +5,13 @@
   "repository": "https://github.com/Awesome-CMS-Core/Awesome-CMS-Core",
   "author": "TonyHudson",
   "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "SET NODE_ENV=production& webpack -p",
+    "start": "webpack"
+  },
   "devDependencies": {
+    "aspnet-webpack": "^2.0.3",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

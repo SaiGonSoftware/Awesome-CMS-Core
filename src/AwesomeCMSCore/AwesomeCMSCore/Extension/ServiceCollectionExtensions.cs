@@ -134,6 +134,11 @@ namespace AwesomeCMSCore.Extension
             services.AddDbContextPool<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("AwesomeCMSCore")).UseOpenIddict());
 
+            return services;
+        }
+
+        public static IServiceCollection AddCustomAuthentication(this IServiceCollection services)
+        {
             services
                 .AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -199,6 +204,16 @@ namespace AwesomeCMSCore.Extension
             //             RoleClaimType = OpenIdConnectConstants.Claims.Role
             //         };
             //     });
+
+            return services;
+        }
+
+        public static IServiceCollection AddCustomAuthorization(this IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Authenticated", policy => policy.RequireAuthenticatedUser());
+            });
 
             return services;
         }

@@ -12,8 +12,10 @@ using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System;
 using System.Threading.Tasks;
+using AwesomeCMSCore.Infrastructure.Config;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -52,11 +54,21 @@ namespace AwesomeCMSCore.Extension
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true
+                });
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseProtectFolder(new ProtectFolderOptions
+            {
+                Path = "/frontend",
+                PolicyName = "Authenticated"
+            });
 
             return app;
         }

@@ -5,12 +5,12 @@ const extractCSS = new ExtractTextPlugin("cmscore.css");
 
 module.exports = {
   entry: {
-    app: "./wwwroot/js/app.js",
-    login: "./wwwroot/js/React/Account/LoginForm.jsx"
+    main: "./wwwroot/frontend/js/main.js"
   },
   output: {
     path: path.resolve(__dirname, "wwwroot/dist"),
-    filename: "[name].js"
+    filename: "[name].js",
+    publicPath: "/dist/"
   },
   plugins: [extractCSS, new webpack.optimize.UglifyJsPlugin()],
   module: {
