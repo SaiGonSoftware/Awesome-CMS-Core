@@ -26,6 +26,7 @@ using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
+using AwesomeCMSCore.Modules.Helper.Services;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -119,6 +120,12 @@ namespace AwesomeCMSCore.Extension
             var container = builder.Build();
             container.Resolve<IServiceProvider>();
 
+            return services;
+        }
+
+        public static IServiceCollection InjectApplicationServices(this IServiceCollection services)
+        {
+            services.AddTransient<IEmailSender, EmailSender>();
             return services;
         }
 

@@ -10,7 +10,7 @@ import {
   Label,
   Input
 } from "reactstrap";
-import toastr from 'toastr';
+import toastr from "toastr";
 import AwesomeInput from "../Common/AwesomeInput.jsx";
 import { fetch2 } from "../Helper/Fetch2";
 import env from "../Helper/env";
@@ -31,6 +31,7 @@ class LoginForm extends Component {
     this.state = {
       username: "",
       password: "",
+      rememberMe: "",
       loading: false,
       canSubmit: false,
       touched: {
@@ -56,21 +57,17 @@ class LoginForm extends Component {
     let options = {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/json"
       },
-      body: new URLSearchParams(
-        `username=${this.state.username}&password=${
-          this.state.password
-        }&grant_type=password&scope=offline_access`
-      )
+      body: JSON.stringify({
+        Username: this.state.username,
+        Password: this.state.password,
+        RememberMe: this.state.rememberMe === "on" ? true : false
+      })
     };
-    fetch2(env.authorizeUrl, options).then(function(response) {
-      if (response.status === statusCode.Success) {
-        navigateToUrl("/Portal/Index");
-      } else {
-        toastr.error("Invalid credentials");
-      }
-    });
+    fetch2("http://localhost:5000/Account/Test", options).then(function(
+      response
+    ) {});
   };
 
   onChange(e) {
@@ -136,6 +133,16 @@ class LoginForm extends Component {
                     onChange={password => this.onChange(password)}
                     onBlur={password => this.onBlur(password)}
                   />
+                </FormGroup>
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      type="checkbox"
+                      name="rememberMe"
+                      onChange={rememberMe => this.onChange(rememberMe)}
+                    />
+                    Remember me ?
+                  </Label>
                 </FormGroup>
                 <Button color="primary" type="submit" disabled={isDisabled}>
                   Login

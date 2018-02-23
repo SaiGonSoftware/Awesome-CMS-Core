@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace AwesomeCMSCore.Modules.Entities.ViewModels
+namespace AwesomeCMSCore.Modules.Admin.Models.AccountViewModels
 {
     public class RegisterViewModel
     {

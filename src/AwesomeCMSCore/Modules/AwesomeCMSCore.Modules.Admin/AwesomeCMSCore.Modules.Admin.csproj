@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
+      <ProjectReference Include="..\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -5,28 +5,39 @@
     margin: 10% 35% 0;
     border: 1px solid #ddd;
     width: 350px;
+
     h3 {
       text-align: center;
     }
+
     #loginFormContent {
       padding: 50px;
     }
+
     .panel-heading {
       color: #333;
       background-color: #f5f5f5;
       border-color: #ddd;
-      padding:10px;
+      padding: 10px;
     }
+
     .panel-title {
       margin-top: 0;
       margin-bottom: 0;
       font-size: 16px;
       color: inherit;
     }
-    Input {
+
+    Input[type="text"],
+    Input[type="password"] {
+      margin-bottom: 15px;
       width: 250px;
+    }
+
+    .form-check {
       margin-bottom: 15px;
     }
+
     Button {
       width: 250px;
     }
