@@ -207,15 +207,5 @@ namespace AwesomeCMSCore.Extension
 
             return services;
         }
-
-        public static IServiceCollection AddCustomAuthorization(this IServiceCollection services)
-        {
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Authenticated", policy => policy.RequireAuthenticatedUser());
-            });
-
-            return services;
-        }
     }
 }

@@ -28,7 +28,6 @@ namespace AwesomeCMSCore.Infrastructure.Config
         {
             _next = next;
             _path = options.Path;
-            _policyName = options.PolicyName;
         }
 
         public async Task Invoke(HttpContext httpContext,
@@ -36,13 +35,8 @@ namespace AwesomeCMSCore.Infrastructure.Config
         {
             if (httpContext.Request.Path.StartsWithSegments(_path))
             {
-                var authorized = await authorizationService.AuthorizeAsync(
-                    httpContext.User, null, _policyName);
-                if (!authorized.Succeeded)
-                {
-                    httpContext.Response.StatusCode = 401;
-                    return;
-                }
+                httpContext.Response.StatusCode = 401;
+                return;
             }
 
             await _next(httpContext);
@@ -52,6 +46,5 @@ namespace AwesomeCMSCore.Infrastructure.Config
     public class ProtectFolderOptions
     {
         public PathString Path { get; set; }
-        public string PolicyName { get; set; }
     }
 }

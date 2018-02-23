@@ -66,8 +66,7 @@ namespace AwesomeCMSCore.Extension
 
             app.UseProtectFolder(new ProtectFolderOptions
             {
-                Path = "/frontend",
-                PolicyName = "Authenticated"
+                Path = "/frontend"
             });
 
             return app;
