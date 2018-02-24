@@ -16,6 +16,7 @@ import { fetch2 } from "../Helper/Fetch2";
 import env from "../Helper/env";
 import statusCode from "../Helper/StatusCode";
 import { navigateToUrl } from "../Helper/util";
+import axios from "axios";
 
 function validate(username, password) {
   // true means invalid, so our conditions got reversed
@@ -54,20 +55,18 @@ class LoginForm extends Component {
 
     e.preventDefault();
 
-    let options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
+    axios
+      .post("Account/Test", {
         Username: this.state.username,
         Password: this.state.password,
         RememberMe: this.state.rememberMe === "on" ? true : false
       })
-    };
-    fetch2("http://localhost:5000/Account/Test", options).then(function(
-      response
-    ) {});
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   onChange(e) {

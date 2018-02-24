@@ -77,7 +77,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Test(LoginViewModel model, string returnUrl = null)
+        public IActionResult Test([FromBody]LoginViewModel model, string returnUrl = null)
         {
             return Content("123");
         }
