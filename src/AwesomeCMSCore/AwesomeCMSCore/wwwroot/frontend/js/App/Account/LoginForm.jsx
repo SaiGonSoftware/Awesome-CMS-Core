@@ -13,9 +13,7 @@ import {
 import toastr from "toastr";
 import AwesomeInput from "../Common/AwesomeInput.jsx";
 import { fetch2 } from "../Helper/Fetch2";
-import env from "../Helper/env";
 import statusCode from "../Helper/StatusCode";
-import { navigateToUrl } from "../Helper/util";
 import axios from "axios";
 
 function validate(username, password) {
