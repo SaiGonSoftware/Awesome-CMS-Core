@@ -44,21 +44,14 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-
-            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
                     model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    if (returnUrl != "")
-                    {
-                        return RedirectToLocal(returnUrl);
-                    }
-
                     return RedirectToAction("Index", "Portal");
                 }
 
@@ -73,13 +66,6 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
                 }
             }
             return View(model);
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public IActionResult Test([FromBody]LoginViewModel model, string returnUrl = null)
-        {
-            return Content("123");
         }
 
         [HttpGet]

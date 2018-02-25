@@ -12,15 +12,12 @@ module.exports = {
     filename: "[name].js",
     publicPath: "/dist/"
   },
-  plugins: [extractCSS, new webpack.optimize.UglifyJsPlugin()],
+  plugins: [
+    extractCSS,
+    new webpack.optimize.UglifyJsPlugin()
+  ],
   module: {
     loaders: [
-      /* {
-        test: /\.js$/,
-        enforce: "pre",
-        exclude: /node_modules/,
-        loaders: "jshint-loader"
-      }, */
       {
         test: /\.scss$/,
         use: extractCSS.extract({
@@ -43,7 +40,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        loader: ["babel-loader", "eslint-loader"]
       }
     ]
   },

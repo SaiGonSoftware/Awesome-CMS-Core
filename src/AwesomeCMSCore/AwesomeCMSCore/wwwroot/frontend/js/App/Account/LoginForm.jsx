@@ -12,7 +12,6 @@ import {
 } from "reactstrap";
 import toastr from "toastr";
 import AwesomeInput from "../Common/AwesomeInput.jsx";
-import { fetch2 } from "../Helper/Fetch2";
 import statusCode from "../Helper/StatusCode";
 import axios from "axios";
 

@@ -6,14 +6,15 @@
   "author": "TonyHudson",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "xo",
     "prod": "SET NODE_ENV=production& webpack -p",
-    "start": "webpack"
+    "start": "SET NODE_ENV=development& webpack"
   },
   "devDependencies": {
     "aspnet-webpack": "^2.0.3",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
@@ -22,6 +23,9 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.0.15",
     "css-loader": "^0.28.8",
+    "eslint": "^4.18.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-react": "^7.7.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "grunt": "^1.0.1",
     "grunt-concurrent": "^2.3.1",

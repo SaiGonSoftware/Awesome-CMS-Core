@@ -2,7 +2,7 @@ import axios from "axios";
 
 let env = {};
 
-if (isProdEnviroment()) {
+if (isDevEnviroment()) {
   env = {
     baseUrl: "http://randomshit.com",
     tokenUrl: "http://randomshit.com/connect/token"
@@ -17,6 +17,6 @@ if (isProdEnviroment()) {
 
 export default env;
 
-export function isProdEnviroment() {
-  return process.env.NODE_ENV === "production";
+export function isDevEnviroment() {
+  return process.env.NODE_ENV === "development";
 }
