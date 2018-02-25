@@ -12,7 +12,7 @@ if (isDevEnviroment()) {
     tokenUrl: "http://localhost:5000/connect/token",
     loginUrl: "http://localhost:5000/Account/Login"
   };
-  axios.defaults.baseURL = 'http://localhost:5000/';
+  axios.defaults.baseURL = "http://localhost:5000/";
 }
 
 export default env;

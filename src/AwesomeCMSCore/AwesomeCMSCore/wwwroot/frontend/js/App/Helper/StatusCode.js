@@ -4,4 +4,5 @@ let statusCode = {
     NotFound:404,
     InternalError:500
 }
+
 export default statusCode;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AspNet.Security.OpenIdConnect.Primitives;
 using AwesomeCMSCore.Modules.Admin.Models.AccountViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Helper.Services;
@@ -33,12 +34,10 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl = null)
+        public async Task<IActionResult> Login()
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            ViewData["ReturnUrl"] = returnUrl;
-
             return View();
         }
 
@@ -46,26 +45,21 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
-                    model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Portal");
-                }
+            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
+                model.RememberMe, lockoutOnFailure: false);
 
-                if (result.IsLockedOut)
-                {
-                    return RedirectToAction(nameof(Lockout));
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
-                }
+            if (result.Succeeded)
+            {
+                return Ok();
             }
-            return View(model);
+            if (result.IsLockedOut)
+            {
+                return RedirectToAction(nameof(Lockout));
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet]

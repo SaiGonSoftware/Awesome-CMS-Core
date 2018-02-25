@@ -53,6 +53,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "reactstrap": "^5.0.0-beta",
-    "toastr": "^2.1.4"
+    "toastr": "^2.1.4",
+    "url-search-params": "^0.10.0"
   }
 }

@@ -12,8 +12,10 @@ import {
 } from "reactstrap";
 import toastr from "toastr";
 import AwesomeInput from "../Common/AwesomeInput.jsx";
-import statusCode from "../Helper/StatusCode";
 import axios from "axios";
+import { navigateToUrl } from "../Helper/util";
+import statusCode from "./../Helper/StatusCode";
+import qs from "qs";
 
 function validate(username, password) {
   // true means invalid, so our conditions got reversed
@@ -51,18 +53,31 @@ class LoginForm extends Component {
     }
 
     e.preventDefault();
-
     axios
-      .post("Account/Test", {
+      .post("Account/Login", {
         Username: this.state.username,
         Password: this.state.password,
         RememberMe: this.state.rememberMe === "on" ? true : false
       })
-      .then(function(response) {
-        console.log(response);
+      .then(function(res) {
+        if (res.status === statusCode.Success) {
+          axios.post(
+            "connect/token",
+            qs.stringify({
+              username: this.state.username,
+              password: this.state.password,
+              grant_type: "password",
+              scope: "offline_access"
+            })
+          );
+          navigateToUrl("http://localhost:5000/Portal/Index");
+        }
+
+        if (res.status === statusCode.BadRequest)
+          toastr.error("Invalid credentials");
       })
-      .catch(function(error) {
-        console.log(error);
+      .catch(function() {
+        toastr.error("Invalid credentials");
       });
   };
 
