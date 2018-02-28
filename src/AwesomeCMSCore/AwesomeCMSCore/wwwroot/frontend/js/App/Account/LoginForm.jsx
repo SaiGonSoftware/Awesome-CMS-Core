@@ -13,9 +13,11 @@ import {
 import toastr from "toastr";
 import AwesomeInput from "../Common/AwesomeInput.jsx";
 import axios from "axios";
-import { navigateToUrl } from "../Helper/util";
-import statusCode from "./../Helper/StatusCode";
 import qs from "qs";
+import { navigateToUrl } from "../Helper/util";
+import env from "../Helper/envConfig";
+import statusCode from "./../Helper/StatusCode";
+import { setStorage } from "../Helper/storageHelper";
 
 function validate(username, password) {
   // true means invalid, so our conditions got reversed
@@ -53,24 +55,16 @@ class LoginForm extends Component {
     }
 
     e.preventDefault();
+
     axios
-      .post("Account/Login", {
+      .post(env.loginUrl, {
         Username: this.state.username,
         Password: this.state.password,
         RememberMe: this.state.rememberMe === "on" ? true : false
       })
-      .then(function(res) {
+      .then(res => {
         if (res.status === statusCode.Success) {
-          axios.post(
-            "connect/token",
-            qs.stringify({
-              username: this.state.username,
-              password: this.state.password,
-              grant_type: "password",
-              scope: "offline_access"
-            })
-          );
-          navigateToUrl("http://localhost:5000/Portal/Index");
+          this.tokenRequest();
         }
 
         if (res.status === statusCode.BadRequest)
@@ -91,6 +85,29 @@ class LoginForm extends Component {
     this.setState({
       touched: { ...this.state.touched, [e.target.name]: true }
     });
+  }
+
+  tokenRequest() {
+    axios
+      .post(
+        env.tokenUrl,
+        qs.stringify({
+          username: this.state.username,
+          password: this.state.password,
+          grant_type: "password",
+          scope: "offline_access"
+        })
+      )
+      .then(function(res) {
+        let token = {
+          access_token: res.data.access_token,
+          refresh_token: res.data.refresh_token,
+          token_type: res.data.token_type,
+          expires_in: res.data.expires_in
+        };
+        setStorage(env.authToken, token);
+        navigateToUrl(env.portal);
+      });
   }
 
   render() {

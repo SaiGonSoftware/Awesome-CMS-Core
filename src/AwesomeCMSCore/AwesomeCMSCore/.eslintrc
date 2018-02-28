@@ -30,6 +30,8 @@
     "document": true,
     "process": true,
     "module": true,
-    "console": true
+    "console": true,
+    "sessionStorage": true,
+    "localStorage": true
   }
 }

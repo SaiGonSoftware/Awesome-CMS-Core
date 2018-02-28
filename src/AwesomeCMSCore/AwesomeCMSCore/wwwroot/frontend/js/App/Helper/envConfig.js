@@ -9,8 +9,10 @@ if (isDevEnviroment()) {
   };
 } else {
   env = {
-    tokenUrl: "http://localhost:5000/connect/token",
-    loginUrl: "http://localhost:5000/Account/Login"
+    authToken: "authToken",
+    tokenUrl: "connect/token",
+    loginUrl: "Account/Login",
+    portal: "http://localhost:5000/Portal/Index"
   };
   axios.defaults.baseURL = "http://localhost:5000/";
 }
