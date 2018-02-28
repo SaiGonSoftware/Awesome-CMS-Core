@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Input } from "reactstrap";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 class AwesomeInput extends Component {
   constructor(props) {
@@ -28,11 +28,11 @@ class AwesomeInput extends Component {
 }
 
 AwesomeInput.propTypes = {
-  className: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  className: PropTypes.bool,
+  type: PropTypes.string,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
   required: PropTypes.string
