@@ -6,7 +6,6 @@
   "author": "TonyHudson",
   "license": "MIT",
   "scripts": {
-    "test": "xo",
     "prod": "SET NODE_ENV=production& webpack -p",
     "start": "SET NODE_ENV=development& webpack"
   },

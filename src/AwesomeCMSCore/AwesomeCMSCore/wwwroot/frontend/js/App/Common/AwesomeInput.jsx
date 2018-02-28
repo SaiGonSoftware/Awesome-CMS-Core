@@ -14,6 +14,7 @@ class AwesomeInput extends Component {
       <div>
         <Input
           className={this.props.className ? classNameError : ""}
+          id={this.props.id}
           type={this.props.type || "text"}
           name={this.props.name}
           placeholder={this.props.placeholder}
@@ -29,6 +30,7 @@ class AwesomeInput extends Component {
 
 AwesomeInput.propTypes = {
   className: PropTypes.bool,
+  id:PropTypes.string,
   type: PropTypes.string,
   name: PropTypes.string,
   placeholder: PropTypes.string,

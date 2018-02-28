@@ -9,7 +9,6 @@ if (isDevEnviroment()) {
   };
 } else {
   env = {
-    authToken: "authToken",
     tokenUrl: "connect/token",
     loginUrl: "Account/Login",
     portal: "http://localhost:5000/Portal/Index"

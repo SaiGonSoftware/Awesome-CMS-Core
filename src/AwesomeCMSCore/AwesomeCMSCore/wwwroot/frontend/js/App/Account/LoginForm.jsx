@@ -18,6 +18,7 @@ import { navigateToUrl } from "../Helper/util";
 import env from "../Helper/envConfig";
 import statusCode from "./../Helper/StatusCode";
 import { setStorage } from "../Helper/storageHelper";
+import { AppEnum } from "./../Helper/appEnum";
 
 function validate(username, password) {
   // true means invalid, so our conditions got reversed
@@ -63,9 +64,7 @@ class LoginForm extends Component {
         RememberMe: this.state.rememberMe === "on" ? true : false
       })
       .then(res => {
-        if (res.status === statusCode.Success) {
-          this.tokenRequest();
-        }
+        if (res.status === statusCode.Success) this.tokenRequest();
 
         if (res.status === statusCode.BadRequest)
           toastr.error("Invalid credentials");
@@ -105,7 +104,7 @@ class LoginForm extends Component {
           token_type: res.data.token_type,
           expires_in: res.data.expires_in
         };
-        setStorage(env.authToken, token);
+        setStorage(AppEnum.authToken, token);
         navigateToUrl(env.portal);
       });
   }

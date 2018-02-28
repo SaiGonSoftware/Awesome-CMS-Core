@@ -45,6 +45,7 @@ React
 * http://jasonwatmore.com/post/2017/09/16/react-redux-user-registration-and-login-tutorial-example
 * https://jsbin.com/cuyuze/11/edit?html,css,js,output
 * https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
+* https://codeburst.io/validating-props-easily-with-react-proptypes-96e80208207
 
 ASP.Net
 * https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?tabs=aspnetcore2x
