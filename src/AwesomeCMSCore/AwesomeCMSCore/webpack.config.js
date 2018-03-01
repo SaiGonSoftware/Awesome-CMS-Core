@@ -12,10 +12,7 @@ module.exports = {
     filename: "[name].js",
     publicPath: "/dist/"
   },
-  plugins: [
-    extractCSS,
-    new webpack.optimize.UglifyJsPlugin()
-  ],
+  plugins: [extractCSS, new webpack.optimize.UglifyJsPlugin()],
   module: {
     loaders: [
       {

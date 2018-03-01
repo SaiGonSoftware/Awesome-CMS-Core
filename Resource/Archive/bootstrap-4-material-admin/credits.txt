@@ -1,0 +1,13 @@
+===================================================================
+Plugins Used
+===================================================================
+Chart.js - https://github.com/chartjs/Chart.js
+jQuery Validation - https://jqueryvalidation.org/
+
+
+===================================================================
+Custom icon font
+===================================================================
+SVGs Origin - http://www.flaticon.com
+Then converted to icon font in http://app.fontastic.me
+See the icons in icons-reference directory.

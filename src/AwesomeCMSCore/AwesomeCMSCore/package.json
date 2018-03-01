@@ -26,6 +26,7 @@
     "eslint-loader": "^1.9.0",
     "eslint-plugin-react": "^7.7.0",
     "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.10",
     "grunt": "^1.0.1",
     "grunt-concurrent": "^2.3.1",
     "grunt-contrib-clean": "^1.1.0",

@@ -52,3 +52,6 @@ ASP.Net
 * https://docs.microsoft.com/en-us/aspnet/core/security/authorization/roles
 * https://docs.microsoft.com/en-us/aspnet/core/security/authorization/claims
 * https://digitalmccullough.com/posts/aspnetcore-auth-system-demystified.html
+
+Layout
+* https://www.bootstrapdash.com/bootstrap-4-admin-templates/
