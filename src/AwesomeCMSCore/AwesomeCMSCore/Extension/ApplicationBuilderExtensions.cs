@@ -56,7 +56,8 @@ namespace AwesomeCMSCore.Extension
                 app.UseBrowserLink();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
-                    HotModuleReplacement = true
+                    HotModuleReplacement = true,
+                    ReactHotModuleReplacement = true
                 });
             }
             else

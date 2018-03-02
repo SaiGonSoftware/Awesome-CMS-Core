@@ -1,7 +1,9 @@
-﻿import "bootstrap/scss/bootstrap.scss";
-import "../css/style.scss";
-//import "../css/style.default.scss";
-import "toastr/toastr.scss";
+﻿//lib stylesheet
+import "../css/lib.scss";
+
+//app stylesheet
+import "../css/app.scss";
+
 import "./App/Helper/envConfig";
 import { isDevEnviroment } from "./App/Helper/envConfig";
 import "./App/Account/LoginForm.jsx";

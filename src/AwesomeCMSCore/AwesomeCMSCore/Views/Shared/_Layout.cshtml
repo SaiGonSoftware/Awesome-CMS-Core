@@ -5,18 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AwesomeCMSCore</title>
 
-    <environment include="Development">
-        <link href="~/dist/cmscore.css" rel="stylesheet" />
-    </environment>
+    <link href="~/dist/cmscore.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container body-content">
         @RenderBody()
     </div>
 
-    <environment include="Development">
-        <script src="~/dist/main.js"></script>
-    </environment>
+    <script src="~/dist/main.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
