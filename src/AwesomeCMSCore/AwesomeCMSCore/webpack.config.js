@@ -41,11 +41,11 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
-        loader: "file-loader?name=/img/[name].[ext]"
+        loader: "file-loader"
       },
       {
         test: /\.(woff|ttf|otf|eot|woff2|svg)$/i,
-        loader: "file-loader?name=/fonts/[name].[ext]"
+        loader: "file-loader"
       }
     ]
   },

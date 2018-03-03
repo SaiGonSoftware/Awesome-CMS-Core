@@ -24,38 +24,23 @@ namespace AwesomeCMSCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            try
-            {
-                services.LoadInstalledModules(_hostingEnvironment.ContentRootPath);
-                services.AddCustomizedDataStore(_configuration);
-                services.AddCustomAuthentication();
-                services.InjectApplicationServices();
-                //ModuleViewLocationExpander is used to help the view engine lookup up the right module folder the views
-                services.Configure<RazorViewEngineOptions>(options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
-                services.AddCustomizedMvc(GlobalConfiguration.Modules, _configuration, _hostingEnvironment);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
+            services.LoadInstalledModules(_hostingEnvironment.ContentRootPath);
+            services.AddCustomizedDataStore(_configuration);
+            services.AddCustomAuthentication();
+            services.InjectApplicationServices();
+            //ModuleViewLocationExpander is used to help the view engine lookup up the right module folder the views
+            services.Configure<RazorViewEngineOptions>(options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
+            services.AddCustomizedMvc(GlobalConfiguration.Modules, _configuration, _hostingEnvironment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            try
-            {
-                app.SetupEnv(env);
+            app.SetupEnv(env);
             app.UseStaticFiles();
             app.ServeStaticModuleFile(GlobalConfiguration.Modules);
             app.UseAuthentication();
             app.UseCustomizeMvc();
         }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-}
     }
 }
