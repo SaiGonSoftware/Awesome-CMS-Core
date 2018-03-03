@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "prod": "SET NODE_ENV=production& webpack -p",
-    "start": "SET NODE_ENV=development& webpack"
+    "start": "webpack"
   },
   "devDependencies": {
     "aspnet-webpack": "^2.0.3",
