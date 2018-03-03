@@ -25,7 +25,16 @@
       "version": "15.6.1"
     }
   },
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jquery": true
+  },
   "globals": {
+    "jQuery": true,
+    "$": true,
+    "global": true,
     "window": true,
     "document": true,
     "process": true,
