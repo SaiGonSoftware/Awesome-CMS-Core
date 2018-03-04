@@ -1,3 +1,4 @@
 import "./Helper/envConfig";
 import "./Account/LoginForm.jsx";
-import "./Vendor/front";
+import "./Vendor/portal";
+import "./Vendor/chart.home";

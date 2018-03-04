@@ -12,12 +12,14 @@
   "plugins": ["react"],
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
-    "comma-dangle": 0,
-    "react/jsx-uses-vars": 1,
-    "react/display-name": 1,
+    "comma-dangle": [2, "never"],
+    "react/jsx-uses-vars": "error",
+    "no-var": "error",
     "no-unused-vars": "warn",
-    "no-console": 1,
-    "no-unexpected-multiline": "warn"
+    "no-console": "off",
+    "no-unexpected-multiline": "warn",
+    "no-alert": "off",
+    "comma-spacing": [2, { "before": false, "after": true }]
   },
   "settings": {
     "react": {
@@ -25,15 +27,8 @@
       "version": "15.6.1"
     }
   },
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "es6": true,
-    "jquery": true
-  },
   "globals": {
-    "jQuery": true,
-    "$": true,
+    "alert": true,
     "global": true,
     "window": true,
     "document": true,

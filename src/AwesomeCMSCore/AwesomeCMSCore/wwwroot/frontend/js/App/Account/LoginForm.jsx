@@ -183,4 +183,6 @@ class LoginForm extends Component {
   }
 }
 
-render(<LoginForm />, document.getElementById("loginForm"));
+if (document.getElementById("loginForm") !== null) {
+  render(<LoginForm />, document.getElementById("loginForm"));
+}
