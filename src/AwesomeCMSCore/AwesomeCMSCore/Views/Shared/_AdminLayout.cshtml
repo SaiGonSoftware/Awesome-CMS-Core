@@ -8,8 +8,20 @@
     <link href="~/dist/cmscore.css" rel="stylesheet" />
 </head>
 <body>
-    @RenderBody()
+    <div class="page">
+        @await Html.PartialAsync("_AdminHeader")
+        <div class="page-content d-flex align-items-stretch">
+            <!-- Side Navbar -->
+            @await Html.PartialAsync("_SideNavBar")
 
+            <div class="content-inner">
+                @await Html.PartialAsync("_PortalHeader")
+                @RenderBody()
+                <!-- Page Footer-->
+                @await Html.PartialAsync("_AdminFooter")
+            </div>
+        </div>
+    </div>
     <script src="~/dist/main.js"></script>
     @RenderSection("Scripts", required: false)
 </body>

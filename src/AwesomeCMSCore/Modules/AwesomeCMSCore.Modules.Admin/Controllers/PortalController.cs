@@ -11,5 +11,10 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
         {
             return View();
         }
+
+        public IActionResult Manage()
+        {
+            return View();
+        }
     }
 }

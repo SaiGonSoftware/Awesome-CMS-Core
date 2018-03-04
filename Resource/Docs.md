@@ -1,4 +1,4 @@
-* Thank to @[thienn](https://github.com/thiennn/) for your modular architect. Without your help I wouldnt complish this.
+* Thank to @[thienn](https://github.com/thiennn/) for your modular architect. Without your help I wouldnt accomplish this.
 
 ---
 
@@ -11,7 +11,7 @@
 * [Webpack](https://webpack.js.org/)
 * Drag&Drop (Self develop)
 * [NodeJS](https://nodejs.org) Install lts version of node
-* [React.NET](https://github.com/reactjs/React.NET)
+* [Chart.js](http://www.chartjs.org)
 
 > Backend
 
@@ -49,8 +49,13 @@ npm start
 
 ---
 
+Working dir for frontend is
+`\src\AwesomeCMSCore\AwesomeCMSCore\wwwroot\frontend`
+
+
 ## Note
-Currently project using Hotmodule replacement for React so the time to bootsup project may take about 3 - 4sec (Just for development). 
+
+Currently project using Hotmodule replacement for React so the time to bootsup project may take about 3 - 4sec (Just for development).
 
 ## Authorization using postman
 
