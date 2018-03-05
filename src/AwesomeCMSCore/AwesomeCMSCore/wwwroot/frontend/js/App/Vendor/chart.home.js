@@ -1,4 +1,5 @@
-/*global $, document, Chart, LINECHART, data, options, window*/
+/* eslint-disable */
+
 $(document).ready(function () {
 
     'use strict';

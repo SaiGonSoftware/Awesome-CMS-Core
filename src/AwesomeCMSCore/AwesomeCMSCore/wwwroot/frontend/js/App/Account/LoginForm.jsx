@@ -14,7 +14,7 @@ import toastr from "toastr";
 import AwesomeInput from "../Common/AwesomeInput.jsx";
 import axios from "axios";
 import qs from "qs";
-import { navigateToUrl } from "../Helper/util";
+import { navigateToUrl, isDomExist } from "../Helper/util";
 import env from "../Helper/envConfig";
 import statusCode from "./../Helper/StatusCode";
 import { setStorage } from "../Helper/storageHelper";
@@ -182,7 +182,7 @@ class LoginForm extends Component {
     );
   }
 }
-
-if (document.getElementById("loginForm") !== null) {
+console.log(isDomExist("loginForm"));
+if (isDomExist("loginForm")) {
   render(<LoginForm />, document.getElementById("loginForm"));
 }
