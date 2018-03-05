@@ -1,2 +1,3 @@
-import 'jquery';
-import "chart.js/dist/Chart.bundle.min.js";
+import "jquery/dist/jquery.min.js";
+import "bootstrap/dist/js/bootstrap.min.js";
+import "chart.js/dist/Chart.min.js";

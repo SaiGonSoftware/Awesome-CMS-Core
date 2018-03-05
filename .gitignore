@@ -290,3 +290,5 @@ __pycache__/
 *.db
 .vscode/
 /src/AwesomeCMSCore/.vs/AwesomeCMSCore/
+package-lock.json
+yarn.lock
