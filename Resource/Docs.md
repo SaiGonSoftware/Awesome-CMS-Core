@@ -29,12 +29,8 @@
 
 **For backend**
 
-* Change your db source in appsetting.json and appsetting.dev.json
-* To generate migrations simply follow this [link](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/migrations).
-  Navigate to Awesome-CMS-Core\src\AwesomeCMSCore\AwesomeCMSCore to run migration command
-* Run `dotnet ef migrations add InitDB` and
-  `dotnet ef database update` insde Awesome-CMS-Core\src\AwesomeCMSCore\AwesomeCMSCore
-  (I will create a bat file later to run this automatically)
+* Change your db connection in appsetting.json and appsetting.dev.json
+* Run `D:\Study\Awesome-CMS-Core\src\AwesomeCMSCore\AwesomeCMSCore\migrate.bat`.
 
 **For frontend**
 
