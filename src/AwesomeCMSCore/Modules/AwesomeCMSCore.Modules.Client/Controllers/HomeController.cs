@@ -9,5 +9,9 @@ namespace AwesomeCMSCore.Modules.Client.Controllers
         {
             throw new Exception("error");
         }
+        public IActionResult Error()
+        {
+            return View();
+        }
     }
 }

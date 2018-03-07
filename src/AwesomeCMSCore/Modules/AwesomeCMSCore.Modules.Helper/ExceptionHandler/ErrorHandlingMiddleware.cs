@@ -4,8 +4,10 @@ using System.Data.Common;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
@@ -13,10 +15,12 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ErrorHandlingMiddleware> _logger;
 
-        public ErrorHandlingMiddleware(RequestDelegate next)
+        public ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandlingMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context /* other dependencies */)
@@ -31,26 +35,23 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var code = HttpStatusCode.InternalServerError; // 500 if unexpected
+            var statusCode = context.Response.StatusCode;
 
-            switch (exception)
-            {
-                case UnauthorizedAccessException _:
-                    code = HttpStatusCode.Unauthorized;
-                    break;
-                case DbException _:
-                    code = HttpStatusCode.BadRequest;
-                    break;
-            }
-
-            var result = JsonConvert.SerializeObject(new { error = exception.Message });
             //will add email notify services
             var stacktrace = exception.StackTrace;
+            _logger.LogError(stacktrace);
+            var result = JsonConvert.SerializeObject(new { error = exception.Message });
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)code;
+            context.Response.StatusCode = (int)statusCode;
             return context.Response.WriteAsync(result);
         }
+    }
+
+    public enum StatusCode
+    {
+        NotFound = 404,
+        InternalError = 500
     }
 }
