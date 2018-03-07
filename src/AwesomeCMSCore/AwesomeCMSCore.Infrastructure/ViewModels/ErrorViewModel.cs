@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IdentityServer4.Models;
+﻿using IdentityServer4.Models;
 
 namespace AwesomeCMSCore.Infrastructure.ViewModels
 {

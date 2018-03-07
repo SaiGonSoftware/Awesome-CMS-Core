@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AspNet.Security.OpenIdConnect.Primitives;
 using AwesomeCMSCore.Modules.Admin.Models.AccountViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Helper.Services;

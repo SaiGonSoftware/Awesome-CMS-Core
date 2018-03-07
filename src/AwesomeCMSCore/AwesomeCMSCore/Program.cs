@@ -1,5 +1,4 @@
 ﻿using AwesomeCMSCore.Extension;
-using AwesomeCMSCore.Modules.Entities.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;

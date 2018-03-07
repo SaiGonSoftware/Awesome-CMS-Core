@@ -4,28 +4,20 @@ using AwesomeCMSCore.Infrastructure.Config;
 using AwesomeCMSCore.Infrastructure.Module;
 using AwesomeCMSCore.Modules.Entities.Data;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyModel;
-using Microsoft.Extensions.DependencyModel.Resolution;
-using Microsoft.DotNet.PlatformAbstractions;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AwesomeCMSCore.Modules.Entities.Entities;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
+using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using AwesomeCMSCore.Modules.Helper.Services;
 
 namespace AwesomeCMSCore.Extension
@@ -83,7 +75,10 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection AddCustomizedMvc(this IServiceCollection services, IList<ModuleInfo> modules, IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             var mvcBuilder = services
-                .AddMvc()
+                .AddMvc(config =>
+                {
+                    config.Filters.Add(typeof(CustomExceptionFilter));
+                })
                 .AddRazorOptions(o =>
                 {
                     foreach (var module in modules)

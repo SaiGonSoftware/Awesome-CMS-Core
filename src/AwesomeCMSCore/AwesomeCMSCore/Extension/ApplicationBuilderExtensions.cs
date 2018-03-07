@@ -2,19 +2,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using System.IO;
-using AwesomeCMSCore.Modules.Entities.Data;
-using Microsoft.AspNetCore.Identity;
-using System.Linq;
-using System;
-using System.Threading.Tasks;
-using AwesomeCMSCore.Infrastructure.Config;
-using AwesomeCMSCore.Modules.Entities.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Net;
+using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
+using AwesomeCMSCore.Modules.Helper.ProtectPath;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace AwesomeCMSCore.Extension
@@ -75,6 +69,7 @@ namespace AwesomeCMSCore.Extension
 
         public static IApplicationBuilder UseCustomizeMvc(this IApplicationBuilder app)
         {
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

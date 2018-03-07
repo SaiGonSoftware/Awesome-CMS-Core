@@ -1,5 +1,4 @@
-﻿using AspNet.Security.OAuth.Validation;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Admin.Controllers
