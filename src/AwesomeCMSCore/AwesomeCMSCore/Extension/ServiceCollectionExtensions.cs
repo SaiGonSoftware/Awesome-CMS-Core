@@ -19,7 +19,6 @@ using AspNet.Security.OpenIdConnect.Primitives;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using AwesomeCMSCore.Modules.Helper.Services;
-using Microsoft.Extensions.Logging;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -203,12 +202,6 @@ namespace AwesomeCMSCore.Extension
 
         public static IServiceCollection AddLogger(this IServiceCollection services)
         {
-            //// Nlog configuration
-            //ILoggerFactory loggerFactory = new LoggerFactory();
-            //loggerFactory.AddNLog();
-            //Environment.ConfigureNLog("nlog.config");
-
-            //services.AddSingleton<ILoggerFactory>(loggerFactory);
             return services;
         }
     }

@@ -15,12 +15,9 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<ErrorHandlingMiddleware> _logger;
-
-        public ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandlingMiddleware> logger)
+        public ErrorHandlingMiddleware(RequestDelegate next)
         {
             _next = next;
-            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context /* other dependencies */)
@@ -41,17 +38,12 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
 
             //will add email notify services
             var stacktrace = exception.StackTrace;
-            _logger.LogError(stacktrace);
+
             var result = JsonConvert.SerializeObject(new { error = exception.Message });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)statusCode;
+
             return context.Response.WriteAsync(result);
         }
-    }
-
-    public enum StatusCode
-    {
-        NotFound = 404,
-        InternalError = 500
     }
 }
