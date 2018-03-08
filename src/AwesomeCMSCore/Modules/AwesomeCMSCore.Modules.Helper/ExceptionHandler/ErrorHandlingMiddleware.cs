@@ -4,6 +4,7 @@ using System.Data.Common;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AwesomeCMSCore.Modules.Helper.Email;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -20,10 +21,12 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly IEmailSender _emailSender;
 
-        public ErrorHandlingMiddleware(RequestDelegate next)
+        public ErrorHandlingMiddleware(RequestDelegate next, IEmailSender emailSender)
         {
             _next = next;
+            _emailSender = emailSender;
         }
 
         public async Task Invoke(HttpContext context)
@@ -38,7 +41,7 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             var statusCode = context.Response.StatusCode;
             var stacktrace = exception.StackTrace;
@@ -52,6 +55,7 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
                 .CreateLogger();
             log.Information(stacktrace);
 
+            _emailSender.SendEmailAsync("", stacktrace, EmailType.SystemLog);
             return context.Response.WriteAsync(result);
         }
     }

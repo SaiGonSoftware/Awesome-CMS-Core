@@ -17,8 +17,8 @@ using System.Runtime.Loader;
 using Microsoft.AspNetCore.Identity;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Email;
 using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
-using AwesomeCMSCore.Modules.Helper.Services;
 
 namespace AwesomeCMSCore.Extension
 {
