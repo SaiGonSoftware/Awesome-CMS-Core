@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AwesomeCMSCore.Modules.Helper.Email
+﻿namespace AwesomeCMSCore.Modules.Helper.Email
 {
     public enum EmailType
     {

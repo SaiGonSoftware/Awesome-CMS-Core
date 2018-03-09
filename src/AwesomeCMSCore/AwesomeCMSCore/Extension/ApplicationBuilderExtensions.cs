@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using AwesomeCMSCore.Modules.Helper.ProtectPath;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace AwesomeCMSCore.Extension

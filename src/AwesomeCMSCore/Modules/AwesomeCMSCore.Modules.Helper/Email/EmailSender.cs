@@ -1,20 +1,28 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
+using AwesomeCMSCore.Modules.Entities.Settings;
 using MailBodyPack;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Options;
 using MimeKit;
 
 namespace AwesomeCMSCore.Modules.Helper.Email
 {
     public class EmailSender : IEmailSender
     {
+        private readonly IOptions<EmailSettings> _emailSetting;
+
+        public EmailSender(IOptions<EmailSettings> emailSetting)
+        {
+            _emailSetting = emailSetting;
+        }
+
         public Task SendEmailAsync(string reciever, string message, EmailType emailType)
         {
             var email = new MimeMessage();
             var builder = new BodyBuilder();
 
-            email.From.Add(new MailboxAddress("", ""));
+            email.From.Add(new MailboxAddress(_emailSetting.Value.SenderName, _emailSetting.Value.Sender));
             email.To.Add(new MailboxAddress(reciever, reciever));
 
             switch (emailType)
@@ -28,9 +36,9 @@ namespace AwesomeCMSCore.Modules.Helper.Email
 
             using (var client = new SmtpClient())
             {
-                client.Connect("smtp.gmail.com", 587, false);
+                client.Connect(_emailSetting.Value.MailServer, _emailSetting.Value.MailPort, false);
 
-                client.Authenticate("", "");
+                client.Authenticate(_emailSetting.Value.Email, _emailSetting.Value.Password);
 
                 client.Send(email);
                 client.Disconnect(true);

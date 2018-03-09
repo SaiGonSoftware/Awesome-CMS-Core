@@ -1,20 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Helper.Email;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Serilog;
-using Serilog.Formatting.Compact;
-using Serilog.Formatting.Display;
-using Serilog.Formatting.Json;
-using Serilog.Sinks.Email;
 
 namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
 {

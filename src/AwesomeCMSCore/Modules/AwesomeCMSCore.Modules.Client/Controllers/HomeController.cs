@@ -7,7 +7,7 @@ namespace AwesomeCMSCore.Modules.Client.Controllers
     {
         public IActionResult Index()
         {
-            throw new Exception("error");
+            return View();
         }
 
         public IActionResult Error()
