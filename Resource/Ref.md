@@ -53,6 +53,8 @@ ASP.Net
 * https://docs.microsoft.com/en-us/aspnet/core/security/authorization/roles
 * https://docs.microsoft.com/en-us/aspnet/core/security/authorization/claims
 * https://digitalmccullough.com/posts/aspnetcore-auth-system-demystified.html
+* https://gooroo.io/GoorooTHINK/Article/17086/Creating-Custom-Error-Pages-in-ASPNET-core-10/32407#.WqIDgOhubzY
 
 Layout
 * https://www.bootstrapdash.com/bootstrap-4-admin-templates/
+* http://www.os-templates.com/page-templates

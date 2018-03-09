@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Awesome CMS Core";
+    ViewData["Title"] = Model + " - Awesome CMS Core";
 }
 @model int
 @{
@@ -27,7 +27,20 @@
             break;
     }
 }
-<div class="jumbotron">
-    <h1>Error @Model</h1>
-    <h3>@statusmessage</h3>
+
+<div class="error-page-wrapper row2">
+    <div id="error-container" class="clear">
+        <div id="error-page" class="clear">
+            <div class="hgroup clear">
+                <h1>@Model</h1>
+                <h2>Error !
+                    <span>@statusmessage</span>
+                </h2>
+            </div>
+            <p>
+                <a href="javascript:history.go(-1)">« Go Back</a> /
+                <a href="/">Go Home »</a>
+            </p>
+        </div>
+    </div>
 </div>
