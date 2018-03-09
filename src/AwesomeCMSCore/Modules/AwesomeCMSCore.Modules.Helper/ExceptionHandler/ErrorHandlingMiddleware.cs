@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
+using AwesomeCMSCore.Modules.Entities.Settings;
 using AwesomeCMSCore.Modules.Helper.Email;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Serilog;
 
@@ -11,11 +14,13 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
     {
         private readonly RequestDelegate _next;
         private readonly IEmailSender _emailSender;
+        private readonly IOptions<EmailSettings> _emailSetting;
 
-        public ErrorHandlingMiddleware(RequestDelegate next, IEmailSender emailSender)
+        public ErrorHandlingMiddleware(RequestDelegate next, IEmailSender emailSender, IOptions<EmailSettings> emailSetting)
         {
             _next = next;
             _emailSender = emailSender;
+            _emailSetting = emailSetting;
         }
 
         public async Task Invoke(HttpContext context)
@@ -30,22 +35,17 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var statusCode = context.Response.StatusCode;
             var stacktrace = exception.StackTrace;
-            var result = JsonConvert.SerializeObject(new { error = exception.Message });
-
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)statusCode;
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             var log = new LoggerConfiguration()
                 .WriteTo.File("log.txt", outputTemplate: "{NewLine}[{Timestamp:HH:mm:ss}{Level:u3}]{Message:lj}{Exception}{NewLine}-------------{NewLine}")
                 .CreateLogger();
             log.Information(stacktrace);
 
-            _emailSender.SendEmailAsync("", stacktrace, EmailType.SystemLog);
-            return context.Response.WriteAsync(result);
+            //_emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
         }
     }
 }
