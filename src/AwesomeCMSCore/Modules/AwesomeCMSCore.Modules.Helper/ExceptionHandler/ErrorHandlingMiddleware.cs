@@ -5,7 +5,6 @@ using AwesomeCMSCore.Modules.Entities.Settings;
 using AwesomeCMSCore.Modules.Helper.Email;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Serilog;
 
 namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
@@ -45,7 +44,7 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
                 .CreateLogger();
             log.Information(stacktrace);
 
-            //_emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
+            _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
         }
     }
 }
