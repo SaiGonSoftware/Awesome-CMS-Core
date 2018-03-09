@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace AwesomeCMSCore
 {
@@ -25,6 +24,7 @@ namespace AwesomeCMSCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.LoadInstalledModules(_hostingEnvironment.ContentRootPath);
+            services.InjectAppConfig(_configuration);
             services.AddCustomizedDataStore(_configuration);
             services.AddCustomAuthentication();
             services.InjectApplicationServices();

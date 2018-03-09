@@ -1,8 +1,6 @@
-﻿using AwesomeCMSCore.Extension;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace AwesomeCMSCore
 {
@@ -14,7 +12,7 @@ namespace AwesomeCMSCore
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                SeedData.Initialize(services).Wait();
+                //SeedData.Initialize(services).Wait();
             }
 
             host.Run();

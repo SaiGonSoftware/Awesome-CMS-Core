@@ -1,0 +1,16 @@
+﻿var body = MailBody.CreateBody();
+
+body.Paragraph("Hi,")
+    .Paragraph("First paragraph..");
+
+// Your code
+
+body.Button("https://www.example.com/", "First button");
+body.Paragraph("Another paragraph..");
+
+// Your code
+
+body.Button("https://www.example.com/", "Second button")
+    .Paragraph("— [Insert company name here]");
+
+var htmlBody = body.ToString();

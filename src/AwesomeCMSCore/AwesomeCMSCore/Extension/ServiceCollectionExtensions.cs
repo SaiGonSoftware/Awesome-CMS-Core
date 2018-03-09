@@ -17,8 +17,8 @@ using System.Runtime.Loader;
 using Microsoft.AspNetCore.Identity;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AwesomeCMSCore.Modules.Entities.Entities;
-using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
-using AwesomeCMSCore.Modules.Helper.Services;
+using AwesomeCMSCore.Modules.Entities.Settings;
+using AwesomeCMSCore.Modules.Helper.Email;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -200,8 +200,9 @@ namespace AwesomeCMSCore.Extension
             return services;
         }
 
-        public static IServiceCollection AddLogger(this IServiceCollection services)
+        public static IServiceCollection InjectAppConfig(this IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
             return services;
         }
     }
