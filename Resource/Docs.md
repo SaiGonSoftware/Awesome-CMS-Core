@@ -30,7 +30,7 @@
 **For backend**
 
 * Change your db connection in appsetting.json and appsetting.dev.json
-* Run `src\AwesomeCMSCore\AwesomeCMSCore\migrate.bat`.
+* Run `src\AwesomeCMSCore\AwesomeCMSCore\migrate.bat` to apply migration.
 
 **For frontend**
 
@@ -48,6 +48,9 @@ npm start
 Working dir for frontend is
 `\src\AwesomeCMSCore\AwesomeCMSCore\wwwroot\frontend`
 
+## Making PR
+
+Please add prefix `ACC-your-branch-name` if you want to make a PR. Thank you.
 
 ## Note
 

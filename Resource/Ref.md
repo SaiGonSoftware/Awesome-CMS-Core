@@ -54,6 +54,10 @@ ASP.Net
 * https://docs.microsoft.com/en-us/aspnet/core/security/authorization/claims
 * https://digitalmccullough.com/posts/aspnetcore-auth-system-demystified.html
 * https://gooroo.io/GoorooTHINK/Article/17086/Creating-Custom-Error-Pages-in-ASPNET-core-10/32407#.WqIDgOhubzY
+* https://techblog.dorogin.com/handling-errors-in-aspnet-core-middleware-e39872496d51
+* https://hassantariqblog.wordpress.com/2017/02/20/asp-net-core-step-by-step-guide-to-access-appsettings-json-in-web-project-and-class-library/
+* https://stackoverflow.com/questions/38398022/access-from-class-library-to-appsetting-json-in-asp-net-core/39548554
+* https://stackoverflow.com/questions/27880433/using-iconfiguration-in-c-sharp-class-library
 
 Layout
 * https://www.bootstrapdash.com/bootstrap-4-admin-templates/
