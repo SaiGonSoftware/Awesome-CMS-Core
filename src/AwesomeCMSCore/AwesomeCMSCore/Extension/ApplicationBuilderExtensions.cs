@@ -52,10 +52,8 @@ namespace AwesomeCMSCore.Extension
                     ReactHotModuleReplacement = true
                 });
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             app.UseProtectFolder(new ProtectFolderOptions
             {
