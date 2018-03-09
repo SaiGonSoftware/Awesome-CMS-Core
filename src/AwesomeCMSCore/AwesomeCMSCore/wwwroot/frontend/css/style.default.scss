@@ -3316,22 +3316,21 @@ div.error-page-wrapper{display:block; width:100%; margin:0; padding:0; text-alig
 .row3, .row3 a{color:#919191; background-color:#232323;}
 
 div.error-page-wrapper h1, div.error-page-wrapper h2, div.error-page-wrapper h3, div.error-page-wrapper h4, div.error-page-wrapper h5, div.error-page-wrapper h6{
-	margin:0 0 15px 0;
+  margin:0 0 15px 0;
 	padding:0;
 	font-size:20px;
 	font-weight:normal;
 	line-height:normal;
-}
+	}
   
 .clear:after{content:"."; display:block; height:0; clear:both; visibility:hidden; line-height:0;}
 .clear{display:inline-block; clear:both;}
 a{outline:none; text-decoration:none;}
 
 #error-page{display:block; width:100%; padding:150px 0; line-height:1.6em; text-align:center;}
-#error-page .hgroup{display:block; width:80%; margin:0 auto; padding:0;}
-#error-page .hgroup h1, #error-page .hgroup h2{margin:0 0 0 40px; padding:0; float:left; text-transform:uppercase;}
-#error-page .hgroup h1{margin-top:-90px; font-size:200px;}
-#error-page .hgroup h2{font-size:60px;}
-#error-page .hgroup h2 span{display:block; font-size:30px;}
-#error-page p{margin:25px 0 0 0; padding:0; font-size:16px;}
+#error-page .hgroup{margin-bottom:15px;}
+#error-page .hgroup h1, #error-page .hgroup h2{margin:0; padding:0; text-transform:uppercase;}
+#error-page .hgroup h1{margin-bottom:15px; font-size:40px;}
+#error-page .hgroup h2{display:inline-block; padding:0 0 15px 0; font-size:80px; border:solid #CCCCCC; border-width:1px 0; text-transform:lowercase;}
+#error-page p{display:block; margin:15px 0 0 0; padding:0; font-size:16px;}
 #error-page p:first-child{margin-top:0;}

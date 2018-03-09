@@ -20,7 +20,7 @@
             statusmessage = "The server timed out waiting for the request";
             break;
         case 500:
-            statusmessage = "Internal Server Error - server was unable to finish processing the request";
+            statusmessage = "Internal Server Error";
             break;
         default:
             statusmessage = "That’s odd... Something we didn't expect happened";
@@ -31,16 +31,11 @@
 <div class="error-page-wrapper row2">
     <div id="error-container" class="clear">
         <div id="error-page" class="clear">
-            <div class="hgroup clear">
-                <h1>@Model</h1>
-                <h2>Error !
-                    <span>@statusmessage</span>
-                </h2>
+            <div class="hgroup">
+                <h1>@statusmessage</h1>
+                <h2>@Model Error</h2>
             </div>
-            <p>
-                <a href="javascript:history.go(-1)">« Go Back</a> /
-                <a href="/">Go Home »</a>
-            </p>
+            <p>Go <a href="javascript:history.go(-1)">Back</a> or <a href="/">Home</a></p>
         </div>
     </div>
 </div>
