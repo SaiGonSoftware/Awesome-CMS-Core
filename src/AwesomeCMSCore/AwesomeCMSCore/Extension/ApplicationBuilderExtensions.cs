@@ -53,8 +53,9 @@ namespace AwesomeCMSCore.Extension
                     ReactHotModuleReplacement = true
                 });
             }
-
+            
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseProtectFolder(new ProtectFolderOptions
             {
                 Path = "/frontend"
@@ -65,7 +66,6 @@ namespace AwesomeCMSCore.Extension
 
         public static IApplicationBuilder UseCustomizeMvc(this IApplicationBuilder app)
         {
-            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -41,7 +41,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("~/api/Account/Login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
@@ -56,10 +56,8 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             {
                 return RedirectToAction(nameof(Lockout));
             }
-            else
-            {
-                return BadRequest();
-            }
+
+            return BadRequest();
         }
 
         [HttpGet]

@@ -5,7 +5,7 @@ let env = {};
 if (isDevEnviroment()) {
   env = {
     tokenUrl: "connect/token",
-    loginUrl: "Account/Login",
+    loginUrl: "api/Account/Login",
     portal: "http://localhost:5000/Portal/Index"
   };
   axios.defaults.baseURL = "http://localhost:5000/";
