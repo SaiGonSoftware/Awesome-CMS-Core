@@ -212,7 +212,29 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection RegisterGzip(this IServiceCollection services)
         {
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
-            services.AddResponseCompression();
+            services.AddResponseCompression(options =>
+            {
+                options.MimeTypes = new[]
+                {
+                    // Default
+                    "text/plain",
+                    "text/css",
+                    "application/javascript",
+                    "text/html",
+                    "application/xml",
+                    "text/xml",
+                    "application/json",
+                    "text/json",
+                    // Custom
+                    "image/svg+xml",
+                    "application/font-woff",
+                    "application/font-ttf",
+                    "application/font-eot",
+                    "application/font-woff2",
+                    "image/jpeg",
+                    "image/png"
+                };
+            });
             return services;
         }
     }
