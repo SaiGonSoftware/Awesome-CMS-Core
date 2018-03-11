@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import toastr from "toastr";
 import qs from "qs";
+import PropTypes from "prop-types";
 import AwesomeInput from "../Common/AwesomeInput.jsx";
 import { navigateToUrl, isDomExist } from "../Helper/util";
 import env from "../Helper/envConfig";
@@ -34,9 +35,7 @@ class LoginForm extends Component {
     this.state = {
       username: "",
       password: "",
-      rememberMe: "",
       loading: false,
-      canSubmit: false,
       touched: {
         username: false,
         password: false
@@ -45,12 +44,18 @@ class LoginForm extends Component {
   }
 
   canBeSubmitted() {
-    const errors = validate(this.state.username, this.state.password);
+    const errors = this.validateErrors();
     const isDisabled = Object.keys(errors).some(x => errors[x]);
     return !isDisabled;
   }
 
+  validateErrors() {
+    const errors = validate(this.state.username, this.state.password);
+    return errors;
+  }
+
   login = e => {
+    this.setState({ loading: true });
     if (!this.canBeSubmitted()) {
       return;
     }
@@ -65,10 +70,13 @@ class LoginForm extends Component {
       .then(res => {
         if (res.status === statusCode.Success) this.tokenRequest();
 
-        if (res.status === statusCode.BadRequest)
+        if (res.status === statusCode.BadRequest) {
+          this.setState({ loading: false });
           toastr.error("Invalid credentials");
+        }
       })
       .catch(function() {
+        this.setState({ loading: false });
         toastr.error("Invalid credentials");
       });
   };
@@ -106,9 +114,23 @@ class LoginForm extends Component {
     });
   }
 
-  render() {
-    const errors = validate(this.state.username, this.state.password);
+  renderButton() {
+    const errors = this.validateErrors();
     const isDisabled = Object.keys(errors).some(x => errors[x]);
+
+    if (this.state.loading) {
+      return <img src="/img/loader.svg" />;
+    } else {
+      return (
+        <Button color="primary" type="submit" disabled={isDisabled}>
+          Login
+        </Button>
+      );
+    }
+  }
+
+  render() {
+    const errors = this.validateErrors();
 
     const shouldMarkError = field => {
       const hasError = errors[field];
@@ -168,9 +190,7 @@ class LoginForm extends Component {
                     Remember me ?
                   </Label>
                 </FormGroup>
-                <Button color="primary" type="submit" disabled={isDisabled}>
-                  Login
-                </Button>
+                {this.renderButton()}
               </div>
             </Form>
           </Col>
@@ -183,3 +203,7 @@ class LoginForm extends Component {
 if (isDomExist("loginForm")) {
   render(<LoginForm />, document.getElementById("loginForm"));
 }
+
+LoginForm.propTypes = {
+  loading: PropTypes.bool
+};
