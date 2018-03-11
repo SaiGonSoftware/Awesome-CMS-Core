@@ -11,14 +11,14 @@ import {
   Input
 } from "reactstrap";
 import toastr from "toastr";
-import AwesomeInput from "../Common/AwesomeInput.jsx";
-import axios from "axios";
 import qs from "qs";
+import AwesomeInput from "../Common/AwesomeInput.jsx";
 import { navigateToUrl, isDomExist } from "../Helper/util";
 import env from "../Helper/envConfig";
 import statusCode from "./../Helper/StatusCode";
 import { setStorage } from "../Helper/storageHelper";
 import { AppEnum } from "./../Helper/appEnum";
+import { Post } from "../Helper/ajax";
 
 function validate(username, password) {
   // true means invalid, so our conditions got reversed
@@ -57,12 +57,11 @@ class LoginForm extends Component {
 
     e.preventDefault();
 
-    axios
-      .post(env.loginUrl, {
-        Username: this.state.username,
-        Password: this.state.password,
-        RememberMe: this.state.rememberMe === "on" ? true : false
-      })
+    Post(env.loginUrl, {
+      Username: this.state.username,
+      Password: this.state.password,
+      RememberMe: this.state.rememberMe === "on" ? true : false
+    })
       .then(res => {
         if (res.status === statusCode.Success) this.tokenRequest();
 
@@ -87,26 +86,24 @@ class LoginForm extends Component {
   }
 
   tokenRequest() {
-    axios
-      .post(
-        env.tokenUrl,
-        qs.stringify({
-          username: this.state.username,
-          password: this.state.password,
-          grant_type: "password",
-          scope: "offline_access"
-        })
-      )
-      .then(function(res) {
-        let token = {
-          access_token: res.data.access_token,
-          refresh_token: res.data.refresh_token,
-          token_type: res.data.token_type,
-          expires_in: res.data.expires_in
-        };
-        setStorage(AppEnum.authToken, token);
-        navigateToUrl(env.portal);
-      });
+    Post(
+      env.tokenUrl,
+      qs.stringify({
+        username: this.state.username,
+        password: this.state.password,
+        grant_type: "password",
+        scope: "offline_access"
+      })
+    ).then(function(res) {
+      let token = {
+        access_token: res.data.access_token,
+        refresh_token: res.data.refresh_token,
+        token_type: res.data.token_type,
+        expires_in: res.data.expires_in
+      };
+      setStorage(AppEnum.authToken, token);
+      navigateToUrl(env.portal);
+    });
   }
 
   render() {
@@ -182,7 +179,7 @@ class LoginForm extends Component {
     );
   }
 }
-console.log(isDomExist("loginForm"));
+
 if (isDomExist("loginForm")) {
   render(<LoginForm />, document.getElementById("loginForm"));
 }
