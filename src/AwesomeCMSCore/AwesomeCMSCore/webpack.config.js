@@ -2,6 +2,7 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new ExtractTextPlugin("cmscore.css");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -18,7 +19,10 @@ module.exports = {
       $: "jquery",
       jQuery: "jquery"
     }),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),
+    new CompressionPlugin({
+      test: /\.(js|css)/
+    })
   ],
   module: {
     loaders: [

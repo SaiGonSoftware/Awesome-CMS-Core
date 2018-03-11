@@ -6,6 +6,7 @@
   "author": "TonyHudson",
   "license": "MIT",
   "scripts": {
+    "postinstall": "npm rebuild node-sass",
     "prod": "SET NODE_ENV=production& webpack -p",
     "start": "webpack"
   },
@@ -43,7 +44,8 @@
     "uglifyjs-webpack-plugin": "^1.0.1",
     "url-loader": "^1.0.1",
     "webpack": "^3.10.0",
-    "webpack-hot-middleware": "^2.20.0"
+    "webpack-hot-middleware": "^2.20.0",
+    "compression-webpack-plugin":"^1.1.11"
   },
   "dependencies": {
     "axios": "^0.18.0",

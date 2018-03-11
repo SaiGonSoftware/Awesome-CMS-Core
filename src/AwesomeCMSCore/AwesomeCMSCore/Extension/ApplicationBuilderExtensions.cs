@@ -8,6 +8,7 @@ using System.IO;
 using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using AwesomeCMSCore.Modules.Helper.ProtectPath;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.Net.Http.Headers;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -54,7 +55,6 @@ namespace AwesomeCMSCore.Extension
             }
 
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
-
             app.UseProtectFolder(new ProtectFolderOptions
             {
                 Path = "/frontend"
@@ -74,6 +74,6 @@ namespace AwesomeCMSCore.Extension
             });
 
             return app;
-        } 
+        }
     }
 }

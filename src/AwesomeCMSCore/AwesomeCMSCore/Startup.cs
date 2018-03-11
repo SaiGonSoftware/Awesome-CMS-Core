@@ -31,11 +31,14 @@ namespace AwesomeCMSCore
             //ModuleViewLocationExpander is used to help the view engine lookup up the right module folder the views
             services.Configure<RazorViewEngineOptions>(options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
             services.AddCustomizedMvc(GlobalConfiguration.Modules, _configuration, _hostingEnvironment);
+            services.RegisterGzip();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseResponseCompression();
+            app.UseStaticFiles();
             app.SetupEnv(env);
             app.UseStaticFiles();
             app.ServeStaticModuleFile(GlobalConfiguration.Modules);

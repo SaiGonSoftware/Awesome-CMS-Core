@@ -44,7 +44,7 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
                 .CreateLogger();
             log.Information(stacktrace);
 
-            _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
+            //await _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
         }
     }
 }
