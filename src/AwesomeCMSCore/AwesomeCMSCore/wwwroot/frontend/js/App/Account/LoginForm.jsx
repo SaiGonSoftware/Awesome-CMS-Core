@@ -13,6 +13,7 @@ import {
 import toastr from "toastr";
 import qs from "qs";
 import PropTypes from "prop-types";
+
 import AwesomeInput from "../Common/AwesomeInput.jsx";
 import { navigateToUrl, isDomExist } from "../Helper/util";
 import env from "../Helper/envConfig";
@@ -20,6 +21,7 @@ import statusCode from "./../Helper/StatusCode";
 import { setStorage } from "../Helper/storageHelper";
 import { AppEnum } from "./../Helper/appEnum";
 import { Post } from "../Helper/ajax";
+import Spinner from "../Common/Spinner.jsx";
 
 function validate(username, password) {
   // true means invalid, so our conditions got reversed
@@ -75,7 +77,7 @@ class LoginForm extends Component {
           toastr.error("Invalid credentials");
         }
       })
-      .catch(function() {
+      .catch(() => {
         this.setState({ loading: false });
         toastr.error("Invalid credentials");
       });
@@ -119,7 +121,7 @@ class LoginForm extends Component {
     const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     if (this.state.loading) {
-      return <img src="/img/loader.svg" />;
+      return <Spinner />;
     } else {
       return (
         <Button color="primary" type="submit" disabled={isDisabled}>

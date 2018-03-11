@@ -1,6 +1,7 @@
 ﻿using AwesomeCMSCore.Extension;
 using AwesomeCMSCore.Infrastructure.Config;
 using AwesomeCMSCore.Infrastructure.Module.Views;
+using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -38,7 +39,6 @@ namespace AwesomeCMSCore
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseResponseCompression();
-            app.UseStaticFiles();
             app.SetupEnv(env);
             app.UseStaticFiles();
             app.ServeStaticModuleFile(GlobalConfiguration.Modules);

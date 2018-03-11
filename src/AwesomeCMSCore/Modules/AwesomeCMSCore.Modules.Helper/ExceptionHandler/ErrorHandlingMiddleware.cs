@@ -26,17 +26,20 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
             _emailSetting = emailSetting;
         }
 
-        public async Task<int> Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context)
         {
             try
             {
                 await _next(context);
+                if (context.Response.StatusCode == (int)HttpStatusCode.BadRequest)
+                {
+                    await context.Response.WriteAsync(context.Response.StatusCode.ToString());
+                }
             }
             catch (Exception ex)
             {
                 await HandleExceptionAsync(context, ex);
             }
-            return context.Response.StatusCode;
         }
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
@@ -49,6 +52,7 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
             log.Information(stacktrace);
 
             //await _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
+            context.Response.Redirect("/Error/500");
         }
     }
 }

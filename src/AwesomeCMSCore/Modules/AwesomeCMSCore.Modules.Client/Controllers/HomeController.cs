@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Client.Controllers
 {
@@ -6,6 +7,7 @@ namespace AwesomeCMSCore.Modules.Client.Controllers
     {
         public IActionResult Index()
         {
+            throw new Exception("sadasd");
             return View();
         }
     }

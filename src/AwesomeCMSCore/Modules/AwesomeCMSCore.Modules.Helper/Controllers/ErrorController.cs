@@ -11,8 +11,6 @@ namespace AwesomeCMSCore.Modules.Helper.Controllers
         [HttpGet("/Error/{statusCode}")]
         public IActionResult Index(int statusCode)
         {
-            if (HttpContext.Features.Get<IHttpRequestFeature>().RawTarget.StartsWith("/api/", StringComparison.Ordinal))
-                return StatusCode((int)statusCode);
             return View(statusCode);
         }
     }
