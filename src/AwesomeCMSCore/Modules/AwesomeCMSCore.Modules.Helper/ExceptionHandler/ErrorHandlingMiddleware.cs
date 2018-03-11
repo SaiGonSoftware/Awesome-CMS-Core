@@ -44,15 +44,16 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var stacktrace = exception.StackTrace;
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
+            var stacktrace = exception.StackTrace;
             var log = new LoggerConfiguration()
                 .WriteTo.File("log.txt", outputTemplate: "{NewLine}[{Timestamp:HH:mm:ss}{Level:u3}]{Message:lj}{Exception}{NewLine}-------------{NewLine}")
                 .CreateLogger();
+
             log.Information(stacktrace);
 
             //await _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
-            context.Response.Redirect("/Error/500");
         }
     }
 }

@@ -53,13 +53,15 @@ namespace AwesomeCMSCore.Extension
                     ReactHotModuleReplacement = true
                 });
             }
-            
+
+            #region Custom Middleware
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseProtectFolder(new ProtectFolderOptions
             {
                 Path = "/frontend"
             });
+            #endregion
 
             return app;
         }
