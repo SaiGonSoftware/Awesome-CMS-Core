@@ -31,7 +31,7 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
             try
             {
                 await _next(context);
-                if (context.Response.StatusCode == (int)HttpStatusCode.BadRequest)
+                if (context.Request.Path.Value.StartsWith("/api"))
                 {
                     await context.Response.WriteAsync(context.Response.StatusCode.ToString());
                 }
