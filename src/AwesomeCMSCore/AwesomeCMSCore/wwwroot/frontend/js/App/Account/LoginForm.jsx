@@ -11,14 +11,17 @@ import {
   Input
 } from "reactstrap";
 import toastr from "toastr";
-import AwesomeInput from "../Common/AwesomeInput.jsx";
-import axios from "axios";
 import qs from "qs";
+import PropTypes from "prop-types";
+
+import AwesomeInput from "../Common/AwesomeInput.jsx";
 import { navigateToUrl, isDomExist } from "../Helper/util";
 import env from "../Helper/envConfig";
 import statusCode from "./../Helper/StatusCode";
 import { setStorage } from "../Helper/storageHelper";
 import { AppEnum } from "./../Helper/appEnum";
+import { Post } from "../Helper/ajax";
+import Spinner from "../Common/Spinner.jsx";
 
 function validate(username, password) {
   // true means invalid, so our conditions got reversed
@@ -34,9 +37,7 @@ class LoginForm extends Component {
     this.state = {
       username: "",
       password: "",
-      rememberMe: "",
       loading: false,
-      canSubmit: false,
       touched: {
         username: false,
         password: false
@@ -44,32 +45,40 @@ class LoginForm extends Component {
     };
   }
 
-  canBeSubmitted() {
+  validateErrors() {
     const errors = validate(this.state.username, this.state.password);
+    return errors;
+  }
+
+  canBeSubmitted() {
+    const errors = this.validateErrors();
     const isDisabled = Object.keys(errors).some(x => errors[x]);
     return !isDisabled;
   }
 
   login = e => {
+    this.setState({ loading: true });
     if (!this.canBeSubmitted()) {
       return;
     }
 
     e.preventDefault();
 
-    axios
-      .post(env.loginUrl, {
-        Username: this.state.username,
-        Password: this.state.password,
-        RememberMe: this.state.rememberMe === "on" ? true : false
-      })
+    Post(env.loginUrl, {
+      Username: this.state.username,
+      Password: this.state.password,
+      RememberMe: this.state.rememberMe === "on" ? true : false
+    })
       .then(res => {
         if (res.status === statusCode.Success) this.tokenRequest();
 
-        if (res.status === statusCode.BadRequest)
+        if (res.status === statusCode.BadRequest) {
+          this.setState({ loading: false });
           toastr.error("Invalid credentials");
+        }
       })
-      .catch(function() {
+      .catch(() => {
+        this.setState({ loading: false });
         toastr.error("Invalid credentials");
       });
   };
@@ -87,31 +96,43 @@ class LoginForm extends Component {
   }
 
   tokenRequest() {
-    axios
-      .post(
-        env.tokenUrl,
-        qs.stringify({
-          username: this.state.username,
-          password: this.state.password,
-          grant_type: "password",
-          scope: "offline_access"
-        })
-      )
-      .then(function(res) {
-        let token = {
-          access_token: res.data.access_token,
-          refresh_token: res.data.refresh_token,
-          token_type: res.data.token_type,
-          expires_in: res.data.expires_in
-        };
-        setStorage(AppEnum.authToken, token);
-        navigateToUrl(env.portal);
-      });
+    Post(
+      env.tokenUrl,
+      qs.stringify({
+        username: this.state.username,
+        password: this.state.password,
+        grant_type: "password",
+        scope: "offline_access"
+      })
+    ).then(function(res) {
+      let token = {
+        access_token: res.data.access_token,
+        refresh_token: res.data.refresh_token,
+        token_type: res.data.token_type,
+        expires_in: res.data.expires_in
+      };
+      setStorage(AppEnum.authToken, token);
+      navigateToUrl(env.portal);
+    });
+  }
+
+  renderButton() {
+    const errors = this.validateErrors();
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+
+    if (this.state.loading) {
+      return <Spinner />;
+    } else {
+      return (
+        <Button color="primary" type="submit" disabled={isDisabled}>
+          Login
+        </Button>
+      );
+    }
   }
 
   render() {
-    const errors = validate(this.state.username, this.state.password);
-    const isDisabled = Object.keys(errors).some(x => errors[x]);
+    const errors = this.validateErrors();
 
     const shouldMarkError = field => {
       const hasError = errors[field];
@@ -171,9 +192,7 @@ class LoginForm extends Component {
                     Remember me ?
                   </Label>
                 </FormGroup>
-                <Button color="primary" type="submit" disabled={isDisabled}>
-                  Login
-                </Button>
+                {this.renderButton()}
               </div>
             </Form>
           </Col>
@@ -182,7 +201,11 @@ class LoginForm extends Component {
     );
   }
 }
-console.log(isDomExist("loginForm"));
+
 if (isDomExist("loginForm")) {
   render(<LoginForm />, document.getElementById("loginForm"));
 }
+
+LoginForm.propTypes = {
+  loading: PropTypes.bool
+};

@@ -292,3 +292,4 @@ __pycache__/
 /src/AwesomeCMSCore/.vs/AwesomeCMSCore/
 package-lock.json
 yarn.lock
+*.hot-update.js.gz

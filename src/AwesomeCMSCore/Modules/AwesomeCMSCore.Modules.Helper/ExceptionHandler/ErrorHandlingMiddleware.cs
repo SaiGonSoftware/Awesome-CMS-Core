@@ -4,7 +4,11 @@ using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Entities.Settings;
 using AwesomeCMSCore.Modules.Helper.Email;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Serilog;
 
 namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
@@ -27,6 +31,10 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
             try
             {
                 await _next(context);
+                if (context.Request.Path.Value.StartsWith("/api"))
+                {
+                    await context.Response.WriteAsync(context.Response.StatusCode.ToString());
+                }
             }
             catch (Exception ex)
             {
@@ -36,15 +44,16 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var stacktrace = exception.StackTrace;
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
+            var stacktrace = exception.StackTrace;
             var log = new LoggerConfiguration()
                 .WriteTo.File("log.txt", outputTemplate: "{NewLine}[{Timestamp:HH:mm:ss}{Level:u3}]{Message:lj}{Exception}{NewLine}-------------{NewLine}")
                 .CreateLogger();
+
             log.Information(stacktrace);
 
-            _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
+            //await _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
         }
     }
 }

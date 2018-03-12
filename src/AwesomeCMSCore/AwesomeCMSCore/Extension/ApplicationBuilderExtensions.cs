@@ -8,6 +8,7 @@ using System.IO;
 using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using AwesomeCMSCore.Modules.Helper.ProtectPath;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.Net.Http.Headers;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -53,19 +54,20 @@ namespace AwesomeCMSCore.Extension
                 });
             }
 
+            #region Custom Middleware
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
-
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseProtectFolder(new ProtectFolderOptions
             {
                 Path = "/frontend"
             });
+            #endregion
 
             return app;
         }
 
         public static IApplicationBuilder UseCustomizeMvc(this IApplicationBuilder app)
         {
-            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -74,6 +76,6 @@ namespace AwesomeCMSCore.Extension
             });
 
             return app;
-        } 
+        }
     }
 }

@@ -19,6 +19,8 @@ using AspNet.Security.OpenIdConnect.Primitives;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.Settings;
 using AwesomeCMSCore.Modules.Helper.Email;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.ResponseCompression;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -118,6 +120,7 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection InjectApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IEmailSender, EmailSender>();
+
             return services;
         }
 
@@ -203,6 +206,35 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection InjectAppConfig(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            return services;
+        }
+
+        public static IServiceCollection RegisterGzip(this IServiceCollection services)
+        {
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
+            services.AddResponseCompression(options =>
+            {
+                options.MimeTypes = new[]
+                {
+                    // Default
+                    "text/plain",
+                    "text/css",
+                    "application/javascript",
+                    "text/html",
+                    "application/xml",
+                    "text/xml",
+                    "application/json",
+                    "text/json",
+                    // Custom
+                    "image/svg+xml",
+                    "application/font-woff2",
+                    "application/font-woff",
+                    "application/font-ttf",
+                    "application/font-eot",
+                    "image/jpeg",
+                    "image/png"
+                };
+            });
             return services;
         }
     }
