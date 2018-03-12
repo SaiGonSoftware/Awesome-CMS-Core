@@ -41,25 +41,6 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             return View();
         }
 
-        [HttpPost("~/api/Account/Login")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
-        {
-            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
-                model.RememberMe, lockoutOnFailure: false);
-
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-            if (result.IsLockedOut)
-            {
-                return RedirectToAction(nameof(Lockout));
-            }
-
-            return BadRequest();
-        }
-
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Lockout()
