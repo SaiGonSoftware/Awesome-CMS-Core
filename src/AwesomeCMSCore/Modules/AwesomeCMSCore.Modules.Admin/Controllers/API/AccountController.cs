@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Admin.Extensions;
+﻿using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Admin.Models.AccountViewModels;
+using AwesomeCMSCore.Modules.Admin.Services;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Helper.Email;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,15 +17,17 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
-
+        private readonly ITagService _tagService;
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ITagService tagService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _tagService = tagService;
         }
 
 
@@ -47,6 +47,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
                 return Forbid();
             }
 
+            var data =  _tagService.GetAllTag();
             return BadRequest();
         }
     }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Helper.Controllers
 {

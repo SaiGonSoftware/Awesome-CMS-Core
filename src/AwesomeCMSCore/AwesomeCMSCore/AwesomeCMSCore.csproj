@@ -23,7 +23,6 @@
     <PackageReference Include="OpenIddict" Version="2.0.0-*" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-*" />
     <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-*" />
-    <PackageReference Include="SharpRepository.Ioc.Microsoft.DependencyInjection" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AwesomeCMSCore.Infrastructure\AwesomeCMSCore.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Admin\AwesomeCMSCore.Modules.Admin.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />
   </ItemGroup>

@@ -15,5 +15,11 @@ namespace AwesomeCMSCore.Modules.Entities.Data
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.EnableAutoHistory(null);
+        }
     }
 }
