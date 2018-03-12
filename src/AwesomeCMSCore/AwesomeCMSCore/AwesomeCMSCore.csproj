@@ -23,6 +23,7 @@
     <PackageReference Include="OpenIddict" Version="2.0.0-*" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-*" />
     <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-*" />
+    <PackageReference Include="SharpRepository.Ioc.Microsoft.DependencyInjection" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>

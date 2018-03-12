@@ -21,6 +21,7 @@ using AwesomeCMSCore.Modules.Entities.Settings;
 using AwesomeCMSCore.Modules.Helper.Email;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
+using SharpRepository.Ioc.Microsoft.DependencyInjection;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -128,6 +129,8 @@ namespace AwesomeCMSCore.Extension
         {
             services.AddDbContextPool<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("AwesomeCMSCore")).UseOpenIddict());
+
+            services.UseSharpRepository(configuration.GetSection("SharpRepository"), "EfCore");
 
             return services;
         }
