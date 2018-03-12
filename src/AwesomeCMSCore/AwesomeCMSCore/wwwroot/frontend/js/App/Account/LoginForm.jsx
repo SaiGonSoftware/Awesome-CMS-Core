@@ -45,15 +45,15 @@ class LoginForm extends Component {
     };
   }
 
+  validateErrors() {
+    const errors = validate(this.state.username, this.state.password);
+    return errors;
+  }
+
   canBeSubmitted() {
     const errors = this.validateErrors();
     const isDisabled = Object.keys(errors).some(x => errors[x]);
     return !isDisabled;
-  }
-
-  validateErrors() {
-    const errors = validate(this.state.username, this.state.password);
-    return errors;
   }
 
   login = e => {
