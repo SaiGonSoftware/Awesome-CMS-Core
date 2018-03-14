@@ -17,17 +17,14 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly ITagService _tagService;
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IEmailSender emailSender,
-            ITagService tagService)
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
-            _tagService = tagService;
         }
 
 
@@ -46,8 +43,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
             {
                 return Forbid();
             }
-
-            var data =  _tagService.GetAllTag();
+            
             return BadRequest();
         }
     }

@@ -122,8 +122,8 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection InjectApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddSingleton<ITagService, TagService>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<ITagService, TagService>();
 
             return services;
         }
