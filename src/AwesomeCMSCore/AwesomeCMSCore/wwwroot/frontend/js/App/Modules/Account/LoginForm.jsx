@@ -14,14 +14,14 @@ import toastr from "toastr";
 import qs from "qs";
 import PropTypes from "prop-types";
 
-import AwesomeInput from "../Common/AwesomeInput.jsx";
-import { navigateToUrl, isDomExist } from "../Helper/util";
-import env from "../Helper/envConfig";
-import statusCode from "./../Helper/StatusCode";
-import { setStorage } from "../Helper/storageHelper";
-import { AppEnum } from "./../Helper/appEnum";
-import { Post } from "../Helper/ajax";
-import Spinner from "../Common/Spinner.jsx";
+import AwesomeInput from "../../Common/AwesomeInput.jsx";
+import { navigateToUrl, isDomExist } from "../../Helper/util";
+import env from "../../Helper/envConfig";
+import statusCode from "../../Helper/StatusCode";
+import { setStorage } from "../../Helper/storageHelper";
+import { AppEnum } from "../../Helper/appEnum";
+import { Post } from "../../Helper/ajax";
+import Spinner from "../../Common/Spinner.jsx";
 
 function validate(username, password) {
   // true means invalid, so our conditions got reversed
