@@ -11,7 +11,7 @@ using System;
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180220175457_InitDB")]
+    [Migration("20180312163756_InitDB")]
     partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Media", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreate");
@@ -36,6 +36,8 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("Path");
 
+                    b.Property<Guid>("UniqeId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerId");
@@ -45,7 +47,7 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Post", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Content");
@@ -58,9 +60,11 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("ShortDescription");
 
-                    b.Property<Guid?>("TagsId");
+                    b.Property<int?>("TagsId");
 
                     b.Property<string>("Title");
+
+                    b.Property<Guid>("UniqeId");
 
                     b.Property<string>("UserId");
 
@@ -75,16 +79,18 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Tag", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreate");
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<Guid?>("TagGroupId");
+                    b.Property<int?>("TagGroupId");
 
                     b.Property<string>("TagName");
+
+                    b.Property<Guid>("UniqeId");
 
                     b.HasKey("Id");
 
@@ -95,7 +101,7 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.TagGroup", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreate");
@@ -104,6 +110,8 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<Guid>("UniqeId");
+
                     b.HasKey("Id");
 
                     b.ToTable("TagGroups");
@@ -111,7 +119,7 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Theme", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreate");
@@ -123,6 +131,8 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<string>("Path");
 
                     b.Property<string>("Thumbnail");
+
+                    b.Property<Guid>("UniqeId");
 
                     b.HasKey("Id");
 
@@ -286,6 +296,31 @@ namespace AwesomeCMSCore.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Microsoft.EntityFrameworkCore.AutoHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Changed")
+                        .HasMaxLength(2048);
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<int>("Kind");
+
+                    b.Property<string>("RowId")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("TableName")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AutoHistory");
                 });
 
             modelBuilder.Entity("OpenIddict.Models.OpenIddictApplication", b =>

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Admin.Extensions;
+﻿using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Admin.Models.AccountViewModels;
+using AwesomeCMSCore.Modules.Admin.Services;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Helper.Email;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +17,6 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
-
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
@@ -46,7 +43,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
             {
                 return Forbid();
             }
-
+            
             return BadRequest();
         }
     }

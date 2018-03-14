@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
+using System.Collections.Generic;
 
 namespace AwesomeCMSCore.Migrations
 {
@@ -48,6 +49,23 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AutoHistory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Changed = table.Column<string>(maxLength: 2048, nullable: true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Kind = table.Column<int>(nullable: false),
+                    RowId = table.Column<string>(maxLength: 50, nullable: false),
+                    TableName = table.Column<string>(maxLength: 128, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AutoHistory", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictApplications",
                 columns: table => new
                 {
@@ -89,10 +107,12 @@ namespace AwesomeCMSCore.Migrations
                 name: "TagGroups",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,12 +123,14 @@ namespace AwesomeCMSCore.Migrations
                 name: "Themes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Path = table.Column<string>(nullable: true),
-                    Thumbnail = table.Column<string>(nullable: true)
+                    Thumbnail = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -225,12 +247,14 @@ namespace AwesomeCMSCore.Migrations
                 name: "Medias",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     OwnerId = table.Column<string>(nullable: true),
-                    Path = table.Column<string>(nullable: true)
+                    Path = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -271,11 +295,13 @@ namespace AwesomeCMSCore.Migrations
                 name: "Tags",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
-                    TagGroupId = table.Column<Guid>(nullable: true),
-                    TagName = table.Column<string>(nullable: true)
+                    TagGroupId = table.Column<int>(nullable: true),
+                    TagName = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -326,14 +352,16 @@ namespace AwesomeCMSCore.Migrations
                 name: "Posts",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Content = table.Column<string>(nullable: true),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     ShortDescription = table.Column<string>(nullable: true),
-                    TagsId = table.Column<Guid>(nullable: true),
+                    TagsId = table.Column<int>(nullable: true),
                     Title = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<Guid>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -463,6 +491,9 @@ namespace AwesomeCMSCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "AutoHistory");
 
             migrationBuilder.DropTable(
                 name: "Medias");

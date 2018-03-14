@@ -4,11 +4,7 @@ using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Entities.Settings;
 using AwesomeCMSCore.Modules.Helper.Email;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Http.Internal;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Serilog;
 
 namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
@@ -47,11 +43,12 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             var stacktrace = exception.StackTrace;
+            var exceptionMessage = exception.Message;
             var log = new LoggerConfiguration()
-                .WriteTo.File("log.txt", outputTemplate: "{NewLine}[{Timestamp:HH:mm:ss}{Level:u3}]{Message:lj}{Exception}{NewLine}-------------{NewLine}")
+                .WriteTo.File("log.txt", outputTemplate: "{NewLine}[{Timestamp:HH:mm:ss}{Level:u3}]{Message}{NewLine}{Exception}{NewLine}-------------{NewLine}")
                 .CreateLogger();
 
-            log.Information(stacktrace);
+            log.Information($"{exceptionMessage}\r\n{stacktrace}");
 
             //await _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
         }
