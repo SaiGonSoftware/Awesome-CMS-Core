@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Entities.Settings;
 using MailBodyPack;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace AwesomeCMSCore.Modules.Helper.Email
+namespace AwesomeCMSCore.Modules.Email
 {
     public class EmailSender : IEmailSender
     {

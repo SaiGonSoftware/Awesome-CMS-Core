@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Admin.Extensions;
 using AwesomeCMSCore.Modules.Admin.Models.AccountViewModels;
+using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
-using AwesomeCMSCore.Modules.Helper.Email;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -39,6 +39,25 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             return View();
+        }
+
+        [HttpPost("api/[controller]/[action]")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
+        {
+            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
+                model.RememberMe, lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            if (result.IsLockedOut)
+            {
+                return Forbid();
+            }
+
+            return BadRequest();
         }
 
         [HttpGet]

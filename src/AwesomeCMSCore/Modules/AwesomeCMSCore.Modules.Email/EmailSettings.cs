@@ -1,4 +1,4 @@
-﻿namespace AwesomeCMSCore.Modules.Entities.Settings
+﻿namespace AwesomeCMSCore.Modules.Email
 {
     public class EmailSettings
     {
