@@ -231,6 +231,7 @@ namespace AwesomeCMSCore.Extension
                     "text/json",
                     // Custom
                     "image/svg+xml",
+                    "font/font-woff2",
                     "application/font-woff2",
                     "application/font-woff",
                     "application/font-ttf",
