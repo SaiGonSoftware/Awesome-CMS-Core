@@ -58,6 +58,7 @@ ASP.Net
 * https://hassantariqblog.wordpress.com/2017/02/20/asp-net-core-step-by-step-guide-to-access-appsettings-json-in-web-project-and-class-library/
 * https://gooroo.io/GoorooTHINK/Article/17086/Creating-Custom-Error-Pages-in-ASPNET-core-10/32407#.WqIDgOhubzY
 * https://ardalis.com/registering-open-generics-in-aspnet-core-dependency-injection
+* https://dotnetcoretutorials.com/2017/03/25/net-core-dependency-injection-lifetimes-explained/
 
 Layout
 * https://www.bootstrapdash.com/bootstrap-4-admin-templates/
