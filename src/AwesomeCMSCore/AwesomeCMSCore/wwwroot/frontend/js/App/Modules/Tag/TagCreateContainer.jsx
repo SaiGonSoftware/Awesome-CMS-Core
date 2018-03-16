@@ -9,9 +9,8 @@ class TagCreateContainer extends Component {
     super(props);
     this.state = {
       multi: true,
-      multiValue: [],
       options: [],
-      value: undefined
+      value: []
     };
     this.handleOnChange = this.handleOnChange.bind(this);
   }
@@ -21,7 +20,8 @@ class TagCreateContainer extends Component {
   }
 
   render() {
-    const { options, value } = this.state;
+    const { options, value, multi } = this.state;
+
     return (
       <Container>
         <Row>
@@ -35,7 +35,7 @@ class TagCreateContainer extends Component {
                   id="tagCreate"
                   {...options}
                   value={value}
-                  multi={true}
+                  multi={multi}
                   handleOnChange={this.handleOnChange}
                 />
                 <br />

@@ -22,6 +22,9 @@
 * Google Drive API
 * [ASP.Net Core 2.0](https://www.microsoft.com/net/download/windows)
 * Web API
+* SignalR
+* RabbitMQ
+* WebJob
 
 ---
 

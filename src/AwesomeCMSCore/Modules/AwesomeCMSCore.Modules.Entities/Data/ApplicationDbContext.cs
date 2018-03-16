@@ -11,6 +11,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
         public DbSet<TagGroup> TagGroups { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Theme> Themes { get; set; }
+        public DbSet<TagOptions> TagOptions { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {

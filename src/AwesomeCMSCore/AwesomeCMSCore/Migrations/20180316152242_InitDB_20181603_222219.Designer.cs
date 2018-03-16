@@ -11,9 +11,10 @@ using System;
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180316152242_InitDB_20181603_222219")]
+    partial class InitDB_20181603_222219
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,15 +90,15 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("TagName");
 
-                    b.Property<Guid>("UniqeId");
+                    b.Property<int?>("TagOptionsId");
 
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UniqeId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TagGroupId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("TagOptionsId");
 
                     b.ToTable("Tags");
                 });
@@ -128,8 +129,6 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<DateTime>("DateCreate");
 
                     b.Property<DateTime>("DateModified");
-
-                    b.Property<string>("Options");
 
                     b.Property<int?>("PostId");
 
@@ -512,9 +511,9 @@ namespace AwesomeCMSCore.Migrations
                         .WithMany("Tags")
                         .HasForeignKey("TagGroupId");
 
-                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.TagOptions")
+                        .WithMany("Tags")
+                        .HasForeignKey("TagOptionsId");
                 });
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.TagOptions", b =>

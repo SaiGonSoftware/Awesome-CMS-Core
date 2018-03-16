@@ -4,5 +4,6 @@
     {
         public string TagName { get; set; }
         public TagGroup TagGroup { get; set; }
+        public User User { get; set; }
     }
 }
