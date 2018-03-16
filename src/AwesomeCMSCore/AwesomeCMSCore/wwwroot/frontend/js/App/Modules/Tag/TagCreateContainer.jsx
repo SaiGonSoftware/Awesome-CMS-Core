@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+
 import { isDomExist } from "../../Helper/util";
 import TagCreate from "./TagCreate.jsx";
-import { Container, Row, Col } from "reactstrap";
 
 class TagCreateContainer extends Component {
   constructor(props) {
@@ -23,9 +23,9 @@ class TagCreateContainer extends Component {
     const { options, value, multi } = this.state;
 
     return (
-      <Container>
-        <Row>
-          <Col md="12" id="tagContainer">
+      <div className="container">
+        <div className="row">
+          <div className="col col-md-12" id="tagContainer">
             <div className="card">
               <div className="card-header">
                 Create tag for your post (Simply type in what you want)
@@ -44,9 +44,9 @@ class TagCreateContainer extends Component {
                 </a>
               </div>
             </div>
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     );
   }
 }
