@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AwesomeCMSCore.Modules.Helper.Email
+namespace AwesomeCMSCore.Modules.Email
 {
     public interface IEmailSender
     {

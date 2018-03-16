@@ -23,6 +23,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.0.15",
+    "compression-webpack-plugin": "^1.1.11",
     "css-loader": "^0.28.8",
     "eslint": "^4.18.1",
     "eslint-loader": "^1.9.0",
@@ -44,21 +45,19 @@
     "uglifyjs-webpack-plugin": "^1.0.1",
     "url-loader": "^1.0.1",
     "webpack": "^3.10.0",
-    "webpack-hot-middleware": "^2.20.0",
-    "compression-webpack-plugin":"^1.1.11"
+    "webpack-hot-middleware": "^2.20.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.0.0",
     "chart.js": "^2.7.2",
     "font-awesome": "^4.7.0",
-    "formsy-react": "^1.1.3",
     "jit-grunt": "^0.10.0",
     "jquery": "^3.3.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "reactstrap": "^5.0.0-beta",
+    "react-select": "^1.2.1",
     "toastr": "^2.1.4"
   }
 }

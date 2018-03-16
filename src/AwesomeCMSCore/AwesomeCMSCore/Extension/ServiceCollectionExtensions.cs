@@ -17,11 +17,10 @@ using System.Runtime.Loader;
 using Microsoft.AspNetCore.Identity;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AwesomeCMSCore.Modules.Entities.Entities;
-using AwesomeCMSCore.Modules.Entities.Settings;
-using AwesomeCMSCore.Modules.Helper.Email;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using AwesomeCMSCore.Modules.Admin.Services;
+using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Helper.Repository;
 
 namespace AwesomeCMSCore.Extension
@@ -121,9 +120,10 @@ namespace AwesomeCMSCore.Extension
 
         public static IServiceCollection InjectApplicationServices(this IServiceCollection services)
         {
-            services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<ITagService, TagService>();
+
+            services.AddTransient<IEmailSender, EmailSender>();
 
             return services;
         }
@@ -231,8 +231,7 @@ namespace AwesomeCMSCore.Extension
                     "text/json",
                     // Custom
                     "image/svg+xml",
-                    "font/font-woff2",
-                    "application/font-woff2",
+                    "font/woff2",
                     "application/font-woff",
                     "application/font-ttf",
                     "application/font-eot",

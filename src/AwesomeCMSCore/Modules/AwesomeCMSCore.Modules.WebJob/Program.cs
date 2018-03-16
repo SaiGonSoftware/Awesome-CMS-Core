@@ -1,9 +1,9 @@
-﻿using IdentityModel.Client;
-using Newtonsoft.Json.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
+using IdentityModel.Client;
+using Newtonsoft.Json.Linq;
 
-namespace AwesomeCMSCore.Modules.Console
+namespace AwesomeCMSCore.Modules.WebJob
 {
     public class Program
     {

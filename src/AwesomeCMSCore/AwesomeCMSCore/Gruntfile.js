@@ -10,7 +10,6 @@ module.exports = function(grunt) {
           "../Modules/**/Views/**",
           "../Modules/**/bin/Debug/**/**/*.*",
           "../Modules/**/wwwroot/**",
-          "!../Modules/AwesomeCMSCore.Modules.Console/**",
           "!../Modules/AwesomeCMSCore.Modules.Frontend/**"
         ],
         dest: "./Modules/"

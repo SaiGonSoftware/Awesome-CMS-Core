@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Entities.Settings;
-using AwesomeCMSCore.Modules.Helper.Email;
+using AwesomeCMSCore.Modules.Email;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Serilog;
@@ -50,7 +49,7 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
 
             log.Information($"{exceptionMessage}\r\n{stacktrace}");
 
-            //await _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
+            await _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
         }
     }
 }

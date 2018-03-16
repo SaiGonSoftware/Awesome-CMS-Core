@@ -1,27 +1,17 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input
-} from "reactstrap";
 import toastr from "toastr";
 import qs from "qs";
 import PropTypes from "prop-types";
 
-import AwesomeInput from "../Common/AwesomeInput.jsx";
-import { navigateToUrl, isDomExist } from "../Helper/util";
-import env from "../Helper/envConfig";
-import statusCode from "./../Helper/StatusCode";
-import { setStorage } from "../Helper/storageHelper";
-import { AppEnum } from "./../Helper/appEnum";
-import { Post } from "../Helper/ajax";
-import Spinner from "../Common/Spinner.jsx";
+import AwesomeInput from "../../Common/AwesomeInput.jsx";
+import { navigateToUrl, isDomExist } from "../../Helper/util";
+import env from "../../Helper/envConfig";
+import statusCode from "../../Helper/StatusCode";
+import { setStorage } from "../../Helper/storageHelper";
+import { AppEnum } from "../../Helper/appEnum";
+import { Post } from "../../Helper/ajax";
+import Spinner from "../../Common/Spinner.jsx";
 
 function validate(username, password) {
   // true means invalid, so our conditions got reversed
@@ -124,9 +114,9 @@ class LoginForm extends Component {
       return <Spinner />;
     } else {
       return (
-        <Button color="primary" type="submit" disabled={isDisabled}>
+        <button className="btn btn-primary" type="submit" disabled={isDisabled}>
           Login
-        </Button>
+        </button>
       );
     }
   }
@@ -142,18 +132,18 @@ class LoginForm extends Component {
     };
 
     return (
-      <Container>
-        <Row>
-          <Col md="12" id="loginContainer">
-            <Form id="loginForm" onSubmit={this.login}>
+      <div className="container">
+        <div className="row">
+          <div className="col col-md-12" id="loginContainer">
+            <form id="loginForm" onSubmit={this.login}>
               <div className="panel-heading">
                 <h3 className="panel-title"> Admin portal </h3>
               </div>
               <div id="loginFormContent">
-                <FormGroup>
-                  <Label for="username" hidden>
+                <div className="form-group">
+                  <label htmlFor="username" hidden>
                     Username
-                  </Label>
+                  </label>
                   <AwesomeInput
                     className={shouldMarkError("username")}
                     type="text"
@@ -165,11 +155,11 @@ class LoginForm extends Component {
                     onChange={username => this.onChange(username)}
                     onBlur={username => this.onBlur(username)}
                   />
-                </FormGroup>
-                <FormGroup>
-                  <Label for="password" hidden>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="password" hidden>
                     Password
-                  </Label>
+                  </label>
                   <AwesomeInput
                     className={shouldMarkError("password")}
                     type="password"
@@ -181,23 +171,23 @@ class LoginForm extends Component {
                     onChange={password => this.onChange(password)}
                     onBlur={password => this.onBlur(password)}
                   />
-                </FormGroup>
-                <FormGroup check>
-                  <Label check>
-                    <Input
+                </div>
+                <div className="form-group">
+                  <label>
+                    <input
                       type="checkbox"
                       name="rememberMe"
                       onChange={rememberMe => this.onChange(rememberMe)}
                     />
                     Remember me ?
-                  </Label>
-                </FormGroup>
+                  </label>
+                </div>
                 {this.renderButton()}
               </div>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
+            </form>
+          </div>
+        </div>
+      </div>
     );
   }
 }

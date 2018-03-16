@@ -1,4 +1,4 @@
-﻿namespace AwesomeCMSCore.Modules.Helper.Email
+﻿namespace AwesomeCMSCore.Modules.Email
 {
     public enum EmailType
     {
