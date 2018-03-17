@@ -1,13 +1,14 @@
 ﻿using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Admin.Services;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Filter;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Admin.Controllers.API
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]/[action]")]
     public class TagController : Controller
     {
@@ -22,11 +23,10 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
             _userService = userService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateTag([FromBody] Tag tagModel)
+        [HttpPost, ValidModel]
+        public async Task<IActionResult> CreateTag(string tagName)
         {
-            var currentUserId =_userService.GetCurrentUserGuid();
-            await _tagService.CreateTag(tagModel, currentUserId);
+            await _tagService.CreateTag(tagName);
             return Ok();
         }
     }

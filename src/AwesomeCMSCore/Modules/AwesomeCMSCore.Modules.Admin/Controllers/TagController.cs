@@ -23,6 +23,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
+            await _tagService.CreateTag("['Technology',['Movies']]");
             return View();
         }
     }
