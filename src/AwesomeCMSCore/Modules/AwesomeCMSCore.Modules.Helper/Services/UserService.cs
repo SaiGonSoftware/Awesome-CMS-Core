@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
@@ -13,53 +14,47 @@ namespace AwesomeCMSCore.Modules.Helper.Services
     public class UserService : IUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IGenericRepository<User> _userRepository;
         private readonly UserManager<User> _userManager;
+
+        private readonly string _currentUserGuid;
+        private readonly string _currentUserName;
+        private readonly List<string> _currentUserRoles;
 
         public UserService(
             UserManager<User> userManager,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IGenericRepository<User> userRepository)
         {
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
+            _userRepository = userRepository;
+            _currentUserGuid = GetCurrentUserClaims().UserId;
+            _currentUserName = GetCurrentUserClaims().UserName;
+            _currentUserRoles = GetCurrentUserClaims().UserRoles;
         }
 
-        public Task<User> GetCurrentUserAsync()
+        public async Task<User> GetCurrentUserAsync()
         {
-            throw new NotImplementedException();
+           return await _userRepository.GetByIdAsync(_currentUserGuid);
         }
 
-        public Task<string> GetCurrentUserGuidAsync()
+        public string GetCurrentUserGuid()
         {
-            throw new NotImplementedException();
+            return _currentUserGuid;
         }
 
-        public Task<string> GetCurrentUserIdAsync()
+        public string GetCurrentUserName()
         {
-            var data = _httpContextAccessor.HttpContext.User.Identity.Name;
-
-            var data1 = _httpContextAccessor.HttpContext.User.Identities.ToList();
-            //foreach (var VARIABLE in data1)
-            //{
-            //    var name = VARIABLE.Name;
-            //}
-            var data2 = _httpContextAccessor.HttpContext.User.Claims.ToList();
-            GetCurrentUserClaims();
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return Task.FromResult(userId);
+            return _currentUserName;
         }
 
-        public Task<string> GetCurrentUserNameAsync()
+        public List<string> GetCurrentUserRole()
         {
-            var username = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
-            return Task.FromResult(username);
+            return _currentUserRoles;
         }
 
-        public Task<IEnumerable<string>> GetCurrentUserRole()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void GetCurrentUserClaims()
+        private UserClaims GetCurrentUserClaims()
         {
             var userClaims = new UserClaims();
             var claims = _httpContextAccessor.HttpContext.User.Claims.ToList();
@@ -67,21 +62,19 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             {
                 switch (claim.Type)
                 {
-                    case "sub":
+                    case UserClaimsKey.Sub:
                         userClaims.UserId = claim.Value;
                         break;
-                    case "name":
+                    case UserClaimsKey.Name:
                         userClaims.UserName = claim.Value;
                         break;
-                    case "role":
+                    case UserClaimsKey.Role:
                         userClaims.UserRoles.Add(claim.Value);
-                        break;
-                    default:
                         break;
                 }
             }
 
-            var data = userClaims;
+            return userClaims;
         }
     }
 }
