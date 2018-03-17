@@ -13,4 +13,13 @@ namespace AwesomeCMSCore.Modules.Entities.Entities
         public string UserId { get; set; }
         public List<string> UserRoles = new List<string>();
     }
+
+    public static class UserClaimsKey
+    {
+        public const string Sub = "sub";
+
+        public const string Name = "name";
+
+        public const string Role = "role";
+    }
 }
