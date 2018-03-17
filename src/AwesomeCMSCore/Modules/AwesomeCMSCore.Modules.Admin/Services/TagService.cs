@@ -19,5 +19,10 @@ namespace AwesomeCMSCore.Modules.Admin.Services
         {
             return await _tagRepository.GetAllAsync();
         }
+
+        public Task CreateTag(Tag tagModel, string currentUserId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

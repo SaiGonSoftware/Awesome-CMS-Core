@@ -22,6 +22,8 @@ using Microsoft.AspNetCore.ResponseCompression;
 using AwesomeCMSCore.Modules.Admin.Services;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Helper.Repository;
+using AwesomeCMSCore.Modules.Helper.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -120,9 +122,12 @@ namespace AwesomeCMSCore.Extension
 
         public static IServiceCollection InjectApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<ITagService, TagService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            services.AddTransient<ITagService, TagService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IEmailSender, EmailSender>();
 
             return services;

@@ -7,5 +7,6 @@ namespace AwesomeCMSCore.Modules.Admin.Services
     public interface ITagService
     {
         Task<ICollection<Tag>> GetAllTag();
+        Task CreateTag(Tag tagModel,string currentUserId);
     }
 }
