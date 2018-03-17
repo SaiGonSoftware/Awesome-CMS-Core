@@ -12,5 +12,6 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         Task<string> GetCurrentUserGuidAsync();
         Task<string> GetCurrentUserIdAsync();
         Task<string> GetCurrentUserNameAsync();
+        Task<IEnumerable<string>> GetCurrentUserRole();
     }
 }

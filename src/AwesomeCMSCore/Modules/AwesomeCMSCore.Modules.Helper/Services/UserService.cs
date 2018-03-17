@@ -23,7 +23,7 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<User> GetCurrentUserAsync()
+        public Task<User> GetCurrentUserAsync()
         {
             throw new NotImplementedException();
         }
@@ -35,7 +35,15 @@ namespace AwesomeCMSCore.Modules.Helper.Services
 
         public Task<string> GetCurrentUserIdAsync()
         {
-            var data = _httpContextAccessor.HttpContext.User;
+            var data = _httpContextAccessor.HttpContext.User.Identity.Name;
+
+            var data1 = _httpContextAccessor.HttpContext.User.Identities.ToList();
+            //foreach (var VARIABLE in data1)
+            //{
+            //    var name = VARIABLE.Name;
+            //}
+            var data2 = _httpContextAccessor.HttpContext.User.Claims.ToList();
+            GetCurrentUserClaims();
             var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return Task.FromResult(userId);
         }
@@ -44,6 +52,36 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         {
             var username = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
             return Task.FromResult(username);
+        }
+
+        public Task<IEnumerable<string>> GetCurrentUserRole()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void GetCurrentUserClaims()
+        {
+            var userClaims = new UserClaims();
+            var claims = _httpContextAccessor.HttpContext.User.Claims.ToList();
+            foreach (var claim in claims)
+            {
+                switch (claim.Type)
+                {
+                    case "sub":
+                        userClaims.UserId = claim.Value;
+                        break;
+                    case "name":
+                        userClaims.UserName = claim.Value;
+                        break;
+                    case "role":
+                        userClaims.UserRoles.Add(claim.Value);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            var data = userClaims;
         }
     }
 }
