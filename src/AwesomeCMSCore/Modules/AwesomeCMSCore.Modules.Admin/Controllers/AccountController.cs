@@ -41,25 +41,6 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             return View();
         }
 
-        [HttpPost("api/[controller]/[action]")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
-        {
-            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
-                model.RememberMe, lockoutOnFailure: false);
-
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-            if (result.IsLockedOut)
-            {
-                return Forbid();
-            }
-
-            return BadRequest();
-        }
-
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Lockout()
@@ -75,32 +56,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
-        {
-            ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
-            {
-                var user = new User { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToLocal(returnUrl);
-                }
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
