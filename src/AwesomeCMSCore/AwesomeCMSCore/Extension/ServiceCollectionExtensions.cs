@@ -21,8 +21,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using AwesomeCMSCore.Modules.Admin.Services;
 using AwesomeCMSCore.Modules.Email;
-using AwesomeCMSCore.Modules.Helper.Repository;
 using AwesomeCMSCore.Modules.Helper.Services;
+using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.AspNetCore.Http;
 
 namespace AwesomeCMSCore.Extension
@@ -125,6 +125,7 @@ namespace AwesomeCMSCore.Extension
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddTransient<ITagService, TagService>();
             services.AddTransient<IUserService, UserService>();

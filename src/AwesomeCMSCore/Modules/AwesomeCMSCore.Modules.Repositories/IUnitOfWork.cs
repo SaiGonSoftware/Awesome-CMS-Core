@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AwesomeCMSCore.Modules.Helper.Repository
+﻿namespace AwesomeCMSCore.Modules.Repositories
 {
     public interface IUnitOfWork
     {
