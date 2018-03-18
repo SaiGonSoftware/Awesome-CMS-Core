@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Entities.Entities;
-using AwesomeCMSCore.Modules.Helper.Repository;
+using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 

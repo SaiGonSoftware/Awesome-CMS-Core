@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Entities.Entities;
-using AwesomeCMSCore.Modules.Helper.Repository;
 using AwesomeCMSCore.Modules.Helper.Services;
+using AwesomeCMSCore.Modules.Repositories;
 
 namespace AwesomeCMSCore.Modules.Admin.Services
 {

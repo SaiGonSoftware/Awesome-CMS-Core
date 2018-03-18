@@ -19,5 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Email\AwesomeCMSCore.Modules.Email.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
+    <ProjectReference Include="..\AwesomeCMSCore.Modules.Repositories\AwesomeCMSCore.Modules.Repositories.csproj" />
   </ItemGroup>
 </Project>

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using AwesomeCMSCore.Modules.Entities.Data;
 
-namespace AwesomeCMSCore.Modules.Helper.Repository
+namespace AwesomeCMSCore.Modules.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
