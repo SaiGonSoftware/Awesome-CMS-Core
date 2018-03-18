@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Admin.Controllers.API
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]/[action]")]
     public class TagController : Controller
     {
