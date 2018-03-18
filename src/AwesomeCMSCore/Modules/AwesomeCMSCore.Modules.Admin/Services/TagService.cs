@@ -30,8 +30,7 @@ namespace AwesomeCMSCore.Modules.Admin.Services
             var tagModel = new Tag
             {
                 TagName = tagName,
-                User = await _userService.GetCurrentUserAsync(),
-                UniqeId = Guid.NewGuid()
+                User = await _userService.GetCurrentUserAsync()
             };
 
             await _tagRepository.AddAsync(tagModel);
