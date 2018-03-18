@@ -34,6 +34,7 @@
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Admin\AwesomeCMSCore.Modules.Admin.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />
+    <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Repositories\AwesomeCMSCore.Modules.Repositories.csproj" />
   </ItemGroup>
 
     <ItemGroup>
