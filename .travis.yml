@@ -1,6 +1,12 @@
 language: csharp
 mono: none
 dotnet: 2.0.0
+install:
+  - npm install
 script:
+  - cd src/AwesomeCMSCore/AwesomeCMSCore
+  - npm run lint:js
+  - npm run lint:style
+  - cd src/AwesomeCMSCore 
   - dotnet restore src/AwesomeCMSCore
   - dotnet build src/AwesomeCMSCore
