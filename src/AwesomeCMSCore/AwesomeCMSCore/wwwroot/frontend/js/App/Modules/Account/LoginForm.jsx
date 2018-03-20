@@ -36,7 +36,7 @@ class LoginForm extends Component {
   }
 
   validateErrors() {
-    var errors = validate(this.state.username, this.state.password);
+    const errors = validate(this.state.username, this.state.password);
     return errors;
   }
 

@@ -8,6 +8,7 @@ build:
 install:
   - cd src/AwesomeCMSCore/AwesomeCMSCore
   - npm install
+test_script: 
   - npm run lint:js
   - npm run lint:style
 before_build:
