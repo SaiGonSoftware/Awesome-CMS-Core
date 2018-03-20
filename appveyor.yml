@@ -16,7 +16,7 @@ shallow_clone: true
 test_script:
   - npm run lint:js
   - npm run lint:style
-  - cd src/AwesomeCMSCore 
+  - cd ../
   - dotnet restore
   - dotnet build
 cache:
