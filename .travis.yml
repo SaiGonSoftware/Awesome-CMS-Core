@@ -6,13 +6,13 @@ matrix:
       cache:
         directories:
         - "node_modules"
-      before_script: ['cd src/AwesomeCMSCore/AwesomeCMSCore']
-      script: [ 
-        'npm i -g eslint',
-        'npm install',
-        'npm run lint:js', 
-        'npm run lint:style'
-      ]
+      before_script: 
+        - "cd src/AwesomeCMSCore/AwesomeCMSCore"
+      script: 
+        - "npm install"
+        - "npm run lint:js"
+        - "npm run lint:style"
+    
 
     - language: csharp
       mono: none
