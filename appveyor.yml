@@ -8,9 +8,9 @@ build:
 install:
   - cd src/AwesomeCMSCore/AwesomeCMSCore
   - npm install
-before_build:
   - npm run lint:js
   - npm run lint:style
+before_build:
   - cd src/AwesomeCMSCore 
   - dotnet restore
   - dotnet build
