@@ -1,8 +1,8 @@
+image: Visual Studio 2017
 environment:
-  matrix:
-    - nodejs_version: '8'
-    - nodejs_version: '6'
-    - nodejs_version: '4'
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  nodejs_version: "8.10.0"
 install:
   - ps: Install-Product node $env:nodejs_version
   - npm install --global npm@latest
