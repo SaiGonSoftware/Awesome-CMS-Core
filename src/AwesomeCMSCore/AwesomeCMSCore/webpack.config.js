@@ -15,7 +15,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "csmcore.css"
+      filename: "cmscore.css"
     }),
     new webpack.ProvidePlugin({
       $: "jquery",

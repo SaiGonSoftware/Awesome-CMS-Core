@@ -7,12 +7,13 @@ class AwesomeInput extends Component {
   }
 
   render() {
+    const className = "form-control";
     const classNameError = "form-control is-invalid";
 
     return (
       <div>
         <input
-          className={this.props.className ? classNameError : ""}
+          className={this.props.className ? classNameError : className}
           id={this.props.id}
           type={this.props.type || "text"}
           name={this.props.name}
