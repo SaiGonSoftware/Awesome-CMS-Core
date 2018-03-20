@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Input } from "reactstrap";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 class AwesomeInput extends Component {
   constructor(props) {
@@ -12,7 +11,7 @@ class AwesomeInput extends Component {
 
     return (
       <div>
-        <Input
+        <input
           className={this.props.className ? classNameError : ""}
           id={this.props.id}
           type={this.props.type || "text"}
@@ -30,7 +29,7 @@ class AwesomeInput extends Component {
 
 AwesomeInput.propTypes = {
   className: PropTypes.bool,
-  id:PropTypes.string,
+  id: PropTypes.string,
   type: PropTypes.string,
   name: PropTypes.string,
   placeholder: PropTypes.string,

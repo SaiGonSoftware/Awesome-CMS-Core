@@ -1,8 +1,8 @@
 ﻿const path = require("path");
 const webpack = require("webpack");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const extractCSS = new ExtractTextPlugin("cmscore.css");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -14,36 +14,36 @@ module.exports = {
     publicPath: "/dist/"
   },
   plugins: [
-    extractCSS,
+    new MiniCssExtractPlugin({
+      filename: "csmcore.css"
+    }),
     new webpack.ProvidePlugin({
       $: "jquery",
-      jQuery: "jquery"
+      jQuery: "jquery",
+      Popper: ['popper.js', 'default']
     }),
-    new webpack.optimize.UglifyJsPlugin(),
+    new UglifyJsPlugin(),
     new CompressionPlugin({
       test: /\.(js|css)/
     })
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.scss$/,
-        use: extractCSS.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                minimize: true,
-                sourceMap: true
-              }
-            },
-            {
-              loader: "sass-loader"
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              minimize: true,
+              sourceMap: true
             }
-          ],
-          // use style-loader in development
-          fallback: "style-loader"
-        })
+          },
+          {
+            loader: "sass-loader"
+          }
+        ]
       },
       {
         test: /\.(js|jsx)$/,
