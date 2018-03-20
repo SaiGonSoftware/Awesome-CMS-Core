@@ -28,8 +28,8 @@
       color: inherit;
     }
 
-    Input[type="text"],
-    Input[type="password"] {
+    input[type="text"],
+    input[type="password"] {
       margin-bottom: 15px;
       width: 250px;
     }
@@ -38,7 +38,7 @@
       margin-bottom: 15px;
     }
 
-    Button {
+    button {
       width: 250px;
     }
   }
