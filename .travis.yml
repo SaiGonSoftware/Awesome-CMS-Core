@@ -4,6 +4,7 @@ matrix:
       before_script: ['cd src/AwesomeCMSCore/AwesomeCMSCore']
       script: ['npm install', 'npm run lint:js', 'npm run lint:style']
     - language: csharp
+      solution: AwesomeCMSCore.sln
       before_script: ['cd src/AwesomeCMSCore']
       script: ['dotnet restore', 'dotnet build']
 
