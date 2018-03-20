@@ -1,7 +1,4 @@
-image: Visual Studio 2017
 environment:
-  DOTNET_CLI_TELEMETRY_OPTOUT: true
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   matrix:
     - nodejs_version: '8'
     - nodejs_version: '6'
@@ -21,9 +18,3 @@ test_script:
   - npm run lint:style
 cache:
   - '%APPDATA%\npm-cache'
-build:
-    project: src/AwesomeCMSCore/AwesomeCMSCore.sln
-before_build:
-  - cd src/AwesomeCMSCore 
-  - dotnet restore
-  - dotnet build
