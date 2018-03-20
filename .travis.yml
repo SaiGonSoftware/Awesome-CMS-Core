@@ -1,8 +1,13 @@
 matrix:
   include:
     - language: node_js
+      before_install:
+      - npm i -g npm@8.10.0
       before_script: ['cd src/AwesomeCMSCore/AwesomeCMSCore']
       script: ['npm install', 'npm run lint:js', 'npm run lint:style']
+      cache:
+        directories:
+        - "node_modules"
     - language: csharp
       mono: none
       dotnet: 2.0.0
