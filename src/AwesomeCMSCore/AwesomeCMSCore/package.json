@@ -6,6 +6,7 @@
   "author": "TonyHudson",
   "license": "MIT",
   "scripts": {
+    "webpack-prod": "SET NODE_ENV=production webpack -p",
     "prod": "SET NODE_ENV=production& webpack -p",
     "start": "webpack",
     "lint:js": "eslint \"wwwroot/frontend/**/*.{js,jsx}\" --color",

@@ -20,6 +20,7 @@ module.exports = {
       jQuery: "jquery"
     }),
     new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.DedupePlugin(),
     new CompressionPlugin({
       test: /\.(js|css)/
     })
