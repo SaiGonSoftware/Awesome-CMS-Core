@@ -41,12 +41,12 @@ namespace AwesomeCMSCore.Modules.Helper.Services
 
         public string GetCurrentUserGuid()
         {
-            return _currentUserGuid;
+            return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
         public string GetCurrentUserName()
         {
-            return _currentUserName;
+            return _httpContextAccessor.HttpContext.User.Identity.Name;
         }
 
         public List<string> GetCurrentUserRole()
