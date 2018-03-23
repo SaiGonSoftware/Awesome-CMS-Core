@@ -19,8 +19,7 @@ namespace AwesomeCMSCore.Modules.Helper.Services
 
         private readonly string _currentUserGuid;
         private readonly string _currentUserName;
-        private readonly List<string> _currentUserRoles;
-
+        private readonly string _currentUserEmail;
         public UserService(
             UserManager<User> userManager,
             IHttpContextAccessor httpContextAccessor,
@@ -29,9 +28,9 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
-            _currentUserGuid = GetCurrentUserClaims().UserId;
-            _currentUserName = GetCurrentUserClaims().UserName;
-            _currentUserRoles = GetCurrentUserClaims().UserRoles;
+            _currentUserGuid = _httpContextAccessor.HttpContext.User.FindFirst(UserClaimsKey.Sub).Value;
+            _currentUserName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            _currentUserEmail = _userManager.FindByIdAsync(_currentUserGuid).Result.Email;
         }
 
         public async Task<User> GetCurrentUserAsync()
@@ -49,32 +48,23 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             return _currentUserName;
         }
 
-        public List<string> GetCurrentUserRole()
+        public string GetCurrentUserEmail()
         {
-            return _currentUserRoles;
+            return _currentUserEmail;
         }
 
-        private UserClaims GetCurrentUserClaims()
+        public List<string> GetCurrentRoles()
         {
-            var userClaims = new UserClaims();
+            var roleList = new List<string>();
             var claims = _httpContextAccessor.HttpContext.User.Claims.ToList();
+
             foreach (var claim in claims)
             {
-                switch (claim.Type)
-                {
-                    case UserClaimsKey.Sub:
-                        userClaims.UserId = claim.Value;
-                        break;
-                    case UserClaimsKey.Name:
-                        userClaims.UserName = claim.Value;
-                        break;
-                    case UserClaimsKey.Role:
-                        userClaims.UserRoles.Add(claim.Value);
-                        break;
-                }
+                if (claim.Type == UserClaimsKey.Role)
+                    roleList.Add(claim.Value);
             }
 
-            return userClaims;
+            return roleList;
         }
     }
 }
