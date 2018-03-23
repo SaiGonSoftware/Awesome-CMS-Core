@@ -23,8 +23,6 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var data1 = _userService.GetCurrentUserGuid();
-            var data2 = _userService.GetCurrentUserName();
             return View();
         }
     }
