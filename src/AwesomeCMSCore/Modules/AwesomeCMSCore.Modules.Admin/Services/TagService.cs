@@ -9,20 +9,20 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 {
     public class TagService : ITagService
     {
-        private readonly IGenericRepository<Tag> _tagRepository;
         private readonly IUserService _userService;
+        private readonly IUnitOfWork _unitOfWork;
 
         public TagService(
-            IGenericRepository<Tag> tagRepository,
-            IUserService userService)
+            IUserService userService,
+            IUnitOfWork unitOfWork)
         {
-            _tagRepository = tagRepository;
             _userService = userService;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<ICollection<Tag>> GetAllTag()
         {
-            return await _tagRepository.GetAllAsync();
+            return await _unitOfWork.Repository<Tag>().GetAllAsync();
         }
 
         public async Task CreateTag(string tagName)
@@ -33,7 +33,7 @@ namespace AwesomeCMSCore.Modules.Admin.Services
                 User = await _userService.GetCurrentUserAsync()
             };
 
-            await _tagRepository.AddAsync(tagModel);
+            await _unitOfWork.Repository<Tag>().AddAsync(tagModel);
         }
     }
 }
