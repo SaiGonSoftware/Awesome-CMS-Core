@@ -11,10 +11,12 @@ namespace AwesomeCMSCore.Modules.Repositories
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
         public GenericRepository(ApplicationDbContext context)
         {
             _context = context;
+            _unitOfWork = new UnitOfWork(context);
         }
 
         public ICollection<T> GetAll()
@@ -67,7 +69,7 @@ namespace AwesomeCMSCore.Modules.Repositories
         public async Task<T> AddAsync(T entity)
         {
             _context.Set<T>().Add(entity);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.Commit();
             return entity;
         }
 
@@ -94,7 +96,7 @@ namespace AwesomeCMSCore.Modules.Repositories
 
             _context.Set<T>().Attach(updated);
             _context.Entry(updated).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            await _unitOfWork.Commit();
 
             return updated;
         }
@@ -108,7 +110,7 @@ namespace AwesomeCMSCore.Modules.Repositories
         public async Task<int> DeleteAsync(T t)
         {
             _context.Set<T>().Remove(t);
-            return await _context.SaveChangesAsync();
+            return await _unitOfWork.Commit();
         }
 
         public int Count()

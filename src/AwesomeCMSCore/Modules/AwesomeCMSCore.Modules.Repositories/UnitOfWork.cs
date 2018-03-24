@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Entities.Data;
 
 namespace AwesomeCMSCore.Modules.Repositories
@@ -34,9 +35,9 @@ namespace AwesomeCMSCore.Modules.Repositories
         }
 
 
-        public void Commit()
+        public async Task<int> Commit()
         {
-            _dbContext.SaveChangesAsync();
+           return await _dbContext.SaveChangesAsync();
         }
 
         public void Rollback()

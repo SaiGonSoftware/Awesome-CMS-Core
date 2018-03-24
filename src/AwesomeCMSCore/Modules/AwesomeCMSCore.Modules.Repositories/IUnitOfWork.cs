@@ -1,10 +1,12 @@
-﻿namespace AwesomeCMSCore.Modules.Repositories
+﻿using System.Threading.Tasks;
+
+namespace AwesomeCMSCore.Modules.Repositories
 {
     public interface IUnitOfWork
     {
         IGenericRepository<T> Repository<T>() where T : class;
 
-        void Commit();
+        Task<int> Commit();
 
         void Rollback();
     }
