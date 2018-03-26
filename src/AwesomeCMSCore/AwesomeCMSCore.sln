@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Emai
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppModule", "AppModule", "{E7336353-0A8B-4D18-BD7D-0ADBA5A8A617}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeCMSCore.Modules.Queue", "Modules\AwesomeCMSCore.Modules.Queue\AwesomeCMSCore.Modules.Queue.csproj", "{1F9CED72-75BA-4C57-BFE5-3E282E0CAB73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{354C90BA-FC63-4303-89D3-C875BED00A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{354C90BA-FC63-4303-89D3-C875BED00A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{354C90BA-FC63-4303-89D3-C875BED00A62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F9CED72-75BA-4C57-BFE5-3E282E0CAB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F9CED72-75BA-4C57-BFE5-3E282E0CAB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F9CED72-75BA-4C57-BFE5-3E282E0CAB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F9CED72-75BA-4C57-BFE5-3E282E0CAB73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +86,7 @@ Global
 		{7CF7B9DB-020B-4C68-A2CE-437F9A4F7BE7} = {E7336353-0A8B-4D18-BD7D-0ADBA5A8A617}
 		{354C90BA-FC63-4303-89D3-C875BED00A62} = {E7336353-0A8B-4D18-BD7D-0ADBA5A8A617}
 		{E7336353-0A8B-4D18-BD7D-0ADBA5A8A617} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
+		{1F9CED72-75BA-4C57-BFE5-3E282E0CAB73} = {E7336353-0A8B-4D18-BD7D-0ADBA5A8A617}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14095F44-17CE-422B-9875-A9597D2BD3B0}
