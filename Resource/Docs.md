@@ -51,10 +51,6 @@ npm start
 Working dir for frontend is
 `\src\AwesomeCMSCore\AwesomeCMSCore\wwwroot\frontend`
 
-## Making PR
-
-Please add prefix `ACC-your-branch-name` if you want to make a PR. Thank you.
-
 ## Note
 
 Currently project using Hotmodule replacement for React so the time to bootsup project may take about 3 - 4sec (Just for development).
