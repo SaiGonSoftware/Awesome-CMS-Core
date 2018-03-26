@@ -19,7 +19,10 @@
 
 ## Docs
 
-[Docs.md](https://github.com/Awesome-CMS-Core/Awesome-CMS-Core/blob/master/Resource/Docs.md) for setup, prerequisites and project architecture
+Please read
+
+* [Docs.md](https://github.com/Awesome-CMS-Core/Awesome-CMS-Core/blob/master/Resource/Docs.md) for setup, prerequisites and project architecture.
+* [Contributing.md](https://github.com/Awesome-CMS-Core/Awesome-CMS-Core/blob/master/Contributing.md) for development guideline.
 
 ## App insider (Continue to Update)
 
