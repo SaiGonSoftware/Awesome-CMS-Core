@@ -63,3 +63,6 @@ ASP.Net
 Layout
 * https://www.bootstrapdash.com/bootstrap-4-admin-templates/
 * http://www.os-templates.com/page-templates
+
+Message Queue
+* http://looselycoupledlabs.com/2014/07/a-real-world-masstransit-customer-portal-example/
