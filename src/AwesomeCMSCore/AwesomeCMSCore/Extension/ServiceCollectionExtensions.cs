@@ -23,6 +23,7 @@ using AwesomeCMSCore.Modules.Admin.Services;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
+using MassTransit;
 using Microsoft.AspNetCore.Http;
 
 namespace AwesomeCMSCore.Extension
@@ -77,7 +78,8 @@ namespace AwesomeCMSCore.Extension
             return services;
         }
 
-        public static IServiceCollection AddCustomizedMvc(this IServiceCollection services, IList<ModuleInfo> modules, IConfiguration configuration, IHostingEnvironment hostingEnvironment)
+        public static IServiceCollection AddCustomizedMvc(this IServiceCollection services, IList<ModuleInfo> modules,
+            IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             var mvcBuilder = services
                 .AddMvc()
@@ -85,7 +87,8 @@ namespace AwesomeCMSCore.Extension
                 {
                     foreach (var module in modules)
                     {
-                        o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
+                        o.AdditionalCompilationReferences.Add(
+                            MetadataReference.CreateFromFile(module.Assembly.Location));
                     }
                 });
 
@@ -134,10 +137,12 @@ namespace AwesomeCMSCore.Extension
             return services;
         }
 
-        public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services,
+            IConfiguration configuration)
         {
             services.AddDbContextPool<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("AwesomeCMSCore")).UseOpenIddict());
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly("AwesomeCMSCore")).UseOpenIddict());
 
             return services;
         }
@@ -175,7 +180,7 @@ namespace AwesomeCMSCore.Extension
 
                 // Enable the password and the refresh token flows.
                 options.AllowPasswordFlow()
-                       .AllowRefreshTokenFlow();
+                    .AllowRefreshTokenFlow();
 
                 // During development, you can disable the HTTPS requirement.
                 options.DisableHttpsRequirement();
@@ -216,12 +221,14 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection InjectAppConfig(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+
             return services;
         }
 
         public static IServiceCollection RegisterGzip(this IServiceCollection services)
         {
-            services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
+            services.Configure<GzipCompressionProviderOptions>(options =>
+                options.Level = System.IO.Compression.CompressionLevel.Optimal);
             services.AddResponseCompression(options =>
             {
                 options.MimeTypes = new[]
@@ -245,6 +252,12 @@ namespace AwesomeCMSCore.Extension
                     "image/png"
                 };
             });
+
+            return services;
+        }
+
+        public static IServiceCollection RegisterBus(this IServiceCollection services, IConfiguration configuration)
+        {
             return services;
         }
     }

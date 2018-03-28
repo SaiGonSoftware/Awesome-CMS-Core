@@ -1,13 +1,17 @@
-﻿using AwesomeCMSCore.Infrastructure.Module;
+﻿using System;
+using AwesomeCMSCore.Infrastructure.Module;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using System.IO;
+using Autofac;
 using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using AwesomeCMSCore.Modules.Helper.ProtectPath;
+using MassTransit;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using MassTransit.Util;
 
 namespace AwesomeCMSCore.Extension
 {
