@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -36,5 +35,4 @@ namespace AwesomeCMSCore.Modules.WebJob
             }
         }
     }
-
 }

@@ -8,7 +8,6 @@ namespace AwesomeCMSCore.Modules.Client.Controllers
 {
     public class HomeController : Controller
     {
-
         public async Task<IActionResult> Index()
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
