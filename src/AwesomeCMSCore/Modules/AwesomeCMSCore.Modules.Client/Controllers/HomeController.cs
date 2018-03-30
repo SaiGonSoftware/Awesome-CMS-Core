@@ -15,7 +15,7 @@ namespace AwesomeCMSCore.Modules.Client.Controllers
             using (var channel = connection.CreateModel())
             {
                 channel.QueueDeclare(queue: "hello",
-                    durable: false,
+                    durable: true,
                     exclusive: false,
                     autoDelete: false,
                     arguments: null);
@@ -23,9 +23,13 @@ namespace AwesomeCMSCore.Modules.Client.Controllers
                 string message = "Hello World!";
                 var body = Encoding.UTF8.GetBytes(message);
 
+                // Message durability setup
+                var properties = channel.CreateBasicProperties();
+                properties.Persistent = true;
+
                 channel.BasicPublish(exchange: "",
                     routingKey: "hello",
-                    basicProperties: null,
+                    basicProperties: properties,
                     body: body);
             }
 
