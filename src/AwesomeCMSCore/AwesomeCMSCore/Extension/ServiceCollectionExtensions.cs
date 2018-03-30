@@ -23,7 +23,6 @@ using AwesomeCMSCore.Modules.Admin.Services;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
-using MassTransit;
 using Microsoft.AspNetCore.Http;
 using AwesomeCMSCore.Modules.Queue;
 

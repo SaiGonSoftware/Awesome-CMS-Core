@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace AwesomeCMSCore.Modules.Entities.Entities
 {

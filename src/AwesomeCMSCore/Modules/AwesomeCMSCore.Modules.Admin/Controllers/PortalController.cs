@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Admin.Services;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Admin.Controllers
