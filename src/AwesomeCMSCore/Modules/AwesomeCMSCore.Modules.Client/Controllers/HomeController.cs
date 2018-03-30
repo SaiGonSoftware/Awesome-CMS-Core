@@ -13,7 +13,6 @@ namespace AwesomeCMSCore.Modules.Client.Controllers
 
         public IActionResult Index()
         {
-            _queueService.PublishMessage("hello","test","hello");
             return View();
         }
     }

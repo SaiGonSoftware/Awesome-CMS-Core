@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using System.Text;
+using EasyNetQ;
+using Newtonsoft.Json;
 
 namespace AwesomeCMSCore.Modules.Queue
 {
@@ -32,7 +34,8 @@ namespace AwesomeCMSCore.Modules.Queue
                     autoDelete: false,
                     arguments: null);
 
-                var body = Encoding.UTF8.GetBytes(message);
+                var mess = JsonConvert.SerializeObject(new QueueMessage {Message = message});
+                var body = Encoding.UTF8.GetBytes(mess);
 
                 // Message durability setup
                 var properties = channel.CreateBasicProperties();
@@ -43,7 +46,6 @@ namespace AwesomeCMSCore.Modules.Queue
                     basicProperties: properties,
                     body: body);
             }
-
         }
     }
 }
