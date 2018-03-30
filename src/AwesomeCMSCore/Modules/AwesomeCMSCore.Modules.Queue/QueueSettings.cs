@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AwesomeCMSCore.Modules.Queue
 {
-    public class BusSettings
+    public class QueueSettings
     {
         public string Host { get; set; }
         public string Username { get; set; }

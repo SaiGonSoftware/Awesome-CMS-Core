@@ -25,6 +25,7 @@ using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
 using MassTransit;
 using Microsoft.AspNetCore.Http;
+using AwesomeCMSCore.Modules.Queue;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -127,9 +128,10 @@ namespace AwesomeCMSCore.Extension
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddScoped<IQueueService, QueueService>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ITagService, TagService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IEmailSender, EmailSender>();
@@ -221,6 +223,7 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection InjectAppConfig(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            services.Configure<QueueSettings>(configuration.GetSection("QueueSettings"));
 
             return services;
         }
