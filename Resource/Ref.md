@@ -66,3 +66,6 @@ Layout
 
 Message Queue
 * http://looselycoupledlabs.com/2014/07/a-real-world-masstransit-customer-portal-example/
+* https://www.cloudamqp.com/blog/2015-09-03-part4-rabbitmq-for-beginners-exchanges-routing-keys-bindings.html
+* https://dotnetcodr.com/2014/06/05/rabbitmq-in-net-data-serialisation/
+* https://github.com/EasyNetQ/EasyNetQ/wiki/Subscribe

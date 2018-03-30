@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Admin.Services;
-using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

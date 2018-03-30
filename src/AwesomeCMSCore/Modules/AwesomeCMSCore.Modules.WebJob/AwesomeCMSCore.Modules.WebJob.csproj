@@ -7,4 +7,12 @@
     <StartupObject />
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AwesomeCMSCore.Modules.Client\AwesomeCMSCore.Modules.Client.csproj" />
+  </ItemGroup>
+
 </Project>

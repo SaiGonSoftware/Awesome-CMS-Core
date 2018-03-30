@@ -14,7 +14,9 @@ namespace AwesomeCMSCore
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IConfiguration _configuration;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
+        public Startup(
+            IConfiguration configuration,
+            IHostingEnvironment hostingEnvironment)
         {
             _configuration = configuration;
             _hostingEnvironment = hostingEnvironment;
@@ -32,6 +34,7 @@ namespace AwesomeCMSCore
             services.Configure<RazorViewEngineOptions>(options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
             services.AddCustomizedMvc(GlobalConfiguration.Modules, _configuration, _hostingEnvironment);
             services.RegisterGzip();
+            services.RegisterBus(_configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
