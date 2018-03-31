@@ -30,7 +30,12 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
         public async Task<IActionResult> CreateTag(string tagName)
         {
             var tagNameList = JsonConvert.DeserializeObject<IEnumerable<string>>(tagName) ?? Enumerable.Empty<string>();
-            if (!tagNameList.Any()) return BadRequest();
+
+            if (!tagNameList.Any())
+            {
+                return BadRequest();
+            }
+
             await _tagService.CreateTag(tagName);
             return Ok();
         }
