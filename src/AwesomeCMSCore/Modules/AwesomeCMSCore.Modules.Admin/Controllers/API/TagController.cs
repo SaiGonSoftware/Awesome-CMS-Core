@@ -1,13 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Admin.Services;
-using AwesomeCMSCore.Modules.Helper.Filter;
 using AwesomeCMSCore.Modules.Helper.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace AwesomeCMSCore.Modules.Admin.Controllers.API
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]/[action]")]
     public class TagController : Controller
     {
@@ -15,16 +19,18 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
         private readonly IUserService _userService;
 
         public TagController(
-            ITagService tagService, 
+            ITagService tagService,
             IUserService userService)
         {
             _tagService = tagService;
             _userService = userService;
         }
 
-        [HttpPost, ValidModel]
+        [HttpPost]
         public async Task<IActionResult> CreateTag(string tagName)
         {
+            var tagNameList = JsonConvert.DeserializeObject<IEnumerable<string>>(tagName) ?? Enumerable.Empty<string>();
+            if (!tagNameList.Any()) return BadRequest();
             await _tagService.CreateTag(tagName);
             return Ok();
         }

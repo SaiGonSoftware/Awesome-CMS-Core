@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -25,6 +26,7 @@ using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.AspNetCore.Http;
 using AwesomeCMSCore.Modules.Queue;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -177,7 +179,12 @@ namespace AwesomeCMSCore.Extension
                 options.AddMvcBinders();
 
                 // Enable the token endpoint.
-                options.EnableTokenEndpoint("/connect/token");
+                options
+                    .EnableTokenEndpoint("/connect/token")
+                    .EnableAuthorizationEndpoint("/connect/authorize")
+                    .EnableLogoutEndpoint("/connect/logout")
+                    .EnableIntrospectionEndpoint("/connect/introspect")
+                    .EnableUserinfoEndpoint("/connect/userinfo");
 
                 // Enable the password and the refresh token flows.
                 options.AllowPasswordFlow()
@@ -193,28 +200,27 @@ namespace AwesomeCMSCore.Extension
                 // Note: to use JWT access tokens instead of the default
                 // encrypted format, the following lines are required:
                 //
-                //options.AddEphemeralSigningKey();
-                //options.UseJsonWebTokens();
+                options.AddEphemeralSigningKey();
+                options.UseJsonWebTokens();
             });
 
+            services.AddAuthentication();
+
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
+
             services.AddAuthentication()
-                .AddOAuthValidation();
-
-            //JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            //JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
-
-            //services.AddAuthentication()
-            //     .AddJwtBearer(options =>
-            //     {
-            //         options.Authority = "http://localhost:5000/";
-            //         options.Audience = "resource_server";
-            //         options.RequireHttpsMetadata = false;
-            //         options.TokenValidationParameters = new TokenValidationParameters
-            //         {
-            //             NameClaimType = OpenIdConnectConstants.Claims.Subject,
-            //             RoleClaimType = OpenIdConnectConstants.Claims.Role
-            //         };
-            //     });
+                 .AddJwtBearer(options =>
+                 {
+                     options.Authority = "http://localhost:5000/";
+                     options.Audience = "resource_server";
+                     options.RequireHttpsMetadata = false;
+                     options.TokenValidationParameters = new TokenValidationParameters
+                     {
+                         NameClaimType = OpenIdConnectConstants.Claims.Subject,
+                         RoleClaimType = OpenIdConnectConstants.Claims.Role
+                     };
+                 });
 
             return services;
         }

@@ -49,7 +49,7 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
 
             log.Information($"{exceptionMessage}\r\n{stacktrace}");
 
-            await _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
+            //await _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
         }
     }
 }
