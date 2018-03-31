@@ -7,8 +7,6 @@ import { isDomExist } from "../../Helper/util";
 import TagCreate from "./TagCreate.jsx";
 import Spinner from "../../Common/Spinner.jsx";
 import env from "./../../Helper/envConfig";
-import statusCode from "./../../Helper/StatusCode";
-import toastr from "toastr";
 
 class TagCreateContainer extends Component {
   constructor(props) {
@@ -29,9 +27,8 @@ class TagCreateContainer extends Component {
     e.preventDefault();
     this.setState({ loading: true });
     const inputData = JSON.stringify(this.state.value.map(x => x.value));
-    Post(env.tagCreate, qs.stringify({ tagName: inputData })).then(res => {
-      this.setState({ loading: false });
-    });
+    Post(env.tagCreate, qs.stringify({ tagName: inputData }));
+    this.setState({ loading: false });
   };
 
   renderButton() {
