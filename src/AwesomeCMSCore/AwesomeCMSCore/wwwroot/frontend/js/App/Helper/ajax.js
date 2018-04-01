@@ -14,11 +14,7 @@ export function Post(url, data) {
     headers: { Authorization: "Bearer " + authHeader }
   };
 
-  return axios.post(url, data, config).then(res => {
-    if (res.status === statusCode.Success) toastr.success("Done");
-    if (res.status === statusCode.BadRequest)
-      toastr.error("Something went wrong please try again");
-  });
+  return axios.post(url, data, config);
 }
 
 function initAuthHeaders() {

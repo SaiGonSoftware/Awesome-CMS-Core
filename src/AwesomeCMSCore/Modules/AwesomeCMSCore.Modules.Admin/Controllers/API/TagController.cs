@@ -29,9 +29,16 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
         [HttpPost]
         public async Task<IActionResult> CreateTag(string tagName)
         {
+            if (string.IsNullOrEmpty(tagName))
+            {
+                return BadRequest();
+            }
+
             var tagNameList = JsonConvert.DeserializeObject<IEnumerable<string>>(tagName) ?? Enumerable.Empty<string>();
 
-            if (!tagNameList.Any())
+            var nameList = tagNameList as string[] ?? tagNameList.ToArray();
+
+            if (!nameList.Any() || nameList.GroupBy(x => x).Any(x => x.Count() > 1))
             {
                 return BadRequest();
             }
