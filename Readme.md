@@ -30,7 +30,7 @@ Please read
 Graphs
 ------
 
-[![Throughput Graph](https://graphs.waffle.io/Awesome-CMS-Core/Awesome-CMS-Core/throughput.svg)]
+![Throughput Graph](https://graphs.waffle.io/Awesome-CMS-Core/Awesome-CMS-Core/throughput.svg)
 
 App insider (Continue to Update)
 ------
