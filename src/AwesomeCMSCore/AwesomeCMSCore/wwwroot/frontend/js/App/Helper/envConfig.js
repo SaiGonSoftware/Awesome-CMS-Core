@@ -7,7 +7,8 @@ if (isDevEnviroment()) {
     tokenUrl: "connect/token",
     loginUrl: "api/Account/Login",
     portal: "http://localhost:5000/Portal/Index",
-    tagCreate : 'api/Tag/CreateTag'
+    tagCreate: "api/Tag/CreateTag",
+    tag: "api/Tag/GetTag"
   };
   axios.defaults.baseURL = "http://localhost:5000/";
 } else {

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace AwesomeCMSCore.Modules.Admin.Services
 {
@@ -19,16 +21,17 @@ namespace AwesomeCMSCore.Modules.Admin.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ICollection<Tag>> GetAllTag()
+        public async Task<List<Tag>> GetAllTag()
         {
-            return await _unitOfWork.Repository<Tag>().GetAllAsync();
+            var currentUserId = _userService.GetCurrentUserGuid();
+            return await _unitOfWork.Repository<Tag>().FindBy(x => x.User.Id == currentUserId).ToListAsync();
         }
 
-        public async Task CreateTag(string tagName)
+        public async Task CreateTag(string tagData)
         {
             var tagModel = new Tag
             {
-                TagName = tagName,
+                TagData = tagData,
                 User = await _userService.GetCurrentUserAsync()
             };
 

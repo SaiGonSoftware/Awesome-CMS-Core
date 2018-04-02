@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import qs from "qs";
+import toastr from "toastr";
 
-import { Post } from "../../Helper/ajax";
+import { Get, Post } from "../../Helper/ajax";
 import { isDomExist } from "../../Helper/util";
 import TagCreate from "./TagCreate.jsx";
 import Spinner from "../../Common/Spinner.jsx";
 import env from "./../../Helper/envConfig";
+import statusCode from "./../../Helper/StatusCode";
 
 class TagCreateContainer extends Component {
   constructor(props) {
@@ -19,6 +21,16 @@ class TagCreateContainer extends Component {
     };
   }
 
+  componentDidMount() {
+    Get(env.tag).then(res => {
+      let selectedOptions = res.data.map(option => ({ label: option.tagData, value: option.tagData }));
+      console.log(JSON.parse(selectedOptions));
+      if (selectedOptions.length > 0) {
+        //this.setState({ value: this.state.value.concat([selectedOptions]) });
+      }
+    });
+  }
+
   handleOnChange = value => {
     this.setState({ value });
   };
@@ -27,8 +39,15 @@ class TagCreateContainer extends Component {
     e.preventDefault();
     this.setState({ loading: true });
     const inputData = JSON.stringify(this.state.value.map(x => x.value));
-    Post(env.tagCreate, qs.stringify({ tagName: inputData }));
-    this.setState({ loading: false });
+    Post(env.tagCreate, qs.stringify({ tagData: inputData })).then(res => {
+      if (res.status === statusCode.Success) {
+        toastr.success("Create success");
+      } else {
+        toastr.error("Something went wrong");
+      }
+
+      this.setState({ loading: false });
+    });
   };
 
   renderButton() {

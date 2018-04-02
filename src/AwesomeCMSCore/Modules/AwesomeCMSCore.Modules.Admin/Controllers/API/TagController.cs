@@ -25,16 +25,21 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
             _tagService = tagService;
             _userService = userService;
         }
+        
+        public async Task<IActionResult> GetTag()
+        {
+            return Ok(await _tagService.GetAllTag());
+        }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTag(string tagName)
+        public async Task<IActionResult> CreateTag(string tagData)
         {
-            if (string.IsNullOrEmpty(tagName))
+            if (string.IsNullOrEmpty(tagData))
             {
                 return BadRequest();
             }
 
-            var tagNameList = JsonConvert.DeserializeObject<IEnumerable<string>>(tagName) ?? Enumerable.Empty<string>();
+            var tagNameList = JsonConvert.DeserializeObject<IEnumerable<string>>(tagData) ?? Enumerable.Empty<string>();
 
             var nameList = tagNameList as string[] ?? tagNameList.ToArray();
 
@@ -43,7 +48,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
                 return BadRequest();
             }
 
-            await _tagService.CreateTag(tagName);
+            await _tagService.CreateTag(tagData);
             return Ok();
         }
     }
