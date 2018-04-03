@@ -54,9 +54,16 @@ namespace AwesomeCMSCore.Extension
             }
 
             #region Custom Middleware
-            //get 404 because of this. invetigate later
-            //app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseExceptionHandler("/Error/500");
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/Error/404";
+                    await next();
+                }
+            });
             app.UseExceptionless("NvjyUM7jZdHylprZ5oAPxEpBmvgZXnYZxVyUf5y5");
             app.UseProtectFolder(new ProtectFolderOptions
             {
