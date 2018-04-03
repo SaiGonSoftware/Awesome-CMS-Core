@@ -27,7 +27,6 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 
         public async Task<List<Tag>> GetAllTag()
         {
-           
             return await _unitOfWork.Repository<Tag>().FindBy(x => x.User.Id == _currentUserId).ToListAsync();
         }
 
