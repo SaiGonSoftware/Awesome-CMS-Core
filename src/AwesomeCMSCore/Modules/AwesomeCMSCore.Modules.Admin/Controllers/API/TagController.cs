@@ -36,7 +36,14 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
         [HttpPost, ValidModel]
         public async Task<IActionResult> CreateTag([FromBody]TagDataViewModel tagDataVm)
         {
-            await _tagService.CreateTag(tagDataVm);
+            if (_tagService.IsTagExist())
+            {
+                await _tagService.UpdateTag(tagDataVm);
+            }
+            else
+            {
+                await _tagService.CreateTag(tagDataVm);
+            }
             return Ok();
         }
     }

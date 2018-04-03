@@ -9,5 +9,7 @@ namespace AwesomeCMSCore.Modules.Admin.Services
     {
         Task<List<Tag>> GetAllTag();
         Task CreateTag(TagDataViewModel tagData);
+        Task UpdateTag(TagDataViewModel tagData);
+        bool IsTagExist();
     }
 }

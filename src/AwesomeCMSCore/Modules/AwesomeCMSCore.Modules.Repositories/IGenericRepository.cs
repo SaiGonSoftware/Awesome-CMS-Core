@@ -48,5 +48,7 @@ namespace AwesomeCMSCore.Modules.Repositories
             int? pageSize = null);
 
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
+
+        bool Exist(Expression<Func<T, bool>> predicate);
     }
 }
