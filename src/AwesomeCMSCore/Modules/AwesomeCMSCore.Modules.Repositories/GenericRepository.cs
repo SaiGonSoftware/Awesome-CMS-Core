@@ -158,5 +158,11 @@ namespace AwesomeCMSCore.Modules.Repositories
         {
             return _context.Set<T>().Where(predicate);
         }
+
+        public bool Exist(Expression<Func<T, bool>> predicate)
+        {
+            var exist = _context.Set<T>().Where(predicate);
+            return exist.Any() ? true : false;
+        }
     }
 }

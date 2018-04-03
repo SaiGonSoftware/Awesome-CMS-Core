@@ -1,26 +1,76 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import toastr from "toastr";
 
+import { Get, Post } from "../../Helper/ajax";
 import { isDomExist } from "../../Helper/util";
 import TagCreate from "./TagCreate.jsx";
+import Spinner from "../../Common/Spinner.jsx";
+import env from "./../../Helper/envConfig";
+import statusCode from "./../../Helper/StatusCode";
 
 class TagCreateContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      multi: true,
+      loading: false,
       options: [],
       value: []
     };
-    this.handleOnChange = this.handleOnChange.bind(this);
   }
 
-  handleOnChange(value) {
+  componentDidMount() {
+    Get(env.tag).then(res => {
+      this.setState({ value: JSON.parse(res.data.map(x => x.tagOptions)) });
+    });
+  }
+
+  handleOnChange = value => {
     this.setState({ value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.setState({ loading: true });
+    const tagData = JSON.stringify(this.state.value.map(x => x.value));
+    const tagOptions = JSON.stringify(this.state.value);
+    const tagDataVm = {
+      tagData,
+      tagOptions
+    };
+
+    Post(env.tagCreate, tagDataVm).then(res => {
+      if (res.status === statusCode.Success) {
+        toastr.success("Create success");
+      } else {
+        toastr.error("Something went wrong");
+      }
+
+      this.setState({ loading: false });
+    });
+  };
+
+  renderButton() {
+    const isDataNotValid = this.state.value.length === 0;
+
+    if (this.state.loading) {
+      return <Spinner />;
+    } else {
+      return (
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={this.handleSubmit}
+          disabled={isDataNotValid}
+        >
+          Save
+        </button>
+      );
+    }
   }
 
   render() {
-    const { options, value, multi } = this.state;
+    const { options, value } = this.state;
 
     return (
       <div className="container">
@@ -35,13 +85,10 @@ class TagCreateContainer extends Component {
                   id="tagCreate"
                   {...options}
                   value={value}
-                  multi={multi}
                   handleOnChange={this.handleOnChange}
                 />
                 <br />
-                <a href="#" className="btn btn-primary">
-                  Save
-                </a>
+                {this.renderButton()}
               </div>
             </div>
           </div>

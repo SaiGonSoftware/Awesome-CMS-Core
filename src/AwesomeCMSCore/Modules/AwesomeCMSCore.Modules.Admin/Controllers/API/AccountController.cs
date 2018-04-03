@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Admin.Controllers.API
 {
-
     [Authorize]
     [Route("api/[controller]/[action]")]
     public class AccountController : Controller

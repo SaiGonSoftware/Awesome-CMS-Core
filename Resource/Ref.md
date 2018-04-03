@@ -47,6 +47,7 @@ React
 * https://jsbin.com/cuyuze/11/edit?html,css,js,output
 * https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
 * https://codeburst.io/validating-props-easily-with-react-proptypes-96e80208207
+* https://stackoverflow.com/questions/41612200/in-react-js-should-i-make-my-initial-network-request-in-componentwillmount-or-co
 
 ASP.Net
 * https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?tabs=aspnetcore2x

@@ -26,7 +26,7 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
             try
             {
                 await _next(context);
-                if (context.Request.Path.Value.StartsWith("/api"))
+                if (context.Request.Path.Value.StartsWith("/api") && context.Response.StatusCode != (int)HttpStatusCode.OK)
                 {
                     await context.Response.WriteAsync(context.Response.StatusCode.ToString());
                 }
@@ -49,7 +49,7 @@ namespace AwesomeCMSCore.Modules.Helper.ExceptionHandler
 
             log.Information($"{exceptionMessage}\r\n{stacktrace}");
 
-            await _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
+            //await _emailSender.SendEmailAsync(_emailSetting.Value.SysAdminEmail, stacktrace, EmailType.SystemLog);
         }
     }
 }

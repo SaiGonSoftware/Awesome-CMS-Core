@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 
 namespace AwesomeCMSCore.Modules.Admin.Services
 {
     public interface ITagService
     {
-        Task<ICollection<Tag>> GetAllTag();
-        Task CreateTag(string tagName);
+        Task<List<Tag>> GetAllTag();
+        Task CreateTag(TagDataViewModel tagData);
+        Task UpdateTag(TagDataViewModel tagData);
+        bool IsTagExist();
     }
 }

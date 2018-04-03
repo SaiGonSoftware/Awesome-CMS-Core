@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AwesomeCMSCore.Migrations
 {
-    public partial class InitDB : Migration
+    public partial class InitDB_20180304_170430 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -101,22 +101,6 @@ namespace AwesomeCMSCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OpenIddictScopes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TagGroups",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DateCreate = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    UniqeId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TagGroups", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -268,6 +252,30 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateCreate = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    TagData = table.Column<string>(nullable: true),
+                    TagOptions = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tags_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictAuthorizations",
                 columns: table => new
                 {
@@ -292,24 +300,34 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tags",
+                name: "Posts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Content = table.Column<string>(nullable: true),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
-                    TagGroupId = table.Column<int>(nullable: true),
-                    TagName = table.Column<string>(nullable: true),
-                    UniqeId = table.Column<Guid>(nullable: false)
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    ShortDescription = table.Column<string>(nullable: true),
+                    TagsId = table.Column<int>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.PrimaryKey("PK_Posts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tags_TagGroups_TagGroupId",
-                        column: x => x.TagGroupId,
-                        principalTable: "TagGroups",
+                        name: "FK_Posts_Tags_TagsId",
+                        column: x => x.TagsId,
+                        principalTable: "Tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Posts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -349,32 +367,29 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "TagOptions",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Content = table.Column<string>(nullable: true),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    ShortDescription = table.Column<string>(nullable: true),
-                    TagsId = table.Column<int>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
+                    Options = table.Column<string>(nullable: true),
+                    PostId = table.Column<int>(nullable: true),
                     UniqeId = table.Column<Guid>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.PrimaryKey("PK_TagOptions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Posts_Tags_TagsId",
-                        column: x => x.TagsId,
-                        principalTable: "Tags",
+                        name: "FK_TagOptions_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Posts_AspNetUsers_UserId",
+                        name: "FK_TagOptions_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -470,9 +485,19 @@ namespace AwesomeCMSCore.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tags_TagGroupId",
+                name: "IX_TagOptions_PostId",
+                table: "TagOptions",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TagOptions_UserId",
+                table: "TagOptions",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tags_UserId",
                 table: "Tags",
-                column: "TagGroupId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -505,7 +530,7 @@ namespace AwesomeCMSCore.Migrations
                 name: "OpenIddictTokens");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "TagOptions");
 
             migrationBuilder.DropTable(
                 name: "Themes");
@@ -517,16 +542,16 @@ namespace AwesomeCMSCore.Migrations
                 name: "OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
-                name: "Tags");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
 
             migrationBuilder.DropTable(
-                name: "TagGroups");
+                name: "Tags");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

@@ -11,8 +11,8 @@ using System;
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180312163756_InitDB")]
-    partial class InitDB
+    [Migration("20180403100506_InitDB_20180304_170430")]
+    partial class InitDB_20180304_170430
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,20 +86,22 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<int?>("TagGroupId");
+                    b.Property<string>("TagData");
 
-                    b.Property<string>("TagName");
+                    b.Property<string>("TagOptions");
 
                     b.Property<Guid>("UniqeId");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("TagGroupId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.TagGroup", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.TagOptions", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -108,13 +110,21 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Options");
+
+                    b.Property<int?>("PostId");
 
                     b.Property<Guid>("UniqeId");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
 
-                    b.ToTable("TagGroups");
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TagOptions");
                 });
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Theme", b =>
@@ -479,9 +489,20 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Tag", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.TagGroup", "TagGroup")
-                        .WithMany("Tags")
-                        .HasForeignKey("TagGroupId");
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.TagOptions", b =>
+                {
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId");
+
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

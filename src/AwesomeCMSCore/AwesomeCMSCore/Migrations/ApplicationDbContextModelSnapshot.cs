@@ -85,7 +85,9 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<string>("TagName");
+                    b.Property<string>("TagData");
+
+                    b.Property<string>("TagOptions");
 
                     b.Property<Guid>("UniqeId");
 
