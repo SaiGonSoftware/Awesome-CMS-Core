@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Admin.Services;
+using AwesomeCMSCore.Modules.Admin.ViewModels;
+using AwesomeCMSCore.Modules.Helper.Filter;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -25,30 +27,16 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
             _tagService = tagService;
             _userService = userService;
         }
-        
+
         public async Task<IActionResult> GetTag()
         {
             return Ok(await _tagService.GetAllTag());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateTag(string tagData)
+        [HttpPost, ValidModel]
+        public async Task<IActionResult> CreateTag([FromBody]TagDataViewModel tagDataVm)
         {
-            if (string.IsNullOrEmpty(tagData))
-            {
-                return BadRequest();
-            }
-
-            var tagNameList = JsonConvert.DeserializeObject<IEnumerable<string>>(tagData) ?? Enumerable.Empty<string>();
-
-            var nameList = tagNameList as string[] ?? tagNameList.ToArray();
-
-            if (!nameList.Any() || nameList.GroupBy(x => x).Any(x => x.Count() > 1))
-            {
-                return BadRequest();
-            }
-
-            await _tagService.CreateTag(tagData);
+            await _tagService.CreateTag(tagDataVm);
             return Ok();
         }
     }

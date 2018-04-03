@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
@@ -27,11 +28,12 @@ namespace AwesomeCMSCore.Modules.Admin.Services
             return await _unitOfWork.Repository<Tag>().FindBy(x => x.User.Id == currentUserId).ToListAsync();
         }
 
-        public async Task CreateTag(string tagData)
+        public async Task CreateTag(TagDataViewModel tagData)
         {
             var tagModel = new Tag
             {
-                TagData = tagData,
+                TagData = tagData.TagData,
+                TagOptions = tagData.TagOptions,
                 User = await _userService.GetCurrentUserAsync()
             };
 
