@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import qs from "qs";
 import toastr from "toastr";
 
 import { Get, Post } from "../../Helper/ajax";
@@ -20,6 +19,12 @@ class TagCreateContainer extends Component {
     };
   }
 
+  componentDidMount() {
+    Get(env.tag).then(res => {
+      this.setState({ value: JSON.parse(res.data.map(x => x.tagOptions)) });
+    });
+  }
+
   handleOnChange = value => {
     this.setState({ value });
   };
@@ -27,9 +32,7 @@ class TagCreateContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.setState({ loading: true });
-    const tagData = JSON.stringify(
-      this.state.value.map(x => x.value)
-    );
+    const tagData = JSON.stringify(this.state.value.map(x => x.value));
     const tagOptions = JSON.stringify(this.state.value);
     const tagDataVm = {
       tagData,
