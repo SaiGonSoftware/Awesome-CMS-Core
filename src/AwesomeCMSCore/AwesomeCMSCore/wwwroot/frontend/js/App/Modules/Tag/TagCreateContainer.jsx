@@ -14,21 +14,10 @@ class TagCreateContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      multi: true,
       loading: false,
       options: [],
       value: []
     };
-  }
-
-  componentDidMount() {
-    Get(env.tag).then(res => {
-      let selectedOptions = res.data.map(option => ({ label: option.tagData, value: option.tagData }));
-      console.log(JSON.parse(selectedOptions));
-      if (selectedOptions.length > 0) {
-        //this.setState({ value: this.state.value.concat([selectedOptions]) });
-      }
-    });
   }
 
   handleOnChange = value => {
@@ -38,8 +27,16 @@ class TagCreateContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.setState({ loading: true });
-    const inputData = JSON.stringify(this.state.value.map(x => x.value));
-    Post(env.tagCreate, qs.stringify({ tagData: inputData })).then(res => {
+    const tagData = JSON.stringify(
+      this.state.value.map(x => x.value)
+    );
+    const tagOptions = JSON.stringify(this.state.value);
+    const tagDataVm = {
+      tagData,
+      tagOptions
+    };
+
+    Post(env.tagCreate, tagDataVm).then(res => {
       if (res.status === statusCode.Success) {
         toastr.success("Create success");
       } else {
@@ -85,7 +82,6 @@ class TagCreateContainer extends Component {
                   id="tagCreate"
                   {...options}
                   value={value}
-                  multi={multi}
                   handleOnChange={this.handleOnChange}
                 />
                 <br />
