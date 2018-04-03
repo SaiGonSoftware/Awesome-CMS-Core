@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using Microsoft.AspNetCore.Diagnostics;
@@ -17,9 +18,12 @@ namespace AwesomeCMSCore.Modules.Helper.Controllers
         [HttpGet("/Error/{statusCode}")]
         public async Task<IActionResult> Index(int statusCode)
         {
-            var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-            var exceptionThatOccurred = exceptionFeature.Error;
-            await _exceptionHandler.HandleExceptionAsync(exceptionThatOccurred);
+            if (statusCode == (int)HttpStatusCode.InternalServerError)
+            {
+                var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+                var exceptionThatOccurred = exceptionFeature.Error;
+                await _exceptionHandler.HandleExceptionAsync(exceptionThatOccurred);
+            }
             return View(statusCode);
         }
     }
