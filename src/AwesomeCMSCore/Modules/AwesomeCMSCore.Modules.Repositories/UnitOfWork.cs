@@ -34,7 +34,6 @@ namespace AwesomeCMSCore.Modules.Repositories
             return repo;
         }
 
-
         public async Task<int> Commit()
         {
            return await _dbContext.SaveChangesAsync();

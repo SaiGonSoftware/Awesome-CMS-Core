@@ -36,7 +36,6 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login()
         {
-            // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             return View();
         }
@@ -56,7 +55,6 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             return View();
         }
 
-       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -155,7 +153,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             {
                 return RedirectToAction(nameof(ResetPasswordConfirmation));
             }
-            AddErrors(result);
+
             return View();
         }
 
@@ -166,35 +164,10 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             return View();
         }
 
-
         [HttpGet]
         public IActionResult AccessDenied()
         {
             return View();
         }
-
-        #region Helpers
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-        }
-
-        private IActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
-        }
-
-        #endregion
     }
 }

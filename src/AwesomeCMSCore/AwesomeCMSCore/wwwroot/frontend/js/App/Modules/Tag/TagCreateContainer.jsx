@@ -70,7 +70,7 @@ class TagCreateContainer extends Component {
   }
 
   render() {
-    const { options, value, multi } = this.state;
+    const { options, value } = this.state;
 
     return (
       <div className="container">

@@ -60,7 +60,6 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
 
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
             }
-
             else if (request.IsRefreshTokenGrantType())
             {
                 // Retrieve the claims principal stored in the refresh token.
