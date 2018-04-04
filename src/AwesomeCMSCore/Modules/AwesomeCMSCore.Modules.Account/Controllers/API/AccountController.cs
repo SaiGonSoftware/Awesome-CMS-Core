@@ -40,7 +40,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
             }
             if (result.IsLockedOut)
             {
-                return Unauthorized();
+                return Forbid();
             }
 
             return BadRequest();
