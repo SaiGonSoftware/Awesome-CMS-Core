@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using AwesomeCMSCore.Modules.Admin.Services;
 using AwesomeCMSCore.Modules.Email;
+using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -136,7 +137,8 @@ namespace AwesomeCMSCore.Extension
             services.AddTransient<ITagService, TagService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IEmailSender, EmailSender>();
-
+            services.AddTransient<IExceptionHandler, ExceptionHandler>();
+            
             return services;
         }
 

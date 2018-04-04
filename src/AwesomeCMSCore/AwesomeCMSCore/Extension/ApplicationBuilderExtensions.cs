@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using System.IO;
-using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using AwesomeCMSCore.Modules.Helper.ProtectPath;
+using Exceptionless;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace AwesomeCMSCore.Extension
@@ -30,7 +30,7 @@ namespace AwesomeCMSCore.Extension
                     continue;
                 }
 
-                app.UseStaticFiles(new StaticFileOptions()
+                app.UseStaticFiles(new StaticFileOptions
                 {
                     FileProvider = new PhysicalFileProvider(wwwrootDir.FullName),
                     RequestPath = new PathString("/" + module.ShortName)
@@ -54,8 +54,17 @@ namespace AwesomeCMSCore.Extension
             }
 
             #region Custom Middleware
-            app.UseStatusCodePagesWithReExecute("/Error/{0}");
-            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+            app.UseExceptionHandler("/Error/500");
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/Error/404";
+                    await next();
+                }
+            });
+            app.UseExceptionless("NvjyUM7jZdHylprZ5oAPxEpBmvgZXnYZxVyUf5y5");
             app.UseProtectFolder(new ProtectFolderOptions
             {
                 Path = "/frontend"
