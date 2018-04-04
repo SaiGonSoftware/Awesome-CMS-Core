@@ -32,6 +32,7 @@ class TagCreateContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.setState({ loading: true });
+
     const tagData = JSON.stringify(this.state.value.map(x => x.value));
     const tagOptions = JSON.stringify(this.state.value);
     const tagDataVm = {
@@ -39,15 +40,16 @@ class TagCreateContainer extends Component {
       tagOptions
     };
 
-    Post(env.tagCreate, tagDataVm).then(res => {
-      if (res.status === statusCode.Success) {
-        toastr.success("Create success");
-      } else {
-        toastr.error("Something went wrong");
-      }
+    Post(env.tagCreate, tagDataVm)
+      .then(res => {
+        if (res.status === statusCode.Success) toastr.success("Create success");
 
-      this.setState({ loading: false });
-    });
+        this.setState({ loading: false });
+      })
+      .catch(() => {
+        this.setState({ loading: false });
+        toastr.error("Something went wrong.Please try again");
+      });
   };
 
   renderButton() {

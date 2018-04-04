@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 const TagCreate = props => {
   const { selectedOptions, value, handleOnChange } = props;
+
   return (
     <Creatable
       {...selectedOptions}
