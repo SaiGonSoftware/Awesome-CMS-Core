@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.2" />
+        <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-*" />
+        <PackageReference Include="OpenIddict" Version="2.0.0-*" />
+        <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-*" />
+        <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-*" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\AwesomeCMSCore.Modules.Email\AwesomeCMSCore.Modules.Email.csproj" />
+      <ProjectReference Include="..\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
+    </ItemGroup>
+</Project>
