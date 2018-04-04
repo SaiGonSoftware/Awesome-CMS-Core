@@ -6,7 +6,7 @@ namespace AwesomeCMSCore.Modules.Client.Controllers
 {
     public class HomeController : Controller
     {
-        private IQueueService _queueService;
+        private readonly IQueueService _queueService;
         public HomeController(IQueueService queueService)
         {
             _queueService = queueService;

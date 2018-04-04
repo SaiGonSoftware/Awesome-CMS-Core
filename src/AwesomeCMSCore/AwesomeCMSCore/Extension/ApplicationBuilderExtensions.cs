@@ -30,7 +30,7 @@ namespace AwesomeCMSCore.Extension
                     continue;
                 }
 
-                app.UseStaticFiles(new StaticFileOptions()
+                app.UseStaticFiles(new StaticFileOptions
                 {
                     FileProvider = new PhysicalFileProvider(wwwrootDir.FullName),
                     RequestPath = new PathString("/" + module.ShortName)
