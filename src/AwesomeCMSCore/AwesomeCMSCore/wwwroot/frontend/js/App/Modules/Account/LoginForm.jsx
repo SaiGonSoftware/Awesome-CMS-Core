@@ -4,13 +4,13 @@ import toastr from "toastr";
 import qs from "qs";
 import PropTypes from "prop-types";
 
-import AwesomeInput from "../../Common/AwesomeInput.jsx";
 import { navigateToUrl, isDomExist } from "../../Helper/util";
-import env from "../../Helper/envConfig";
-import statusCode from "../../Helper/StatusCode";
 import { setStorage } from "../../Helper/storageHelper";
 import { AppEnum } from "../../Helper/appEnum";
-import { Post } from "../../Helper/ajax";
+import { Post, PostWithSpinner } from "../../Helper/ajax";
+import env from "../../Helper/envConfig";
+import statusCode from "../../Helper/StatusCode";
+import AwesomeInput from "../../Common/AwesomeInput.jsx";
 import Spinner from "../../Common/Spinner.jsx";
 
 function validate(username, password) {
@@ -47,28 +47,21 @@ class LoginForm extends Component {
   }
 
   login = e => {
-    this.setState({ loading: true });
     if (!this.canBeSubmitted()) {
       return;
     }
 
     e.preventDefault();
 
-    Post(env.loginUrl, {
+    PostWithSpinner.call(this, env.loginUrl, {
       Username: this.state.username,
       Password: this.state.password,
       RememberMe: this.state.rememberMe === "on" ? true : false
     })
       .then(res => {
         if (res.status === statusCode.Success) this.tokenRequest();
-
-        if (res.status === statusCode.BadRequest) {
-          this.setState({ loading: false });
-          toastr.error("Invalid credentials");
-        }
       })
       .catch(() => {
-        this.setState({ loading: false });
         toastr.error("Invalid credentials");
       });
   };
