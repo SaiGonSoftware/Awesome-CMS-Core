@@ -47,7 +47,6 @@ class LoginForm extends Component {
   }
 
   login = e => {
-    this.setState({ loading: true });
     if (!this.canBeSubmitted()) {
       return;
     }
