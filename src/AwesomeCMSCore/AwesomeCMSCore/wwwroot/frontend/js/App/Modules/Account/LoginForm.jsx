@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { navigateToUrl, isDomExist } from "../../Helper/util";
 import { setStorage } from "../../Helper/storageHelper";
 import { AppEnum } from "../../Helper/appEnum";
-import { Post } from "../../Helper/ajax";
+import { Post, PostWithSpinner } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
 import statusCode from "../../Helper/StatusCode";
 import AwesomeInput from "../../Common/AwesomeInput.jsx";
@@ -54,7 +54,7 @@ class LoginForm extends Component {
 
     e.preventDefault();
 
-    Post(env.loginUrl, {
+    PostWithSpinner.call(this, env.loginUrl, {
       Username: this.state.username,
       Password: this.state.password,
       RememberMe: this.state.rememberMe === "on" ? true : false
@@ -63,7 +63,6 @@ class LoginForm extends Component {
         if (res.status === statusCode.Success) this.tokenRequest();
       })
       .catch(() => {
-        this.setState({ loading: false });
         toastr.error("Invalid credentials");
       });
   };

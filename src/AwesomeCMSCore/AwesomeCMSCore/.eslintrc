@@ -28,6 +28,7 @@
     }
   },
   "globals": {
+    "Promise": true,
     "alert": true,
     "global": true,
     "window": true,

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import toastr from "toastr";
 
-import { Get, Post } from "../../Helper/ajax";
+import { Get, PostWithSpinner } from "../../Helper/ajax";
 import { isDomExist } from "../../Helper/util";
 import TagCreate from "./TagCreate.jsx";
 import Spinner from "../../Common/Spinner.jsx";
@@ -31,7 +31,6 @@ class TagCreateContainer extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.setState({ loading: true });
 
     const tagData = JSON.stringify(this.state.value.map(x => x.value));
     const tagOptions = JSON.stringify(this.state.value);
@@ -40,14 +39,11 @@ class TagCreateContainer extends Component {
       tagOptions
     };
 
-    Post(env.tagCreate, tagDataVm)
+    PostWithSpinner.call(this, env.tagCreate, tagDataVm)
       .then(res => {
         if (res.status === statusCode.Success) toastr.success("Create success");
-
-        this.setState({ loading: false });
       })
       .catch(() => {
-        this.setState({ loading: false });
         toastr.error("Something went wrong.Please try again");
       });
   };
