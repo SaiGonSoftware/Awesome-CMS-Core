@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Account.Controllers
 {
-
     [Authorize]
     public class AccountController : Controller
     {
