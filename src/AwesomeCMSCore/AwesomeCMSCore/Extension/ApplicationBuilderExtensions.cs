@@ -1,4 +1,5 @@
-﻿using AwesomeCMSCore.Infrastructure.Module;
+﻿using System;
+using AwesomeCMSCore.Infrastructure.Module;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,7 @@ using System.IO;
 using AwesomeCMSCore.Modules.Helper.ProtectPath;
 using Exceptionless;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.Net.Http.Headers;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -50,6 +52,35 @@ namespace AwesomeCMSCore.Extension
                 {
                     HotModuleReplacement = true,
                     ReactHotModuleReplacement = true
+                });
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    OnPrepareResponse = (context) =>
+                    {
+                        var headers = context.Context.Response.GetTypedHeaders();
+                        headers.CacheControl = new CacheControlHeaderValue
+                        {
+                            NoCache = true,
+                            NoStore = true,
+                            MaxAge = TimeSpan.FromDays(-1)
+                        };
+                    }
+                });
+            }
+
+            else
+            {
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    OnPrepareResponse = (context) =>
+                    {
+                        var headers = context.Context.Response.GetTypedHeaders();
+                        headers.CacheControl = new CacheControlHeaderValue
+                        {
+                            Public = true,
+                            MaxAge = TimeSpan.FromDays(60)
+                        };
+                    }
                 });
             }
 

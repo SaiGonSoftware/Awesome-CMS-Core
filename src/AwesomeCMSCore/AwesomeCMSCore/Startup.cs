@@ -41,7 +41,6 @@ namespace AwesomeCMSCore
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseResponseCompression();
-            app.UseStaticFiles();
             app.SetupEnv(env);
             app.ServeStaticModuleFile(GlobalConfiguration.Modules);
             app.UseAuthentication();
