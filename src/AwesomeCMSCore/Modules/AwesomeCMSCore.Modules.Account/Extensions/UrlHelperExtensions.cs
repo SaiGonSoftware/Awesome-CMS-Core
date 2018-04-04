@@ -1,7 +1,7 @@
-﻿using AwesomeCMSCore.Modules.Admin.Controllers;
+﻿using AwesomeCMSCore.Modules.Account.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AwesomeCMSCore.Modules.Admin.Extensions
+namespace AwesomeCMSCore.Modules.Account.Extensions
 {
     public static class UrlHelperExtensions
     {

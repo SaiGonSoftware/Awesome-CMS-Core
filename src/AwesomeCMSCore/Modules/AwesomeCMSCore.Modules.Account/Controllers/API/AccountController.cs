@@ -1,18 +1,16 @@
-﻿using System;
-using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Admin.Extensions;
-using AwesomeCMSCore.Modules.Admin.Models.AccountViewModels;
+﻿using System.Threading.Tasks;
+using AwesomeCMSCore.Modules.Account.Extensions;
+using AwesomeCMSCore.Modules.Account.Models.AccountViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AwesomeCMSCore.Modules.Admin.Controllers
+namespace AwesomeCMSCore.Modules.Account.Controllers.API
 {
-
     [Authorize]
+    [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -29,62 +27,48 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             _emailSender = emailSender;
         }
 
-        [TempData]
-        public string ErrorMessage { get; set; }
-
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            return View();
-        }
+            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
+                model.RememberMe, lockoutOnFailure: false);
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Lockout()
-        {
-            return View();
-        }
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            if (result.IsLockedOut)
+            {
+                return Unauthorized();
+            }
 
-        [HttpGet]
+            return BadRequest();
+        }
+       
+        [HttpPost]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Login");
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> ConfirmEmail(string userId, string code)
-        {
-            if (userId == null || code == null)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Login");
-            }
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                throw new ApplicationException($"Unable to load user with ID '{userId}'.");
-            }
-            var result = await _userManager.ConfirmEmailAsync(user, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
-        }
+                var user = new User { UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ForgotPassword()
-        {
-            return View();
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return Ok(returnUrl);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         [HttpPost]
@@ -98,7 +82,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToAction(nameof(ForgotPasswordConfirmation));
+                    return NotFound();
                 }
 
                 // For more information on how to enable account confirmation and password reset please
@@ -107,29 +91,10 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
                 var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
                 await _emailSender.SendEmailAsync(model.Email, "Reset Password",
                    $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-                return RedirectToAction(nameof(ForgotPasswordConfirmation));
+                return Ok();
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ResetPassword(string code = null)
-        {
-            if (code == null)
-            {
-                throw new ApplicationException("A code must be supplied for password reset.");
-            }
-            var model = new ResetPasswordViewModel { Code = code };
             return View(model);
         }
 
@@ -140,32 +105,25 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return BadRequest(model);
             }
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction(nameof(ResetPasswordConfirmation));
+                return Ok();
             }
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction(nameof(ResetPasswordConfirmation));
+                return Ok();
             }
-
-            return View();
+            return Ok();
         }
 
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPasswordConfirmation()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult AccessDenied()
         {
             return View();
         }

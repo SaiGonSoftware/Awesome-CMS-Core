@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using OpenIddict.Core;
 
-namespace AwesomeCMSCore.Modules.Admin.Controllers.API
+namespace AwesomeCMSCore.Modules.Account.Controllers.API
 {
     public class AuthorizationController : Controller
     {
