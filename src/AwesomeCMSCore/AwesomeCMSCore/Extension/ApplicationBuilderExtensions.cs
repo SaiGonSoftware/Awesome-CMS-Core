@@ -67,7 +67,6 @@ namespace AwesomeCMSCore.Extension
                     }
                 });
             }
-
             else
             {
                 app.UseStaticFiles(new StaticFileOptions
