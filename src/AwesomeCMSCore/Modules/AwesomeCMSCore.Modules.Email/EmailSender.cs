@@ -31,6 +31,8 @@ namespace AwesomeCMSCore.Modules.Email
                     builder.HtmlBody = ExceptionEmailRender(message);
                     email.Body = builder.ToMessageBody();
                     break;
+                default:
+                    break;
             }
 
             using (var client = new SmtpClient())
