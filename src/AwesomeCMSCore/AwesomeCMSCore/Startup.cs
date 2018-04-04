@@ -1,4 +1,5 @@
-﻿using AwesomeCMSCore.Extension;
+﻿using AutoMapper;
+using AwesomeCMSCore.Extension;
 using AwesomeCMSCore.Infrastructure.Config;
 using AwesomeCMSCore.Infrastructure.Module.Views;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +31,7 @@ namespace AwesomeCMSCore
             services.AddCustomizedDataStore(_configuration);
             services.AddCustomAuthentication();
             services.InjectApplicationServices();
+            services.AddAutoMapper();
             //ModuleViewLocationExpander is used to help the view engine lookup up the right module folder the views
             services.Configure<RazorViewEngineOptions>(options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
             services.AddCustomizedMvc(GlobalConfiguration.Modules, _configuration, _hostingEnvironment);
