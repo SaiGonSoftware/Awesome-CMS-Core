@@ -25,11 +25,13 @@ class AccountTable extends Component {
     const columns = [
       {
         dataField: "id",
-        text: "Product ID"
+        text: "Product ID",
+        sort: true
       },
       {
         dataField: "name",
-        text: "Product Name"
+        text: "Product Name",
+        sort: true
       },
       {
         dataField: "price",
