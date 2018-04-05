@@ -21,7 +21,9 @@ class TagCreateContainer extends Component {
 
   componentDidMount() {
     Get(env.tag).then(res => {
-      this.setState({ value: JSON.parse(res.data.map(x => x.tagOptions)) });
+      this.setState({
+        value: res.data.tagOptions ? JSON.parse(res.data.tagOptions) : []
+      });
     });
   }
 
@@ -34,6 +36,7 @@ class TagCreateContainer extends Component {
 
     const tagData = JSON.stringify(this.state.value.map(x => x.value));
     const tagOptions = JSON.stringify(this.state.value);
+
     const tagDataVm = {
       tagData,
       tagOptions
