@@ -50,7 +50,10 @@ namespace AwesomeCMSCore.Modules.Admin.Services
         public async Task UpdateTag(TagDataViewModel tagDataVm)
         {
             var tag = await _unitOfWork.Repository<Tag>().FindAsync(x => x.UserId == _currentUserId);
-            var tagToUpdate = _mapper.Map<Tag>(tag);
+            var tagToUpdate = _mapper.Map(tagDataVm, tag, options =>
+            {
+                options.AfterMap((src, dest) => dest.UserId = _currentUserId);
+            });
 
             await _unitOfWork.Repository<Tag>().UpdateAsync(tagToUpdate);
         }
