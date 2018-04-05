@@ -65,6 +65,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-select": "^1.2.1",
+    "react-table": "^6.8.0",
     "toastr": "^2.1.4"
   }
 }
