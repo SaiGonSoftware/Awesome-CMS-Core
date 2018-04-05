@@ -15,13 +15,17 @@ class TagCreateContainer extends Component {
     this.state = {
       loading: false,
       options: [],
-      value: []
+      value: [],
+      currentUserId: ""
     };
   }
 
   componentDidMount() {
     Get(env.tag).then(res => {
-      this.setState({ value: JSON.parse(res.data.map(x => x.tagOptions)) });
+      this.setState({
+        value: res.data.tagOptions ? JSON.parse(res.data.tagOptions) : [],
+        currentUserId: res.data.currentUserId
+      });
     });
   }
 
@@ -34,6 +38,7 @@ class TagCreateContainer extends Component {
 
     const tagData = JSON.stringify(this.state.value.map(x => x.value));
     const tagOptions = JSON.stringify(this.state.value);
+
     const tagDataVm = {
       tagData,
       tagOptions

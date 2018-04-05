@@ -275,7 +275,8 @@ namespace AwesomeCMSCore.Extension
 
         public static IServiceCollection RegisterMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(TagProfile).GetTypeInfo().Assembly);
+            //services.AddAutoMapper(typeof(TagProfile).GetTypeInfo().Assembly);
+            //Mapper.Initialize(cfg => cfg.AddProfile<TagProfile>());
             return services;
         }
     }

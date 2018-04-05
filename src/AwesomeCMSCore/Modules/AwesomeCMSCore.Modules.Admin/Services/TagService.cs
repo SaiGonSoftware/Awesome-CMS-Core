@@ -31,15 +31,18 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 
         public async Task<TagDataViewModel> GetAllTag()
         {
-            var tagData = await _unitOfWork.Repository<Tag>().FindBy(x => x.UserId == _currentUserId).ToListAsync();
-            var tagDataVm = _mapper.Map<TagDataViewModel>(tagData);
+            var tagData = await _unitOfWork.Repository<Tag>().FindBy(x => x.UserId == _currentUserId).SingleOrDefaultAsync();
+            var tagDataVm = _mapper.Map<Tag, TagDataViewModel>(tagData);
 
             return tagDataVm;
         }
 
         public async Task CreateTag(TagDataViewModel tagDataVm)
         {
-            var tagData = _mapper.Map<TagDataViewModel, Tag>(tagDataVm);
+            var tagData = _mapper.Map<TagDataViewModel, Tag>(tagDataVm, options =>
+            {
+                options.AfterMap((src, dest) => dest.UserId = _currentUserId);
+            });
 
             await _unitOfWork.Repository<Tag>().AddAsync(tagData);
         }
@@ -47,7 +50,7 @@ namespace AwesomeCMSCore.Modules.Admin.Services
         public async Task UpdateTag(TagDataViewModel tagDataVm)
         {
             var tag = await _unitOfWork.Repository<Tag>().FindAsync(x => x.UserId == _currentUserId);
-            var tagToUpdate = _mapper.Map<Tag> (tag);
+            var tagToUpdate = _mapper.Map<Tag>(tag);
 
             await _unitOfWork.Repository<Tag>().UpdateAsync(tagToUpdate);
         }
