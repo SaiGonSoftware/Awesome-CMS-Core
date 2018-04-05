@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AwesomeCMSCore.Infrastructure\AwesomeCMSCore.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Account\AwesomeCMSCore.Modules.Account.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Admin\AwesomeCMSCore.Modules.Admin.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />

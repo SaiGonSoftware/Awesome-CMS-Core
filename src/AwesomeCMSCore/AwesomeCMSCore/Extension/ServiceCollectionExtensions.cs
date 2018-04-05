@@ -30,6 +30,7 @@ using Microsoft.AspNetCore.Http;
 using AwesomeCMSCore.Modules.Queue;
 using Microsoft.IdentityModel.Tokens;
 using AwesomeCMSCore.Modules.Mapper;
+using AwesomeCMSCore.Modules.Account.Services;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -138,9 +139,10 @@ namespace AwesomeCMSCore.Extension
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ITagService, TagService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IExceptionHandler, ExceptionHandler>();
-            
+
             return services;
         }
 

@@ -3,12 +3,19 @@ import { render } from "react-dom";
 import BootstrapTable from "react-bootstrap-table-next";
 
 import { isDomExist } from "../../Helper/util";
+import { Get } from "./../../Helper/ajax";
+import env from "../../Helper/envConfig";
 
 class AccountTable extends Component {
   constructor() {
     super();
   }
-
+  componentDidMount() {
+      console.log(env.userList);
+    Get(env.userList).then(res => {
+      console.log(res);
+    });
+  }
   render() {
     const products = [
       {

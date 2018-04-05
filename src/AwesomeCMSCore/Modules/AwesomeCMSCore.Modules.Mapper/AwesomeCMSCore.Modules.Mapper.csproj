@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AwesomeCMSCore.Modules.Account\AwesomeCMSCore.Modules.Account.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Admin\AwesomeCMSCore.Modules.Admin.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
   </ItemGroup>

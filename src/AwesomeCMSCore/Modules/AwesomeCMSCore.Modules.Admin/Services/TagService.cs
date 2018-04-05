@@ -15,8 +15,8 @@ namespace AwesomeCMSCore.Modules.Admin.Services
     {
         private readonly IUserService _userService;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly string _currentUserId;
         private readonly IMapper _mapper;
+        private readonly string _currentUserId;
 
         public TagService(
             IUserService userService,

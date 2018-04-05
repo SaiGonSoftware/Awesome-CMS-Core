@@ -25,9 +25,9 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
-            _currentUserGuid = _httpContextAccessor.HttpContext.User.FindFirst(UserClaimsKey.Sub).Value;
-            _currentUserName = _httpContextAccessor.HttpContext.User.Identity.Name;
-            _currentUserEmail = _userManager.FindByIdAsync(_currentUserGuid).Result.Email;
+            _currentUserGuid = _httpContextAccessor?.HttpContext?.User?.FindFirst(UserClaimsKey.Sub)?.Value;
+            _currentUserName = _httpContextAccessor?.HttpContext?.User?.Identity?.Name;
+            _currentUserEmail = _currentUserGuid == null ? "" :_userManager.FindByIdAsync(_currentUserGuid)?.Result?.Email;
         }
 
         public async Task<User> GetCurrentUserAsync()
