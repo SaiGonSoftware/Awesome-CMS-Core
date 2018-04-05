@@ -267,17 +267,5 @@ namespace AwesomeCMSCore.Extension
 
             return services;
         }
-
-        public static IServiceCollection RegisterBus(this IServiceCollection services, IConfiguration configuration)
-        {
-            return services;
-        }
-
-        public static IServiceCollection RegisterMapper(this IServiceCollection services)
-        {
-            //services.AddAutoMapper(typeof(TagProfile).GetTypeInfo().Assembly);
-            //Mapper.Initialize(cfg => cfg.AddProfile<TagProfile>());
-            return services;
-        }
     }
 }
