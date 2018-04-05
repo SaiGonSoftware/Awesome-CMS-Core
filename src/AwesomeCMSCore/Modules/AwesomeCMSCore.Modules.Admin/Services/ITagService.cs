@@ -7,9 +7,9 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 {
     public interface ITagService
     {
-        Task<List<Tag>> GetAllTag();
-        Task CreateTag(TagDataViewModel tagData);
-        Task UpdateTag(TagDataViewModel tagData);
+        Task<TagDataViewModel> GetAllTag();
+        Task CreateTag(TagDataViewModel tagDataVm);
+        Task UpdateTag(TagDataViewModel tagDataVm);
         bool IsTagExist();
     }
 }

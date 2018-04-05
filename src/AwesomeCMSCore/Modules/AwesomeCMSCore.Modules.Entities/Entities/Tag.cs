@@ -5,6 +5,6 @@
         public string TagData { get; set; }
         public string TagOptions { get; set; }
         //public TagGroup TagGroup { get; set; }
-        public User User { get; set; }
+        public string UserId { get; set; }
     }
 }

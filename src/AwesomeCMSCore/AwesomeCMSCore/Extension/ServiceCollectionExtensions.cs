@@ -17,6 +17,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.AspNetCore.Identity;
 using AspNet.Security.OpenIdConnect.Primitives;
+using AutoMapper;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -28,6 +29,7 @@ using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.AspNetCore.Http;
 using AwesomeCMSCore.Modules.Queue;
 using Microsoft.IdentityModel.Tokens;
+using AwesomeCMSCore.Modules.Mapper;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -268,6 +270,12 @@ namespace AwesomeCMSCore.Extension
 
         public static IServiceCollection RegisterBus(this IServiceCollection services, IConfiguration configuration)
         {
+            return services;
+        }
+
+        public static IServiceCollection RegisterMapper(this IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(TagProfile).GetTypeInfo().Assembly);
             return services;
         }
     }

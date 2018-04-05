@@ -11,9 +11,10 @@ using System;
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180404042600_InitDB_20180404_112537")]
+    partial class InitDB_20180404_112537
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,6 +95,8 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tags");
                 });
@@ -479,6 +482,13 @@ namespace AwesomeCMSCore.Migrations
                         .WithMany()
                         .HasForeignKey("TagsId");
 
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Tag", b =>
+                {
                     b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
