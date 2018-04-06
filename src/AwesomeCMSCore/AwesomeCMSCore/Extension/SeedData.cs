@@ -36,11 +36,11 @@ namespace AwesomeCMSCore.Extension
 
                 foreach (var role in roles)
                 {
-                    var roleStore = new RoleStore<IdentityRole>(context);
+                    var roleStore = new RoleStore<ApplicationRole>(context);
 
                     if (!context.Roles.Any(r => r.Name == role))
                     {
-                        await roleStore.CreateAsync(new IdentityRole
+                        await roleStore.CreateAsync(new ApplicationRole
                         {
                             Name = role,
                             NormalizedName = role.ToUpper()
