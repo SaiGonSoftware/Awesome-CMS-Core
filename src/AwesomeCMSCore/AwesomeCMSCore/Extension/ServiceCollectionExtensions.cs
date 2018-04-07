@@ -18,6 +18,7 @@ using System.Runtime.Loader;
 using Microsoft.AspNetCore.Identity;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AutoMapper;
+using AwesomeCMSCore.Modules.Account.Repositories;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -140,6 +141,7 @@ namespace AwesomeCMSCore.Extension
             services.AddTransient<ITagService, TagService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IExceptionHandler, ExceptionHandler>();
 

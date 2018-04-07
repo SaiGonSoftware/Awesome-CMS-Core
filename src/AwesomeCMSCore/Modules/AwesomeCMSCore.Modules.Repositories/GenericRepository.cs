@@ -19,6 +19,11 @@ namespace AwesomeCMSCore.Modules.Repositories
             _unitOfWork = new UnitOfWork(context);
         }
 
+        public IQueryable<T> Query()
+        {
+            return _context.Set<T>().AsQueryable();
+        }
+
         public ICollection<T> GetAll()
         {
             return _context.Set<T>().ToList();

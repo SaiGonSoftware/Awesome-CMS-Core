@@ -9,47 +9,43 @@ import env from "../../Helper/envConfig";
 class AccountTable extends Component {
   constructor() {
     super();
+    this.state = {
+      userList: []
+    };
   }
   componentDidMount() {
-      console.log(env.userList);
     Get(env.userList).then(res => {
-      console.log(res);
+      this.setState({ userList: res.data });
     });
   }
   render() {
-    const products = [
-      {
-        id: 1,
-        name: "Item name 1",
-        price: 100
-      },
-      {
-        id: 2,
-        name: "Item name 2",
-        price: 100
-      }
-    ];
+    const { userList } = this.state;
     const columns = [
       {
-        dataField: "id",
-        text: "Product ID",
+        dataField: "userName",
+        text: "UserName",
         sort: true
       },
       {
-        dataField: "name",
-        text: "Product Name",
+        dataField: "email",
+        text: "Email",
         sort: true
       },
       {
-        dataField: "price",
-        text: "Product Price"
+        dataField: "emailConfirmed",
+        text: "EmailConfirmed",
+        sort: true
+      },
+      {
+        dataField: "roles",
+        text: "Roles"
       }
     ];
     return (
       <BootstrapTable
         classes="table table-sm table-hover table-bordered table-striped table-dark"
-        keyField="id"
-        data={products}
+        keyField="userId"
+        data={userList}
         columns={columns}
       />
     );
