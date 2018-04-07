@@ -3378,15 +3378,6 @@ a > code {
   margin-left: 1.25rem;
 }
 
-.card-header {
-  padding: 1rem 1.25rem;
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
-  &:first-child {
-    border-radius: 0 0 0 0;
-  }
-}
-
 .card-header-transparent {
   background-color: rgba(0, 0, 0, 0.3);
   border-bottom: none;
@@ -3578,4 +3569,11 @@ a {
   border-bottom: 4px dashed;
   border-bottom: 4px solid \9;
   content: "";
+}
+
+.card-header {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }

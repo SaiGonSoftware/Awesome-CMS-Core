@@ -50,7 +50,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                 UserName = p.Username,
                 Email = p.Email,
                 Roles = string.Join(",", p.RoleNames),
-                EmailConfirmed = p.EmailConfirmed
+                EmailConfirmed = p.EmailConfirmed.ToString()
             });
 
             return userListVm;

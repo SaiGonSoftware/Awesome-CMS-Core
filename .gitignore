@@ -291,5 +291,4 @@ __pycache__/
 .vscode/
 /src/AwesomeCMSCore/.vs/AwesomeCMSCore/
 package-lock.json
-yarn.lock
 *.hot-update.js.gz

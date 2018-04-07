@@ -1,25 +1,43 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import BootstrapTable from "react-bootstrap-table-next";
 
 import { isDomExist } from "../../Helper/util";
 import { Get } from "./../../Helper/ajax";
 import env from "../../Helper/envConfig";
+import RemotePagination from "../../Common/RemotePagination.jsx";
 
 class AccountTable extends Component {
   constructor() {
     super();
     this.state = {
-      userList: []
+      userList: [],
+      loading: false
     };
   }
+
   componentDidMount() {
     Get(env.userList).then(res => {
       this.setState({ userList: res.data });
     });
   }
+
   render() {
     const { userList } = this.state;
+
+    const options = {
+      pageStartIndex: 0,
+      hideSizePerPage: true,
+      hidePageListOnlyOnePage: true,
+      prePageText: "Back",
+      nextPageText: "Next",
+      sizePerPageList: [
+        {
+          text: "3",
+          value: 3
+        }
+      ]
+    };
+
     const columns = [
       {
         dataField: "userName",
@@ -33,7 +51,7 @@ class AccountTable extends Component {
       },
       {
         dataField: "emailConfirmed",
-        text: "EmailConfirmed",
+        text: "Email Confirmed",
         sort: true
       },
       {
@@ -41,13 +59,20 @@ class AccountTable extends Component {
         text: "Roles"
       }
     ];
+
     return (
-      <BootstrapTable
-        classes="table table-sm table-hover table-bordered table-striped table-dark"
-        keyField="userId"
-        data={userList}
-        columns={columns}
-      />
+      <div className="card">
+        <div className="card-header">User List</div>
+        <div className="card-body">
+          <RemotePagination
+            keyField="userId"
+            classes="table text-center table-sm table-hover table-bordered table-striped"
+            data={userList}
+            options={options}
+            columns={columns}
+          />
+        </div>
+      </div>
     );
   }
 }
