@@ -43,7 +43,7 @@ Please read
 
 ---
 
-## Manage Account
+### Manage Account
 
 <img src="img/manage-account.png"/>
 
