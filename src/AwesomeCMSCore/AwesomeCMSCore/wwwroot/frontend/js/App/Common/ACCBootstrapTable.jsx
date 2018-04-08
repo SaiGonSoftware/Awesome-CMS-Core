@@ -9,7 +9,8 @@ const ACCBootstrapTable = ({
   classes,
   options,
   keyField,
-  filter
+  filter,
+  selectRow
 }) => {
   return (
     <div>
@@ -21,6 +22,7 @@ const ACCBootstrapTable = ({
         columns={columns}
         pagination={paginationFactory(options)}
         filter={filter}
+        selectRow={selectRow}
       />
     </div>
   );
@@ -32,7 +34,8 @@ ACCBootstrapTable.propTypes = {
   options: PropTypes.object,
   classes: PropTypes.string,
   columns: PropTypes.array.isRequired,
-  filter: PropTypes.object
+  filter: PropTypes.object,
+  selectRow: PropTypes.object
 };
 
 export default ACCBootstrapTable;

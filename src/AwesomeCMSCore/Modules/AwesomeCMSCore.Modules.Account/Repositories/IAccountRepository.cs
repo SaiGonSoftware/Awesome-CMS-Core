@@ -9,5 +9,6 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
     public interface IAccountRepository
     {
         Task<IEnumerable<UserViewModel>> UserList();
+        Task DeactivateAccount(string accountId);
     }
 }

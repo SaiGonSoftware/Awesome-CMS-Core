@@ -55,5 +55,15 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
 
             return userListVm;
         }
+
+        public async Task DeactivateAccount(string accountId)
+        {
+            var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Id == accountId).FirstOrDefaultAsync();
+            if (account != null)
+            {
+                account.EmailConfirmed = false;
+                await _unitOfWork.Repository<User>().UpdateAsync(account);
+            }
+        }
     }
 }

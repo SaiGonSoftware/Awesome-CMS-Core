@@ -8,4 +8,16 @@
   .filter.select-filter.form-control {
     margin-bottom: 0px;
   }
+
+  #userListOptions {
+    margin-bottom: 20px;
+
+    #btnAddUser {
+      margin-right: 10px;
+    }
+
+    #deactiveSection {
+      padding-left: 16%;
+    }
+  }
 }

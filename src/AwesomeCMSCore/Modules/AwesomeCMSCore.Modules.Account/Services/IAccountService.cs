@@ -7,5 +7,6 @@ namespace AwesomeCMSCore.Modules.Account.Services
     public interface IAccountService
     {
         Task<IEnumerable<UserViewModel>> UserList();
+        Task DeactivateAccount(string accountId);
     }
 }

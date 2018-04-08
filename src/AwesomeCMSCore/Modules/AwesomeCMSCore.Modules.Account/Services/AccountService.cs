@@ -38,5 +38,10 @@ namespace AwesomeCMSCore.Modules.Account.Services
         {
             return await _accountRepository.UserList();
         }
+
+        public async Task DeactivateAccount(string accountId)
+        {
+           await _accountRepository.DeactivateAccount(accountId);
+        }
     }
 }

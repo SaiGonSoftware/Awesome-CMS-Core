@@ -131,5 +131,13 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
             var userList = await _accountService.UserList();
             return Ok(userList);
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Deactivate(string accountId)
+        {
+            await _accountService.DeactivateAccount(accountId);
+            return Ok();
+        }
     }
 }
