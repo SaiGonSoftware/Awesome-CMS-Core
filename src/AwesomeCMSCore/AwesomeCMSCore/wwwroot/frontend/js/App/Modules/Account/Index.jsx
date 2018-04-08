@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import filterFactory, {
+  textFilter,
+  selectFilter
+} from "react-bootstrap-table2-filter";
 
 import { isDomExist } from "../../Helper/util";
 import { Get } from "./../../Helper/ajax";
 import env from "../../Helper/envConfig";
-import RemotePagination from "../../Common/RemotePagination.jsx";
+import ACCBootstrapTable from "../../Common/ACCBootstrapTable.jsx";
 
 class AccountTable extends Component {
   constructor() {
@@ -38,6 +42,11 @@ class AccountTable extends Component {
       ]
     };
 
+    const acccountActiveStatus = {
+      False: "False",
+      True: "True"
+    };
+
     const columns = [
       {
         dataField: "userName",
@@ -45,18 +54,23 @@ class AccountTable extends Component {
         sort: true
       },
       {
+        dataField: "roles",
+        text: "Roles"
+      },
+      {
         dataField: "email",
         text: "Email",
-        sort: true
+        sort: true,
+        filter: textFilter()
       },
       {
         dataField: "emailConfirmed",
         text: "Email Confirmed",
-        sort: true
-      },
-      {
-        dataField: "roles",
-        text: "Roles"
+        sort: true,
+        formatter: cell => acccountActiveStatus[cell],
+        filter: selectFilter({
+          options: acccountActiveStatus
+        })
       }
     ];
 
@@ -64,12 +78,13 @@ class AccountTable extends Component {
       <div className="card">
         <div className="card-header">User List</div>
         <div className="card-body">
-          <RemotePagination
+          <ACCBootstrapTable
             keyField="userId"
             classes="table text-center table-sm table-hover table-bordered table-striped"
             data={userList}
             options={options}
             columns={columns}
+            filter={filterFactory()}
           />
         </div>
       </div>

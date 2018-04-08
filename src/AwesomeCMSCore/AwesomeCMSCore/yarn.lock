@@ -5409,6 +5409,10 @@ react-bootstrap-table-next@^0.1.7:
   dependencies:
     classnames "2.2.5"
 
+react-bootstrap-table2-filter@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-table2-filter/-/react-bootstrap-table2-filter-0.1.5.tgz#25e86dc8c33e269e2bb65421c2c931a0350e3a89"
+
 react-bootstrap-table2-overlay@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/react-bootstrap-table2-overlay/-/react-bootstrap-table2-overlay-0.1.1.tgz#82d1391b7fc2ca320c786ed6a5ae94191ef7221f"
