@@ -8,17 +8,15 @@ env = {
   portal: "http://localhost:5000/Portal/Index",
   tagCreate: "api/Tag/CreateTag",
   tag: "api/Tag/GetTag",
-  userList: "api/Account/UserList"
+  userList: "api/Account/UserList",
+  deactiveAccount: "api/Account/Deactivate"
 };
 
 if (isDevEnviroment()) {
   axios.defaults.baseURL = "http://localhost:5000/";
+} else {
+  axios.defaults.baseURL = "prod url";
 }
-/*  else {
-  env = {
-    baseUrl: "http://randomshit.com",
-    tokenUrl: "http://randomshit.com/connect/token"
-  }; } */
 
 export default env;
 

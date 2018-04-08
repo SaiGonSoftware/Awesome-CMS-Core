@@ -4,9 +4,11 @@ import filterFactory, {
   textFilter,
   selectFilter
 } from "react-bootstrap-table2-filter";
+import toastr from "toastr";
+import qs from "qs";
 
 import { isDomExist } from "../../Helper/util";
-import { Get } from "./../../Helper/ajax";
+import { Get, Post, PostWithSpinner } from "./../../Helper/ajax";
 import env from "../../Helper/envConfig";
 import ACCBootstrapTable from "../../Common/ACCBootstrapTable.jsx";
 
@@ -15,7 +17,8 @@ class AccountTable extends Component {
     super();
     this.state = {
       userList: [],
-      loading: false
+      loading: false,
+      selectedId: ""
     };
   }
 
@@ -25,17 +28,33 @@ class AccountTable extends Component {
     });
   }
 
-  handleOnSelect(row, isSelect) {
-    console.log(row);
-  }
+  handleOnSelect = (row, isSelect) => {
+    /*    this.setState(() => ({
+      selectedId: [...this.state.selectedId, row.userId]
+    })); */
+  };
+
+  handleDeactiveAccount = () => {
+    alert("ok");
+    const selectedId = "68627c5a-5788-4820-bd9d-0034d3f0239b";
+    console.log(selectedId);
+    PostWithSpinner.call(
+      this,
+      env.deactiveAccount,
+      qs.stringify({ accountId: selectedId })
+    ).then(res => {
+      toastr.info("res");
+    });
+  };
 
   render() {
     const { userList } = this.state;
 
     const selectRow = {
-      mode: 'radio',
+      mode: "radio",
       clickToSelect: true,
-      onSelect: this.handleOnSelect
+      onSelect: this.handleOnSelect,
+      selected: false
     };
 
     const options = {
@@ -99,7 +118,11 @@ class AccountTable extends Component {
               </button>
             </div>
             <div className="col-md-4" id="deactiveSection">
-              <button type="button" className="btn btn-danger">
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={this.handleDeactiveAccount}
+              >
                 <i className="fa fa-power-off" aria-hidden="true" /> Deactive
                 Account
               </button>
