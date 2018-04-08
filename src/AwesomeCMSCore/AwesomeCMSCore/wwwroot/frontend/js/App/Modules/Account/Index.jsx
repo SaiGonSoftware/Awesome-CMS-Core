@@ -32,8 +32,8 @@ class AccountTable extends Component {
       nextPageText: "Next",
       sizePerPageList: [
         {
-          text: "3",
-          value: 3
+          text: "2",
+          value: 2
         }
       ]
     };
