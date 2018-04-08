@@ -31,9 +31,17 @@ Please read
 
 ## App insider (Continue to Update)
 
+## Login page for admin
+
+<img src="img/login.png"/>
+
 ### Portal index
 
 <img src="img/portal.png"/>
+
+## Manage Account
+
+<img src="img/manage-account.png"/>
 
 ### Tag manage page
 
