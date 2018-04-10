@@ -136,6 +136,11 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
         [HttpPost]
         public async Task<IActionResult> Deactivate(string accountId)
         {
+            if (string.IsNullOrEmpty(accountId))
+            {
+                return BadRequest();
+            }
+
             await _accountService.DeactivateAccount(accountId);
             return Ok();
         }

@@ -10,14 +10,16 @@
   }
 
   #userListOptions {
-    margin-bottom: 20px;
-
-    #btnAddUser {
+    button {
       margin-right: 10px;
     }
-
+    margin-bottom: 20px;
+    /* 
+    #btnAddUser {
+      margin-right: 10px;
+    } 
     #deactiveSection {
       padding-left: 16%;
-    }
+    }*/
   }
 }

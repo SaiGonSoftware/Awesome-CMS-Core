@@ -8,7 +8,7 @@ import toastr from "toastr";
 import qs from "qs";
 
 import { isDomExist } from "../../Helper/util";
-import { Get, Post, PostWithSpinner } from "./../../Helper/ajax";
+import { Get, Post } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
 import ACCBootstrapTable from "../../Common/ACCBootstrapTable.jsx";
 
@@ -18,7 +18,10 @@ class AccountTable extends Component {
     this.state = {
       userList: [],
       loading: false,
-      selectedId: ""
+      showModal: false,
+      selectedUserId: "",
+      btnActivate: "",
+      btnDeactivate: ""
     };
   }
 
@@ -28,33 +31,37 @@ class AccountTable extends Component {
     });
   }
 
-  handleOnSelect = (row, isSelect) => {
-    /*    this.setState(() => ({
-      selectedId: [...this.state.selectedId, row.userId]
-    })); */
-  };
+  handleAddUser = () => {};
 
   handleDeactiveAccount = () => {
-    alert("ok");
-    const selectedId = "68627c5a-5788-4820-bd9d-0034d3f0239b";
-    console.log(selectedId);
-    PostWithSpinner.call(
-      this,
-      env.deactiveAccount,
-      qs.stringify({ accountId: selectedId })
-    ).then(res => {
-      toastr.info("res");
-    });
+    if (this.selectedId) {
+      Post(env.deactiveAccount, qs.stringify({ accountId: this.selectedId }))
+        .then(() => {
+          toastr.info("Deactive account complete");
+        })
+        .catch(() => {
+          toastr.error("Something went wrong");
+        });
+    }
+  };
+
+  onSelectAccount = row => {
+    if (this.accountTable) {
+      if (row.emailConfirmed === "True")
+        this.setState({ btnDeactivate: "", btnActivate: "disabled" });
+      if (row.emailConfirmed === "False")
+        this.setState({ btnActivate: "", btnDeactivate: "disabled" });
+      this.setState({ selectedId: row.userId });
+    }
   };
 
   render() {
-    const { userList } = this.state;
+    const { userList, btnActivate, btnDeactivate } = this.state;
 
     const selectRow = {
       mode: "radio",
       clickToSelect: true,
-      onSelect: this.handleOnSelect,
-      selected: false
+      onSelect: this.onSelectAccount
     };
 
     const options = {
@@ -104,33 +111,51 @@ class AccountTable extends Component {
     ];
 
     return (
-      <div className="card">
+      <div
+        className="card"
+        ref={c => {
+          this.accountTable = c;
+        }}
+      >
         <div className="card-header">User List</div>
         <div className="card-body">
           <div className="row" id="userListOptions">
-            <div className="col-md-8">
+            <div className="col-md-6">
               <button type="button" className="btn btn-primary" id="btnAddUser">
-                <i className="fa fa-user-plus" aria-hidden="true" /> Add User
+                <i
+                  className="fa fa-user-plus"
+                  aria-hidden="true"
+                  onClick={this.handleAddUser}
+                />
+                &nbsp; Add User
               </button>
               <button type="button" className="btn btn-warning">
                 <i className="fa fa-pencil-square-o" aria-hidden="true" /> Edit
                 Role
               </button>
             </div>
-            <div className="col-md-4" id="deactiveSection">
+            <div className="col-md-6" id="deactiveSection">
               <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-danger pull-right"
                 onClick={this.handleDeactiveAccount}
+                disabled={btnDeactivate}
               >
                 <i className="fa fa-power-off" aria-hidden="true" /> Deactive
                 Account
+              </button>
+              <button
+                type="button"
+                className="btn btn-success pull-right"
+                disabled={btnActivate}
+              >
+                <i className="fa fa-toggle-on" aria-hidden="true" />
+                &nbsp; Activate Account
               </button>
             </div>
           </div>
 
           <ACCBootstrapTable
-            deleteRow={true}
             keyField="userId"
             classes="table text-center table-sm table-hover table-bordered table-striped"
             data={userList}
