@@ -107,7 +107,7 @@ class LoginForm extends Component {
       return <Spinner />;
     } else {
       return (
-        <button className="btn btn-primary" type="submit" disabled={isDisabled}>
+        <button className="btn btn-primary btn-block" type="submit" disabled={isDisabled}>
           Login
         </button>
       );
@@ -125,13 +125,11 @@ class LoginForm extends Component {
     };
 
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col col-md-12" id="loginContainer">
-            <form id="loginForm" onSubmit={this.login}>
-              <div className="panel-heading">
-                <h3 className="panel-title"> Admin portal </h3>
-              </div>
+      <div id="loginContainer">
+        <div className="card">
+          <div className="card-header text-center"> Admin portal </div>
+          <div className="card-body">
+            <form onSubmit={this.login}>
               <div id="loginFormContent">
                 <div className="form-group">
                   <label htmlFor="username" hidden>
@@ -172,7 +170,7 @@ class LoginForm extends Component {
                       name="rememberMe"
                       onChange={rememberMe => this.onChange(rememberMe)}
                     />
-                    Remember me ?
+                    &nbsp; Remember me ?
                   </label>
                 </div>
                 {this.renderButton()}

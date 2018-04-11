@@ -1,12 +1,11 @@
-#loginContainer {
-  padding-top: 5%;
+#loginForm {
+  #loginContainer {
+    padding-top: 5%;
+    width: 450px;
+    margin-left: 30%;
+    margin-top: 12%;
 
-  #loginForm {
-    margin: 10% 35% 0;
-    border: 1px solid #ddd;
-    width: 350px;
-
-    h3 {
+    .card-header {
       text-align: center;
     }
 
@@ -31,15 +30,10 @@
     input[type="text"],
     input[type="password"] {
       margin-bottom: 15px;
-      width: 250px;
     }
 
     .form-check {
       margin-bottom: 15px;
-    }
-
-    button {
-      width: 250px;
     }
   }
 }

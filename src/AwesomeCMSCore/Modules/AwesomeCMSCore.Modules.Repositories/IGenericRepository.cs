@@ -8,6 +8,8 @@ namespace AwesomeCMSCore.Modules.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {
+        IQueryable<T> Query();
+
         ICollection<T> GetAll();
 
         Task<ICollection<T>> GetAllAsync();

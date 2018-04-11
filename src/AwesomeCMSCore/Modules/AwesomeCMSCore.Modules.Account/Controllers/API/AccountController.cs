@@ -1,30 +1,37 @@
 ﻿using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Account.Extensions;
 using AwesomeCMSCore.Modules.Account.Models.AccountViewModels;
+using AwesomeCMSCore.Modules.Account.Services;
+using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Filter;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Account.Controllers.API
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly IAccountService _accountService;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IAccountService accountService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _accountService = accountService;
         }
 
         [HttpPost]
@@ -45,7 +52,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
 
             return BadRequest();
         }
-       
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -121,11 +128,17 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
             return Ok();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ResetPasswordConfirmation()
+        public async Task<IActionResult> UserList()
         {
-            return View();
+            var userList = await _accountService.UserList();
+            return Ok(userList);
+        }
+        
+        [HttpPost, ValidModel]
+        public async Task<IActionResult> ToggleAccountStatus(AccountToggleViewModel accountToggleVm)
+        {
+            await _accountService.AccountToggle(accountToggleVm);
+            return Ok();
         }
     }
 }

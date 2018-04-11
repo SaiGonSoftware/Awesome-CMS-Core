@@ -31,6 +31,11 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login()

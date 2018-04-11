@@ -18,6 +18,7 @@ using System.Runtime.Loader;
 using Microsoft.AspNetCore.Identity;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AutoMapper;
+using AwesomeCMSCore.Modules.Account.Repositories;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -30,6 +31,7 @@ using Microsoft.AspNetCore.Http;
 using AwesomeCMSCore.Modules.Queue;
 using Microsoft.IdentityModel.Tokens;
 using AwesomeCMSCore.Modules.Mapper;
+using AwesomeCMSCore.Modules.Account.Services;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -138,9 +140,11 @@ namespace AwesomeCMSCore.Extension
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ITagService, TagService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IExceptionHandler, ExceptionHandler>();
-            
+
             return services;
         }
 
@@ -157,7 +161,7 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection AddCustomAuthentication(this IServiceCollection services)
         {
             services
-                .AddIdentity<User, IdentityRole>()
+                .AddIdentity<User, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 

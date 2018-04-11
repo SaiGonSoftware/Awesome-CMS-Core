@@ -10,9 +10,11 @@
         <PackageReference Include="OpenIddict" Version="2.0.0-*" />
         <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-*" />
         <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-*" />
+        <PackageReference Include="AutoMapper" Version="6.2.2" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\AwesomeCMSCore.Modules.Email\AwesomeCMSCore.Modules.Email.csproj" />
       <ProjectReference Include="..\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
+      <ProjectReference Include="..\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />
     </ItemGroup>
 </Project>
