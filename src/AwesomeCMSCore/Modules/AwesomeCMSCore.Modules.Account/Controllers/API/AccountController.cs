@@ -2,8 +2,10 @@
 using AwesomeCMSCore.Modules.Account.Extensions;
 using AwesomeCMSCore.Modules.Account.Models.AccountViewModels;
 using AwesomeCMSCore.Modules.Account.Services;
+using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Filter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -133,15 +135,10 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> Deactivate(string accountId)
+        [HttpPost, ValidModel]
+        public async Task<IActionResult> ToggleAccountStatus(AccountToggleViewModel accountToggleVm)
         {
-            if (string.IsNullOrEmpty(accountId))
-            {
-                return BadRequest();
-            }
-
-            await _accountService.DeactivateAccount(accountId);
+            await _accountService.AccountToggle(accountToggleVm);
             return Ok();
         }
     }

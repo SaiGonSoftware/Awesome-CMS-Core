@@ -56,12 +56,12 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             return userListVm;
         }
 
-        public async Task DeactivateAccount(string accountId)
+        public async Task AccountToggle(AccountToggleViewModel accountToggleVm)
         {
-            var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Id == accountId).FirstOrDefaultAsync();
+            var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Id == accountToggleVm.AccountId).FirstOrDefaultAsync();
             if (account != null)
             {
-                account.EmailConfirmed = false;
+                account.EmailConfirmed = accountToggleVm.ToogleFlag;
                 await _unitOfWork.Repository<User>().UpdateAsync(account);
             }
         }

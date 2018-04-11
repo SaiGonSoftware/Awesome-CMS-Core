@@ -1,16 +1,12 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import filterFactory, {
-  textFilter,
-  selectFilter
-} from "react-bootstrap-table2-filter";
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import toastr from "toastr";
 import qs from "qs";
 
 import { isDomExist } from "../../Helper/util";
 import { Get, Post } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
-import ACCBootstrapTable from "../../Common/ACCBootstrapTable.jsx";
 
 class AccountTable extends Component {
   constructor() {
@@ -21,7 +17,8 @@ class AccountTable extends Component {
       showModal: false,
       selectedUserId: "",
       btnActivate: "",
-      btnDeactivate: ""
+      btnDeactivate: "",
+      toogleFlag: false
     };
   }
 
@@ -33,11 +30,17 @@ class AccountTable extends Component {
 
   handleAddUser = () => {};
 
-  handleDeactiveAccount = () => {
-    if (this.selectedId) {
-      Post(env.deactiveAccount, qs.stringify({ accountId: this.selectedId }))
+  toggleAccountStatus = () => {
+    if (this.state.selectedId) {
+      Post(
+        env.deactiveAccount,
+        qs.stringify({
+          accountId: this.state.selectedId,
+          toogleFlag: this.state.toogleFlag
+        })
+      )
         .then(() => {
-          toastr.info("Deactive account complete");
+          toastr.info("Account status successfully set");
         })
         .catch(() => {
           toastr.error("Something went wrong");
@@ -46,12 +49,13 @@ class AccountTable extends Component {
   };
 
   onSelectAccount = row => {
-    if (this.accountTable) {
-      if (row.emailConfirmed === "True")
-        this.setState({ btnDeactivate: "", btnActivate: "disabled" });
-      if (row.emailConfirmed === "False")
-        this.setState({ btnActivate: "", btnDeactivate: "disabled" });
-      this.setState({ selectedId: row.userId });
+    if (row.emailConfirmed === "True") {
+      this.setState({ btnDeactivate: "", btnActivate: "disabled" });
+      this.setState({ selectedId: row.userId, toogleFlag: false });
+    }
+    if (row.emailConfirmed === "False") {
+      this.setState({ btnActivate: "", btnDeactivate: "disabled" });
+      this.setState({ selectedId: row.userId, toogleFlag: true });
     }
   };
 
@@ -64,59 +68,25 @@ class AccountTable extends Component {
       onSelect: this.onSelectAccount
     };
 
+    const accountStatus = {
+      True: "True",
+      False: "False"
+    };
+
     const options = {
-      pageStartIndex: 0,
+      noDataText: "List is empty",
+      page: 1,
+      sizePerPage: 5,
+      pageStartIndex: 1,
       hideSizePerPage: true,
-      hidePageListOnlyOnePage: true,
-      prePageText: "Back",
-      nextPageText: "Next",
-      sizePerPageList: [
-        {
-          text: "2",
-          value: 2
-        }
-      ]
+      prePage: "Prev",
+      nextPage: "Next",
+      firstPage: "First",
+      lastPage: "Last"
     };
-
-    const acccountActiveStatus = {
-      False: "False",
-      True: "True"
-    };
-
-    const columns = [
-      {
-        dataField: "userName",
-        text: "UserName",
-        sort: true
-      },
-      {
-        dataField: "roles",
-        text: "Roles"
-      },
-      {
-        dataField: "email",
-        text: "Email",
-        sort: true,
-        filter: textFilter()
-      },
-      {
-        dataField: "emailConfirmed",
-        text: "Email Confirmed",
-        sort: true,
-        formatter: cell => acccountActiveStatus[cell],
-        filter: selectFilter({
-          options: acccountActiveStatus
-        })
-      }
-    ];
 
     return (
-      <div
-        className="card"
-        ref={c => {
-          this.accountTable = c;
-        }}
-      >
+      <div className="card">
         <div className="card-header">User List</div>
         <div className="card-body">
           <div className="row" id="userListOptions">
@@ -138,7 +108,7 @@ class AccountTable extends Component {
               <button
                 type="button"
                 className="btn btn-danger pull-right"
-                onClick={this.handleDeactiveAccount}
+                onClick={this.toggleAccountStatus}
                 disabled={btnDeactivate}
               >
                 <i className="fa fa-power-off" aria-hidden="true" /> Deactive
@@ -147,6 +117,7 @@ class AccountTable extends Component {
               <button
                 type="button"
                 className="btn btn-success pull-right"
+                onClick={this.toggleAccountStatus}
                 disabled={btnActivate}
               >
                 <i className="fa fa-toggle-on" aria-hidden="true" />
@@ -154,16 +125,38 @@ class AccountTable extends Component {
               </button>
             </div>
           </div>
-
-          <ACCBootstrapTable
-            keyField="userId"
-            classes="table text-center table-sm table-hover table-bordered table-striped"
+          <BootstrapTable
             data={userList}
-            options={options}
-            columns={columns}
-            filter={filterFactory()}
+            version="4"
             selectRow={selectRow}
-          />
+            options={options}
+            pagination
+            containerClass="table text-center table-hover table-bordered table-striped"
+          >
+            <TableHeaderColumn
+              dataField="userName"
+              isKey
+              dataSort={true}
+              filter={{ type: "TextFilter" }}
+            >
+              User Name
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataField="email"
+              dataSort={true}
+              filter={{ type: "TextFilter" }}
+            >
+              Email
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataField="emailConfirmed"
+              dataSort={true}
+              filter={{ type: "SelectFilter", options: accountStatus }}
+            >
+              Email Confirmed
+            </TableHeaderColumn>
+            <TableHeaderColumn dataField="roles">Roles</TableHeaderColumn>
+          </BootstrapTable>,
         </div>
       </div>
     );

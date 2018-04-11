@@ -39,9 +39,9 @@ namespace AwesomeCMSCore.Modules.Account.Services
             return await _accountRepository.UserList();
         }
 
-        public async Task DeactivateAccount(string accountId)
+        public async Task AccountToggle(AccountToggleViewModel accountToggleVm)
         {
-           await _accountRepository.DeactivateAccount(accountId);
+           await _accountRepository.AccountToggle(accountToggleVm);
         }
     }
 }
