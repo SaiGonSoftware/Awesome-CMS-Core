@@ -1,32 +1,26 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-class AwesomeInput extends Component {
-  constructor(props) {
-    super(props);
-  }
+const AwesomeInput = props => {
+  const className = "form-control";
+  const classNameError = "form-control is-invalid";
 
-  render() {
-    const className = "form-control";
-    const classNameError = "form-control is-invalid";
-
-    return (
-      <div>
-        <input
-          className={this.props.className ? classNameError : className}
-          id={this.props.id}
-          type={this.props.type || "text"}
-          name={this.props.name}
-          placeholder={this.props.placeholder}
-          onChange={this.props.onChange}
-          onBlur={this.props.onBlur}
-          value={this.props.value}
-          required={this.props.required}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <input
+        className={props.className ? classNameError : className}
+        id={props.id}
+        type={props.type || "text"}
+        name={props.name}
+        placeholder={props.placeholder}
+        onChange={props.onChange}
+        onBlur={props.onBlur}
+        value={props.value}
+        required={props.required}
+      />
+    </div>
+  );
+};
 
 AwesomeInput.propTypes = {
   className: PropTypes.bool,
