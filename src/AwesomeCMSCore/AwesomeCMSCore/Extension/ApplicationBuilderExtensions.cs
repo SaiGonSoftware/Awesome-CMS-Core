@@ -64,7 +64,7 @@ namespace AwesomeCMSCore.Extension
                     await next();
                 }
             });
-            app.UseExceptionless("NvjyUM7jZdHylprZ5oAPxEpBmvgZXnYZxVyUf5y5");
+            //app.UseExceptionless("NvjyUM7jZdHylprZ5oAPxEpBmvgZXnYZxVyUf5y5");
             app.UseProtectFolder(new ProtectFolderOptions
             {
                 Path = "/frontend"
