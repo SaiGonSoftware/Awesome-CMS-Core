@@ -88,7 +88,7 @@ class AccountTable extends Component {
 
     const addUserModalOptions = [{
       
-    }]
+    }];
 
     return (
       <div className="card">

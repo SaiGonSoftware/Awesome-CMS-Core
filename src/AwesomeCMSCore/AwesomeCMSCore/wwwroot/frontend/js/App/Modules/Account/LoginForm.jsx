@@ -8,6 +8,7 @@ import { navigateToUrl, isDomExist } from "../../Helper/util";
 import { setStorage } from "../../Helper/storageHelper";
 import { AppEnum } from "../../Helper/appEnum";
 import { Post, PostWithSpinner } from "../../Helper/ajax";
+import { onChange, onBlur } from "../../Helper/stateHelper";
 import env from "../../Helper/envConfig";
 import statusCode from "../../Helper/StatusCode";
 import AwesomeInput from "../../Common/AwesomeInput.jsx";
@@ -66,18 +67,6 @@ class LoginForm extends Component {
       });
   };
 
-  onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-
-  onBlur(e) {
-    this.setState({
-      touched: { ...this.state.touched, [e.target.name]: true }
-    });
-  }
-
   tokenRequest() {
     Post(
       env.tokenUrl,
@@ -107,7 +96,11 @@ class LoginForm extends Component {
       return <Spinner />;
     } else {
       return (
-        <button className="btn btn-primary btn-block" type="submit" disabled={isDisabled}>
+        <button
+          className="btn btn-primary btn-block"
+          type="submit"
+          disabled={isDisabled}
+        >
           Login
         </button>
       );
@@ -143,8 +136,8 @@ class LoginForm extends Component {
                     placeholder="Username"
                     required="required"
                     value={this.state.username}
-                    onChange={username => this.onChange(username)}
-                    onBlur={username => this.onBlur(username)}
+                    onChange={username => onChange.call(this, username)}
+                    onBlur={username => onBlur.call(this, username)}
                   />
                 </div>
                 <div className="form-group">
@@ -159,8 +152,8 @@ class LoginForm extends Component {
                     placeholder="Password"
                     required="required"
                     value={this.state.password}
-                    onChange={password => this.onChange(password)}
-                    onBlur={password => this.onBlur(password)}
+                    onChange={password => onChange.call(this, password)}
+                    onBlur={password => onBlur.call(this, password)}
                   />
                 </div>
                 <div className="form-group">
@@ -168,7 +161,7 @@ class LoginForm extends Component {
                     <input
                       type="checkbox"
                       name="rememberMe"
-                      onChange={rememberMe => this.onChange(rememberMe)}
+                      onChange={rememberMe => onChange.call(this, rememberMe)}
                     />
                     &nbsp; Remember me ?
                   </label>
