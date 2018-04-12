@@ -20,13 +20,12 @@ engines:
     enabled: true
   remark-lint:
     enabled: true
-exclude_paths: [
-  - Resource/**
-  - .gitignore
+exclude_paths: 
+  - Resource/**/*
   - src/AwesomeCMSCore/AwesomeCMSCore/Migrations/**
   - src/AwesomeCMSCore/AwesomeCMSCore/wwwroot/dist/**
   - src/AwesomeCMSCore/AwesomeCMSCore/wwwroot/dist/**
   - src/AwesomeCMSCore/AwesomeCMSCore/wwwroot/frontend/css/style.default.scss
   - src/AwesomeCMSCore/AwesomeCMSCore/wwwroot/frontend/css/font.scss
-]
+
 
