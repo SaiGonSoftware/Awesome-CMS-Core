@@ -15,7 +15,6 @@ namespace AwesomeCMSCore.Modules.Queue
             _queueSetting = queueSetting;
         }
 
-
         public void PublishMessage(string queueName, string message, string routingKey, string exchangeType = "")
         {
             var factory = new ConnectionFactory()
