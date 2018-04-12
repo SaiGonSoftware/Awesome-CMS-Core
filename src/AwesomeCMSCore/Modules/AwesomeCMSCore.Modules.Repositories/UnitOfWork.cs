@@ -11,11 +11,7 @@ namespace AwesomeCMSCore.Modules.Repositories
         private readonly ApplicationDbContext _dbContext;
         private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
 
-        public Dictionary<Type, object> Repositories
-        {
-            get { return _repositories; }
-            set { Repositories = value; }
-        }
+        public Dictionary<Type, object> Repositories { get; set; }
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {

@@ -12,22 +12,21 @@ namespace AwesomeCMSCore.Modules.Helper.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IGenericRepository<User> _userRepository;
-        private readonly UserManager<User> _userManager;
 
         private readonly string _currentUserGuid;
         private readonly string _currentUserName;
         private readonly string _currentUserEmail;
+
         public UserService(
             UserManager<User> userManager,
             IHttpContextAccessor httpContextAccessor,
             IGenericRepository<User> userRepository)
         {
-            _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
             _currentUserGuid = _httpContextAccessor?.HttpContext?.User?.FindFirst(UserClaimsKey.Sub)?.Value;
             _currentUserName = _httpContextAccessor?.HttpContext?.User?.Identity?.Name;
-            _currentUserEmail = _currentUserGuid == null ? "" :_userManager.FindByIdAsync(_currentUserGuid)?.Result?.Email;
+            _currentUserEmail = _currentUserGuid == null ? "" : userManager.FindByIdAsync(_currentUserGuid)?.Result?.Email;
         }
 
         public async Task<User> GetCurrentUserAsync()

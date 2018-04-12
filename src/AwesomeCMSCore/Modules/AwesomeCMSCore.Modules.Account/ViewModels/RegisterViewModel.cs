@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AwesomeCMSCore.Modules.Account.Models.AccountViewModels
+namespace AwesomeCMSCore.Modules.Account.ViewModels
 {
     public class RegisterViewModel
     {
