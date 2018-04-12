@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Account.Extensions;
-using AwesomeCMSCore.Modules.Account.Models.AccountViewModels;
+using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Authentication;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AwesomeCMSCore.Migrations
 {
-    public partial class InitDB_20180304_170430 : Migration
+    public partial class InitDB_20181204_145606 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,6 +15,7 @@ namespace AwesomeCMSCore.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Discriminator = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
                 },
@@ -101,6 +102,24 @@ namespace AwesomeCMSCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OpenIddictScopes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateCreate = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    TagData = table.Column<string>(nullable: true),
+                    TagOptions = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -246,30 +265,6 @@ namespace AwesomeCMSCore.Migrations
                     table.ForeignKey(
                         name: "FK_Medias_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tags",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DateCreate = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
-                    TagData = table.Column<string>(nullable: true),
-                    TagOptions = table.Column<string>(nullable: true),
-                    UniqeId = table.Column<Guid>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tags_AspNetUsers_UserId",
-                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -492,11 +487,6 @@ namespace AwesomeCMSCore.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_TagOptions_UserId",
                 table: "TagOptions",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tags_UserId",
-                table: "Tags",
                 column: "UserId");
         }
 

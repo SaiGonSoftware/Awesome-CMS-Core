@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Entities.Data;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AwesomeCMSCore.Extension
+namespace AwesomeCMSCore.Modules.Entities.Data
 {
     public static class SeedData
     {
