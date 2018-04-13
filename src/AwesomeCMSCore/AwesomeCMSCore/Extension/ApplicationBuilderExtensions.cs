@@ -68,10 +68,11 @@ namespace AwesomeCMSCore.Extension
                     await next();
                 }
             });
-            app.UseProtectFolder(new ProtectFolderOptions
-            {
-                Path = "/frontend"
-            });
+            //Turn on if we want to store data in folder and block user from access it 
+            //app.UseProtectFolder(new ProtectFolderOptions
+            //{
+            //    Path = "/frontend"
+            //});
             #endregion
 
             return app;
