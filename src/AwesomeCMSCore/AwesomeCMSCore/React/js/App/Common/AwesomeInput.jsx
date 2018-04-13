@@ -1,14 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const AwesomeInput = props => {
-  const className = "form-control";
-  const classNameError = "form-control is-invalid";
+const AwesomeInput = ({ ...props }) => {
+  let className = "";
+
+  if (props.required) {
+    !props.value.toString().trim().length
+      ? (className = "form-control is-invalid")
+      : (className = "form-control");
+  }
 
   return (
     <div>
       <input
-        className={props.className ? classNameError : className}
+        className={className}
         id={props.id}
         type={props.type || "text"}
         name={props.name}
