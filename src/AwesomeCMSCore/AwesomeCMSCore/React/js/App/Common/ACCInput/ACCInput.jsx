@@ -4,6 +4,22 @@ import PropTypes from "prop-types";
 class ACCInput extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      value: this.props.value,
+      touched: false
+    };
+  }
+
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  onBlur(e) {
+    this.setState({
+      touched: { ...this.state.touched, [e.target.name]: true }
+    });
   }
 
   render() {
@@ -11,18 +27,23 @@ class ACCInput extends Component {
     const classNameError = "form-control is-invalid";
 
     return (
-      <div>
-        <input
-          className={this.props.className ? classNameError : className}
-          id={this.props.id}
-          type={this.props.type || "text"}
-          name={this.props.name}
-          placeholder={this.props.placeholder}
-          onChange={this.props.onChange}
-          onBlur={this.props.onBlur}
-          value={this.props.value}
-          required={this.props.required}
-        />
+      <div className="form-group">
+        <label htmlFor={this.props.name} hidden>
+          {this.props.name}
+        </label>
+        <div>
+          <input
+            className={this.props.className ? classNameError : className}
+            id={this.props.id}
+            type={this.props.type}
+            name={this.props.name}
+            placeholder={this.props.placeholder}
+            onChange={value => this.onChange(value)}
+            onBlur={value => this.onBlur(value)}
+            value={this.state.value}
+            required={this.props.required}
+          />
+        </div>
       </div>
     );
   }

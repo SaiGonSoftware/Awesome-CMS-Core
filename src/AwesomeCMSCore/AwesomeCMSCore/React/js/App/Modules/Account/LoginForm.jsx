@@ -6,13 +6,14 @@ import PropTypes from "prop-types";
 
 import { navigateToUrl, isDomExist } from "../../Helper/util";
 import { setStorage } from "../../Helper/storageHelper";
-import { AppEnum } from "../../Helper/appEnum";
+import { APP_ENUM } from "./../../Helper/appEnum";
 import { Post, PostWithSpinner } from "../../Helper/ajax";
-import { onChange, onBlur } from "../../Helper/stateHelper";
 import env from "../../Helper/envConfig";
 import statusCode from "../../Helper/StatusCode";
-import AwesomeInput from "../../Common/AwesomeInput.jsx";
+
+import ACCInput from "../../Common/ACCInput/ACCInput.jsx";
 import Spinner from "../../Common/Spinner.jsx";
+import ACCCheckbox from "./../../Common/ACCInput/ACCCheckbox.jsx";
 
 function validate(username, password) {
   // true means invalid, so our conditions got reversed
@@ -83,7 +84,7 @@ class LoginForm extends Component {
         token_type: res.data.token_type,
         expires_in: res.data.expires_in
       };
-      setStorage(AppEnum.authToken, token);
+      setStorage(APP_ENUM.AUTH_TOKEN, token);
       navigateToUrl(env.portal);
     });
   }
@@ -108,6 +109,9 @@ class LoginForm extends Component {
   }
 
   render() {
+    console.log(this.state.username);
+
+    console.log(this.state.password);
     const errors = this.validateErrors();
 
     const shouldMarkError = field => {
@@ -124,48 +128,21 @@ class LoginForm extends Component {
           <div className="card-body">
             <form onSubmit={this.login}>
               <div id="loginFormContent">
-                <div className="form-group">
-                  <label htmlFor="username" hidden>
-                    Username
-                  </label>
-                  <AwesomeInput
-                    className={shouldMarkError("username")}
-                    type="text"
-                    name="username"
-                    id="username"
-                    placeholder="Username"
-                    required="required"
-                    value={this.state.username}
-                    onChange={username => onChange.call(this, username)}
-                    onBlur={username => onBlur.call(this, username)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="password" hidden>
-                    Password
-                  </label>
-                  <AwesomeInput
-                    className={shouldMarkError("password")}
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="Password"
-                    required="required"
-                    value={this.state.password}
-                    onChange={password => onChange.call(this, password)}
-                    onBlur={password => onBlur.call(this, password)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>
-                    <input
-                      type="checkbox"
-                      name="rememberMe"
-                      onChange={rememberMe => onChange.call(this, rememberMe)}
-                    />
-                    &nbsp; Remember me ?
-                  </label>
-                </div>
+                <ACCInput
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Username"
+                  required="required"
+                />
+                <ACCInput
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                  required="required"
+                />
+                <ACCCheckbox id="rememberMe" name="rememberMe" />
                 {this.renderButton()}
               </div>
             </form>
