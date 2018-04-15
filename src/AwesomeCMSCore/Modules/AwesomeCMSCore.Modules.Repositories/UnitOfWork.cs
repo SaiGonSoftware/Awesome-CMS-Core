@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +11,11 @@ namespace AwesomeCMSCore.Modules.Repositories
         private readonly ApplicationDbContext _dbContext;
         private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
 
-        public Dictionary<Type, object> Repositories { get; set; }
+        public Dictionary<Type, object> Repositories
+        {
+            get { return _repositories; }
+            set { Repositories = value; }
+        }
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {
@@ -32,7 +36,7 @@ namespace AwesomeCMSCore.Modules.Repositories
 
         public async Task<int> Commit()
         {
-           return await _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
 
         public void Rollback()
