@@ -7,7 +7,8 @@ import qs from "qs";
 import { isDomExist } from "../../Helper/util";
 import { Get, Post } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
-import  ACCModal  from "../../Common/Modal.jsx";
+import ACCModal from "../../Common/Modal.jsx";
+import { APP_ENUM } from "./../../Helper/appEnum";
 
 class AccountTable extends Component {
   constructor() {
@@ -86,9 +87,23 @@ class AccountTable extends Component {
       lastPage: "Last"
     };
 
-    const addUserModalOptions = [{
-      
-    }];
+    const addUserModalOptions = [
+      {
+        name: "UserName",
+        type: APP_ENUM.INPUT_TEXT,
+        required: "required"
+      },
+      {
+        name: "Email",
+        type: APP_ENUM.INPUT_TEXT,
+        required: "required"
+      },
+      {
+        name: "Roles",
+        type: APP_ENUM.SELECT,
+        value: ["Admin", "Owner", "Editor"]
+      }
+    ];
 
     return (
       <div className="card">
@@ -110,6 +125,7 @@ class AccountTable extends Component {
                 title="Add User"
                 id="addUserModal"
                 onClick={this.handleAddUser}
+                options={addUserModalOptions}
               />
               <button type="button" className="btn btn-warning">
                 <i className="fa fa-pencil-square-o" aria-hidden="true" /> Edit

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ACCInputList from "./ACCInput/ACCInputList.jsx";
 
 const ACCModal = props => {
   return (
@@ -23,7 +24,9 @@ const ACCModal = props => {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body">...</div>
+          <div className="modal-body">
+            <ACCInputList options={props.options} />
+          </div>
           <div className="modal-footer">
             <button
               type="button"
@@ -49,6 +52,7 @@ const ACCModal = props => {
 ACCModal.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  options: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired
 };
 
