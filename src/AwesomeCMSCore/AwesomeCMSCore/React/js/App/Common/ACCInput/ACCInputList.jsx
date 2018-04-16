@@ -12,8 +12,9 @@ const ACCInputList = props => {
   const inputField = [];
 
   props.options.forEach(input => {
+    let inputName = input.name;
     const errors = [props.errors];
-
+    console.log(inputName);
     switch (input.type) {
       case APP_ENUM.INPUT_TEXT:
         inputField.push(
@@ -26,8 +27,8 @@ const ACCInputList = props => {
                   name={input.name}
                   required={input.required}
                   placeholder={input.name}
-                  onChange={input.name => onChange.call(this, input.name)}
-                  onBlur={input.name => onBlur.call(this, input.name)}
+                  onChange={name => onChange.call(this, name)}
+                  onBlur={name => onBlur.call(this, name)}
                 />
               </div>
             </div>
