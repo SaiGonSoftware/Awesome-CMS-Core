@@ -33,10 +33,12 @@ class LoginForm extends Component {
   }
 
   validateErrors() {
-    const validationArr = [{
-      username: this.state.username,
-      password: this.state.password
-    }];
+    const validationArr = [
+      {
+        username: this.state.username,
+        password: this.state.password
+      }
+    ];
     const errors = validate.call(this, validationArr);
     return errors;
   }
@@ -118,7 +120,7 @@ class LoginForm extends Component {
             <form onSubmit={this.login}>
               <div id="loginFormContent">
                 <ACCInput
-                  //className={shouldMarkError.call(this, "username", errors)}
+                  className={shouldMarkError.call(this, "username", errors)}
                   type="text"
                   name="username"
                   id="username"
@@ -129,7 +131,7 @@ class LoginForm extends Component {
                   onBlur={username => onBlur.call(this, username)}
                 />
                 <ACCInput
-                  //className={shouldMarkError.call(this, "password", errors)}
+                  className={shouldMarkError.call(this, "password", errors)}
                   type="password"
                   name="password"
                   id="password"
@@ -145,6 +147,7 @@ class LoginForm extends Component {
                   checked={this.state.isChecked}
                   onChange={rememberMe => onChange.call(this, rememberMe)}
                 />
+                {this.renderButton()}
               </div>
             </form>
           </div>
