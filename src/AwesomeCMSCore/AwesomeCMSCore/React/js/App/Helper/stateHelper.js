@@ -9,3 +9,9 @@ export function onBlur(e) {
     touched: { ...this.state.touched, [e.target.name]: true }
   });
 }
+
+export function onCheck(e) {
+  this.setState({
+    [e.target.name]: e.target.checked
+  });
+}

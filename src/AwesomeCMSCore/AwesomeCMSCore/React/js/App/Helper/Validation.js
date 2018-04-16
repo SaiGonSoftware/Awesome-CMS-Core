@@ -7,7 +7,7 @@ export function validateInput(validationArr) {
   // true means invalid, so our conditions got reversed
   for (let i = 0; i < validationArr.length; i++) {
     for (let key in validationArr[i]) {
-      validateData.push({ [key]: validationArr[i][key].length === 0 });
+      validateData.push({ [key]: validationArr[i][key].trim().length === 0 });
     }
   }
 

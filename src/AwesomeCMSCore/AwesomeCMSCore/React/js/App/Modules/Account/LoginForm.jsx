@@ -4,7 +4,7 @@ import toastr from "toastr";
 import qs from "qs";
 import PropTypes from "prop-types";
 
-import { onChange, onBlur } from "../../Helper/stateHelper";
+import { onChange, onBlur, onCheck } from "../../Helper/stateHelper";
 import { navigateToUrl, isDomExist } from "../../Helper/util";
 import { setStorage } from "../../Helper/storageHelper";
 import { APP_ENUM } from "../../Helper/appEnum";
@@ -24,7 +24,7 @@ class LoginForm extends Component {
       username: "",
       password: "",
       loading: false,
-      isChecked: false,
+      rememberMe: false,
       touched: {
         username: false,
         password: false
@@ -43,13 +43,13 @@ class LoginForm extends Component {
     if (!this.canBeSubmitted()) {
       return;
     }
-
+    
     e.preventDefault();
 
     PostWithSpinner.call(this, env.loginUrl, {
       Username: this.state.username,
       Password: this.state.password,
-      RememberMe: this.state.rememberMe === "on" ? true : false
+      RememberMe: this.state.rememberMe ? true : false
     })
       .then(res => {
         if (res.status === statusCode.Success) this.tokenRequest();
@@ -87,7 +87,7 @@ class LoginForm extends Component {
         password: this.state.password
       }
     ];
-    
+
     const errors = validateInput.call(this, this.validationArr);
 
     return (
@@ -122,8 +122,8 @@ class LoginForm extends Component {
                 <ACCCheckbox
                   id="rememberMe"
                   name="rememberMe"
-                  checked={this.state.isChecked}
-                  onChange={rememberMe => onChange.call(this, rememberMe)}
+                  checked={this.state.rememberMe}
+                  onChange={rememberMe => onCheck.call(this, rememberMe)}
                 />
                 <ACCButton
                   validateObject={this.validationArr}
