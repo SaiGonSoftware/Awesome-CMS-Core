@@ -4,24 +4,18 @@ import toastr from "toastr";
 import qs from "qs";
 import PropTypes from "prop-types";
 
+import { onChange, onBlur } from "../../Helper/stateHelper";
 import { navigateToUrl, isDomExist } from "../../Helper/util";
 import { setStorage } from "../../Helper/storageHelper";
-import { APP_ENUM } from "./../../Helper/appEnum";
+import { APP_ENUM } from "../../Helper/appEnum";
 import { Post, PostWithSpinner } from "../../Helper/ajax";
+import { shouldMarkError, validate } from "../../Helper/Validation";
 import env from "../../Helper/envConfig";
 import statusCode from "../../Helper/StatusCode";
 
 import ACCInput from "../../Common/ACCInput/ACCInput.jsx";
 import Spinner from "../../Common/Spinner.jsx";
 import ACCCheckbox from "./../../Common/ACCInput/ACCCheckbox.jsx";
-
-function validate(username, password) {
-  // true means invalid, so our conditions got reversed
-  return {
-    username: username.length === 0,
-    password: password.length === 0
-  };
-}
 
 class LoginForm extends Component {
   constructor(props) {
@@ -30,6 +24,7 @@ class LoginForm extends Component {
       username: "",
       password: "",
       loading: false,
+      isChecked: false,
       touched: {
         username: false,
         password: false
@@ -38,7 +33,11 @@ class LoginForm extends Component {
   }
 
   validateErrors() {
-    const errors = validate(this.state.username, this.state.password);
+    const validationArr = [{
+      username: this.state.username,
+      password: this.state.password
+    }];
+    const errors = validate.call(this, validationArr);
     return errors;
   }
 
@@ -46,6 +45,25 @@ class LoginForm extends Component {
     const errors = this.validateErrors();
     const isDisabled = Object.keys(errors).some(x => errors[x]);
     return !isDisabled;
+  }
+
+  renderButton() {
+    const errors = this.validateErrors();
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+
+    if (this.state.loading) {
+      return <Spinner />;
+    } else {
+      return (
+        <button
+          className="btn btn-primary btn-block"
+          type="submit"
+          disabled={isDisabled}
+        >
+          Login
+        </button>
+      );
+    }
   }
 
   login = e => {
@@ -89,37 +107,8 @@ class LoginForm extends Component {
     });
   }
 
-  renderButton() {
-    const errors = this.validateErrors();
-    const isDisabled = Object.keys(errors).some(x => errors[x]);
-
-    if (this.state.loading) {
-      return <Spinner />;
-    } else {
-      return (
-        <button
-          className="btn btn-primary btn-block"
-          type="submit"
-          disabled={isDisabled}
-        >
-          Login
-        </button>
-      );
-    }
-  }
-
   render() {
-    console.log(this.state.username);
-
-    console.log(this.state.password);
     const errors = this.validateErrors();
-
-    const shouldMarkError = field => {
-      const hasError = errors[field];
-      const shouldShow = this.state.touched[field];
-
-      return hasError ? shouldShow : false;
-    };
 
     return (
       <div id="loginContainer">
@@ -129,21 +118,33 @@ class LoginForm extends Component {
             <form onSubmit={this.login}>
               <div id="loginFormContent">
                 <ACCInput
+                  //className={shouldMarkError.call(this, "username", errors)}
                   type="text"
                   name="username"
                   id="username"
                   placeholder="Username"
                   required="required"
+                  value={this.state.username}
+                  onChange={username => onChange.call(this, username)}
+                  onBlur={username => onBlur.call(this, username)}
                 />
                 <ACCInput
+                  //className={shouldMarkError.call(this, "password", errors)}
                   type="password"
                   name="password"
                   id="password"
                   placeholder="Password"
                   required="required"
+                  value={this.state.password}
+                  onChange={password => onChange.call(this, password)}
+                  onBlur={password => onBlur.call(this, password)}
                 />
-                <ACCCheckbox id="rememberMe" name="rememberMe" />
-                {this.renderButton()}
+                <ACCCheckbox
+                  id="rememberMe"
+                  name="rememberMe"
+                  checked={this.state.isChecked}
+                  onChange={rememberMe => onChange.call(this, rememberMe)}
+                />
               </div>
             </form>
           </div>

@@ -4,28 +4,11 @@ import PropTypes from "prop-types";
 class ACCInput extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: this.props.value,
-      touched: false
-    };
-  }
-
-  onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-
-  onBlur(e) {
-    this.setState({
-      touched: { ...this.state.touched, [e.target.name]: true }
-    });
+    this.className = "form-control";
+    this.classNameError = "form-control is-invalid";
   }
 
   render() {
-    const className = "form-control";
-    const classNameError = "form-control is-invalid";
-
     return (
       <div className="form-group">
         <label htmlFor={this.props.name} hidden>
@@ -33,14 +16,16 @@ class ACCInput extends Component {
         </label>
         <div>
           <input
-            className={this.props.className ? classNameError : className}
+            className={
+              this.props.className ? this.classNameError : this.className
+            }
             id={this.props.id}
             type={this.props.type}
             name={this.props.name}
             placeholder={this.props.placeholder}
-            onChange={value => this.onChange(value)}
-            onBlur={value => this.onBlur(value)}
-            value={this.state.value}
+            onChange={this.props.onChange}
+            onBlur={this.props.onBlur}
+            value={this.props.value}
             required={this.props.required}
           />
         </div>
@@ -51,9 +36,9 @@ class ACCInput extends Component {
 
 ACCInput.propTypes = {
   className: PropTypes.bool,
-  id: PropTypes.string,
+  id: PropTypes.string.isRequired,
   type: PropTypes.string,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,

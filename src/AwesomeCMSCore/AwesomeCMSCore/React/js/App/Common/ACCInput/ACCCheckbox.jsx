@@ -4,15 +4,6 @@ import PropTypes from "prop-types";
 class ACCCheckbox extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: this.props.value
-    };
-  }
-
-  onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
   }
 
   render() {
@@ -22,8 +13,8 @@ class ACCCheckbox extends Component {
           <input
             id={this.props.id}
             type="checkbox"
-            name={this.props.name}
-            onChange={value => this.onChange(value)}
+            name={this.props.name}        
+            onChange={this.props.onChange}   
           />
           &nbsp; Remember me ?
         </label>
@@ -33,9 +24,9 @@ class ACCCheckbox extends Component {
 }
 
 ACCCheckbox.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string
+  onChange: PropTypes.func.isRequired
 };
 
 export default ACCCheckbox;
