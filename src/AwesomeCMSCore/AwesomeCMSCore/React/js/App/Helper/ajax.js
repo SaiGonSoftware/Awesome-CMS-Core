@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AppEnum } from "./appEnum";
+import { APP_ENUM } from "./appEnum";
 import { getStorage } from "./storageHelper";
 
 export function Get(url) {
@@ -49,7 +49,7 @@ export function PostWithSpinner(url, data) {
 }
 
 function initAuthHeaders() {
-  const token = getStorage(AppEnum.authToken);
+  const token = getStorage(APP_ENUM.AUTH_TOKEN);
   if (token != null) {
     return token.access_token;
   }

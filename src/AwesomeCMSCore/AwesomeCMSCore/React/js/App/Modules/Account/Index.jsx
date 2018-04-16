@@ -7,6 +7,8 @@ import qs from "qs";
 import { isDomExist } from "../../Helper/util";
 import { Get, Post } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
+import ACCModal from "../../Common/Modal.jsx";
+import { APP_ENUM } from "./../../Helper/appEnum";
 
 class AccountTable extends Component {
   constructor() {
@@ -85,20 +87,46 @@ class AccountTable extends Component {
       lastPage: "Last"
     };
 
+    const addUserModalOptions = [
+      {
+        name: "UserName",
+        type: APP_ENUM.INPUT_TEXT,
+        required: "required"
+      },
+      {
+        name: "Email",
+        type: APP_ENUM.INPUT_TEXT,
+        required: "required"
+      },
+      {
+        name: "Roles",
+        type: APP_ENUM.SELECT,
+        value: ["Admin", "Owner", "Editor"]
+      }
+    ];
+
     return (
       <div className="card">
         <div className="card-header">User List</div>
         <div className="card-body">
           <div className="row" id="userListOptions">
             <div className="col-md-6">
-              <button type="button" className="btn btn-primary" id="btnAddUser">
-                <i
-                  className="fa fa-user-plus"
-                  aria-hidden="true"
-                  onClick={this.handleAddUser}
-                />
+              <button
+                type="button"
+                className="btn btn-primary"
+                id="btnAddUser"
+                data-toggle="modal"
+                data-target="#addUserModal"
+              >
+                <i className="fa fa-user-plus" aria-hidden="true" />
                 &nbsp; Add User
               </button>
+              <ACCModal
+                title="Add User"
+                id="addUserModal"
+                onClick={this.handleAddUser}
+                options={addUserModalOptions}
+              />
               <button type="button" className="btn btn-warning">
                 <i className="fa fa-pencil-square-o" aria-hidden="true" /> Edit
                 Role
@@ -131,7 +159,7 @@ class AccountTable extends Component {
             selectRow={selectRow}
             options={options}
             pagination
-            containerClass="table text-center table-hover table-bordered table-striped"
+            containerclassName="table text-center table-hover table-bordered table-striped"
           >
             <TableHeaderColumn
               dataField="userName"
