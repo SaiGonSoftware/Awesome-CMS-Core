@@ -25,7 +25,7 @@ const ACCModal = props => {
             </button>
           </div>
           <div className="modal-body">
-            <ACCInputList options={props.options} />
+            <ACCInputList options={props.options} errors={props.errors} />
           </div>
           <div className="modal-footer">
             <button
@@ -53,7 +53,8 @@ ACCModal.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 export default ACCModal;

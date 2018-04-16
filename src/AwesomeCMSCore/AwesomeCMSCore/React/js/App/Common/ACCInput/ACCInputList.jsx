@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { shouldMarkError } from "../../Helper/Validation";
+import { onChange, onBlur } from "../../Helper/stateHelper";
+
 import { APP_ENUM } from "../../Helper/appEnum";
 import ACCInput from "./ACCInput.jsx";
 import ACCSelect from "./ACCSelect.jsx";
@@ -9,17 +12,22 @@ const ACCInputList = props => {
   const inputField = [];
 
   props.options.forEach(input => {
+    const errors = [props.errors];
+
     switch (input.type) {
       case APP_ENUM.INPUT_TEXT:
         inputField.push(
-          <div className="row">
+          <div className="row" key={input.name}>
             <div className="col-md-12">
               <div className="form-group">
                 <ACCInput
+                  className={shouldMarkError.call(this, input.name, errors)}
                   type={input.type}
                   name={input.name}
                   required={input.required}
                   placeholder={input.name}
+                  onChange={input.name => onChange.call(this, input.name)}
+                  onBlur={input.name => onBlur.call(this, input.name)}
                 />
               </div>
             </div>
@@ -48,7 +56,8 @@ const ACCInputList = props => {
 };
 
 ACCInputList.propTypes = {
-  options: PropTypes.array.isRequired
+  options: PropTypes.array.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 export default ACCInputList;

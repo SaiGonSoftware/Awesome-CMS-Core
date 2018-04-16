@@ -29,7 +29,7 @@ const ACCInput = props => {
 
 ACCInput.propTypes = {
   className: PropTypes.bool,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,

@@ -4,15 +4,17 @@ import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import toastr from "toastr";
 import qs from "qs";
 
+import { validateInput } from "../../Helper/Validation";
 import { isDomExist } from "../../Helper/util";
 import { Get, Post } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
-import ACCModal from "../../Common/Modal.jsx";
 import { APP_ENUM } from "./../../Helper/appEnum";
 
+import ACCModal from "../../Common/Modal.jsx";
+
 class AccountTable extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       userList: [],
       loading: false,
@@ -20,8 +22,53 @@ class AccountTable extends Component {
       selectedUserId: "",
       btnActivate: "",
       btnDeactivate: "",
-      toogleFlag: false
+      toogleFlag: false,
+      email: "",
+      username: ""
     };
+
+    this.validationObject = {};
+
+    this.selectRow = {
+      mode: "radio",
+      clickToSelect: true,
+      onSelect: this.onSelectAccount
+    };
+
+    this.accountStatus = {
+      True: "True",
+      False: "False"
+    };
+
+    this.tableOptions = {
+      noDataText: "List is empty",
+      page: 1,
+      sizePerPage: 5,
+      pageStartIndex: 1,
+      hideSizePerPage: true,
+      prePage: "Prev",
+      nextPage: "Next",
+      firstPage: "First",
+      lastPage: "Last"
+    };
+
+    this.addUserModalOptions = [
+      {
+        name: "username",
+        type: APP_ENUM.INPUT_TEXT,
+        required: "required"
+      },
+      {
+        name: "email",
+        type: APP_ENUM.INPUT_TEXT,
+        required: "required"
+      } /* ,
+      {
+        name: "Roles",
+        type: APP_ENUM.SELECT,
+        value: ["Admin", "Owner", "Editor"]
+      } */
+    ];
   }
 
   componentDidMount() {
@@ -64,46 +111,12 @@ class AccountTable extends Component {
   render() {
     const { userList, btnActivate, btnDeactivate } = this.state;
 
-    const selectRow = {
-      mode: "radio",
-      clickToSelect: true,
-      onSelect: this.onSelectAccount
+    this.validationObject = {
+      username: this.state.username,
+      email: this.state.email
     };
 
-    const accountStatus = {
-      True: "True",
-      False: "False"
-    };
-
-    const options = {
-      noDataText: "List is empty",
-      page: 1,
-      sizePerPage: 5,
-      pageStartIndex: 1,
-      hideSizePerPage: true,
-      prePage: "Prev",
-      nextPage: "Next",
-      firstPage: "First",
-      lastPage: "Last"
-    };
-
-    const addUserModalOptions = [
-      {
-        name: "UserName",
-        type: APP_ENUM.INPUT_TEXT,
-        required: "required"
-      },
-      {
-        name: "Email",
-        type: APP_ENUM.INPUT_TEXT,
-        required: "required"
-      },
-      {
-        name: "Roles",
-        type: APP_ENUM.SELECT,
-        value: ["Admin", "Owner", "Editor"]
-      }
-    ];
+    const errors = validateInput.call(this, this.validationObject);
 
     return (
       <div className="card">
@@ -124,8 +137,9 @@ class AccountTable extends Component {
               <ACCModal
                 title="Add User"
                 id="addUserModal"
+                errors={errors}
                 onClick={this.handleAddUser}
-                options={addUserModalOptions}
+                options={this.addUserModalOptions}
               />
               <button type="button" className="btn btn-warning">
                 <i className="fa fa-pencil-square-o" aria-hidden="true" /> Edit
@@ -156,8 +170,8 @@ class AccountTable extends Component {
           <BootstrapTable
             data={userList}
             version="4"
-            selectRow={selectRow}
-            options={options}
+            selectRow={this.selectRow}
+            options={this.tableOptions}
             pagination
             containerclassName="table text-center table-hover table-bordered table-striped"
           >
@@ -179,7 +193,7 @@ class AccountTable extends Component {
             <TableHeaderColumn
               dataField="emailConfirmed"
               dataSort={true}
-              filter={{ type: "SelectFilter", options: accountStatus }}
+              filter={{ type: "SelectFilter", options: this.accountStatus }}
             >
               Email Confirmed
             </TableHeaderColumn>
