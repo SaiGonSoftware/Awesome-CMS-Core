@@ -15,7 +15,7 @@ const ACCSelect = props => {
 };
 
 ACCSelect.propTypes = {
-  value: PropTypes.array
+  value: PropTypes.array.isRequired
 };
 
 export default ACCSelect;

@@ -1,38 +1,31 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-class ACCInput extends Component {
-  constructor(props) {
-    super(props);
-    this.className = "form-control";
-    this.classNameError = "form-control is-invalid";
-  }
+const ACCInput = props => {
+  const className = "form-control";
+  const classNameError = "form-control is-invalid";
 
-  render() {
-    return (
-      <div className="form-group">
-        <label htmlFor={this.props.name} hidden>
-          {this.props.name}
-        </label>
-        <div>
-          <input
-            className={
-              this.props.className ? this.classNameError : this.className
-            }
-            id={this.props.id}
-            type={this.props.type}
-            name={this.props.name}
-            placeholder={this.props.placeholder}
-            onChange={this.props.onChange}
-            onBlur={this.props.onBlur}
-            value={this.props.value}
-            required={this.props.required}
-          />
-        </div>
+  return (
+    <div className="form-group">
+      <label htmlFor={props.name} hidden>
+        {props.name}
+      </label>
+      <div>
+        <input
+          className={props.className ? classNameError : className}
+          id={props.id}
+          type={props.type}
+          name={props.name}
+          placeholder={props.placeholder}
+          onChange={props.onChange}
+          onBlur={props.onBlur}
+          value={props.value}
+          required={props.required}
+        />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 ACCInput.propTypes = {
   className: PropTypes.bool,
