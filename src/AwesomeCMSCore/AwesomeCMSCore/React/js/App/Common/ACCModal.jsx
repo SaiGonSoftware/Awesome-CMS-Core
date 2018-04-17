@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import ACCInputList from "./ACCInput/ACCInputList.jsx";
 
 const ACCModal = props => {
-  console.log(props);
   return (
     <div
       className="modal fade"

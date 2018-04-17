@@ -9,7 +9,11 @@ import { navigateToUrl, isDomExist } from "../../Helper/util";
 import { setStorage } from "../../Helper/storageHelper";
 import { APP_ENUM } from "../../Helper/appEnum";
 import { Post, PostWithSpinner } from "../../Helper/ajax";
-import { shouldMarkError, validateInput, isFormValid } from "../../Helper/Validation";
+import {
+  shouldMarkError,
+  validateInput,
+  isFormValid
+} from "../../Helper/Validation";
 import env from "../../Helper/envConfig";
 import statusCode from "../../Helper/StatusCode";
 
@@ -37,7 +41,7 @@ class LoginForm extends Component {
     if (!isFormValid(this.validationArr)) {
       return;
     }
-    
+
     e.preventDefault();
 
     PostWithSpinner.call(this, env.loginUrl, {

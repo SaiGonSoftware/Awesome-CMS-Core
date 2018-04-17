@@ -24,7 +24,11 @@ class AccountTable extends Component {
       btnDeactivate: "",
       toogleFlag: false,
       email: "",
-      username: ""
+      username: "",
+      touched: {
+        username: false,
+        email: false
+      }
     };
 
     this.validationObject = {};
@@ -117,7 +121,7 @@ class AccountTable extends Component {
     };
 
     const errors = validateInput.call(this, this.validationObject);
-
+    console.log(errors);
     return (
       <div className="card">
         <div className="card-header">User List</div>

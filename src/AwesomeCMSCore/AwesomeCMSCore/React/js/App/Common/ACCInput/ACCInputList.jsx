@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import { shouldMarkError } from "../../Helper/Validation";
@@ -8,52 +8,57 @@ import { APP_ENUM } from "../../Helper/appEnum";
 import ACCInput from "./ACCInput.jsx";
 import ACCSelect from "./ACCSelect.jsx";
 
-const ACCInputList = props => {
-  const inputField = [];
+class ACCInputList extends Component {
+  constructor(props) {
+    super(props);
+    this.inputField = [];
+    this.state = {
+      errors: [this.props.errors]
+    };
+    this.options = this.props.options;
+  }
 
-  props.options.forEach(input => {
-    const errors = [props.errors];
-    
-    switch (input.type) {
-      case APP_ENUM.INPUT_TEXT:
-        inputField.push(
-          <div className="row" key={input.name}>
-            <div className="col-md-12">
-              <div className="form-group">
-                <ACCInput
-                  className={shouldMarkError.call(this, input.name, errors)}
-                  type={input.type}
-                  name={input.name}
-                  required={input.required}
-                  placeholder={input.name}
-                  onChange={onChange.call(this, input.name)}
-                  onBlur={onBlur.call(this, input.name)}
-                />
+  componentWillMount() {
+    this.options.map(option => {
+      switch (option.type) {
+        case APP_ENUM.INPUT_TEXT:
+          this.inputField.push(
+            <div className="row" key={option.name}>
+              <div className="col-md-12">
+                <div className="form-group">
+                  <ACCInput
+                    className={shouldMarkError.call(
+                      this,
+                      option.name,
+                      this.state.errors
+                    )}
+                    type={option.type}
+                    name={option.name}
+                    required={option.required}
+                    placeholder={option.name.capitalize()}
+                    onChange={name => onChange.call(this, name)}
+                    onBlur={name => onBlur.call(this, name)}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        );
-        break;
-      case APP_ENUM.SELECT:
-        inputField.push(
-          <div className="row">
-            <div className="col-md-12">
-              <div className="form-group">
-                <ACCSelect
-                  type={input.type}
-                  name={input.name}
-                  value={input.value}
-                />
-              </div>
-            </div>
-          </div>
-        );
-        break;
-    }
-  });
+          );
+          break;
+      }
+    });
+  }
 
-  return <div className="col-md-12">{inputField}</div>;
-};
+  /*   shouldComponentUpdate(nextProps, nextState) {
+    console.log("nextProps", nextProps);
+    console.log("nextState", nextState);
+    let shouldUpdate = this.state.errors !== nextProps.errors;
+    return shouldUpdate;
+  } */
+
+  render() {
+    return <div className="col-md-12">{this.inputField}</div>;
+  }
+}
 
 ACCInputList.propTypes = {
   options: PropTypes.array.isRequired,
