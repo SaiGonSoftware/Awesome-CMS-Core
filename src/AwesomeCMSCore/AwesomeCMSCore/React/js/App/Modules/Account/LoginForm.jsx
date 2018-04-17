@@ -9,7 +9,7 @@ import { navigateToUrl, isDomExist } from "../../Helper/util";
 import { setStorage } from "../../Helper/storageHelper";
 import { APP_ENUM } from "../../Helper/appEnum";
 import { Post, PostWithSpinner } from "../../Helper/ajax";
-import { shouldMarkError, validateInput } from "../../Helper/Validation";
+import { shouldMarkError, validateInput, isFormValid } from "../../Helper/Validation";
 import env from "../../Helper/envConfig";
 import statusCode from "../../Helper/StatusCode";
 
@@ -33,14 +33,8 @@ class LoginForm extends Component {
     this.validationArr = [];
   }
 
-  canBeSubmitted() {
-    const errors = validateInput.call(this, this.validationArr);
-    const isDisabled = Object.keys(errors).some(x => errors[x]);
-    return !isDisabled;
-  }
-
   login = e => {
-    if (!this.canBeSubmitted()) {
+    if (!isFormValid(this.validationArr)) {
       return;
     }
     

@@ -12,5 +12,13 @@ export function validateInput(validationArr) {
   }
 
   let validateObject = Object.assign({}, ...validateData);
+  
   return validateObject;
+}
+
+export function isFormValid(validationArr) {
+  const errors = validateInput(validationArr);
+  const isFormValid = Object.keys(errors).some(x => errors[x]);
+
+  return !isFormValid;
 }
