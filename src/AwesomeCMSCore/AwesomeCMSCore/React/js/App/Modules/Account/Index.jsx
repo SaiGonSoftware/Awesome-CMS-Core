@@ -10,7 +10,7 @@ import { Get, Post } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
 import { APP_ENUM } from "./../../Helper/appEnum";
 
-import ACCModal from "../../Common/Modal.jsx";
+import ACCModal from "../../Common/ACCModal.jsx";
 
 class AccountTable extends Component {
   constructor(props) {
