@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import { shouldMarkError } from "../../Helper/Validation";
 import { onChange, onBlur } from "../../Helper/stateHelper";
+import { validateInput } from "../../Helper/Validation";
 
 import { APP_ENUM } from "../../Helper/appEnum";
 import ACCInput from "./ACCInput.jsx";
@@ -48,12 +49,17 @@ class ACCInputList extends Component {
     });
   }
 
-  /*   shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     console.log("nextProps", nextProps);
     console.log("nextState", nextState);
     let shouldUpdate = this.state.errors !== nextProps.errors;
     return shouldUpdate;
-  } */
+  }
+
+  componentWillUpdate() {
+    validateInput.call(this, this.state.errors);
+    this.props.onInputUpdate(this.state.errors);
+  }
 
   render() {
     return <div className="col-md-12">{this.inputField}</div>;
@@ -62,7 +68,8 @@ class ACCInputList extends Component {
 
 ACCInputList.propTypes = {
   options: PropTypes.array.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  onInputUpdate: PropTypes.func
 };
 
 export default ACCInputList;

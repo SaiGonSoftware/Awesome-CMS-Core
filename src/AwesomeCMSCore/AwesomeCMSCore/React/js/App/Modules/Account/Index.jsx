@@ -31,7 +31,7 @@ class AccountTable extends Component {
       }
     };
 
-    this.validationObject = {};
+    this.validationArr = [];
 
     this.selectRow = {
       mode: "radio",
@@ -112,16 +112,20 @@ class AccountTable extends Component {
     }
   };
 
+  onInputUpdate() {
+
+  }
+  
   render() {
     const { userList, btnActivate, btnDeactivate } = this.state;
 
-    this.validationObject = {
+    this.validationArr = [{
       username: this.state.username,
       email: this.state.email
-    };
+    }];
+    console.log('index', this.validationArr);
+    const errors = validateInput.call(this, this.validationArr);
 
-    const errors = validateInput.call(this, this.validationObject);
-    console.log(errors);
     return (
       <div className="card">
         <div className="card-header">User List</div>
@@ -144,6 +148,7 @@ class AccountTable extends Component {
                 errors={errors}
                 onClick={this.handleAddUser}
                 options={this.addUserModalOptions}
+                onInputUpdate={this.onInputUpdate}
               />
               <button type="button" className="btn btn-warning">
                 <i className="fa fa-pencil-square-o" aria-hidden="true" /> Edit
