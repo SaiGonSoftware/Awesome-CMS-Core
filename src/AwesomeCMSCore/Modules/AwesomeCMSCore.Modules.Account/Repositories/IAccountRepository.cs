@@ -15,11 +15,14 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
         Task<bool> AddNewUser(UserInputViewModel userInputVm);
         Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject);
+<<<<<<< HEAD
         Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
         Task AddNewUser(UserInputViewModel userInputVm);
 =======
         Task<IEnumerable<IdentityRole>> RoleList();
         Task AccountToggle(AccountToggleViewModel accountToggleVm);
 >>>>>>> Create Group Completed
+=======
+>>>>>>> add user modal
     }
 }

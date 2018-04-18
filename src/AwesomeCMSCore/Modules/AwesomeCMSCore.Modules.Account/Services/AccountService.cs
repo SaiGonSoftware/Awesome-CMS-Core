@@ -70,5 +70,10 @@ namespace AwesomeCMSCore.Modules.Account.Services
         {
             return await _accountRepository.RoleList();
         }
+
+        public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles()
+        {
+            return await _accountRepository.GetUserRoles();
+        }
     }
 }

@@ -22,6 +22,10 @@ namespace AwesomeCMSCore.Modules.Account.Services
 >>>>>>> Create Group Completed
 =======
         Task<IEnumerable<IdentityRole>> RoleList();
+<<<<<<< HEAD
 >>>>>>> Create Group Completed
+=======
+        Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
+>>>>>>> add user modal
     }
 }
