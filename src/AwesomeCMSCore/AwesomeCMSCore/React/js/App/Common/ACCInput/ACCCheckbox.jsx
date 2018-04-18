@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const ACCCheckbox = props => {
   return (
-    <div className="form-group custom-checkbox">
+    <div className="form-group">
       <div className="custom-control custom-checkbox">
         <input
           type="checkbox"

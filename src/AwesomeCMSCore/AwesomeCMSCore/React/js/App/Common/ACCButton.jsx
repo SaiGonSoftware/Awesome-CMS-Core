@@ -7,9 +7,7 @@ import Spinner from "./Spinner.jsx";
 
 const ACCButton = props => {
   const errors = validateInput(props.validationArr);
-  const isDisabled = props.disable
-    ? true
-    : Object.keys(errors).some(x => errors[x]);
+  const isDisabled = Object.keys(errors).some(x => errors[x]);
   const className = props.btnBlocked
     ? "btn btn-primary btn-block"
     : "btn btn-primary";
@@ -18,12 +16,7 @@ const ACCButton = props => {
     return <Spinner />;
   } else {
     return (
-      <button
-        className={className}
-        type="submit"
-        disabled={isDisabled}
-        onClick={props.onClick}
-      >
+      <button className={className} type="submit" disabled={isDisabled}>
         {props.label}
       </button>
     );
@@ -34,8 +27,6 @@ ACCButton.propTypes = {
   loading: PropTypes.bool,
   label: PropTypes.string,
   validationArr: PropTypes.array.isRequired,
-  disable: PropTypes.bool,
-  onClick: PropTypes.func,
   btnBlocked: PropTypes.string
 };
 
