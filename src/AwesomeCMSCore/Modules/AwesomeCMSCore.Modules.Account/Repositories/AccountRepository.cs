@@ -131,5 +131,11 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                     return false;
             }
         }
+
+        public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles()
+        {
+            var rolesList = await _unitOfWork.Repository<IdentityRole>().Query().ToListAsync();
+            return _mapper.Map<IEnumerable<UserRoleViewModel>>(rolesList);
+        }
     }
 }
