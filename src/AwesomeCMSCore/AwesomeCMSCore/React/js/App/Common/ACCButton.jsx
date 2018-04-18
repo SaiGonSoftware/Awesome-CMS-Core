@@ -17,7 +17,7 @@ const ACCButton = props => {
   } else {
     return (
       <button className={className} type="submit" disabled={isDisabled}>
-        Login
+        {props.label}
       </button>
     );
   }
@@ -25,6 +25,7 @@ const ACCButton = props => {
 
 ACCButton.propTypes = {
   loading: PropTypes.bool,
+  label: PropTypes.string,
   validationArr: PropTypes.array.isRequired,
   btnBlocked: PropTypes.string
 };

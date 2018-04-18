@@ -8,5 +8,6 @@ namespace AwesomeCMSCore.Modules.Account.Services
     {
         Task<IEnumerable<UserViewModel>> UserList();
         Task AccountToggle(AccountToggleViewModel accountToggleVm);
+        Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
     }
 }

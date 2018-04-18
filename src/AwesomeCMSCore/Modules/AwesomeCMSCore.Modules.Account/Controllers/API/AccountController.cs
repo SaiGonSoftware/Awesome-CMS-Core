@@ -132,7 +132,13 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
             var userList = await _accountService.UserList();
             return Ok(userList);
         }
-        
+
+        public async Task<IActionResult> UserRoles()
+        {
+            var userRoles = await _accountService.GetUserRoles();
+            return Ok(userRoles);
+        }
+
         [HttpPost, ValidModel]
         public async Task<IActionResult> ToggleAccountStatus(AccountToggleViewModel accountToggleVm)
         {

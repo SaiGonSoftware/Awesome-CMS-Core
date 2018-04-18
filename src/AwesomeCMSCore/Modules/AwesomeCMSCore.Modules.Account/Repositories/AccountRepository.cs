@@ -8,6 +8,7 @@ using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Data;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AwesomeCMSCore.Modules.Account.Repositories
@@ -64,6 +65,12 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                 account.EmailConfirmed = accountToggleVm.ToogleFlag;
                 await _unitOfWork.Repository<User>().UpdateAsync(account);
             }
+        }
+
+        public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles()
+        {
+            var rolesList = await _unitOfWork.Repository<IdentityRole>().Query().ToListAsync();
+            return _mapper.Map<IEnumerable<UserRoleViewModel>>(rolesList);
         }
     }
 }
