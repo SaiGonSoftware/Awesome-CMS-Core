@@ -12,7 +12,7 @@ export function validateInput(validationArr) {
   }
 
   let validateObject = Object.assign({}, ...validateData);
-  
+
   return validateObject;
 }
 

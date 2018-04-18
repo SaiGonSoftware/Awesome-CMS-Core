@@ -79,10 +79,11 @@ class LoginForm extends Component {
   }
 
   render() {
+    const { username, password, rememberMe, loading } = this.state;
     this.validationArr = [
       {
-        username: this.state.username,
-        password: this.state.password
+        username: username,
+        password: password
       }
     ];
 
@@ -102,7 +103,7 @@ class LoginForm extends Component {
                   id="username"
                   placeholder="Username"
                   required="required"
-                  value={this.state.username}
+                  value={username}
                   onChange={username => onChange.call(this, username)}
                   onBlur={username => onBlur.call(this, username)}
                 />
@@ -113,19 +114,20 @@ class LoginForm extends Component {
                   id="password"
                   placeholder="Password"
                   required="required"
-                  value={this.state.password}
+                  value={password}
                   onChange={password => onChange.call(this, password)}
                   onBlur={password => onBlur.call(this, password)}
                 />
                 <ACCCheckbox
                   id="rememberMe"
                   name="rememberMe"
-                  checked={this.state.rememberMe}
+                  checked={rememberMe}
                   onChange={rememberMe => onCheck.call(this, rememberMe)}
                 />
                 <ACCButton
-                  validateObject={this.validationArr}
-                  loading={this.state.loading}
+                  validationArr={this.validationArr}
+                  loading={loading}
+                  btnBlocked="btn-block"
                 />
               </div>
             </form>

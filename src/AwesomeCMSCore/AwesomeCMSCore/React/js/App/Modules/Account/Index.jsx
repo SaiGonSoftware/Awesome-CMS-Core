@@ -4,13 +4,11 @@ import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import toastr from "toastr";
 import qs from "qs";
 
-import { validateInput } from "../../Helper/Validation";
 import { isDomExist } from "../../Helper/util";
 import { Get, Post } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
-import { APP_ENUM } from "./../../Helper/appEnum";
 
-import ACCModal from "../../Common/ACCModal.jsx";
+import AddUserModal from "./Manage/AddUserModal.jsx";
 
 class AccountTable extends Component {
   constructor(props) {
@@ -22,13 +20,7 @@ class AccountTable extends Component {
       selectedUserId: "",
       btnActivate: "",
       btnDeactivate: "",
-      toogleFlag: false,
-      email: "",
-      username: "",
-      touched: {
-        username: false,
-        email: false
-      }
+      toogleFlag: false
     };
 
     this.validationArr = [];
@@ -55,24 +47,6 @@ class AccountTable extends Component {
       firstPage: "First",
       lastPage: "Last"
     };
-
-    this.addUserModalOptions = [
-      {
-        name: "username",
-        type: APP_ENUM.INPUT_TEXT,
-        required: "required"
-      },
-      {
-        name: "email",
-        type: APP_ENUM.INPUT_TEXT,
-        required: "required"
-      } /* ,
-      {
-        name: "Roles",
-        type: APP_ENUM.SELECT,
-        value: ["Admin", "Owner", "Editor"]
-      } */
-    ];
   }
 
   componentDidMount() {
@@ -80,8 +54,6 @@ class AccountTable extends Component {
       this.setState({ userList: res.data });
     });
   }
-
-  handleAddUser = () => {};
 
   toggleAccountStatus = () => {
     if (this.state.selectedId) {
@@ -112,19 +84,8 @@ class AccountTable extends Component {
     }
   };
 
-  onInputUpdate() {
-
-  }
-  
   render() {
     const { userList, btnActivate, btnDeactivate } = this.state;
-
-    this.validationArr = [{
-      username: this.state.username,
-      email: this.state.email
-    }];
-    console.log('index', this.validationArr);
-    const errors = validateInput.call(this, this.validationArr);
 
     return (
       <div className="card">
@@ -142,14 +103,7 @@ class AccountTable extends Component {
                 <i className="fa fa-user-plus" aria-hidden="true" />
                 &nbsp; Add User
               </button>
-              <ACCModal
-                title="Add User"
-                id="addUserModal"
-                errors={errors}
-                onClick={this.handleAddUser}
-                options={this.addUserModalOptions}
-                onInputUpdate={this.onInputUpdate}
-              />
+              <AddUserModal id="addUserModal" />
               <button type="button" className="btn btn-warning">
                 <i className="fa fa-pencil-square-o" aria-hidden="true" /> Edit
                 Role
