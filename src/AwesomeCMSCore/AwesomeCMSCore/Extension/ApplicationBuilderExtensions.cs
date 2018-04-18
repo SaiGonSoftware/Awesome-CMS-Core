@@ -52,6 +52,10 @@ namespace AwesomeCMSCore.Extension
                     ReactHotModuleReplacement = true
                 });
             }
+            else
+            {
+                app.UseExceptionless("NvjyUM7jZdHylprZ5oAPxEpBmvgZXnYZxVyUf5y5");
+            }
 
             #region Custom Middleware
             app.UseExceptionHandler("/Error/500");
@@ -64,11 +68,11 @@ namespace AwesomeCMSCore.Extension
                     await next();
                 }
             });
-            //app.UseExceptionless("NvjyUM7jZdHylprZ5oAPxEpBmvgZXnYZxVyUf5y5");
-            app.UseProtectFolder(new ProtectFolderOptions
-            {
-                Path = "/frontend"
-            });
+            //Turn on if we want to store data in folder and block user from access it 
+            //app.UseProtectFolder(new ProtectFolderOptions
+            //{
+            //    Path = "/frontend"
+            //});
             #endregion
 
             return app;

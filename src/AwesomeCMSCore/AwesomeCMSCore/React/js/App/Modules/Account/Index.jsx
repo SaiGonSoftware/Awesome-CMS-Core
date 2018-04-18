@@ -8,9 +8,11 @@ import { isDomExist } from "../../Helper/util";
 import { Get, Post } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
 
+import AddUserModal from "./Manage/AddUserModal.jsx";
+
 class AccountTable extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       userList: [],
       loading: false,
@@ -20,6 +22,31 @@ class AccountTable extends Component {
       btnDeactivate: "",
       toogleFlag: false
     };
+
+    this.validationArr = [];
+
+    this.selectRow = {
+      mode: "radio",
+      clickToSelect: true,
+      onSelect: this.onSelectAccount
+    };
+
+    this.accountStatus = {
+      True: "True",
+      False: "False"
+    };
+
+    this.tableOptions = {
+      noDataText: "List is empty",
+      page: 1,
+      sizePerPage: 5,
+      pageStartIndex: 1,
+      hideSizePerPage: true,
+      prePage: "Prev",
+      nextPage: "Next",
+      firstPage: "First",
+      lastPage: "Last"
+    };
   }
 
   componentDidMount() {
@@ -27,8 +54,6 @@ class AccountTable extends Component {
       this.setState({ userList: res.data });
     });
   }
-
-  handleAddUser = () => {};
 
   toggleAccountStatus = () => {
     if (this.state.selectedId) {
@@ -62,43 +87,23 @@ class AccountTable extends Component {
   render() {
     const { userList, btnActivate, btnDeactivate } = this.state;
 
-    const selectRow = {
-      mode: "radio",
-      clickToSelect: true,
-      onSelect: this.onSelectAccount
-    };
-
-    const accountStatus = {
-      True: "True",
-      False: "False"
-    };
-
-    const options = {
-      noDataText: "List is empty",
-      page: 1,
-      sizePerPage: 5,
-      pageStartIndex: 1,
-      hideSizePerPage: true,
-      prePage: "Prev",
-      nextPage: "Next",
-      firstPage: "First",
-      lastPage: "Last"
-    };
-
     return (
       <div className="card">
         <div className="card-header">User List</div>
         <div className="card-body">
           <div className="row" id="userListOptions">
             <div className="col-md-6">
-              <button type="button" className="btn btn-primary" id="btnAddUser">
-                <i
-                  className="fa fa-user-plus"
-                  aria-hidden="true"
-                  onClick={this.handleAddUser}
-                />
+              <button
+                type="button"
+                className="btn btn-primary"
+                id="btnAddUser"
+                data-toggle="modal"
+                data-target="#addUserModal"
+              >
+                <i className="fa fa-user-plus" aria-hidden="true" />
                 &nbsp; Add User
               </button>
+              <AddUserModal id="addUserModal" />
               <button type="button" className="btn btn-warning">
                 <i className="fa fa-pencil-square-o" aria-hidden="true" /> Edit
                 Role
@@ -128,10 +133,10 @@ class AccountTable extends Component {
           <BootstrapTable
             data={userList}
             version="4"
-            selectRow={selectRow}
-            options={options}
+            selectRow={this.selectRow}
+            options={this.tableOptions}
             pagination
-            containerClass="table text-center table-hover table-bordered table-striped"
+            containerclassName="table text-center table-hover table-bordered table-striped"
           >
             <TableHeaderColumn
               dataField="userName"
@@ -151,7 +156,7 @@ class AccountTable extends Component {
             <TableHeaderColumn
               dataField="emailConfirmed"
               dataSort={true}
-              filter={{ type: "SelectFilter", options: accountStatus }}
+              filter={{ type: "SelectFilter", options: this.accountStatus }}
             >
               Email Confirmed
             </TableHeaderColumn>

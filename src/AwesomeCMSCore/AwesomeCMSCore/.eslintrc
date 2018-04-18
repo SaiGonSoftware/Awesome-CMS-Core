@@ -17,6 +17,7 @@
     "no-var": "error",
     "no-unused-vars": "warn",
     "no-console": "off",
+    "no-debugger": "off",
     "no-unexpected-multiline": "warn",
     "no-alert": "off",
     "comma-spacing": [2, { "before": false, "after": true }]

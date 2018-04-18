@@ -6,7 +6,7 @@ const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   entry: {
-    main: "./wwwroot/frontend/js/main.js"
+    main: "./React/js/main.js"
   },
   output: {
     path: path.resolve(__dirname, "wwwroot/dist"),
