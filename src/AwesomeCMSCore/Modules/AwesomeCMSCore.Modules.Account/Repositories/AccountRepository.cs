@@ -61,14 +61,14 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             return userListVm;
         }
 
-        public async Task AccountToggle(AccountToggleViewModel accountToggleVm)
+        public async Task<bool> AccountToggle(AccountToggleViewModel accountToggleVm)
         {
             var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Id == accountToggleVm.AccountId).FirstOrDefaultAsync();
-            if (account != null)
-            {
-                account.EmailConfirmed = accountToggleVm.ToogleFlag;
-                await _unitOfWork.Repository<User>().UpdateAsync(account);
-            }
+            if (account == null) return false;
+            account.EmailConfirmed = accountToggleVm.ToogleFlag;
+            await _unitOfWork.Repository<User>().UpdateAsync(account);
+            return true;
+
         }
 
         public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles()
@@ -77,14 +77,13 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             return _mapper.Map<IEnumerable<UserRoleViewModel>>(rolesList);
         }
 
-        public async Task AddNewUser(UserInputViewModel userInputVm)
+        public async Task<bool> AddNewUser(UserInputViewModel userInputVm)
         {
             var user = new User { UserName = userInputVm.Username, Email = userInputVm.Email };
-            var result = await _userManager.CreateAsync(user, "P@ssw0rd");
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRolesAsync(user, userInputVm.Roles);
-            }
+            var result = await _userManager.CreateAsync(user, RandomString.GenerateRandomString());
+            if (!result.Succeeded) return false;
+            await _userManager.AddToRolesAsync(user, userInputVm.Roles);
+            return true;
         }
     }
 }

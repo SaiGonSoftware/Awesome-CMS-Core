@@ -38,7 +38,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
-                model.RememberMe, lockoutOnFailure: false);
+                model.RememberMe, true);
 
             if (result.Succeeded)
             {
@@ -142,15 +142,25 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
         [HttpPost, ValidModel]
         public async Task<IActionResult> AddNewUser([FromBody]UserInputViewModel userInputVm)
         {
-            await _accountService.AddNewUser(userInputVm);
-            return Ok();
+            var result = await _accountService.AddNewUser(userInputVm);
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
 
         [HttpPost, ValidModel]
         public async Task<IActionResult> ToggleAccountStatus([FromBody]AccountToggleViewModel accountToggleVm)
         {
-            await _accountService.AccountToggle(accountToggleVm);
-            return Ok();
+            var result = await _accountService.AccountToggle(accountToggleVm);
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
     }
 }

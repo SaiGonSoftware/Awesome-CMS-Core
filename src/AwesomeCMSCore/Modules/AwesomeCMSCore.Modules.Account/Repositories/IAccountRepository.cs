@@ -9,8 +9,8 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
     public interface IAccountRepository
     {
         Task<IEnumerable<UserViewModel>> UserList();
-        Task AccountToggle(AccountToggleViewModel accountToggleVm);
+        Task<bool> AccountToggle(AccountToggleViewModel accountToggleVm);
         Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
-        Task AddNewUser(UserInputViewModel userInputVm);
+        Task<bool> AddNewUser(UserInputViewModel userInputVm);
     }
 }

@@ -39,9 +39,9 @@ namespace AwesomeCMSCore.Modules.Account.Services
             return await _accountRepository.UserList();
         }
 
-        public async Task AccountToggle(AccountToggleViewModel accountToggleVm)
+        public async Task<bool> AccountToggle(AccountToggleViewModel accountToggleVm)
         {
-            await _accountRepository.AccountToggle(accountToggleVm);
+            return await _accountRepository.AccountToggle(accountToggleVm);
         }
 
         public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles()
@@ -49,9 +49,9 @@ namespace AwesomeCMSCore.Modules.Account.Services
             return await _accountRepository.GetUserRoles();
         }
 
-        public async Task AddNewUser(UserInputViewModel userInputVm)
+        public async Task<bool> AddNewUser(UserInputViewModel userInputVm)
         {
-            await _accountRepository.AddNewUser(userInputVm);
+            return await _accountRepository.AddNewUser(userInputVm);
         }
     }
 }

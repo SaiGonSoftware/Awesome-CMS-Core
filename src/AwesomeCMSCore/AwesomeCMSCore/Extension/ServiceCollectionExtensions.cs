@@ -161,7 +161,19 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection AddCustomAuthentication(this IServiceCollection services)
         {
             services
-                .AddIdentity<User, ApplicationRole>()
+                .AddIdentity<User, ApplicationRole>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredLength = 4;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+
+                    //lock out attempt
+                    options.Lockout.AllowedForNewUsers = true;
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                    options.Lockout.MaxFailedAccessAttempts = 2;
+                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
