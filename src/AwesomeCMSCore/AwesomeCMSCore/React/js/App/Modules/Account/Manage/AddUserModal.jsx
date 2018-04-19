@@ -8,7 +8,7 @@ import env from "../../../Helper/envConfig";
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
 import ACCButton from "../../../Common/ACCButton.jsx";
-import ACCCheckbox from "../../../Common/ACCInput/ACCCheckbox.jsx";
+import ACCMultiCheckbox from "../../../Common/ACCInput/ACCMultiCheckbox.jsx";
 
 class AddUserModal extends Component {
   constructor(props) {
@@ -89,19 +89,17 @@ class AddUserModal extends Component {
               />
               <div className="card" id="userRoleSection">
                 <div className="card-body">
-                  <h5 className="card-title">User Roles</h5>
-                  <p className="card-text">
-                    {roleList.map((role, index) => (
-                      <ACCCheckbox
-                        index={index}
-                        key={role.id}
-                        id={role.id}
-                        name={role.name}
-                        label={role.name}
-                        onChange={role => onCheck.call(this, role)}
-                      />
-                    ))}
-                  </p>
+                  <h5 className="card-title">Roles</h5>
+                  {roleList.map((role, index) => (
+                    <ACCMultiCheckbox
+                      index={index}
+                      key={role.id}
+                      id={role.id}
+                      name={role.name}
+                      label={role.name}
+                      onChange={role => onCheck.call(this, role)}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
