@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import toastr from "toastr";
 
 import { shouldMarkError, validateInput } from "../../../Helper/Validation";
-import { onChange } from "../../../Helper/stateHelper";
-import { Get, PostWithSpinner, Post } from "../../../Helper/ajax";
+import { onChange, onBlur } from "../../../Helper/stateHelper";
+import { Get, PostWithSpinner } from "../../../Helper/ajax";
 import { isFormValid } from "../../../Helper/Validation";
 import env from "../../../Helper/envConfig";
 import statusCode from "../../../Helper/StatusCode";
@@ -49,84 +49,26 @@ class AddUserModal extends Component {
     }
   };
 
-  onBlur(e) {
-    this.setState({
-      touched: { ...this.state.touched, [e.target.name]: true }
-    });
-
-    if (e.target.name === "username") {
-      Post(env.validateDuplicateAccountInfo, {
-        Key: "UserName",
-        Value: this.state.username
-      }).then(res => {
-        res.data
-          ? this.setState({ duplicateUserName: true })
-          : this.setState({ duplicateUserName: false });
-      });
-    }
-
-    if (e.target.name === "email") {
-      Post(env.validateDuplicateAccountInfo, {
-        Key: "Email",
-        Value: this.state.email
-      }).then(res => {
-        res.data
-          ? this.setState({ duplicateEmail: true })
-          : this.setState({ duplicateEmail: false });
-      });
-    }
-  }
-
   addNewUser = e => {
-    if (
-      !isFormValid(this.validationArr) ||
-      this.state.duplicateEmail ||
-      this.state.duplicateUserName
-    ) {
+    if (!isFormValid(this.validationArr)) {
       return;
     }
 
     e.preventDefault();
 
-    if (this.state.duplicateEmail || this.state.duplicateUserName) {
-      PostWithSpinner.call(this, env.addNewUser, {
-        Username: this.state.username,
-        Email: this.state.email,
-        Roles: [...this.selectedRoles]
+    PostWithSpinner.call(this, env.addNewUser, {
+      Username: this.state.username,
+      Email: this.state.email,
+      Roles: [...this.selectedRoles]
+    })
+      .then(res => {
+        if (res.status === statusCode.Success)
+          toastr.info("Account successfully create");
       })
-        .then(res => {
-          if (res.status === statusCode.Success)
-            toastr.info("Account successfully create");
-        })
-        .catch(() => {
-          toastr.error("Something went wrong. Please try again");
-        });
-    }
+      .catch(() => {
+        toastr.error("Something went wrong. Please try again");
+      });
   };
-
-  renderButton() {
-    const errors = validateInput(this.validationArr);
-    const inputErrors = Object.keys(errors).some(x => errors[x]);
-    let isDisabled = false;
-
-    if (
-      inputErrors ||
-      this.state.duplicateEmail ||
-      this.state.duplicateUserName
-    ) {
-      isDisabled = true;
-    }
-
-    if (this.state.loading) {
-      return <Spinner />;
-    } else {
-      return (
-        <button className="btn btn-primary" type="submit" disabled={isDisabled}>
-          Save
-        </button>
-      );
-    }
-  }
 
   render() {
     const {
@@ -154,67 +96,72 @@ class AddUserModal extends Component {
         aria-labelledby={this.props.id}
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title"> Add new account </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              {duplicateUserName ? (
-                <div className="alert alert-danger" role="alert">
-                  UserName is duplicate
+        <form onSubmit={this.addNewUser}>
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title"> Add new account </h5>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <ACCInput
+                  className={shouldMarkError.call(this, "username", errors)}
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Username"
+                  required="required"
+                  value={username}
+                  onChange={username => onChange.call(this, username)}
+                  onBlur={username => onBlur.call(this, username)}
+                />
+                <ACCInput
+                  className={shouldMarkError.call(this, "email", errors)}
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  required="required"
+                  value={email}
+                  onChange={email => onChange.call(this, email)}
+                  onBlur={email => onBlur.call(this, email)}
+                />
+                <div className="card" id="userRoleSection">
+                  <div className="card-body">
+                    <h5 className="card-title">Roles</h5>
+                    {roleList.map((role, index) => (
+                      <ACCMultiCheckbox
+                        index={index}
+                        key={role.id}
+                        id={role.id}
+                        name={role.name}
+                        label={role.name}
+                        handleCheckboxChange={this.onSelectRoles}
+                      />
+                    ))}
+                  </div>
                 </div>
-              ) : null}
-              {duplicateEmail ? (
-                <div className="alert alert-danger" role="alert">
-                  Email is duplicate
-                </div>
-              ) : null}
-
-              <ACCInput
-                className={shouldMarkError.call(this, "username", errors)}
-                type="text"
-                name="username"
-                id="username"
-                placeholder="Username"
-                required="required"
-                value={username}
-                onChange={username => onChange.call(this, username)}
-                onBlur={username => this.onBlur(username)}
-              />
-              <ACCInput
-                className={shouldMarkError.call(this, "email", errors)}
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email"
-                required="required"
-                value={email}
-                onChange={email => onChange.call(this, email)}
-                onBlur={email => this.onBlur(email)}
-              />
-              <div className="card" id="userRoleSection">
-                <div className="card-body">
-                  <h5 className="card-title">Roles</h5>
-                  {roleList.map((role, index) => (
-                    <ACCMultiCheckbox
-                      index={index}
-                      key={role.id}
-                      id={role.id}
-                      name={role.name}
-                      label={role.name}
-                      handleCheckboxChange={this.onSelectRoles}
-                    />
-                  ))}
-                </div>
+              </div>
+              <div className="modal-footer">
+                <ACCButton
+                  validationArr={this.validationArr}
+                  loading={loading}
+                  label="Add"
+                />
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
               </div>
             </div>
             <div className="modal-footer">
@@ -228,7 +175,7 @@ class AddUserModal extends Component {
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     );
   }
