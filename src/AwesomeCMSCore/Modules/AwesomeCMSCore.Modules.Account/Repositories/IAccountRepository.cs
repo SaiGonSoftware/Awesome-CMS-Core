@@ -15,5 +15,6 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         Task<bool> AddNewUser(UserInputViewModel userInputVm);
         Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject);
         Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
+        Task AddNewUser(UserInputViewModel userInputVm);
     }
 }

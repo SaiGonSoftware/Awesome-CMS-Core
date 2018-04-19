@@ -14,5 +14,6 @@ namespace AwesomeCMSCore.Modules.Account.Services
         Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject);
         Task<IEnumerable<IdentityRole>> RoleList();
         Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
+        Task AddNewUser(UserInputViewModel userInputVm);
     }
 }
