@@ -56,11 +56,7 @@ class AccountTable extends Component {
 
   toggleAccountStatus = () => {
     if (this.state.selectedId) {
-      Post(env.deactiveAccount, {
-        AccountId: this.state.selectedId,
-        ToogleFlag: this.state.toogleFlag
-      })
-        .then(() => {
+      )        .then(() => {
           toastr.info("Account status successfully set");
         })
         .catch(() => {
