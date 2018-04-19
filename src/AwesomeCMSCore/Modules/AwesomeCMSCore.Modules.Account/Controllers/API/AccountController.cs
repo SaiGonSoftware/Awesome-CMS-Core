@@ -140,7 +140,14 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
         }
 
         [HttpPost, ValidModel]
-        public async Task<IActionResult> ToggleAccountStatus(AccountToggleViewModel accountToggleVm)
+        public async Task<IActionResult> AddNewUser([FromBody]UserInputViewModel userInputVm)
+        {
+            await _accountService.AddNewUser(userInputVm);
+            return Ok();
+        }
+
+        [HttpPost, ValidModel]
+        public async Task<IActionResult> ToggleAccountStatus([FromBody]AccountToggleViewModel accountToggleVm)
         {
             await _accountService.AccountToggle(accountToggleVm);
             return Ok();

@@ -59,10 +59,10 @@ class AccountTable extends Component {
     if (this.state.selectedId) {
       Post(
         env.deactiveAccount,
-        qs.stringify({
-          accountId: this.state.selectedId,
-          toogleFlag: this.state.toogleFlag
-        })
+        {
+          AccountId: this.state.selectedId,
+          ToogleFlag: this.state.toogleFlag
+        }
       )
         .then(() => {
           toastr.info("Account status successfully set");

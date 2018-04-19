@@ -41,12 +41,17 @@ namespace AwesomeCMSCore.Modules.Account.Services
 
         public async Task AccountToggle(AccountToggleViewModel accountToggleVm)
         {
-           await _accountRepository.AccountToggle(accountToggleVm);
+            await _accountRepository.AccountToggle(accountToggleVm);
         }
 
         public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles()
         {
             return await _accountRepository.GetUserRoles();
+        }
+
+        public async Task AddNewUser(UserInputViewModel userInputVm)
+        {
+            await _accountRepository.AddNewUser(userInputVm);
         }
     }
 }

@@ -1,36 +1,59 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-const ACCCheckbox = props => {
-  const styleClass =
-    props.index % 2 === 0
-      ? "form-group custom-checkbox card-split alignleft"
-      : "form-group custom-checkbox card-split alignright";
+class ACCMultiCheckbox extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isChecked: false
+    };
+  }
 
-  return (
-    <div className={styleClass}>
-      <div className="custom-control custom-checkbox">
-        <input
-          type="checkbox"
-          className="custom-control-input"
-          id={props.id}
-          name={props.name}
-          onChange={props.onChange}
-        />
-        <label className="custom-control-label" htmlFor={props.id}>
-          {props.label}
-        </label>
+  toggleCheckboxChange = () => {
+    const { handleCheckboxChange, label } = this.props;
+
+    this.setState(({ isChecked }) => ({
+      isChecked: !isChecked
+    }));
+
+    handleCheckboxChange(label);
+  };
+
+  render() {
+    const { isChecked } = this.state;
+    const { label, id, name } = this.props;
+    const styleClass =
+      this.props.index % 2 === 0
+        ? "form-group custom-checkbox card-split alignleft"
+        : "form-group custom-checkbox card-split alignright";
+
+    return (
+      <div className={styleClass}>
+        <div className="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            className="custom-control-input"
+            id={id}
+            name={name}
+            onChange={this.toggleCheckboxChange}
+            value={label}
+            checked={isChecked}
+          />
+          <label className="custom-control-label" htmlFor={id}>
+            {label}
+          </label>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-ACCCheckbox.propTypes = {
+ACCMultiCheckbox.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  handleCheckboxChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   index: PropTypes.number
 };
 
-export default ACCCheckbox;
+export default ACCMultiCheckbox;
