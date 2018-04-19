@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import toastr from "toastr";
-import qs from "qs";
 
 import { isDomExist } from "../../Helper/util";
 import { Get, Post } from "../../Helper/ajax";
