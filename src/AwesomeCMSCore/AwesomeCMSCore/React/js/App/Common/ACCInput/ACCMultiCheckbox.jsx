@@ -2,8 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ACCCheckbox = props => {
+  const styleClass =
+    props.index % 2 === 0
+      ? "form-group custom-checkbox card-split alignleft"
+      : "form-group custom-checkbox card-split alignright";
+
   return (
-    <div className="form-group custom-checkbox">
+    <div className={styleClass}>
       <div className="custom-control custom-checkbox">
         <input
           type="checkbox"
@@ -24,7 +29,8 @@ ACCCheckbox.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  index: PropTypes.number
 };
 
 export default ACCCheckbox;
