@@ -87,15 +87,23 @@ class AddUserModal extends Component {
                 onChange={email => onChange.call(this, email)}
                 onBlur={email => onBlur.call(this, email)}
               />
-              {roleList.map(role => {
-                <ACCCheckbox
-                  key={role.id}
-                  id={role.id}
-                  name={role.name}
-                  label={role.name}
-                  onChange={role => onCheck.call(this, role)}
-                />;
-              })}
+              <div className="card" id="userRoleSection">
+                <div className="card-body">
+                  <h5 className="card-title">User Roles</h5>
+                  <p className="card-text">
+                    {roleList.map((role, index) => (
+                      <ACCCheckbox
+                        index={index}
+                        key={role.id}
+                        id={role.id}
+                        name={role.name}
+                        label={role.name}
+                        onChange={role => onCheck.call(this, role)}
+                      />
+                    ))}
+                  </p>
+                </div>
+              </div>
             </div>
             <div className="modal-footer">
               <ACCButton
