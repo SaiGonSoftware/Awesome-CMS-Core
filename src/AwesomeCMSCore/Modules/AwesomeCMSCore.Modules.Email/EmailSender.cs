@@ -16,7 +16,7 @@ namespace AwesomeCMSCore.Modules.Email
             _emailSetting = emailSetting;
         }
 
-        public Task SendEmailAsync(string reciever, string message, EmailType emailType)
+        public Task SendEmailAsync(string reciever, string message,string url, EmailType emailType)
         {
             var email = new MimeMessage();
             var builder = new BodyBuilder();
@@ -29,6 +29,11 @@ namespace AwesomeCMSCore.Modules.Email
                 case EmailType.SystemLog:
                     email.Subject = "System log";
                     builder.HtmlBody = ExceptionEmailRender(message);
+                    email.Body = builder.ToMessageBody();
+                    break;
+                case EmailType.AccountConfirm:
+                    email.Subject = "Account confirm";
+                    builder.HtmlBody = AccountCreationConfirm(reciever, url);
                     email.Body = builder.ToMessageBody();
                     break;
                 default:
@@ -74,6 +79,17 @@ namespace AwesomeCMSCore.Modules.Email
             return body;
         }
 
+        private static string AccountCreationConfirm(string email, string url)
+        {
+            var body = MailBody
+                .CreateBody()
+                .Paragraph($"Hi {email} Please confirm your email address by clicking the link below.")
+                .Button($"{url}", "Confirm Email Address")
+                .Paragraph("— [Awesome CMS Core]")
+                .ToString();
+
+            return body;
+        }
         #endregion
     }
 }
