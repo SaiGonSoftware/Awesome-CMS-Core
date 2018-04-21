@@ -54,11 +54,9 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                                       UserName = user.UserName,
                                       Email= user.Email,
                                       EmailConfirmed= user.EmailConfirmed.ToString() 
-                                      ,Groups = user.Groups.ToArray().ToString() 
-                                  }).ToListAsync(); 
-            return userList;
-        }
+                                  }).ToListAsync();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         public async Task<bool> AccountToggle(AccountToggleViewModel accountToggleVm)
 =======
@@ -66,6 +64,10 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         {
             var roleList = await _unitOfWork.Repository<IdentityRole>().Query().ToListAsync();
             return roleList;
+=======
+            
+            return userList;
+>>>>>>> account permission based on group
         }
 
         public async Task AccountToggle(AccountToggleViewModel accountToggleVm)

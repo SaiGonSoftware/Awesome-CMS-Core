@@ -158,8 +158,12 @@ namespace AwesomeCMSCore.Extension
 
 =======
             services.AddTransient<IGroupService, GroupService>();
+<<<<<<< HEAD
             services.AddTransient<IGroupRespository, GroupRespository>(); 
 >>>>>>> Create Group Completed
+=======
+            services.AddTransient<IGroupRespository, GroupRespository>();
+>>>>>>> account permission based on group
             return services;
         }
 
