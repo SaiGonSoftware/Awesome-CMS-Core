@@ -39,7 +39,25 @@ class GroupTable extends Component {
                 <div className="card">
                     <div className="card-header">Group List</div>
                     <div className="card-body"> 
-                 </div>
+                        <BootstrapTable
+                            data={groupList}
+                            version="4"
+                            selectRow={this.selectRow}
+                            options={this.tableOptions}
+                            pagination
+                            containerclassName="table text-center table-hover table-bordered table-striped"
+                        >
+                            <TableHeaderColumn
+                                dataField="name"
+                                isKey
+                                dataSort={true}
+                                filter={{ type: "TextFilter" }}
+                            >
+                                Group Name
+            </TableHeaderColumn>
+                            
+                          </BootstrapTable>,
+        </div>
                 </div>
             );
         }
