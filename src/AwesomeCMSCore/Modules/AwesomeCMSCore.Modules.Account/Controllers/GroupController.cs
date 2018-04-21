@@ -27,7 +27,6 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
         public IActionResult Create()
         { 
             return View(); 
-        } 
-          
+        }  
 }
 }
