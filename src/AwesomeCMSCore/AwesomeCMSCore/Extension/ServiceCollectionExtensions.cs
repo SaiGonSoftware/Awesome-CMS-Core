@@ -154,7 +154,8 @@ namespace AwesomeCMSCore.Extension
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IExceptionHandler, ExceptionHandler>();
-
+            services.AddTransient<IGroupService, GroupService>();
+            services.AddTransient<IGroupRespository, GroupRespository>();
             return services;
         }
 

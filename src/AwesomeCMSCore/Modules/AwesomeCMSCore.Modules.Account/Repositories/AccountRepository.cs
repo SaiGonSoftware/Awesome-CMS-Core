@@ -48,29 +48,16 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         public async Task<IEnumerable<UserViewModel>> UserList()
         {
             var userList = await (from user in _context.Users
-                                  select new
+                                  select new UserViewModel
                                   {
                                       UserId = user.Id,
-                                      Username = user.UserName,
-                                      user.Email,
-                                      user.EmailConfirmed,
-                                      RoleNames = (from userRole in user.Roles //[AspNetUserRoles]
-                                                   join role in _context.Roles //[AspNetRoles]//
-                                                   on userRole.RoleId
-                                                   equals role.Id
-                                                   select role.Name).ToList()
+                                      UserName = user.UserName,
+                                      Email= user.Email,
+                                      EmailConfirmed= user.EmailConfirmed.ToString() 
                                   }).ToListAsync();
 
-            var userListVm = userList.Select(p => new UserViewModel
-            {
-                UserId = p.UserId,
-                UserName = p.Username,
-                Email = p.Email,
-                Roles = string.Join(",", p.RoleNames),
-                EmailConfirmed = p.EmailConfirmed.ToString()
-            });
-
-            return userListVm;
+            
+            return userList;
         }
 
         public async Task<bool> AccountToggle(AccountToggleViewModel accountToggleVm)
