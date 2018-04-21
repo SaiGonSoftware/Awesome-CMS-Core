@@ -10,8 +10,7 @@ import ACCButton from "../../Common/ACCButton.jsx";
 class EditGroupModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-
+        this.state = { 
             username: "",
             email: "",
             loading: false,
