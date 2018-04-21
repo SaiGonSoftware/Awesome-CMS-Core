@@ -144,7 +144,8 @@ namespace AwesomeCMSCore.Extension
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IExceptionHandler, ExceptionHandler>();
-
+            services.AddTransient<IGroupService, GroupService>();
+            services.AddTransient<IGroupRespository, GroupRespository>();
             return services;
         }
 
@@ -161,7 +162,7 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection AddCustomAuthentication(this IServiceCollection services)
         {
             services
-                .AddIdentity<User, ApplicationRole>()
+                .AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
