@@ -34,7 +34,7 @@ class GroupTable extends Component {
             this.setState({ groupList: res.data });
         });
     }
-    groupTableOptions(cell, row) {
+    groupTableOptions(cell) {
         return (<a href="#" data-toggle="modal"
             data-target="#editGroup">
             <i className="fa fa-pencil" aria-hidden="true"></i>
