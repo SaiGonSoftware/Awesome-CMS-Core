@@ -160,7 +160,7 @@ class AccountTable extends Component {
             >
               Email Confirmed
             </TableHeaderColumn>
-            <TableHeaderColumn dataField="roles">Roles</TableHeaderColumn>
+            <TableHeaderColumn dataField="groups">Groups</TableHeaderColumn>
           </BootstrapTable>,
         </div>
       </div>
