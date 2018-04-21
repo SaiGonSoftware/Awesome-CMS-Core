@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 
 namespace AwesomeCMSCore.Migrations
@@ -243,6 +244,9 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Name")
                         .HasMaxLength(256);
 
@@ -257,12 +261,16 @@ namespace AwesomeCMSCore.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationRoleId");
 
                     b.Property<string>("ClaimType");
 
@@ -272,6 +280,8 @@ namespace AwesomeCMSCore.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationRoleId");
 
                     b.HasIndex("RoleId");
 
@@ -321,7 +331,11 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("RoleId");
 
+                    b.Property<string>("ApplicationRoleId");
+
                     b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("ApplicationRoleId");
 
                     b.HasIndex("RoleId");
 
@@ -504,6 +518,16 @@ namespace AwesomeCMSCore.Migrations
                     b.ToTable("OpenIddictTokens");
                 });
 
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.ApplicationRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
+
+
+                    b.ToTable("ApplicationRole");
+
+                    b.HasDiscriminator().HasValue("ApplicationRole");
+                });
+
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.ApplicationGroupRole", b =>
                 {
                     b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.ApplicationGroup", "Group")
@@ -511,7 +535,7 @@ namespace AwesomeCMSCore.Migrations
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Role")
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.ApplicationRole", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -561,6 +585,10 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.ApplicationRole")
+                        .WithMany("Claims")
+                        .HasForeignKey("ApplicationRoleId");
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
@@ -585,6 +613,10 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.ApplicationRole")
+                        .WithMany("Users")
+                        .HasForeignKey("ApplicationRoleId");
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
