@@ -7,6 +7,7 @@ import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import { isDomExist } from "../../Helper/util";
 import { Get } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
+import EditGroupModal from "./EditGroupModal.jsx";
 
 class GroupTable extends Component {
     constructor(props) {
@@ -33,12 +34,20 @@ class GroupTable extends Component {
             this.setState({ groupList: res.data });
         });
     }
+    groupTableOptions(cell, row) {
+        return (<a href="#" data-toggle="modal"
+            data-target="#editGroup">
+            <i className="fa fa-pencil" aria-hidden="true"></i>
+        </a>  );
+    }
+
         render() {
             const { groupList } = this.state; 
             return (
                 <div className="card">
                     <div className="card-header">Group List</div>
-                    <div className="card-body"> 
+                    <div className="card-body">
+                         
                         <BootstrapTable
                             data={groupList}
                             version="4"
@@ -50,14 +59,15 @@ class GroupTable extends Component {
                             <TableHeaderColumn
                                 dataField="name"
                                 isKey
-                                dataSort={true}
-                                filter={{ type: "TextFilter" }}
+                                dataSort={true} 
                             >
                                 Group Name
             </TableHeaderColumn>
-                            
+                            <TableHeaderColumn dataField='options' dataFormat={this.groupTableOptions.bind(this)}>Edit</TableHeaderColumn>
+
                           </BootstrapTable>,
         </div>
+                    <EditGroupModal id="editGroup" />
                 </div>
             );
         }
