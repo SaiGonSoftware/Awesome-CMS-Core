@@ -12,10 +12,10 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
     [Authorize]
     public class GroupController : Controller
     {
-        private readonly IGroupService groupService;
-        public GroupController(IGroupService group)
+        private readonly IGroupService _groupService;
+        public GroupController(IGroupService groupService)
         {
-            groupService = group;
+            _groupService = groupService;
         }
          
         public IActionResult Index()
@@ -23,8 +23,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
             return View();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
+        [HttpGet] 
         public IActionResult Create()
         { 
             return View(); 
