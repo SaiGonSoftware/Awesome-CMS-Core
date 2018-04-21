@@ -54,6 +54,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                                       UserName = user.UserName,
                                       Email= user.Email,
                                       EmailConfirmed= user.EmailConfirmed.ToString() 
+                                      ,Groups = user.Groups.ToArray().ToString() 
                                   }).ToListAsync();
 
             

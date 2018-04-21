@@ -5,17 +5,28 @@ using System.Collections.Generic;
 
 namespace AwesomeCMSCore.Migrations
 {
-    public partial class InitDB_20181204_145606 : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ApplicationGroups",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationGroups", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Discriminator = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
                 },
@@ -141,6 +152,30 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ApplicationRoleGroups",
+                columns: table => new
+                {
+                    RoleId = table.Column<string>(nullable: false),
+                    GroupId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationRoleGroups", x => new { x.RoleId, x.GroupId });
+                    table.ForeignKey(
+                        name: "FK_ApplicationRoleGroups_ApplicationGroups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "ApplicationGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ApplicationRoleGroups_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -157,6 +192,30 @@ namespace AwesomeCMSCore.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationUserGroups",
+                columns: table => new
+                {
+                    GroupId = table.Column<string>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUserGroups", x => new { x.GroupId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserGroups_ApplicationGroups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "ApplicationGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserGroups_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -392,6 +451,16 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ApplicationRoleGroups_GroupId",
+                table: "ApplicationRoleGroups",
+                column: "GroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicationUserGroups_UserId",
+                table: "ApplicationUserGroups",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -493,6 +562,12 @@ namespace AwesomeCMSCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ApplicationRoleGroups");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationUserGroups");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -524,6 +599,9 @@ namespace AwesomeCMSCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "Themes");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationGroups");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
