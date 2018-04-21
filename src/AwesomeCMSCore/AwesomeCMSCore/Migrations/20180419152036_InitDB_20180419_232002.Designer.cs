@@ -6,57 +6,21 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180419152036_InitDB_20180419_232002")]
+    partial class InitDB_20180419_232002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.ApplicationGroup", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationGroups");
-                });
-
-            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.ApplicationGroupRole", b =>
-                {
-                    b.Property<string>("RoleId");
-
-                    b.Property<string>("GroupId");
-
-                    b.HasKey("RoleId", "GroupId");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("ApplicationRoleGroups");
-                });
-
-            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.ApplicationUserGroup", b =>
-                {
-                    b.Property<string>("GroupId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("GroupId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ApplicationUserGroups");
-                });
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Media", b =>
                 {
@@ -243,6 +207,9 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Name")
                         .HasMaxLength(256);
 
@@ -257,6 +224,8 @@ namespace AwesomeCMSCore.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -504,30 +473,14 @@ namespace AwesomeCMSCore.Migrations
                     b.ToTable("OpenIddictTokens");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.ApplicationGroupRole", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.ApplicationRole", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.ApplicationGroup", "Group")
-                        .WithMany("Roles")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
 
-            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.ApplicationUserGroup", b =>
-                {
-                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.ApplicationGroup", "Group")
-                        .WithMany("Users")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.ToTable("ApplicationRole");
 
-                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "User")
-                        .WithMany("Groups")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasDiscriminator().HasValue("ApplicationRole");
                 });
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Media", b =>
@@ -561,6 +514,11 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.ApplicationRole")
+                        .WithMany("Claims")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
@@ -570,7 +528,7 @@ namespace AwesomeCMSCore.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User")
-                        .WithMany()
+                        .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -585,13 +543,18 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.ApplicationRole")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User")
-                        .WithMany()
+                        .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

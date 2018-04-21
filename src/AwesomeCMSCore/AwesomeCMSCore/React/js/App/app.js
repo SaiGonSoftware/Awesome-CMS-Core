@@ -4,3 +4,4 @@ import "./Modules/Account/Index.jsx";
 import "./Modules/Tag/TagCreateContainer.jsx";
 import "./Vendor/portal";
 import "./Vendor/chart.home";
+import "./Modules/Group/Index.jsx";

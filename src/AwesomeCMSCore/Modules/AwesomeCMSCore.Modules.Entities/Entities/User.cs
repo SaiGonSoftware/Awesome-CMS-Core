@@ -7,8 +7,11 @@ namespace AwesomeCMSCore.Modules.Entities.Entities
 {
     public class User : IdentityUser
     {
-        public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
-
-        public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
-    }
+        public User()
+           : base()
+        {
+            this.Groups = new HashSet<ApplicationUserGroup>();
+        }
+         public virtual ICollection<ApplicationUserGroup> Groups { get; set; }
+     }
 }
