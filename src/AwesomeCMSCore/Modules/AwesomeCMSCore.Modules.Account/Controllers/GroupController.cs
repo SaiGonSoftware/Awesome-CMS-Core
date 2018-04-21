@@ -17,7 +17,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
         {
             groupService = group;
         }
-
+         
         public IActionResult Index()
         {
             return View();
