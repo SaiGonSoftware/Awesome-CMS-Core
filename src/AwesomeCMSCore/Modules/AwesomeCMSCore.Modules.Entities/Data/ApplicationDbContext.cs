@@ -22,9 +22,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
-            
+            base.OnModelCreating(modelBuilder); 
             modelBuilder.Entity<ApplicationGroupRole>().HasKey(t => new { t.RoleId, t.GroupId });
             modelBuilder.Entity<ApplicationGroupRole>()
                 .HasOne(p => p.Group)
@@ -34,8 +32,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
             modelBuilder.Entity<ApplicationUserGroup>()
                 .HasOne(p => p.User)
                 .WithMany(t => t.Groups)
-                .HasForeignKey(t => t.UserId);
-
+                .HasForeignKey(t => t.UserId); 
             modelBuilder.EnableAutoHistory(null);
         }
     }
