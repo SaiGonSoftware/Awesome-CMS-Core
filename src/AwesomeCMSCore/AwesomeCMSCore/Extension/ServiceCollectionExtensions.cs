@@ -162,7 +162,7 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection AddCustomAuthentication(this IServiceCollection services)
         {
             services
-                .AddIdentity<User, IdentityRole>()
+                .AddIdentity<User, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 

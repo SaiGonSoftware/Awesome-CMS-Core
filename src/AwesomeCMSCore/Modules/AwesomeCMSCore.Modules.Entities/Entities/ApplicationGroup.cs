@@ -13,7 +13,7 @@ namespace AwesomeCMSCore.Modules.Entities.Entities
         public string RoleId { get; set; }
         [Required]
         public string GroupId { get; set; }
-        public IdentityRole Role { get; set; }
+        public ApplicationRole Role { get; set; }
         public ApplicationGroup Group { get; set; } 
     }
 
