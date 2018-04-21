@@ -78,7 +78,6 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             account.EmailConfirmed = accountToggleVm.ToogleFlag;
             await _unitOfWork.Repository<User>().UpdateAsync(account);
             return true;
-
         }
 
         public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles()
@@ -90,14 +89,38 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         public async Task<bool> AddNewUser(UserInputViewModel userInputVm)
         {
             var user = new User { UserName = userInputVm.Username, Email = userInputVm.Email };
-            var result = await _userManager.CreateAsync(user, RandomString.GenerateRandomString());
+            var randomPassword = RandomString.GenerateRandomString();
+            var result = await _userManager.CreateAsync(user, randomPassword);
+
             if (!result.Succeeded) return false;
-            var context = _httpContextAccessor.HttpContext;
+
             await _userManager.AddToRolesAsync(user, userInputVm.Roles);
+
+            var context = _httpContextAccessor.HttpContext;
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var callbackUrl = _urlHelperExtension.EmailConfirmationLink(user.Id, code, context.Request.Scheme.ToString());
-            await _emailSender.SendEmailAsync(userInputVm.Email, "", callbackUrl, EmailType.AccountConfirm);
+            var callbackUrl = _urlHelperExtension.EmailConfirmationLink(user.Id, code, context.Request.Scheme);
+            var emailOptions = new EmailOptions
+            {
+                Url = callbackUrl,
+                Password = randomPassword,
+                UserName = userInputVm.Username
+            };
+
+            await _emailSender.SendEmailAsync(userInputVm.Email, "", emailOptions, EmailType.AccountConfirm);
+
             return true;
+        }
+
+        public async Task<bool> ValidateDuplicateUserName(string username)
+        {
+            var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.UserName == username).FirstOrDefaultAsync();
+            return account == null;
+        }
+
+        public async Task<bool> ValidateDuplicateEmail(string email)
+        {
+            var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Email == email).FirstOrDefaultAsync();
+            return account == null;
         }
     }
 }

@@ -12,5 +12,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         Task<bool> AccountToggle(AccountToggleViewModel accountToggleVm);
         Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
         Task<bool> AddNewUser(UserInputViewModel userInputVm);
+        Task<bool> ValidateDuplicateUserName(string username);
+        Task<bool> ValidateDuplicateEmail(string email);
     }
 }

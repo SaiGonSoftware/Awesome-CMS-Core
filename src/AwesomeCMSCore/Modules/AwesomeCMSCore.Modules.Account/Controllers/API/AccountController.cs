@@ -139,6 +139,28 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
             return Ok(userRoles);
         }
 
+        public async Task<IActionResult> ValidateDuplicateUserName([FromBody]string username)
+        {
+            if (string.IsNullOrEmpty(username))
+            {
+                return BadRequest();
+            }
+
+            var isDuplicateUserName = await _accountService.ValidateDuplicateUserName(username);
+            return Ok(isDuplicateUserName);
+        }
+
+        public async Task<IActionResult> ValidateDuplicateEmail([FromBody]string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest();
+            }
+
+            var isDuplicateEmail = await _accountService.ValidateDuplicateEmail(email);
+            return Ok(isDuplicateEmail);
+        }
+
         [HttpPost, ValidModel]
         public async Task<IActionResult> AddNewUser([FromBody]UserInputViewModel userInputVm)
         {

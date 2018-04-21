@@ -53,5 +53,15 @@ namespace AwesomeCMSCore.Modules.Account.Services
         {
             return await _accountRepository.AddNewUser(userInputVm);
         }
+
+        public async Task<bool> ValidateDuplicateUserName(string username)
+        {
+            return await _accountRepository.ValidateDuplicateUserName(username);
+        }
+
+        public async Task<bool> ValidateDuplicateEmail(string email)
+        {
+            return await _accountRepository.ValidateDuplicateUserName(email);
+        }
     }
 }

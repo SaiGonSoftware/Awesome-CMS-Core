@@ -11,7 +11,9 @@ env = {
   userList: "api/Account/UserList",
   deactiveAccount: "api/Account/ToggleAccountStatus",
   getUserRolesList: "api/Account/UserRoles",
-  addNewUser: "api/Account/AddNewUser"
+  addNewUser: "api/Account/AddNewUser",
+  validateDuplicateUserName: "api/Account/ValidateDuplicateUserName",
+  validateDuplicateEmail: "api/Account/ValidateDuplicateEmail"
 };
 
 if (isDevEnviroment()) {
