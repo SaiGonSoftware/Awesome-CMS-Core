@@ -29,6 +29,12 @@ Please read
 
 ![Throughput Graph](https://graphs.waffle.io/Awesome-CMS-Core/Awesome-CMS-Core/throughput.svg)
 
+## Contributors
+
+| [ngohungphuc](https://github.com/ngohungphuc)                  | [David Pine](https://github.com/IEvangelist)                        |
+| -------------------------------------------------------------- | ------------------------------------------------------------------- |
+| <img src="img/contributors/tony.jpg"  alt="tony" width="150"/> | <img src="img/contributors/davidpine.png" alt="tony" width="150" /> |
+
 ## App insider (Continue to Update)
 
 ### Login page for admin
