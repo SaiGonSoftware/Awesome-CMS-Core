@@ -102,7 +102,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             if (!result.Succeeded)
             {
                 return false;
-            };
+            }
 
             await _userManager.AddToRolesAsync(user, userInputVm.Roles);
 
