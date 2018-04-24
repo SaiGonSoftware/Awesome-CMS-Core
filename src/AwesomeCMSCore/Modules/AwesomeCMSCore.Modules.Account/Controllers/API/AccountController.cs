@@ -128,12 +128,14 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
             return Ok();
         }
 
+        [HttpGet]
         public async Task<IActionResult> UserList()
         {
             var userList = await _accountService.UserList();
             return Ok(userList);
         }
 
+        [HttpGet]
         public async Task<IActionResult> UserRoles()
         {
             var userRoles = await _accountService.GetUserRoles();

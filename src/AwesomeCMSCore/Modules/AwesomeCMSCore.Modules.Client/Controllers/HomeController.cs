@@ -12,6 +12,7 @@ namespace AwesomeCMSCore.Modules.Client.Controllers
             _queueService = queueService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

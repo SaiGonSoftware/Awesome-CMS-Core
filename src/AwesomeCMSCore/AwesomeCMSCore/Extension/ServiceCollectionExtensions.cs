@@ -37,6 +37,7 @@ using AwesomeCMSCore.Modules.Helper.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -287,6 +288,22 @@ namespace AwesomeCMSCore.Extension
                     "image/jpeg",
                     "image/png"
                 };
+            });
+
+            return services;
+        }
+
+        public static IServiceCollection IntegrateSwagger(this IServiceCollection services)
+        {
+            // Register the Swagger generator, defining one or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "Awesome CMS Core API",
+                    Contact = new Contact { Name = "Tony Hudson", Email = "", Url = "https://github.com/ngohungphuc" }
+                });
             });
 
             return services;
