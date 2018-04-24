@@ -60,12 +60,19 @@ class AddUserModal extends Component {
       UserName: this.state.username,
       Email: this.state.email
     }).then(res => {
-      res.data.UserName && this.setState({ duplicateUserName: true });
-      res.data.Email && this.setState({ duplicateEmail: true });
+      res.data.UserName
+        ? this.setState({ duplicateUserName: true })
+        : this.setState({ duplicateUserName: false });
+      res.data.Email
+        ? this.setState({ duplicateEmail: true })
+        : this.setState({ duplicateEmail: false });
     });
 
-    if (this.state.duplicateEmail == false || this.state.duplicateUserName == false) {
-      PostWithSpinner.call(this, env.addNewUser, {
+    console.log(this.state.duplicateEmail);
+    console.log(this.state.duplicateUserName);
+    if (this.state.duplicateEmail || this.state.duplicateUserName) {
+      console.log("not valid");
+      /*  PostWithSpinner.call(this, env.addNewUser, {
         Username: this.state.username,
         Email: this.state.email,
         Roles: [...this.selectedRoles]
@@ -76,7 +83,7 @@ class AddUserModal extends Component {
         })
         .catch(() => {
           toastr.error("Something went wrong. Please try again");
-        });
+        }); */
     }
   };
 
