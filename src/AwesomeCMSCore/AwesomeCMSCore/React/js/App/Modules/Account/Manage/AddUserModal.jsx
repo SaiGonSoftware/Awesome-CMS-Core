@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 import toastr from "toastr";
 
 import { shouldMarkError, validateInput } from "../../../Helper/Validation";
-import { onChange, onBlur } from "../../../Helper/stateHelper";
-import { Get, PostWithSpinner } from "../../../Helper/ajax";
+import { onChange } from "../../../Helper/stateHelper";
+import { Get, PostWithSpinner, Post } from "../../../Helper/ajax";
 import { isFormValid } from "../../../Helper/Validation";
 import env from "../../../Helper/envConfig";
 import statusCode from "../../../Helper/StatusCode";
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
-import ACCButton from "../../../Common/ACCButton.jsx";
 import ACCMultiCheckbox from "../../../Common/ACCInput/ACCMultiCheckbox.jsx";
+import Spinner from "../../../Common/Spinner.jsx";
 
 class AddUserModal extends Component {
   constructor(props) {
@@ -21,7 +21,6 @@ class AddUserModal extends Component {
       email: "",
       roleList: [],
       loading: false,
-      disable: false,
       duplicateUserName: false,
       duplicateEmail: false,
       touched: {
@@ -50,29 +49,47 @@ class AddUserModal extends Component {
     }
   };
 
+  onBlur(e) {
+    this.setState({
+      touched: { ...this.state.touched, [e.target.name]: true }
+    });
+
+    if (e.target.name === "username") {
+      Post(env.validateDuplicateAccountInfo, {
+        Key: "UserName",
+        Value: this.state.username
+      }).then(res => {
+        res.data
+          ? this.setState({ duplicateUserName: true })
+          : this.setState({ duplicateUserName: false });
+      });
+    }
+
+    if (e.target.name === "email") {
+      Post(env.validateDuplicateAccountInfo, {
+        Key: "Email",
+        Value: this.state.email
+      }).then(res => {
+        res.data
+          ? this.setState({ duplicateEmail: true })
+          : this.setState({ duplicateEmail: false });
+      });
+    }
+  }
+
   addNewUser = e => {
-    if (!isFormValid(this.validationArr)) {
+    if (
+      !isFormValid(this.validationArr) ||
+      this.state.duplicateEmail ||
+      this.state.duplicateUserName
+    ) {
       return;
     }
 
     e.preventDefault();
-    PostWithSpinner.call(this, env.validateDuplicateAccountInfo, {
-      UserName: this.state.username,
-      Email: this.state.email
-    }).then(res => {
-      res.data.UserName
-        ? this.setState({ duplicateUserName: true })
-        : this.setState({ duplicateUserName: false });
-      res.data.Email
-        ? this.setState({ duplicateEmail: true })
-        : this.setState({ duplicateEmail: false });
-    });
 
-    console.log(this.state.duplicateEmail);
-    console.log(this.state.duplicateUserName);
     if (this.state.duplicateEmail || this.state.duplicateUserName) {
-      console.log("not valid");
-      /*  PostWithSpinner.call(this, env.addNewUser, {
+      PostWithSpinner.call(this, env.addNewUser, {
         Username: this.state.username,
         Email: this.state.email,
         Roles: [...this.selectedRoles]
@@ -83,20 +100,43 @@ class AddUserModal extends Component {
         })
         .catch(() => {
           toastr.error("Something went wrong. Please try again");
-        }); */
+        });
     }
   };
+
+  renderButton() {
+    const errors = validateInput(this.validationArr);
+    const inputErrors = Object.keys(errors).some(x => errors[x]);
+    let isDisabled = false;
+
+    if (
+      inputErrors ||
+      this.state.duplicateEmail ||
+      this.state.duplicateUserName
+    ) {
+      isDisabled = true;
+    }
+
+    if (this.state.loading) {
+      return <Spinner />;
+    } else {
+      return (
+        <button className="btn btn-primary" type="submit" disabled={isDisabled}>
+          Save
+        </button>
+      );
+    }
+  }
 
   render() {
     const {
       username,
       email,
-      loading,
       roleList,
-      disable,
       duplicateUserName,
       duplicateEmail
     } = this.state;
+
     this.validationArr = [
       {
         username,
@@ -148,7 +188,7 @@ class AddUserModal extends Component {
                 required="required"
                 value={username}
                 onChange={username => onChange.call(this, username)}
-                onBlur={username => onBlur.call(this, username)}
+                onBlur={username => this.onBlur(username)}
               />
               <ACCInput
                 className={shouldMarkError.call(this, "email", errors)}
@@ -159,7 +199,7 @@ class AddUserModal extends Component {
                 required="required"
                 value={email}
                 onChange={email => onChange.call(this, email)}
-                onBlur={email => onBlur.call(this, email)}
+                onBlur={email => this.onBlur(email)}
               />
               <div className="card" id="userRoleSection">
                 <div className="card-body">
@@ -178,13 +218,7 @@ class AddUserModal extends Component {
               </div>
             </div>
             <div className="modal-footer">
-              <ACCButton
-                validationArr={this.validationArr}
-                loading={loading}
-                label="Add"
-                disable={disable}
-                onClick={this.addNewUser}
-              />
+              {this.renderButton()}
               <button
                 type="button"
                 className="btn btn-secondary"

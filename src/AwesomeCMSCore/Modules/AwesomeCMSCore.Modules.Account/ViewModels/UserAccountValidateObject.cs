@@ -8,8 +8,8 @@ namespace AwesomeCMSCore.Modules.Account.ViewModels
     public class UserAccountValidateObject
     {
         [Required]
-        public string UserName { get; set; }
+        public string Key { get; set; }
         [Required]
-        public string Email { get; set; }
+        public string Value { get; set; }
     }
 }

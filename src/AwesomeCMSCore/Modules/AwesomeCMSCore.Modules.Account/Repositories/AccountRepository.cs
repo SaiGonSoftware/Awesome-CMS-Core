@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using AwesomeCMSCore.Modules.Email;
+using AwesomeCMSCore.Modules.Helper.Enum;
 
 namespace AwesomeCMSCore.Modules.Account.Repositories
 {
@@ -112,18 +113,23 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             return true;
         }
 
-        public async Task<Dictionary<string, bool>> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject)
+        public async Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject)
         {
-            var isUserNameDuplicate = await _unitOfWork.Repository<User>().Query().Where(acc => acc.UserName.Equals(accountValidateObject.UserName, StringComparison.CurrentCultureIgnoreCase)).AnyAsync();
-            var isEmailDuplicate = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Email.Equals(accountValidateObject.Email, StringComparison.CurrentCultureIgnoreCase)).AnyAsync();
-
-            var validationResult = new Dictionary<string, bool>
+            switch (accountValidateObject.Key)
             {
-                {"UserName", isUserNameDuplicate},
-                {"Email", isEmailDuplicate}
-            };
-
-            return validationResult;
+                case "UserName":
+                    var isUserNameDuplicate = await _unitOfWork.Repository<User>().Query().Where(acc =>
+                            acc.UserName.Equals(accountValidateObject.Value, StringComparison.CurrentCultureIgnoreCase))
+                        .AnyAsync();
+                    return isUserNameDuplicate;
+                case "Email":
+                    var isEmailDuplicate = await _unitOfWork.Repository<User>().Query().Where(acc =>
+                            acc.Email.Equals(accountValidateObject.Value, StringComparison.CurrentCultureIgnoreCase))
+                        .AnyAsync();
+                    return isEmailDuplicate;
+                default:
+                    return false;
+            }
         }
     }
 }

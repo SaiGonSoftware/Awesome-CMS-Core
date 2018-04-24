@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Enum;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
