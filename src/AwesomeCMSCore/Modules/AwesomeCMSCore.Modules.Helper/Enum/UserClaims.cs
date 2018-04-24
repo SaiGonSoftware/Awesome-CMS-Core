@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AwesomeCMSCore.Modules.Entities.Entities
+﻿namespace AwesomeCMSCore.Modules.Helper.Enum
 {
     public static class UserClaimsKey
     {

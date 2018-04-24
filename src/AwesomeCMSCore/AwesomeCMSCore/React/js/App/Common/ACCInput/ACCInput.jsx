@@ -17,6 +17,7 @@ const ACCInput = props => {
           type={props.type}
           name={props.name}
           placeholder={props.placeholder}
+          onFocus={props.onFocus}
           onChange={props.onChange}
           onBlur={props.onBlur}
           value={props.value}
@@ -36,6 +37,7 @@ ACCInput.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   required: PropTypes.string
 };
 

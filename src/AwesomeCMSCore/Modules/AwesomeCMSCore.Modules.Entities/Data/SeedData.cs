@@ -96,7 +96,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
                 };
 
                 var roles = new[]
-                    {"Owner", "Administrator", "Editor"};
+                    {"Owner", "Administrator", "Editor", "ContentWriter"};
 
                 var roles1 = new[]
                     {"Administrator"};

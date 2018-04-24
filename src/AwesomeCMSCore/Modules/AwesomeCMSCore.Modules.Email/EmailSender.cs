@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MailBodyPack;
 using MailKit.Net.Smtp;
@@ -16,7 +17,7 @@ namespace AwesomeCMSCore.Modules.Email
             _emailSetting = emailSetting;
         }
 
-        public Task SendEmailAsync(string reciever, string message, EmailType emailType)
+        public Task SendEmailAsync(string reciever, string message, EmailOptions options, EmailType emailType)
         {
             var email = new MimeMessage();
             var builder = new BodyBuilder();
@@ -29,6 +30,11 @@ namespace AwesomeCMSCore.Modules.Email
                 case EmailType.SystemLog:
                     email.Subject = "System log";
                     builder.HtmlBody = ExceptionEmailRender(message);
+                    email.Body = builder.ToMessageBody();
+                    break;
+                case EmailType.AccountConfirm:
+                    email.Subject = "Account confirm";
+                    builder.HtmlBody = AccountCreationConfirm(options);
                     email.Body = builder.ToMessageBody();
                     break;
                 default:
@@ -74,6 +80,27 @@ namespace AwesomeCMSCore.Modules.Email
             return body;
         }
 
+        private static string AccountCreationConfirm(EmailOptions options)
+        {
+            var emailInfo = new[] {
+                $"UserName: {options.UserName}",
+                $"Password: {options.Password}"
+            };
+
+            var emailInfoFormat = emailInfo.Select(item => MailBody.CreateBlock().Text(item));
+
+            var body = MailBody
+                .CreateBody()
+                .Paragraph($"Hi {options.UserName} Please confirm your email address by clicking the link below.")
+                .Paragraph("Here is your login information")
+                .UnorderedList(emailInfoFormat)
+                .Paragraph("Please change it after you login")
+                .Button($"{options.Url}", "Confirm Email Address")
+                .Paragraph("— [Awesome CMS Core]")
+                .ToString();
+
+            return body;
+        }
         #endregion
     }
 }

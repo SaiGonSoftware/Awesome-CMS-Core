@@ -17,6 +17,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.AspNetCore.Identity;
 using AspNet.Security.OpenIdConnect.Primitives;
+using AspNetCore.IServiceCollection.AddIUrlHelper;
 using AutoMapper;
 using AwesomeCMSCore.Modules.Account.Repositories;
 using AwesomeCMSCore.Modules.Entities.Entities;
@@ -32,6 +33,10 @@ using AwesomeCMSCore.Modules.Queue;
 using Microsoft.IdentityModel.Tokens;
 using AwesomeCMSCore.Modules.Mapper;
 using AwesomeCMSCore.Modules.Account.Services;
+using AwesomeCMSCore.Modules.Helper.Extensions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -132,12 +137,15 @@ namespace AwesomeCMSCore.Extension
 
         public static IServiceCollection InjectApplicationServices(this IServiceCollection services)
         {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddUrlHelper();
+            
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddScoped<IQueueService, QueueService>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUrlHelperExtension, UrlHelperExtension>();
             services.AddTransient<ITagService, TagService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountService, AccountService>();
@@ -161,7 +169,19 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection AddCustomAuthentication(this IServiceCollection services)
         {
             services
-                .AddIdentity<User, ApplicationRole>()
+                .AddIdentity<User, ApplicationRole>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredLength = 4;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+
+                    //lock out attempt
+                    options.Lockout.AllowedForNewUsers = true;
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                    options.Lockout.MaxFailedAccessAttempts = 2;
+                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 

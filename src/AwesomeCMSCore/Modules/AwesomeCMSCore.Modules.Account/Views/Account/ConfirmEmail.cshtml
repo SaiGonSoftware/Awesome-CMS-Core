@@ -1,10 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Confirm email";
+    Layout = "_Layout";
 }
 
-<h2>@ViewData["Title"]</h2>
-<div>
-    <p>
-        Thank you for confirming your email.
-    </p>
+<div class="card text-center" id="confirmAccountSection">
+    <div class="card-header">
+        Awesome CMS Core
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Welcome</h5>
+        <p class="card-text"> Thank you for confirming your email. You can start to login our system using provided account</p>
+        <a href="/Account/Login" class="btn btn-primary">Login</a>
+    </div>
+    <div class="card-footer text-muted">
+       From Awesome CMS Core support team
+    </div>
 </div>

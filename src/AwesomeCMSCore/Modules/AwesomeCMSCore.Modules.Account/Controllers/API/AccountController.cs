@@ -1,14 +1,15 @@
 ﻿using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Account.Extensions;
 using AwesomeCMSCore.Modules.Account.Services;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Helper.Filter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
 
 namespace AwesomeCMSCore.Modules.Account.Controllers.API
 {
@@ -38,7 +39,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
-                model.RememberMe, lockoutOnFailure: false);
+                model.RememberMe, true);
 
             if (result.Succeeded)
             {
@@ -65,8 +66,8 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
                 if (result.Succeeded)
                 {
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+                    //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                    //await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return Ok(returnUrl);
@@ -94,9 +95,9 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
                 // For more information on how to enable account confirmation and password reset please
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
-                await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+                //var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
+                //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+                //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
                 return Ok();
             }
 
@@ -132,12 +133,42 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
             var userList = await _accountService.UserList();
             return Ok(userList);
         }
-        
-        [HttpPost, ValidModel]
-        public async Task<IActionResult> ToggleAccountStatus(AccountToggleViewModel accountToggleVm)
+
+        public async Task<IActionResult> UserRoles()
         {
-            await _accountService.AccountToggle(accountToggleVm);
-            return Ok();
+            var userRoles = await _accountService.GetUserRoles();
+            return Ok(userRoles);
+        }
+
+        [HttpPost, ValidModel]
+        public async Task<IActionResult> ValidateDuplicateAccountInfo([FromBody] UserAccountValidateObject accountValidateObject)
+        {
+            var isDuplicateAccountInfo = await _accountService.ValidateDuplicateAccountInfo(accountValidateObject);
+            return Ok(isDuplicateAccountInfo);
+        }
+
+        [HttpPost, ValidModel]
+        public async Task<IActionResult> AddNewUser([FromBody]UserInputViewModel userInputVm)
+        {
+            var result = await _accountService.AddNewUser(userInputVm);
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost, ValidModel]
+        public async Task<IActionResult> ToggleAccountStatus([FromBody]AccountToggleViewModel accountToggleVm)
+        {
+            var result = await _accountService.AccountToggle(accountToggleVm);
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
     }
 }
