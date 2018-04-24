@@ -28,6 +28,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API
             _userService = userService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetTag()
         {
             return Ok(await _tagService.GetAllTag());

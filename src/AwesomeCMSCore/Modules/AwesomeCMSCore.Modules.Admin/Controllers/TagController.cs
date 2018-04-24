@@ -20,6 +20,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             _userService = userService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View();
