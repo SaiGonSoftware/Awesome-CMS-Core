@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -111,16 +112,18 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             return true;
         }
 
-        public async Task<bool> ValidateDuplicateUserName(string username)
+        public async Task<Dictionary<string, bool>> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject)
         {
-            var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.UserName == username).FirstOrDefaultAsync();
-            return account == null;
-        }
+            var isUserNameDuplicate = await _unitOfWork.Repository<User>().Query().Where(acc => acc.UserName.Equals(accountValidateObject.UserName, StringComparison.CurrentCultureIgnoreCase)).AnyAsync();
+            var isEmailDuplicate = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Email.Equals(accountValidateObject.Email, StringComparison.CurrentCultureIgnoreCase)).AnyAsync();
 
-        public async Task<bool> ValidateDuplicateEmail(string email)
-        {
-            var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Email == email).FirstOrDefaultAsync();
-            return account == null;
+            var validationResult = new Dictionary<string, bool>
+            {
+                {"UserName", isUserNameDuplicate},
+                {"Email", isEmailDuplicate}
+            };
+
+            return validationResult;
         }
     }
 }

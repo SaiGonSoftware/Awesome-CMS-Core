@@ -56,26 +56,15 @@ class AddUserModal extends Component {
     }
 
     e.preventDefault();
-    Get(env.validateDuplicateUserName, { username: this.state.username }).then(
-      res => {
-        if (res.data) {
-          this.setState({ duplicateUserName: true });
-          this.setState({ disable: true });
-        } else {
-          this.setState({ disable: false });
-        }
-      }
-    );
-
-    Get(env.validateDuplicateEmail, { email: this.state.email }).then(res => {
-      if (res.data) {
-        this.setState({ duplicateEmail: true });
-      } else {
-        this.setState({ disable: false });
-      }
+    PostWithSpinner.call(this, env.validateDuplicateAccountInfo, {
+      UserName: this.state.username,
+      Email: this.state.email
+    }).then(res => {
+      res.data.UserName && this.setState({ duplicateUserName: true });
+      res.data.Email && this.setState({ duplicateEmail: true });
     });
 
-    if (!this.state.duplicateEmail || !this.state.duplicateUserName) {
+    if (this.state.duplicateEmail == false || this.state.duplicateUserName == false) {
       PostWithSpinner.call(this, env.addNewUser, {
         Username: this.state.username,
         Email: this.state.email,

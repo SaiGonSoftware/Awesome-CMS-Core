@@ -12,8 +12,7 @@ env = {
   deactiveAccount: "api/Account/ToggleAccountStatus",
   getUserRolesList: "api/Account/UserRoles",
   addNewUser: "api/Account/AddNewUser",
-  validateDuplicateUserName: "api/Account/ValidateDuplicateUserName",
-  validateDuplicateEmail: "api/Account/ValidateDuplicateEmail"
+  validateDuplicateAccountInfo: "api/Account/ValidateDuplicateAccountInfo"
 };
 
 if (isDevEnviroment()) {
