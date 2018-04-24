@@ -8,7 +8,6 @@ namespace AwesomeCMSCore.Modules.Helper.Extensions
     /// </summary>
     public class StringValueAttribute : Attribute
     {
-
         #region Properties
 
         /// <summary>

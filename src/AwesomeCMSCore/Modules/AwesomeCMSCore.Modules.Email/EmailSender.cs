@@ -82,7 +82,7 @@ namespace AwesomeCMSCore.Modules.Email
 
         private static string AccountCreationConfirm(EmailOptions options)
         {
-            var emailInfo = new string[] {
+            var emailInfo = new[] {
                 $"UserName: {options.UserName}",
                 $"Password: {options.Password}"
             };

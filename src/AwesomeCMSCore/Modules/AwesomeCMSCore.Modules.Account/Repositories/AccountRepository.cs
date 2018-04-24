@@ -76,9 +76,14 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         public async Task<bool> AccountToggle(AccountToggleViewModel accountToggleVm)
         {
             var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Id == accountToggleVm.AccountId).FirstOrDefaultAsync();
-            if (account == null) return false;
+            if (account == null)
+            {
+                return false;
+            }
+
             account.EmailConfirmed = accountToggleVm.ToogleFlag;
             await _unitOfWork.Repository<User>().UpdateAsync(account);
+
             return true;
         }
 
@@ -94,7 +99,10 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             var randomPassword = RandomString.GenerateRandomString();
             var result = await _userManager.CreateAsync(user, randomPassword);
 
-            if (!result.Succeeded) return false;
+            if (!result.Succeeded)
+            {
+                return false;
+            };
 
             await _userManager.AddToRolesAsync(user, userInputVm.Roles);
 
