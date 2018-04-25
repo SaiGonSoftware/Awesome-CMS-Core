@@ -4,15 +4,15 @@ let env = {};
 
 env = {
   tokenUrl: "connect/token",
-  loginUrl: "api/Account/Login",
-  portal: "http://localhost:5000/Portal/Index",
-  tagCreate: "api/Tag/CreateTag",
-  tag: "api/Tag/GetTag",
-  userList: "api/Account/UserList",
-  deactiveAccount: "api/Account/ToggleAccountStatus",
-  getUserRolesList: "api/Account/UserRoles",
-  addNewUser: "api/Account/AddNewUser",
-  validateDuplicateAccountInfo: "api/Account/ValidateDuplicateAccountInfo"
+  loginUrl: "api/v1/Account/Login",
+  portal: "/Portal/Index",
+  tagCreate: "api/v1/Tag/CreateTag",
+  tag: "api/v1/Tag/GetTag",
+  userList: "api/v1/Account/UserList",
+  deactiveAccount: "api/v1/Account/ToggleAccountStatus",
+  getUserRolesList: "api/v1/Account/UserRoles",
+  addNewUser: "api/v1/Account/AddNewUser",
+  validateDuplicateAccountInfo: "api/v1/Account/ValidateDuplicateAccountInfo"
 };
 
 if (isDevEnviroment()) {

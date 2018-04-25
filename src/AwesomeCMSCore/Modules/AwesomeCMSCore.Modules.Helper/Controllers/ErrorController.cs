@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Helper.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController: Controller
     {
         private readonly IExceptionHandler _exceptionHandler;

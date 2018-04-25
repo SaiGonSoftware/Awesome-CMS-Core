@@ -11,10 +11,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace AwesomeCMSCore.Modules.Admin.Controllers.API
+namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Route("api/[controller]/[action]")]
+    [ApiVersion("1.0")]
+    [ApiExplorerSettings(GroupName = "v1")]
+    [Route("api/v{version:apiVersion}/tag/[action]")]
     public class TagController : Controller
     {
         private readonly ITagService _tagService;

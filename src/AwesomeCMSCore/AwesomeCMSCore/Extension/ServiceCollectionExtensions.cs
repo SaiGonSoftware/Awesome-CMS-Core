@@ -37,6 +37,7 @@ using AwesomeCMSCore.Modules.Helper.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace AwesomeCMSCore.Extension
@@ -301,9 +302,31 @@ namespace AwesomeCMSCore.Extension
                 c.SwaggerDoc("v1", new Info
                 {
                     Version = "v1",
-                    Title = "Awesome CMS Core API",
+                    Title = "Awesome CMS Core API V1",
                     Contact = new Contact { Name = "Tony Hudson", Email = "", Url = "https://github.com/ngohungphuc" }
                 });
+
+                c.SwaggerDoc("v2", new Info
+                {
+                    Version = "v2",
+                    Title = "Awesome CMS Core API V2",
+                    Contact = new Contact { Name = "Tony Hudson", Email = "", Url = "https://github.com/ngohungphuc" }
+                });
+
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+            });
+
+            return services;
+        }
+
+
+        public static IServiceCollection ConfigApiVersioning(this IServiceCollection services)
+        {
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
             });
 
             return services;
