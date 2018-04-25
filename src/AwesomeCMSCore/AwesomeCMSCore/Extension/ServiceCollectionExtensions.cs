@@ -319,7 +319,6 @@ namespace AwesomeCMSCore.Extension
             return services;
         }
 
-
         public static IServiceCollection ConfigApiVersioning(this IServiceCollection services)
         {
             services.AddApiVersioning(options =>
