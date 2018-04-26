@@ -5,6 +5,9 @@ let env = {};
 env = {
   tokenUrl: "connect/token",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ACC-api-versioning (#128)
   loginUrl: "api/v1/Account/Login",
   portal: "/Portal/Index",
   tagCreate: "api/v1/Tag/CreateTag",
@@ -14,6 +17,7 @@ env = {
   getUserRolesList: "api/v1/Account/UserRoles",
   addNewUser: "api/v1/Account/AddNewUser",
   validateDuplicateAccountInfo: "api/v1/Account/ValidateDuplicateAccountInfo"
+<<<<<<< HEAD
 =======
   loginUrl: "api/Account/Login",
   portal: "http://localhost:5000/Portal/Index",
@@ -27,6 +31,8 @@ env = {
   getUserRolesList: "api/Account/RoleList",
   addNewGroup : "api/Group/CreateGroup"
 >>>>>>> Create Group Completed
+=======
+>>>>>>> ACC-api-versioning (#128)
 };
 
 if (isDevEnviroment()) {

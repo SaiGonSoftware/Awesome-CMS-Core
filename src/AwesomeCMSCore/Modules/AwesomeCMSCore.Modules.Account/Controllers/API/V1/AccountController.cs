@@ -10,10 +10,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AwesomeCMSCore.Modules.Account.Controllers.API
+namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Route("api/[controller]/[action]")]
+    [ApiVersion("1.0")]
+    [ApiExplorerSettings(GroupName = "v1")]
+    [Route("api/v{version:apiVersion}/account/[action]")]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
