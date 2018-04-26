@@ -31,7 +31,7 @@ Please read
 
 ## Contributors
 
-| [ngohungphuc](https://github.com/ngohungphuc)                  | [David Pine](https://github.com/IEvangelist)                        |
+| [Tony Hudson](https://github.com/ngohungphuc)                  | [David Pine](https://github.com/IEvangelist)                        |
 | -------------------------------------------------------------- | ------------------------------------------------------------------- |
 | <img src="img/contributors/tony.jpg"  alt="tony" width="150"/> | <img src="img/contributors/davidpine.png" alt="tony" width="150" /> |
 
