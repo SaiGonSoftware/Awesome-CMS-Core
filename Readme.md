@@ -23,7 +23,7 @@ Awesome Cms Core is an Open Source Content Management System built using .Net Co
 
 Please read
 
-* [Docs](https://awesome-cms-core.gitbooks.io/awesome-cms-core/content/) for setup, prerequisites and project architecture, development guideline etc...
+* [Docs](https://awesome-cms-core.gitbook.io/awesome-cms-core/) for setup, prerequisites and project architecture, development guideline etc...
 
 ## Graphs
 
