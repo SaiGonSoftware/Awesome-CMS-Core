@@ -9,13 +9,7 @@ env = {
   tagCreate: "api/Tag/CreateTag",
   tag: "api/Tag/GetTag",
   userList: "api/Account/UserList",
-  deactiveAccount: "api/Account/ToggleAccountStatus",
-  groupList: "api/Group/GroupList",
-  getGroup: "api/Group/GetGroup",
-  editGroup: "Group/EditGroup",
-  getUserRolesList: "api/Account/RoleList",
-  addNewGroup : "api/Group/CreateGroup" ,
-  addNewUser: "api/Account/AddNewUser"
+  deactiveAccount: "api/Account/ToggleAccountStatus"
 };
 
 if (isDevEnviroment()) {

@@ -96,7 +96,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
                 };
 
                 var roles = new[]
-                    {"Owner", "Administrator", "Editor","Post_Create","Post_Edit","Post_List"};
+                    {"Owner", "Administrator", "Editor", "ContentWriter"};
 
                 var roles1 = new[]
                     {"Administrator"};
@@ -104,19 +104,19 @@ namespace AwesomeCMSCore.Modules.Entities.Data
                 var roles2 = new[]
                     {"Editor"};
 
-                foreach (var role in roles)
-                {
-                    var roleStore = new RoleStore<ApplicationRole>(context);
+                //foreach (var role in roles)
+                //{
+                //    var roleStore = new RoleStore<ApplicationRole>(context);
 
-                    if (!context.Roles.Any(r => r.Name == role))
-                    {
-                        await roleStore.CreateAsync(new ApplicationRole
-                        {
-                            Name = role,
-                            NormalizedName = role.ToUpper()
-                        });
-                    }
-                }
+                //    if (!context.Roles.Any(r => r.Name == role))
+                //    {
+                //        await roleStore.CreateAsync(new ApplicationRole
+                //        {
+                //            Name = role,
+                //            NormalizedName = role.ToUpper()
+                //        });
+                //    }
+                //}
 
                 if (!context.Users.Any(u => u.UserName == tony.UserName))
                 {
