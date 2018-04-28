@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Account.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace AwesomeCMSCore.Modules.Account.Services
 {
@@ -8,5 +9,6 @@ namespace AwesomeCMSCore.Modules.Account.Services
     {
         Task<IEnumerable<UserViewModel>> UserList();
         Task AccountToggle(AccountToggleViewModel accountToggleVm);
+        Task<IEnumerable<IdentityRole>> RoleList();
     }
 }

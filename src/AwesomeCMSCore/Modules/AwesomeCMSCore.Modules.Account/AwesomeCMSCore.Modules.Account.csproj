@@ -17,4 +17,9 @@
       <ProjectReference Include="..\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
       <ProjectReference Include="..\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Reference Include="System.Web">
+        <HintPath>System.Web</HintPath>
+      </Reference>
+    </ItemGroup>
 </Project>

@@ -43,5 +43,9 @@ namespace AwesomeCMSCore.Modules.Account.Services
         {
            await _accountRepository.AccountToggle(accountToggleVm);
         }
+        public async Task<IEnumerable<IdentityRole>> RoleList()
+        {
+            return await _accountRepository.RoleList();
+        }
     }
 }

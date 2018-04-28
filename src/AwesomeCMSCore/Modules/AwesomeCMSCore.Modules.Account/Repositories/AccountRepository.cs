@@ -8,6 +8,7 @@ using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Data;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AwesomeCMSCore.Modules.Account.Repositories
@@ -40,6 +41,12 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                                       ,Groups = user.Groups.ToArray().ToString() 
                                   }).ToListAsync(); 
             return userList;
+        }
+
+        public async Task<IEnumerable<IdentityRole>> RoleList()
+        {
+            var roleList = await _unitOfWork.Repository<IdentityRole>().Query().ToListAsync();
+            return roleList;
         }
 
         public async Task AccountToggle(AccountToggleViewModel accountToggleVm)
