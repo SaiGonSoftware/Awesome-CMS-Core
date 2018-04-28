@@ -60,6 +60,16 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
 >>>>>>> account permission based on group
         }
 
+<<<<<<< HEAD
+        public async Task AccountToggle(AccountToggleViewModel accountToggleVm)
+>>>>>>> Create Group Completed
+=======
+        public async Task<IEnumerable<IdentityRole>> RoleList()
+        {
+            var roleList = await _unitOfWork.Repository<IdentityRole>().Query().ToListAsync();
+            return roleList;
+        }
+
         public async Task AccountToggle(AccountToggleViewModel accountToggleVm)
 >>>>>>> Create Group Completed
         {
