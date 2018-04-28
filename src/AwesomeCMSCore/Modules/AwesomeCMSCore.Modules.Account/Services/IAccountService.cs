@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Account.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace AwesomeCMSCore.Modules.Account.Services
 {
@@ -11,5 +12,6 @@ namespace AwesomeCMSCore.Modules.Account.Services
         Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
         Task<bool> AddNewUser(UserInputViewModel userInputVm);
         Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject);
+        Task<IEnumerable<IdentityRole>> RoleList();
     }
 }

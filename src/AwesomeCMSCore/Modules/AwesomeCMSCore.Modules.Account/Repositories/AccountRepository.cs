@@ -59,7 +59,13 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             return userList;
         }
 
-        public async Task<bool> AccountToggle(AccountToggleViewModel accountToggleVm)
+        public async Task<IEnumerable<IdentityRole>> RoleList()
+        {
+            var roleList = await _unitOfWork.Repository<IdentityRole>().Query().ToListAsync();
+            return roleList;
+        }
+
+        public async Task AccountToggle(AccountToggleViewModel accountToggleVm)
         {
             var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Id == accountToggleVm.AccountId).FirstOrDefaultAsync();
             if (account == null)

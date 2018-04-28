@@ -9,6 +9,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
     public interface IGroupRespository
     {
         Task<IEnumerable<GroupViewModel>> GroupList();
-        Task Create(GroupViewModel groupViewModel);
+        Task<bool> CreateGroup(GroupViewModel groupViewModel);
+        Task<GroupViewModel> GetGroup(string id);
     }
 }

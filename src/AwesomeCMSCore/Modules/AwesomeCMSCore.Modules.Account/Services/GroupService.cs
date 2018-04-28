@@ -9,14 +9,24 @@ namespace AwesomeCMSCore.Modules.Account.Services
 {
     public class GroupService : IGroupService
     {
-        private readonly IGroupRespository _groupRespository;
-        public GroupService(IGroupRespository groupRespoitory)
+        private readonly IGroupRespository _groupRepository;
+        public GroupService(IGroupRespository groupRepository)
         {
-            _groupRespository = groupRespoitory;
+            _groupRepository = groupRepository;
         }
+
+        public async Task<GroupViewModel> GetGroup(string id)
+        {
+            return await _groupRepository.GetGroup(id);
+        }
+
         public async Task<IEnumerable<GroupViewModel>> GroupListAsync()
         {
-            return await _groupRespository.GroupList();
+            return await _groupRepository.GroupList();
+        }
+        public async Task<bool> CreateGroup(GroupViewModel groupViewModel)
+        {
+            return await _groupRepository.CreateGroup(groupViewModel);
         }
     }
 }

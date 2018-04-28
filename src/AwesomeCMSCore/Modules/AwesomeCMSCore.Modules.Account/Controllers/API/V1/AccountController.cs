@@ -172,5 +172,11 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
 
             return BadRequest();
         }
+
+        public async Task<IActionResult> RoleList()
+        {
+            var roleList = await _accountService.RoleList();
+            return Ok(roleList);
+        }
     }
 }

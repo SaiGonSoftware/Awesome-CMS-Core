@@ -58,5 +58,9 @@ namespace AwesomeCMSCore.Modules.Account.Services
         {
             return await _accountRepository.ValidateDuplicateAccountInfo(accountValidateObject);
         }
+        public async Task<IEnumerable<IdentityRole>> RoleList()
+        {
+            return await _accountRepository.RoleList();
+        }
     }
 }
