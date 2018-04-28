@@ -28,5 +28,10 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
         { 
             return View(); 
         }  
+
+        public IActionResult EditGroup(string id)
+        {
+            return View();
+        }
 }
 }

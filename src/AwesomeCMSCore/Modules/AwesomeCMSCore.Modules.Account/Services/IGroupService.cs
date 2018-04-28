@@ -9,5 +9,7 @@ namespace AwesomeCMSCore.Modules.Account.Services
     public interface IGroupService
     {
         Task<IEnumerable<GroupViewModel>> GroupListAsync();
+        Task<GroupViewModel> GetGroup(string id);
+        Task<bool> CreateGroup(GroupViewModel groupViewModel);
     }
 }

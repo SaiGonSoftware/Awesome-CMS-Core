@@ -4,6 +4,7 @@ let env = {};
 
 env = {
   tokenUrl: "connect/token",
+<<<<<<< HEAD
   loginUrl: "api/v1/Account/Login",
   portal: "/Portal/Index",
   tagCreate: "api/v1/Tag/CreateTag",
@@ -13,6 +14,19 @@ env = {
   getUserRolesList: "api/v1/Account/UserRoles",
   addNewUser: "api/v1/Account/AddNewUser",
   validateDuplicateAccountInfo: "api/v1/Account/ValidateDuplicateAccountInfo"
+=======
+  loginUrl: "api/Account/Login",
+  portal: "http://localhost:5000/Portal/Index",
+  tagCreate: "api/Tag/CreateTag",
+  tag: "api/Tag/GetTag",
+  userList: "api/Account/UserList",
+  deactiveAccount: "api/Account/ToggleAccountStatus",
+  groupList: "api/Group/GroupList",
+  getGroup: "api/Group/GetGroup",
+  editGroup: "Group/EditGroup",
+  getUserRolesList: "api/Account/RoleList",
+  addNewGroup : "api/Group/CreateGroup"
+>>>>>>> Create Group Completed
 };
 
 if (isDevEnviroment()) {
