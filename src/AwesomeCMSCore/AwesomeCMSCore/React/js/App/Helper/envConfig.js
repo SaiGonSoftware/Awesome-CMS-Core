@@ -14,7 +14,8 @@ env = {
   getGroup: "api/Group/GetGroup",
   editGroup: "Group/EditGroup",
   getUserRolesList: "api/Account/RoleList",
-  addNewGroup : "api/Group/CreateGroup"
+  addNewGroup : "api/Group/CreateGroup" ,
+  addNewUser: "api/Account/AddNewUser"
 };
 
 if (isDevEnviroment()) {

@@ -122,12 +122,14 @@ class LoginForm extends Component {
                   id="rememberMe"
                   name="rememberMe"
                   checked={rememberMe}
+                  label="Remember me ?"
                   onChange={rememberMe => onCheck.call(this, rememberMe)}
                 />
                 <ACCButton
                   validationArr={this.validationArr}
                   loading={loading}
                   btnBlocked="btn-block"
+                  label="Login"
                 />
               </div>
             </form>

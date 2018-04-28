@@ -12,8 +12,8 @@
   "env": {
     "es6": true
   },
-  "plugins": [ "react" ],
-  "extends": [ "eslint:recommended", "plugin:react/recommended" ],
+  "plugins": ["react"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
     "comma-dangle": [ 2, "never" ],
     "react/jsx-uses-vars": "error",

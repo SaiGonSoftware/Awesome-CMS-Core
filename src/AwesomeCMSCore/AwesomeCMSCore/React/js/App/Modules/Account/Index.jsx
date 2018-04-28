@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import toastr from "toastr";
-import qs from "qs";
 
 import { isDomExist } from "../../Helper/util";
 import { Get, Post } from "../../Helper/ajax";
@@ -59,10 +58,10 @@ class AccountTable extends Component {
     if (this.state.selectedId) {
       Post(
         env.deactiveAccount,
-        qs.stringify({
-          accountId: this.state.selectedId,
-          toogleFlag: this.state.toogleFlag
-        })
+        {
+          AccountId: this.state.selectedId,
+          ToogleFlag: this.state.toogleFlag
+        }
       )
         .then(() => {
           toastr.info("Account status successfully set");

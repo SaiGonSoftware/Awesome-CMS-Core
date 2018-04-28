@@ -7,6 +7,7 @@ using AutoMapper;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Data;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,15 +19,18 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
         public AccountRepository(
             IMapper mapper,
             IUnitOfWork unitOfWork,
-            ApplicationDbContext context)
+            ApplicationDbContext context,
+            UserManager<User> userManager)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<IEnumerable<UserViewModel>> UserList()
@@ -56,6 +60,22 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             {
                 account.EmailConfirmed = accountToggleVm.ToogleFlag;
                 await _unitOfWork.Repository<User>().UpdateAsync(account);
+            }
+        }
+
+        public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles()
+        {
+            var rolesList = await _unitOfWork.Repository<IdentityRole>().Query().ToListAsync();
+            return _mapper.Map<IEnumerable<UserRoleViewModel>>(rolesList);
+        }
+
+        public async Task AddNewUser(UserInputViewModel userInputVm)
+        {
+            var user = new User { UserName = userInputVm.Username, Email = userInputVm.Email };
+            var result = await _userManager.CreateAsync(user, "P@ssw0rd");
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRolesAsync(user, userInputVm.Roles);
             }
         }
     }

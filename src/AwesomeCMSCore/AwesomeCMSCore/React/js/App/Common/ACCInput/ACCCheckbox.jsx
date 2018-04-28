@@ -3,16 +3,19 @@ import PropTypes from "prop-types";
 
 const ACCCheckbox = props => {
   return (
-    <div className="form-group">
-      <label>
+    <div className="form-group custom-checkbox">
+      <div className="custom-control custom-checkbox">
         <input
-          id={props.id}
           type="checkbox"
+          className="custom-control-input"
+          id={props.id}
           name={props.name}
           onChange={props.onChange}
         />
-        &nbsp; Remember me ?
-      </label>
+        <label className="custom-control-label" htmlFor={props.id}>
+          {props.label}
+        </label>
+      </div>
     </div>
   );
 };
@@ -20,7 +23,8 @@ const ACCCheckbox = props => {
 ACCCheckbox.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired
 };
 
 export default ACCCheckbox;
