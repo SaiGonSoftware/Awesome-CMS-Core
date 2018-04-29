@@ -50,6 +50,11 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             return _currentUserEmail;
         }
 
+        public bool IsAuthenticated()
+        {
+            return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+        }
+
         public List<string> GetCurrentRoles()
         {
             var roleList = new List<string>();
