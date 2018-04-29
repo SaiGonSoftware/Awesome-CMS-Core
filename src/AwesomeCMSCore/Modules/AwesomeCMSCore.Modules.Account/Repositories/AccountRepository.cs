@@ -70,8 +70,12 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             return roleList;
         }
 
+<<<<<<< HEAD
         public async Task AccountToggle(AccountToggleViewModel accountToggleVm)
 >>>>>>> Create Group Completed
+=======
+        public async Task<bool> AccountToggle(AccountToggleViewModel accountToggleVm)
+>>>>>>> reslove merging issues
         {
             var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Id == accountToggleVm.AccountId).FirstOrDefaultAsync();
             if (account == null)
@@ -137,11 +141,6 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                     return false;
             }
         }
-
-        public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles()
-        {
-            var rolesList = await _unitOfWork.Repository<IdentityRole>().Query().ToListAsync();
-            return _mapper.Map<IEnumerable<UserRoleViewModel>>(rolesList);
-        }
+         
     }
 }

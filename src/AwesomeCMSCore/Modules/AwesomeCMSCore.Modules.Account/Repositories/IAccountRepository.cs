@@ -15,6 +15,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
         Task<bool> AddNewUser(UserInputViewModel userInputVm);
 <<<<<<< HEAD
+<<<<<<< HEAD
         Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject);
 <<<<<<< HEAD
         Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
@@ -28,5 +29,9 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
 =======
         Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject); 
 >>>>>>> add new user
+=======
+        Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject);
+   
+>>>>>>> reslove merging issues
     }
 }
