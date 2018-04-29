@@ -15,7 +15,7 @@
   "plugins": ["react"],
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
-    "comma-dangle": [2, "never"],
+    "comma-dangle": [ 2, "never" ],
     "react/jsx-uses-vars": "error",
     "no-var": "error",
     "no-unused-vars": "warn",
@@ -23,7 +23,13 @@
     "no-debugger": "off",
     "no-unexpected-multiline": "warn",
     "no-alert": "off",
-    "comma-spacing": [2, { "before": false, "after": true }]
+    "comma-spacing": [
+      2,
+      {
+        "before": false,
+        "after": true
+      }
+    ]
   },
   "settings": {
     "react": {
