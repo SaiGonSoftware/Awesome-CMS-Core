@@ -56,13 +56,10 @@ class AccountTable extends Component {
 
   toggleAccountStatus = () => {
     if (this.state.selectedId) {
-      Post(
-        env.deactiveAccount,
-        {
-          AccountId: this.state.selectedId,
-          ToogleFlag: this.state.toogleFlag
-        }
-      )
+      Post(env.deactiveAccount, {
+        AccountId: this.state.selectedId,
+        ToogleFlag: this.state.toogleFlag
+      })
         .then(() => {
           toastr.info("Account status successfully set");
         })
@@ -159,8 +156,8 @@ class AccountTable extends Component {
             >
               Email Confirmed
             </TableHeaderColumn>
-            <TableHeaderColumn dataField="groups">Groups</TableHeaderColumn>
-          </BootstrapTable>,
+            <TableHeaderColumn dataField="roles">Roles</TableHeaderColumn>
+          </BootstrapTable>
         </div>
       </div>
     );
