@@ -76,7 +76,7 @@ class TagCreateContainer extends Component {
           <div className="col col-md-12" id="tagContainer">
             <div className="card">
               <div className="card-header">
-                Create tag for your post (Simply type in what you want)
+                Create tag for your post
               </div>
               <div className="card-body">
                 <ACCReactSelect
