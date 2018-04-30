@@ -11,6 +11,7 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         string GetCurrentUserName();
         string GetCurrentUserEmail();
         List<string> GetCurrentRoles();
+        Task<IList<string>> GetUserRolesById(string userId);
         bool IsAuthenticated();
     }
 }

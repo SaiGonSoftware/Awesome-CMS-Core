@@ -4,6 +4,7 @@ using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Helper.Filter;
+using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -21,17 +22,20 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly IAccountRepository _accountRepository;
+        private readonly IUserService _userService;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IEmailSender emailSender,
-            IAccountRepository accountRepository)
+            IAccountRepository accountRepository,
+            IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _accountRepository = accountRepository;
+            _userService = userService;
         }
 
         [HttpPost]
@@ -140,6 +144,13 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         {
             var userRoles = await _accountRepository.GetUserRoles();
             return Ok(userRoles);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserRolesById(string userId)
+        {
+            var userRolesById = await _accountRepository.GetUserRolesById(userId);
+            return Ok(userRolesById);
         }
 
         [HttpPost, ValidModel]

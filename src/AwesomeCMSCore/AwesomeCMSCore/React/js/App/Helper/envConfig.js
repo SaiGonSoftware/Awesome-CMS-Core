@@ -13,6 +13,7 @@ env = {
   userList: "api/v1/Account/UserList",
   deactiveAccount: "api/v1/Account/ToggleAccountStatus",
   getUserRolesList: "api/v1/Account/UserRoles",
+  getUserRolesById: "api/v1/Account/GetUserRolesById",
   addNewUser: "api/v1/Account/AddNewUser",
   validateDuplicateAccountInfo: "api/v1/Account/ValidateDuplicateAccountInfo"
 };

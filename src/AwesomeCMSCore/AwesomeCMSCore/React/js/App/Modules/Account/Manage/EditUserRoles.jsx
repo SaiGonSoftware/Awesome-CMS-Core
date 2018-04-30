@@ -16,6 +16,7 @@ class EditUserRoles extends Component {
     super(props);
     this.state = {
       roleList: [],
+      currentUserRole: [],
       loading: false
     };
     this.validationArr = [];
@@ -26,8 +27,8 @@ class EditUserRoles extends Component {
   };
 
   componentDidMount() {
-    Get(env.getUserRolesList).then(res => {
-      this.setState({ roleList: res.data });
+    Get(`${env.getUserRolesById}?userId=${this.props.userId}`).then(res => {
+      this.setState({ roleList: res.data.roleList });
     });
   }
 
