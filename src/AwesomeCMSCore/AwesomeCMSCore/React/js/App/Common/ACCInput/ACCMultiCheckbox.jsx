@@ -21,7 +21,8 @@ class ACCMultiCheckbox extends Component {
 
   render() {
     const { isChecked } = this.state;
-    const { label, id, name } = this.props;
+    const { label, id, name, checked } = this.props;
+    const checkedVal = checked ? checked : isChecked;
     const styleClass =
       this.props.index % 2 === 0
         ? "form-group custom-checkbox card-split alignleft"
@@ -37,7 +38,7 @@ class ACCMultiCheckbox extends Component {
             name={name}
             onChange={this.toggleCheckboxChange}
             value={label}
-            checked={isChecked}
+            checked={checkedVal}
           />
           <label className="custom-control-label" htmlFor={id}>
             {label}
@@ -53,7 +54,8 @@ ACCMultiCheckbox.propTypes = {
   name: PropTypes.string.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
-  index: PropTypes.number
+  index: PropTypes.number,
+  checked: PropTypes.string
 };
 
 export default ACCMultiCheckbox;

@@ -48,6 +48,8 @@ class AccountTable extends Component {
       firstPage: "First",
       lastPage: "Last"
     };
+
+    this.userId = "";
   }
 
   componentDidMount() {
@@ -57,9 +59,9 @@ class AccountTable extends Component {
   }
 
   toggleAccountStatus = () => {
-    if (this.state.selectedId) {
+    if (this.state.selectedUserId) {
       Post(env.deactiveAccount, {
-        AccountId: this.state.selectedId,
+        AccountId: this.state.selectedUserId,
         ToogleFlag: this.state.toogleFlag
       })
         .then(() => {
@@ -72,14 +74,15 @@ class AccountTable extends Component {
   };
 
   onSelectAccount = row => {
-    this.setState({ userName: row.userName });
+    this.setState({ userName: row.userName, selectedUserId: row.userId });
+    this.userId = row.userId;
     if (row.emailConfirmed === "True") {
       this.setState({ btnDeactivate: "", btnActivate: "disabled" });
-      this.setState({ selectedId: row.userId, toogleFlag: false });
+      this.setState({ toogleFlag: false });
     }
     if (row.emailConfirmed === "False") {
       this.setState({ btnActivate: "", btnDeactivate: "disabled" });
-      this.setState({ selectedId: row.userId, toogleFlag: true });
+      this.setState({ toogleFlag: true });
     }
   };
 
@@ -87,7 +90,7 @@ class AccountTable extends Component {
     const {
       userList,
       userName,
-      selectedId,
+      selectedUserId,
       btnActivate,
       btnDeactivate
     } = this.state;
@@ -118,11 +121,11 @@ class AccountTable extends Component {
                 <i className="fa fa-pencil-square-o" aria-hidden="true" /> Edit
                 Role for User
               </button>
-              {selectedId ? (
+              {selectedUserId ? (
                 <EditUserRoles
                   id="editUserRoleModal"
                   userName={userName}
-                  userId={selectedId}
+                  userId={this.userId}
                 />
               ) : null}
             </div>
