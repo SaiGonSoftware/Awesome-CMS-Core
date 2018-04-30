@@ -8,6 +8,7 @@ import { Get, Post } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
 
 import AddUserModal from "./Manage/AddUserModal.jsx";
+import EditUserRoles from "./Manage/EditUserRoles.jsx";
 
 class AccountTable extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class AccountTable extends Component {
       loading: false,
       showModal: false,
       selectedUserId: "",
+      userName: "",
       btnActivate: "",
       btnDeactivate: "",
       toogleFlag: false
@@ -70,6 +72,7 @@ class AccountTable extends Component {
   };
 
   onSelectAccount = row => {
+    this.setState({ userName: row.userName });
     if (row.emailConfirmed === "True") {
       this.setState({ btnDeactivate: "", btnActivate: "disabled" });
       this.setState({ selectedId: row.userId, toogleFlag: false });
@@ -78,10 +81,17 @@ class AccountTable extends Component {
       this.setState({ btnActivate: "", btnDeactivate: "disabled" });
       this.setState({ selectedId: row.userId, toogleFlag: true });
     }
+    console.log(this.state.selectedId);
   };
 
   render() {
-    const { userList, btnActivate, btnDeactivate } = this.state;
+    const {
+      userList,
+      userName,
+      selectedId,
+      btnActivate,
+      btnDeactivate
+    } = this.state;
 
     return (
       <div className="card">
@@ -100,10 +110,22 @@ class AccountTable extends Component {
                 &nbsp; Add User
               </button>
               <AddUserModal id="addUserModal" />
-              <button type="button" className="btn btn-warning">
+              <button
+                type="button"
+                className="btn btn-warning"
+                data-toggle="modal"
+                data-target="#editUserRoleModal"
+              >
                 <i className="fa fa-pencil-square-o" aria-hidden="true" /> Edit
-                Role
+                Role for User
               </button>
+              {selectedId ? (
+                <EditUserRoles
+                  id="editUserRoleModal"
+                  userName={userName}
+                  userId={selectedId}
+                />
+              ) : null}
             </div>
             <div className="col-md-6" id="deactiveSection">
               <button
