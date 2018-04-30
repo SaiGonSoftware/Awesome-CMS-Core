@@ -208,7 +208,7 @@ class AddUserModal extends Component {
                     <ACCMultiCheckbox
                       index={index}
                       key={role.id}
-                      id={role.id}
+                      id={`${role.id}-addRole`}
                       name={role.name}
                       label={role.name}
                       handleCheckboxChange={this.onSelectRoles}

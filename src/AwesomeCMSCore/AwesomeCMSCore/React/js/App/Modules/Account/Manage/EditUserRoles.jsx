@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import toastr from "toastr";
 
-import { shouldMarkError, validateInput } from "../../../Helper/Validation";
 import { onChange } from "../../../Helper/stateHelper";
 import { Get, PostWithSpinner, Post } from "../../../Helper/ajax";
 import { isFormValid } from "../../../Helper/Validation";
@@ -53,7 +52,6 @@ class EditUserRoles extends Component {
   }
 
   render() {
-    console.log(this.props.userId);
     const { roleList } = this.state;
 
     return (
@@ -68,7 +66,6 @@ class EditUserRoles extends Component {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">
-                {" "}
                 Edit role for user {this.props.userName}
               </h5>
               <button
@@ -88,7 +85,7 @@ class EditUserRoles extends Component {
                     <ACCMultiCheckbox
                       index={index}
                       key={role.id}
-                      id={role.id}
+                      id={`${role.id}-editRole`}
                       name={role.name}
                       label={role.name}
                       handleCheckboxChange={this.onSelectRoles}
