@@ -48,29 +48,26 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         public async Task<IEnumerable<UserViewModel>> UserList()
         {
             var userList = await (from user in _context.Users
-                                  select new UserViewModel
+                                  select new
                                   {
                                       UserId = user.Id,
-                                      UserName = user.UserName,
-                                      Email= user.Email,
-                                      EmailConfirmed= user.EmailConfirmed.ToString() 
-                                      ,Groups = user.Groups.ToArray().ToString() 
-                                  }).ToListAsync(); 
-            return userList;
+                                      Username = user.UserName,
+                                      user.Email,
+                                      user.EmailConfirmed,
+                                      }).ToListAsync();
+
+            var userListVm = userList.Select(p => new UserViewModel
+            {
+                UserId = p.UserId,
+                UserName = p.Username,
+                Email = p.Email, 
+                EmailConfirmed = p.EmailConfirmed.ToString()
+            });
+
+            return userListVm;
         }
 
-        public async Task<IEnumerable<IdentityRole>> RoleList()
-        {
-            var roleList = await _unitOfWork.Repository<IdentityRole>().Query().ToListAsync();
-            return roleList;
-        }
-
-<<<<<<< HEAD
-        public async Task AccountToggle(AccountToggleViewModel accountToggleVm)
->>>>>>> Create Group Completed
-=======
         public async Task<bool> AccountToggle(AccountToggleViewModel accountToggleVm)
->>>>>>> reslove merging issues
         {
             var account = await _unitOfWork.Repository<User>().Query().Where(acc => acc.Id == accountToggleVm.AccountId).FirstOrDefaultAsync();
             if (account == null)
@@ -136,6 +133,5 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                     return false;
             }
         }
-         
     }
 }

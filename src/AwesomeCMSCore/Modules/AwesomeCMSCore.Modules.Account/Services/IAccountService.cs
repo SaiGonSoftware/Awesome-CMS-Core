@@ -7,8 +7,7 @@ namespace AwesomeCMSCore.Modules.Account.Services
 {
     public interface IAccountService
     {
-        Task<IEnumerable<UserViewModel>> UserList();
-<<<<<<< HEAD
+        Task<IEnumerable<UserViewModel>> UserList(); 
         Task<bool> AccountToggle(AccountToggleViewModel accountToggleVm);
         Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
         Task<bool> AddNewUser(UserInputViewModel userInputVm);
