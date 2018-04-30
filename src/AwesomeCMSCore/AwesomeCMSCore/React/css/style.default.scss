@@ -3515,19 +3515,23 @@ a {
   line-height: 1.6em;
   text-align: center;
 }
+
 #error-page .hgroup {
   margin-bottom: 15px;
 }
+
 #error-page .hgroup h1,
 #error-page .hgroup h2 {
   margin: 0;
   padding: 0;
   text-transform: uppercase;
 }
+
 #error-page .hgroup h1 {
   margin-bottom: 15px;
   font-size: 40px;
 }
+
 #error-page .hgroup h2 {
   display: inline-block;
   padding: 0 0 15px 0;
@@ -3536,12 +3540,14 @@ a {
   border-width: 1px 0;
   text-transform: lowercase;
 }
+
 #error-page p {
   display: block;
   margin: 15px 0 0 0;
   padding: 0;
   font-size: 16px;
 }
+
 #error-page p:first-child {
   margin-top: 0;
 }
@@ -3556,9 +3562,15 @@ a {
 .alignleft {
   float: left;
 }
+
 .alignright {
   float: right;
 }
+
 #confirmAccountSection {
   margin-top: 15%;
+}
+
+.post-options-content {
+  margin-top: -50px;
 }
