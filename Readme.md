@@ -55,7 +55,7 @@ Please read
 
 ---
 
-### Tag manage page
+### Tag & Categories manage page
 
 <img src="img/tag&cat.png"/>
 
