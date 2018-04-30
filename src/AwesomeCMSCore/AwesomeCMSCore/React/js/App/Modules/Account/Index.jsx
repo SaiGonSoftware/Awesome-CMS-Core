@@ -81,7 +81,6 @@ class AccountTable extends Component {
       this.setState({ btnActivate: "", btnDeactivate: "disabled" });
       this.setState({ selectedId: row.userId, toogleFlag: true });
     }
-    console.log(this.state.selectedId);
   };
 
   render() {
