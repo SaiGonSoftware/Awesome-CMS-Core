@@ -13,27 +13,6 @@ namespace AwesomeCMSCore.Modules.Account.Services
         Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
         Task<bool> AddNewUser(UserInputViewModel userInputVm);
         Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject);
-<<<<<<< HEAD
-<<<<<<< HEAD
-        Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
-        Task AddNewUser(UserInputViewModel userInputVm);
-=======
-        Task AccountToggle(AccountToggleViewModel accountToggleVm);
-        Task<IEnumerable<IdentityRole>> RoleList();
->>>>>>> Create Group Completed
-=======
-        Task<IEnumerable<IdentityRole>> RoleList();
-<<<<<<< HEAD
->>>>>>> Create Group Completed
-=======
-        Task<IEnumerable<UserRoleViewModel>> GetUserRoles();
-<<<<<<< HEAD
->>>>>>> add user modal
-=======
-        Task AddNewUser(UserInputViewModel userInputVm);
->>>>>>> add new user
-=======
          
->>>>>>> reslove merging issues
     }
 }

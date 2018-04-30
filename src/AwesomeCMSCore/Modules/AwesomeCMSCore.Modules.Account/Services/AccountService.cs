@@ -57,28 +57,6 @@ namespace AwesomeCMSCore.Modules.Account.Services
         public async Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject)
         {
             return await _accountRepository.ValidateDuplicateAccountInfo(accountValidateObject);
-<<<<<<< HEAD
         }
-<<<<<<< HEAD
-
-        public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles()
-        {
-            return await _accountRepository.GetUserRoles();
-        }
-=======
->>>>>>> Create Group Completed
-        public async Task<IEnumerable<IdentityRole>> RoleList()
-        {
-            return await _accountRepository.RoleList();
-        }
-
-        public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles()
-        {
-            return await _accountRepository.GetUserRoles();
-        }
-=======
-        } 
-         
->>>>>>> reslove merging issues
     }
 }

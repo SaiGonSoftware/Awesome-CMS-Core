@@ -154,20 +154,8 @@ namespace AwesomeCMSCore.Extension
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IExceptionHandler, ExceptionHandler>();
-<<<<<<< HEAD
-
-=======
             services.AddTransient<IGroupService, GroupService>();
-<<<<<<< HEAD
-<<<<<<< HEAD
             services.AddTransient<IGroupRespository, GroupRespository>(); 
->>>>>>> Create Group Completed
-=======
-            services.AddTransient<IGroupRespository, GroupRespository>();
->>>>>>> account permission based on group
-=======
-            services.AddTransient<IGroupRespository, GroupRespository>(); 
->>>>>>> Create Group Completed
             return services;
         }
 

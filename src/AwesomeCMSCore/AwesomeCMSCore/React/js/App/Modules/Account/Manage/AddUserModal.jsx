@@ -14,70 +14,137 @@ import ACCButton from "../../../Common/ACCButton.jsx";
 import ACCMultiCheckbox from "../../../Common/ACCInput/ACCMultiCheckbox.jsx";
 
 class AddUserModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      email: "",
-      roleList: [],
-      loading: false,
-      touched: {
-        username: false,
-        email: false
-      }
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: "",
+            email: "",
+            roleList: [],
+            loading: false,
+            duplicateUserName: false,
+            duplicateEmail: false,
+            touched: {
+                username: false,
+                email: false
+            }
+        };
+        this.validationArr = [];
+    }
+
+    componentWillMount = () => {
+        this.selectedRoles = new Set();
     };
-    this.validationArr = [];
-  }
 
-  componentWillMount = () => {
-    this.selectedRoles = new Set();
-  };
-
-  componentDidMount() {
-    Get(env.getUserRolesList).then(res => {
-      this.setState({ roleList: res.data });
-    });
-  }
-
-  onSelectRoles = role => {
-    if (this.selectedRoles.has(role)) {
-      this.selectedRoles.delete(role);
-    } else {
-      this.selectedRoles.add(role);
-    }
-  };
-
-  addNewUser = e => {
-    if (!isFormValid(this.validationArr)) {
-      return;
+    componentDidMount() {
+        Get(env.getUserRolesList).then(res => {
+            this.setState({ roleList: res.data });
+        });
     }
 
-    e.preventDefault();
+    onSelectRoles = role => {
+        if (this.selectedRoles.has(role)) {
+            this.selectedRoles.delete(role);
+        } else {
+            this.selectedRoles.add(role);
+        }
+    };
 
-    PostWithSpinner.call(this, env.addNewUser, {
-      Username: this.state.username,
-      Email: this.state.email,
-      Roles: [...this.selectedRoles]
-    })
-      .then(res => {
-        if (res.status === statusCode.Success)
-          toastr.info("Account successfully create");
-      })
-      .catch(() => {
-        toastr.error("Something went wrong. Please try again");
-      });
-  };
+    onBlur(e) {
+        this.setState({
+            touched: { ...this.state.touched, [e.target.name]: true }
+        });
 
-  render() {
-    const { username, email, loading, roleList } = this.state;
-    this.validationArr = [
-      {
-        username,
-        email
-      }
-    ];
+        if (e.target.name === "username") {
+            Post(env.validateDuplicateAccountInfo, {
+                Key: "UserName",
+                Value: this.state.username
+            }).then(res => {
+                res.data
+                    ? this.setState({ duplicateUserName: true })
+                    : this.setState({ duplicateUserName: false });
+            });
+        }
 
-    const errors = validateInput.call(this, this.validationArr);
+        if (e.target.name === "email") {
+            Post(env.validateDuplicateAccountInfo, {
+                Key: "Email",
+                Value: this.state.email
+            }).then(res => {
+                res.data
+                    ? this.setState({ duplicateEmail: true })
+                    : this.setState({ duplicateEmail: false });
+            });
+        }
+    }
+
+    addNewUser = e => {
+        if (
+            !isFormValid(this.validationArr) ||
+            this.state.duplicateEmail ||
+            this.state.duplicateUserName
+        ) {
+            return;
+        }
+
+        e.preventDefault();
+
+        if (this.state.duplicateEmail || this.state.duplicateUserName) {
+            PostWithSpinner.call(this, env.addNewUser, {
+                Username: this.state.username,
+                Email: this.state.email,
+                Roles: [...this.selectedRoles]
+            })
+                .then(res => {
+                    if (res.status === statusCode.Success)
+                        toastr.info("Account successfully create");
+                })
+                .catch(() => {
+                    toastr.error("Something went wrong. Please try again");
+                });
+        }
+    };
+
+    renderButton() {
+        const errors = validateInput(this.validationArr);
+        const inputErrors = Object.keys(errors).some(x => errors[x]);
+        let isDisabled = false;
+
+        if (
+            inputErrors ||
+            this.state.duplicateEmail ||
+            this.state.duplicateUserName
+        ) {
+            isDisabled = true;
+        }
+
+        if (this.state.loading) {
+            return <Spinner />;
+        } else {
+            return (
+                <button className="btn btn-primary" type="submit" disabled={isDisabled}>
+                    Save
+        </button>
+            );
+        }
+    }
+
+    render() {
+        const {
+      username,
+            email,
+            roleList,
+            duplicateUserName,
+            duplicateEmail
+    } = this.state;
+
+        this.validationArr = [
+            {
+                username,
+                email
+            }
+        ];
+
+        const errors = validateInput.call(this, this.validationArr);
 
     return (
       <div
@@ -163,7 +230,7 @@ class AddUserModal extends Component {
 }
 
 AddUserModal.propTypes = {
-  id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired
 };
 
 export default AddUserModal;
