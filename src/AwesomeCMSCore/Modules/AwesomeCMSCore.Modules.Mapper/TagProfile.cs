@@ -11,7 +11,7 @@ namespace AwesomeCMSCore.Modules.Mapper
     {
         public TagProfile()
         {
-            CreateMap<Tag, TagDataViewModel>().ReverseMap();
+            CreateMap<Tag, TagViewModel>().ReverseMap();
         }
     }
 }

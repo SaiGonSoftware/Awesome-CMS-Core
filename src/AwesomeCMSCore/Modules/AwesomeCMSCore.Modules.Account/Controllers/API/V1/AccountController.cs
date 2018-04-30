@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Account.Services;
+using AwesomeCMSCore.Modules.Account.Repositories;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
@@ -20,18 +20,18 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly IAccountService _accountService;
+        private readonly IAccountRepository _accountRepository;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IEmailSender emailSender,
-            IAccountService accountService)
+            IAccountRepository accountRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
-            _accountService = accountService;
+            _accountRepository = accountRepository;
         }
 
         [HttpPost]
@@ -131,28 +131,28 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         [HttpGet]
         public async Task<IActionResult> UserList()
         {
-            var userList = await _accountService.UserList();
+            var userList = await _accountRepository.UserList();
             return Ok(userList);
         }
 
         [HttpGet]
         public async Task<IActionResult> UserRoles()
         {
-            var userRoles = await _accountService.GetUserRoles();
+            var userRoles = await _accountRepository.GetUserRoles();
             return Ok(userRoles);
         }
 
         [HttpPost, ValidModel]
         public async Task<IActionResult> ValidateDuplicateAccountInfo([FromBody] UserAccountValidateObject accountValidateObject)
         {
-            var isDuplicateAccountInfo = await _accountService.ValidateDuplicateAccountInfo(accountValidateObject);
+            var isDuplicateAccountInfo = await _accountRepository.ValidateDuplicateAccountInfo(accountValidateObject);
             return Ok(isDuplicateAccountInfo);
         }
 
         [HttpPost, ValidModel]
         public async Task<IActionResult> AddNewUser([FromBody]UserInputViewModel userInputVm)
         {
-            var result = await _accountService.AddNewUser(userInputVm);
+            var result = await _accountRepository.AddNewUser(userInputVm);
             if (result)
             {
                 return Ok();
@@ -164,7 +164,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         [HttpPost, ValidModel]
         public async Task<IActionResult> ToggleAccountStatus([FromBody]AccountToggleViewModel accountToggleVm)
         {
-            var result = await _accountService.AccountToggle(accountToggleVm);
+            var result = await _accountRepository.AccountToggle(accountToggleVm);
             if (result)
             {
                 return Ok();

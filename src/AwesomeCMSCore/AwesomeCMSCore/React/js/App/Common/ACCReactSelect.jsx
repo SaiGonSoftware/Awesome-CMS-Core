@@ -2,7 +2,7 @@ import React from "react";
 import { Creatable } from "react-select";
 import PropTypes from "prop-types";
 
-const TagCreate = props => {
+const ACCReactSelect = props => {
   const { selectedOptions, value, handleOnChange } = props;
 
   return (
@@ -15,10 +15,10 @@ const TagCreate = props => {
   );
 };
 
-TagCreate.propTypes = {
+ACCReactSelect.propTypes = {
   handleOnChange: PropTypes.func.isRequired,
   selectedOptions: PropTypes.arrayOf(PropTypes.object),
   value: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default TagCreate;
+export default ACCReactSelect;

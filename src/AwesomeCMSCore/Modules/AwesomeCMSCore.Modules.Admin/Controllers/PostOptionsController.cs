@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Admin.Services;
+using AwesomeCMSCore.Modules.Admin.Repositories;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,16 +7,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace AwesomeCMSCore.Modules.Admin.Controllers
 {
     [Authorize]
-    public class TagController : Controller
+    public class PostOptionsController : Controller
     {
-        private readonly ITagService _tagService;
+        private readonly IPostOptionsRepository _postOptionsRepository;
         private readonly IUserService _userService;
 
-        public TagController(
-            ITagService tagService, 
+        public PostOptionsController(
+            IPostOptionsRepository postOptionsRepository, 
             IUserService userService)
         {
-            _tagService = tagService;
+            _postOptionsRepository = postOptionsRepository;
             _userService = userService;
         }
 

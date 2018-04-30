@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Account.Services;
+using AwesomeCMSCore.Modules.Account.Repositories;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
-using AwesomeCMSCore.Modules.Helper.Filter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,18 +19,18 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V2
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly IAccountService _accountService;
+        private readonly IAccountRepository _accountRepository;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IEmailSender emailSender,
-            IAccountService accountService)
+            IAccountRepository accountRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
-            _accountService = accountService;
+            _accountRepository = accountRepository;
         }
 
         [HttpPost]
