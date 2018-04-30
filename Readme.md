@@ -57,6 +57,6 @@ Please read
 
 ### Tag manage page
 
-<img src="img/tag-page.png"/>
+<img src="img/tag&cat.png"/>
 
 ---
