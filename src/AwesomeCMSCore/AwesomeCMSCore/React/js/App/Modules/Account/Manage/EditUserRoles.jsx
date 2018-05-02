@@ -19,38 +19,32 @@ class EditUserRoles extends Component {
       currentUserRole: [],
       loading: false
     };
-    this.validationArr = [];
   }
 
   componentWillMount = () => {
     this.selectedRoles = new Set();
   };
 
-  /* componentDidMount() {
-    Get(`${env.getUserRolesById}?userId=${this.props.userId}`).then(res => {
+  componentDidMount() {
+    const url = `${env.getUserRolesById}?userId=${this.props.userId}`;
+    Get(url).then(res => {
       this.setState({
         roleList: res.data.roleList,
         currentUserRoles: res.data.currentUserRoles
       });
     });
-  } */
+  }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props.userId);
-    Get(`${env.getUserRolesById}?userId=${this.props.userId}`).then(res => {
-      console.log(res.data);
-      this.setState({
-        roleList: res.data.roleList,
-        currentUserRoles: res.data.currentUserRoles
+    if (this.props.userId !== nextProps.userId) {
+      const url = `${env.getUserRolesById}?userId=${nextProps.userId}`;
+      Get(url).then(res => {
+        this.setState({
+          roleList: res.data.roleList,
+          currentUserRoles: res.data.currentUserRoles
+        });
       });
-    });
-    /* if (this.props.userId !== nextProps.userId) {
-           this.setState({
-        currentUserRole: nextProps.userId
-      });
- 
-      
-    }*/
+    }
   }
 
   onSelectRoles = role => {
@@ -74,7 +68,6 @@ class EditUserRoles extends Component {
   }
 
   render() {
-    console.log(this.state.currentUserRole);
     const { roleList, currentUserRoles } = this.state;
 
     return (

@@ -48,8 +48,6 @@ class AccountTable extends Component {
       firstPage: "First",
       lastPage: "Last"
     };
-
-    this.userId = "";
   }
 
   componentDidMount() {
@@ -75,7 +73,7 @@ class AccountTable extends Component {
 
   onSelectAccount = row => {
     this.setState({ userName: row.userName, selectedUserId: row.userId });
-    this.userId = row.userId;
+
     if (row.emailConfirmed === "True") {
       this.setState({ btnDeactivate: "", btnActivate: "disabled" });
       this.setState({ toogleFlag: false });
@@ -125,7 +123,7 @@ class AccountTable extends Component {
                 <EditUserRoles
                   id="editUserRoleModal"
                   userName={userName}
-                  userId={this.userId}
+                  userId={selectedUserId}
                 />
               ) : null}
             </div>
