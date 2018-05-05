@@ -6,7 +6,7 @@ using AwesomeCMSCore.Modules.Helper.Services;
 
 namespace AwesomeCMSCore.Modules.Admin.ViewModels
 {
-    public class TagDataViewModel
+    public class TagViewModel
     {
         [Required]
         public string TagData { get; set; }

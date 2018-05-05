@@ -4,6 +4,11 @@ export function onChange(e) {
   });
 }
 
+
+export function handleOnChange(value) {
+  this.setState({ value });
+}
+
 export function onBlur(e) {
   this.setState({
     touched: { ...this.state.touched, [e.target.name]: true }

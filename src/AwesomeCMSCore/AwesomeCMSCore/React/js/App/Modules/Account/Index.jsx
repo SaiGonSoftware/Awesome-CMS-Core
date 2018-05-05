@@ -8,6 +8,7 @@ import { Get, Post } from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
 
 import AddUserModal from "./Manage/AddUserModal.jsx";
+import EditUserRoles from "./Manage/EditUserRoles.jsx";
 
 class AccountTable extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class AccountTable extends Component {
       loading: false,
       showModal: false,
       selectedUserId: "",
+      userName: "",
       btnActivate: "",
       btnDeactivate: "",
       toogleFlag: false
@@ -55,9 +57,9 @@ class AccountTable extends Component {
   }
 
   toggleAccountStatus = () => {
-    if (this.state.selectedId) {
+    if (this.state.selectedUserId) {
       Post(env.deactiveAccount, {
-        AccountId: this.state.selectedId,
+        AccountId: this.state.selectedUserId,
         ToogleFlag: this.state.toogleFlag
       })
         .then(() => {
@@ -70,18 +72,26 @@ class AccountTable extends Component {
   };
 
   onSelectAccount = row => {
+    this.setState({ userName: row.userName, selectedUserId: row.userId });
+
     if (row.emailConfirmed === "True") {
       this.setState({ btnDeactivate: "", btnActivate: "disabled" });
-      this.setState({ selectedId: row.userId, toogleFlag: false });
+      this.setState({ toogleFlag: false });
     }
     if (row.emailConfirmed === "False") {
       this.setState({ btnActivate: "", btnDeactivate: "disabled" });
-      this.setState({ selectedId: row.userId, toogleFlag: true });
+      this.setState({ toogleFlag: true });
     }
   };
 
   render() {
-    const { userList, btnActivate, btnDeactivate } = this.state;
+    const {
+      userList,
+      userName,
+      selectedUserId,
+      btnActivate,
+      btnDeactivate
+    } = this.state;
 
     return (
       <div className="card">
@@ -100,10 +110,22 @@ class AccountTable extends Component {
                 &nbsp; Add User
               </button>
               <AddUserModal id="addUserModal" />
-              <button type="button" className="btn btn-warning">
+              {/* <button
+                type="button"
+                className="btn btn-warning"
+                data-toggle="modal"
+                data-target="#editUserRoleModal"
+              >
                 <i className="fa fa-pencil-square-o" aria-hidden="true" /> Edit
-                Role
+                Role for User
               </button>
+              {selectedUserId ? (
+                <EditUserRoles
+                  id="editUserRoleModal"
+                  userName={userName}
+                  userId={selectedUserId}
+                />
+              ) : null} */}
             </div>
             <div className="col-md-6" id="deactiveSection">
               <button

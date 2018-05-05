@@ -6,6 +6,7 @@ using AwesomeCMSCore.Modules.Helper.Enum;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace AwesomeCMSCore.Modules.Helper.Services
 {
@@ -13,6 +14,7 @@ namespace AwesomeCMSCore.Modules.Helper.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IGenericRepository<User> _userRepository;
+        private readonly UserManager<User> _userManager;
 
         private readonly string _currentUserGuid;
         private readonly string _currentUserName;
@@ -20,9 +22,11 @@ namespace AwesomeCMSCore.Modules.Helper.Services
 
         public UserService(
             UserManager<User> userManager,
+            IUnitOfWork unitOfWork,
             IHttpContextAccessor httpContextAccessor,
             IGenericRepository<User> userRepository)
         {
+            _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
             _currentUserGuid = _httpContextAccessor?.HttpContext?.User?.FindFirst(UserClaimsKey.Sub)?.Value;
@@ -48,6 +52,17 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         public string GetCurrentUserEmail()
         {
             return _currentUserEmail;
+        }
+
+        public async Task<IList<string>> GetUserRolesById(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            return await _userManager.GetRolesAsync(user);
+        }
+
+        public bool IsAuthenticated()
+        {
+            return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
         }
 
         public List<string> GetCurrentRoles()

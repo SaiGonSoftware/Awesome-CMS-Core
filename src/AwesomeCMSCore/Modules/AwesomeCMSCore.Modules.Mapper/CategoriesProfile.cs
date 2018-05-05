@@ -7,11 +7,11 @@ using AwesomeCMSCore.Modules.Entities.Entities;
 
 namespace AwesomeCMSCore.Modules.Mapper
 {
-    public class TagProfile : Profile
+    public class CategoriesProfile : Profile
     {
-        public TagProfile()
+        public CategoriesProfile()
         {
-            CreateMap<Tag, TagViewModel>().ReverseMap();
+            CreateMap<Categories, CategoriesViewModel>().ReverseMap();
         }
     }
 }

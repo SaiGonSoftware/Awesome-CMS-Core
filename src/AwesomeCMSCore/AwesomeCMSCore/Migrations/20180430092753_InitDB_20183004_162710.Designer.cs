@@ -12,9 +12,10 @@ using System;
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180430092753_InitDB_20183004_162710")]
+    partial class InitDB_20183004_162710
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,13 +27,13 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CategoriesData");
-
-                    b.Property<string>("CategoriesOptions");
-
                     b.Property<DateTime>("DateCreate");
 
                     b.Property<DateTime>("DateModified");
+
+                    b.Property<string>("TagData");
+
+                    b.Property<string>("TagOptions");
 
                     b.Property<Guid>("UniqeId");
 

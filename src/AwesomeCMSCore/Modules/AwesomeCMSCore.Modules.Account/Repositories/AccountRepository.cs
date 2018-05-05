@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Helper.Enum;
+using AwesomeCMSCore.Modules.Helper.Services;
 
 namespace AwesomeCMSCore.Modules.Account.Repositories
 {
@@ -24,6 +25,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEmailSender _emailSender;
         private readonly IUrlHelperExtension _urlHelperExtension;
+        private readonly IUserService _userService;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
 
@@ -33,6 +35,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             IHttpContextAccessor httpContextAccessor,
             IEmailSender emailSender,
             IUrlHelperExtension urlHelperExtension,
+            IUserService userService,
             ApplicationDbContext context,
             UserManager<User> userManager)
         {
@@ -41,6 +44,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             _httpContextAccessor = httpContextAccessor;
             _emailSender = emailSender;
             _urlHelperExtension = urlHelperExtension;
+            _userService = userService;
             _context = context;
             _userManager = userManager;
         }
@@ -138,6 +142,20 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                 default:
                     return false;
             }
+        }
+
+        public async Task<RolesUserViewModel> GetUserRolesById(string userId)
+        {
+            var userRoles = await _userService.GetUserRolesById(userId);
+            var roles = await GetUserRoles();
+
+            var roleUserVm = new RolesUserViewModel
+            {
+                CurrentUserRoles =  userRoles,
+                RoleList = roles
+            };
+
+            return roleUserVm;
         }
     }
 }

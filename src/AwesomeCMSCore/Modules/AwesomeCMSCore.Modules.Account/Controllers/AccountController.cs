@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
-using AwesomeCMSCore.Modules.Helper.Extensions;
+using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,15 +17,17 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
-
+        private readonly IUserService _userService;
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _userService = userService;
         }
 
         [TempData]
@@ -40,6 +42,10 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login()
         {
+            if (_userService.IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Portal");
+            }
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             return View();
         }
@@ -59,8 +65,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
