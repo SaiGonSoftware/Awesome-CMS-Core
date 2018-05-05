@@ -230,6 +230,11 @@ namespace AwesomeCMSCore.Extension
                 //
                 options.AddEphemeralSigningKey();
                 options.UseJsonWebTokens();
+
+                //will change it to 120 when fix issue refresh flow not return refresh token
+                options
+                    .SetAccessTokenLifetime(TimeSpan.FromMinutes(1))
+                    .SetRefreshTokenLifetime(TimeSpan.FromMinutes(60));
             });
 
             services.AddAuthentication();

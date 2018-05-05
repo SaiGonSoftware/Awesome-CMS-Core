@@ -110,7 +110,7 @@ class AccountTable extends Component {
                 &nbsp; Add User
               </button>
               <AddUserModal id="addUserModal" />
-              <button
+              {/* <button
                 type="button"
                 className="btn btn-warning"
                 data-toggle="modal"
@@ -125,7 +125,7 @@ class AccountTable extends Component {
                   userName={userName}
                   userId={selectedUserId}
                 />
-              ) : null}
+              ) : null} */}
             </div>
             <div className="col-md-6" id="deactiveSection">
               <button
