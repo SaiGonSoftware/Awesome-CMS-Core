@@ -181,9 +181,15 @@ namespace AwesomeCMSCore.Extension
                     options.Lockout.AllowedForNewUsers = true;
                     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                     options.Lockout.MaxFailedAccessAttempts = 2;
-                 })
+                })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            //The default value is 14 days.
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromHours(1);
+            });
 
             // Configure Identity to use the same JWT claims as OpenIddict instead
             // of the legacy WS-Federation claims it uses by default (ClaimTypes),
@@ -233,8 +239,8 @@ namespace AwesomeCMSCore.Extension
 
                 //will change it to 120 when fix issue refresh flow not return refresh token
                 options
-                    .SetAccessTokenLifetime(TimeSpan.FromMinutes(1))
-                    .SetRefreshTokenLifetime(TimeSpan.FromMinutes(60));
+                    .SetAccessTokenLifetime(TimeSpan.FromMinutes(60));
+                //.SetRefreshTokenLifetime(TimeSpan.FromMinutes(60));
             });
 
             services.AddAuthentication();

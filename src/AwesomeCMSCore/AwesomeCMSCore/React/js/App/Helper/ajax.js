@@ -88,7 +88,7 @@ axios.interceptors.response.use(function (response) {
     ).then(function (res) {
       let token = {
         access_token: res.data.access_token,
-        refresh_token: res.data.refresh_token,
+        refresh_token: refreshToken,
         token_type: res.data.token_type,
         expires_in: res.data.expires_in
       };
