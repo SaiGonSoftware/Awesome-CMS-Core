@@ -6,7 +6,7 @@ namespace AwesomeCMSCore.Modules.Helper.Enum
 {
     public static class AccStatusCode
     {
-        public const int Forbid = 403;
-        public const int EmailNotConfirmed = 900;
+        public static readonly int Forbid = 403;
+        public static readonly int EmailNotConfirmed = 900;
     }
 }
