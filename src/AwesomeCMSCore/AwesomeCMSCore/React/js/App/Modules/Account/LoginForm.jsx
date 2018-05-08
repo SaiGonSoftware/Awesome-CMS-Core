@@ -52,8 +52,10 @@ class LoginForm extends Component {
       .then(res => {
         if (res.status === statusCode.Success) this.tokenRequest();
       })
-      .catch(() => {
-        toastr.error("Invalid credentials");
+      .catch((err) => {
+        if(err.response.status === statusCode.EmailNotConfirmed) toastr.warning("Please confirm email");
+        if(err.response.status === statusCode.Forbid) toastr.warning("Account is lockout");
+        if(err.response.status === statusCode.BadRequest) toastr.error("Invalid credentials");
       });
   };
 
