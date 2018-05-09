@@ -180,7 +180,7 @@ namespace AwesomeCMSCore.Extension
                     //lock out attempt
                     options.Lockout.AllowedForNewUsers = true;
                     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                    options.Lockout.MaxFailedAccessAttempts = 2;
+                    options.Lockout.MaxFailedAccessAttempts = 3;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();

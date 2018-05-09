@@ -3,6 +3,7 @@ using AwesomeCMSCore.Modules.Account.Repositories;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Enum;
 using AwesomeCMSCore.Modules.Helper.Filter;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -42,6 +43,12 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
+            var user = await _userManager.FindByNameAsync(model.Username);
+            if (!user.EmailConfirmed)
+            {
+                return StatusCode(AccStatusCode.EmailNotConfirmed);
+            }
+
             var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
                 model.RememberMe, true);
 
@@ -49,9 +56,15 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             {
                 return Ok();
             }
+            
+            if (await _userManager.GetAccessFailedCountAsync(user) == AccAppEnum.MaxFailedAccessAttempts)
+            {
+                await _userManager.SetLockoutEnabledAsync(user, true);
+            }
+
             if (result.IsLockedOut)
             {
-                return Forbid();
+                return StatusCode(AccStatusCode.Forbid);
             }
 
             return BadRequest();
