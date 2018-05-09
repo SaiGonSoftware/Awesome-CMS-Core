@@ -56,7 +56,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             {
                 return Ok();
             }
-
+            
             if (await _userManager.GetAccessFailedCountAsync(user) == AccAppEnum.MaxFailedAccessAttempts)
             {
                 await _userManager.SetLockoutEnabledAsync(user, true);
