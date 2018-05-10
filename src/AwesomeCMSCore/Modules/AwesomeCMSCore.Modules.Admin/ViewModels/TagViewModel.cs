@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using AwesomeCMSCore.Modules.Helper.Services;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AwesomeCMSCore.Modules.Admin.ViewModels
 {

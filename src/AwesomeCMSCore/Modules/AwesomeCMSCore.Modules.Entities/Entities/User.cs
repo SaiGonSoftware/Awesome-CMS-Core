@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 namespace AwesomeCMSCore.Modules.Entities.Entities

@@ -18,7 +18,6 @@ using System.Runtime.Loader;
 using Microsoft.AspNetCore.Identity;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AspNetCore.IServiceCollection.AddIUrlHelper;
-using AutoMapper;
 using AwesomeCMSCore.Modules.Account.Repositories;
 using AwesomeCMSCore.Modules.Admin.Repositories;
 using AwesomeCMSCore.Modules.Entities.Entities;
@@ -28,15 +27,11 @@ using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
-using Microsoft.AspNetCore.Http;
 using AwesomeCMSCore.Modules.Queue;
 using Microsoft.IdentityModel.Tokens;
-using AwesomeCMSCore.Modules.Mapper;
 using AwesomeCMSCore.Modules.Helper.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Mvc.Versioning;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace AwesomeCMSCore.Extension

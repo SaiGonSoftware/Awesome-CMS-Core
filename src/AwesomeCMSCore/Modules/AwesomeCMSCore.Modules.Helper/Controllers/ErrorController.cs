@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using Microsoft.AspNetCore.Diagnostics;

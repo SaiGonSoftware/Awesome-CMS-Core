@@ -1,5 +1,4 @@
-﻿using System;
-using AwesomeCMSCore.Modules.Queue;
+﻿using AwesomeCMSCore.Modules.Queue;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Client.Controllers

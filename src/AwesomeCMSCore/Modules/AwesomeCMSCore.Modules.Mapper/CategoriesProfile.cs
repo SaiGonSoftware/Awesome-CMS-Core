@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 

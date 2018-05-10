@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AwesomeCMSCore.Modules.Account.ViewModels
+﻿namespace AwesomeCMSCore.Modules.Account.ViewModels
 {
     public class UserViewModel
     {

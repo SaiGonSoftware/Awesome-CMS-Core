@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Helper.Enum;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace AwesomeCMSCore.Modules.Helper.Services
 {
@@ -15,6 +15,7 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IGenericRepository<User> _userRepository;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
         private readonly string _currentUserGuid;
         private readonly string _currentUserName;
@@ -22,11 +23,12 @@ namespace AwesomeCMSCore.Modules.Helper.Services
 
         public UserService(
             UserManager<User> userManager,
-            IUnitOfWork unitOfWork,
+            SignInManager<User> signInManager,
             IHttpContextAccessor httpContextAccessor,
             IGenericRepository<User> userRepository)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
             _currentUserGuid = _httpContextAccessor?.HttpContext?.User?.FindFirst(UserClaimsKey.Sub)?.Value;
@@ -63,6 +65,106 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         public bool IsAuthenticated()
         {
             return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+        }
+
+        public async Task<User> FindByNameAsync(string username)
+        {
+            return await _userManager.FindByNameAsync(username);
+        }
+
+        public async Task<User> FindByEmailAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
+
+        public async Task<User> FindByIdAsync(string id)
+        {
+            return await _userManager.FindByIdAsync(id);
+        }
+
+        public async Task<IdentityResult> CreateAsync(User user, string password)
+        {
+            return await _userManager.CreateAsync(user, password);
+        }
+
+        public async Task<IdentityResult> SetLockoutEnabledAsync(User user, bool enabled)
+        {
+            return await _userManager.SetLockoutEnabledAsync(user, enabled);
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(User user, string code, string password)
+        {
+            return await _userManager.ResetPasswordAsync( user, code, password);
+        }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string code)
+        {
+            return await _userManager.ConfirmEmailAsync(user, code);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task<string> GeneratePasswordResetTokenAsync(User user)
+        {
+            return await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public async Task<bool> IsEmailConfirmedAsync(User user)
+        {
+            return await _userManager.IsEmailConfirmedAsync(user);
+        }
+
+        public async Task<bool> IsLockedOutAsync(User user)
+        {
+            return await _userManager.IsLockedOutAsync(user);
+        }
+
+        public async Task<int> GetAccessFailedCountAsync(User user)
+        {
+            return await _userManager.GetAccessFailedCountAsync(user);
+        }
+
+        public async Task<SignInResult> PasswordSignInAsync(string username, string password, bool rememberMe, bool lockoutOnFailure)
+        {
+           return await _signInManager.PasswordSignInAsync(username, password, rememberMe, lockoutOnFailure);
+        }
+
+        public async Task<ClaimsPrincipal> CreateUserPrincipalAsync(User user)
+        {
+            return await _signInManager.CreateUserPrincipalAsync(user);
+        }
+
+        public async Task<bool> CanSignInAsync(User user)
+        {
+            return await _signInManager.CanSignInAsync(user);
+        }
+
+        public async Task<User> GetUserAsync(ClaimsPrincipal principal)
+        {
+            return await _userManager.GetUserAsync(principal);
+        }
+
+        public async Task<SignInResult> CheckPasswordSignInAsync(User user, string password, bool lockoutOnFailure)
+        {
+            return await _signInManager.CheckPasswordSignInAsync(user, password, lockoutOnFailure);
+        }
+
+        public async Task SignInAsync(User user, bool isPersistent)
+        {
+            await _signInManager.SignInAsync(user, isPersistent);
+        }
+
+        public async Task AddToRolesAsync(User user, List<string> roles)
+        {
+            await _userManager.AddToRolesAsync(user, roles);
+        }
+
+        public async Task SignOutAsync()
+        {
+            await _signInManager.SignOutAsync();
         }
 
         public List<string> GetCurrentRoles()

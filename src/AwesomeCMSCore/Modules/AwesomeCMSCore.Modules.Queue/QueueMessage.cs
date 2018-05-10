@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AwesomeCMSCore.Modules.Queue
+﻿namespace AwesomeCMSCore.Modules.Queue
 {
     public class QueueMessage
     {

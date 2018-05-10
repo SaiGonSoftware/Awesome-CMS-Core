@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using AwesomeCMSCore.Modules.Helper.Enum;
 
 namespace AwesomeCMSCore.Modules.Helper.Extensions
 {

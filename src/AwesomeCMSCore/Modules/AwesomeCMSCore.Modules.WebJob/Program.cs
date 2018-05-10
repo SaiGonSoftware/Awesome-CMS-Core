@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Queue;
-using EasyNetQ;
-using EasyNetQ.MessageVersioning;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;

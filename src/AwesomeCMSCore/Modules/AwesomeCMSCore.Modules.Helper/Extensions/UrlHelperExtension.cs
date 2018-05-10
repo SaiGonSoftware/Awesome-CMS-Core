@@ -1,5 +1,4 @@
-﻿using System.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Helper.Extensions
 {
