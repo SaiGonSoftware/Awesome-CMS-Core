@@ -122,6 +122,11 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             return await _userManager.IsLockedOutAsync(user);
         }
 
+        public async Task<int> GetAccessFailedCountAsync(User user)
+        {
+            return await _userManager.GetAccessFailedCountAsync(user);
+        }
+
         public async Task<SignInResult> PasswordSignInAsync(string username, string password, bool rememberMe, bool lockoutOnFailure)
         {
            return await _signInManager.PasswordSignInAsync(username, password, rememberMe, lockoutOnFailure);

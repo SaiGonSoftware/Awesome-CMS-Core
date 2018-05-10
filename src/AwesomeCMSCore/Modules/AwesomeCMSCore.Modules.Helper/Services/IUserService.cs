@@ -26,7 +26,7 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         Task<string> GeneratePasswordResetTokenAsync(User user);
         Task<bool> IsEmailConfirmedAsync(User user);
         Task<bool> IsLockedOutAsync(User user);
-
+        Task<int> GetAccessFailedCountAsync(User user);
         Task<SignInResult> PasswordSignInAsync(string username, string password,
             bool rememberMe, bool lockoutOnFailure);
 
