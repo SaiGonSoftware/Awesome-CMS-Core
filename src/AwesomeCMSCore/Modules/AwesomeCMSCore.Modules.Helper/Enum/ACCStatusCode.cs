@@ -1,4 +1,4 @@
-﻿namespace AwesomeCMSCore.Modules.Helper.Enum
+namespace AwesomeCMSCore.Modules.Helper.Enum
 {
     public static class AccStatusCode
     {

@@ -1,4 +1,5 @@
-﻿using AwesomeCMSCore.Infrastructure.Module;
+﻿using System;
+using AwesomeCMSCore.Infrastructure.Module;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,8 @@ using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using System.IO;
 using Exceptionless;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace AwesomeCMSCore.Extension
