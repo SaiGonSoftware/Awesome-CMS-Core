@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using System.Text;
-using EasyNetQ;
 using Newtonsoft.Json;
 
 namespace AwesomeCMSCore.Modules.Queue

@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using System.IO;
-using AwesomeCMSCore.Modules.Helper.ProtectPath;
 using Exceptionless;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AwesomeCMSCore.Modules.Email
+﻿namespace AwesomeCMSCore.Modules.Email
 {
     public class EmailOptions
     {

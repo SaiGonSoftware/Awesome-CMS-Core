@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AwesomeCMSCore.Modules.Helper.Enum
+﻿namespace AwesomeCMSCore.Modules.Helper.Enum
 {
     public static class AccStatusCode
     {

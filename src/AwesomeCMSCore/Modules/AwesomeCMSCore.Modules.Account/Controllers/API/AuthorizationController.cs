@@ -5,6 +5,7 @@ using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Primitives;
 using AspNet.Security.OpenIdConnect.Server;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,17 +17,14 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
     public class AuthorizationController : Controller
     {
         private readonly IOptions<IdentityOptions> _identityOptions;
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
 
         public AuthorizationController(
             IOptions<IdentityOptions> identityOptions,
-            SignInManager<User> signInManager,
-            UserManager<User> userManager)
+            IUserService userService)
         {
             _identityOptions = identityOptions;
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _userService = userService;
         }
 
         [HttpPost("~/connect/token"), Produces("application/json")]
@@ -34,7 +32,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
         {
             if (request.IsPasswordGrantType())
             {
-                var user = await _userManager.FindByNameAsync(request.Username);
+                var user = await _userService.FindByNameAsync(request.Username);
                 if (user == null)
                 {
                     return BadRequest(new OpenIdConnectResponse
@@ -45,7 +43,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
                 }
 
                 // Validate the username/password parameters and ensure the account is not locked out.
-                var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: true);
+                var result = await _userService.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: true);
                 if (!result.Succeeded)
                 {
                     return BadRequest(new OpenIdConnectResponse
@@ -69,7 +67,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
                 // Note: if you want to automatically invalidate the refresh token
                 // when the user password/roles change, use the following line instead:
                 // var user = _signInManager.ValidateSecurityStampAsync(info.Principal);
-                var user = await _userManager.GetUserAsync(info.Principal);
+                var user = await _userService.GetUserAsync(info.Principal);
                 if (user == null)
                 {
                     return BadRequest(new OpenIdConnectResponse
@@ -80,7 +78,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
                 }
 
                 // Ensure the user is still allowed to sign in.
-                if (!await _signInManager.CanSignInAsync(user))
+                if (!await _userService.CanSignInAsync(user))
                 {
                     return BadRequest(new OpenIdConnectResponse
                     {
@@ -109,7 +107,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API
         {
             // Create a new ClaimsPrincipal containing the claims that
             // will be used to create an id_token, a token or a code.
-            var principal = await _signInManager.CreateUserPrincipalAsync(user);
+            var principal = await _userService.CreateUserPrincipalAsync(user);
 
             // Create a new authentication ticket holding the user identity.
             var ticket = new AuthenticationTicket(principal, properties,

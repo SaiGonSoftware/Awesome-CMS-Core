@@ -8,7 +8,6 @@ using AwesomeCMSCore.Modules.Helper.Filter;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
@@ -19,21 +18,15 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
     [Route("api/v{version:apiVersion}/account/[action]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly IAccountRepository _accountRepository;
         private readonly IUserService _userService;
 
         public AccountController(
-            UserManager<User> userManager,
-            SignInManager<User> signInManager,
             IEmailSender emailSender,
             IAccountRepository accountRepository,
             IUserService userService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _emailSender = emailSender;
             _accountRepository = accountRepository;
             _userService = userService;
@@ -43,13 +36,13 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.Username);
+            var user = await _userService.FindByNameAsync(model.Username);
             if (!user.EmailConfirmed)
             {
                 return StatusCode(AccStatusCode.EmailNotConfirmed);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
+            var result = await _userService.PasswordSignInAsync(model.Username, model.Password,
                 model.RememberMe, true);
 
             if (result.Succeeded)
@@ -57,7 +50,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
                 return Ok();
             }
             
-            await _userManager.SetLockoutEnabledAsync(user, true);
+            await _userService.SetLockoutEnabledAsync(user, true);
 
             if (result.IsLockedOut)
             {
@@ -76,14 +69,14 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             if (ModelState.IsValid)
             {
                 var user = new User { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userService.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var code = await _userService.GenerateEmailConfirmationTokenAsync(user);
                     //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     //await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _userService.SignInAsync(user, isPersistent: false);
                     return Ok(returnUrl);
                 }
             }
@@ -99,8 +92,8 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                var user = await _userService.FindByEmailAsync(model.Email);
+                if (user == null || !(await _userService.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return NotFound();
@@ -108,7 +101,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
 
                 // For more information on how to enable account confirmation and password reset please
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var code = await _userService.GeneratePasswordResetTokenAsync(user);
                 //var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
                 //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
                 //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
@@ -128,13 +121,13 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             {
                 return BadRequest(model);
             }
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _userService.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return Ok();
             }
-            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            var result = await _userService.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return Ok();

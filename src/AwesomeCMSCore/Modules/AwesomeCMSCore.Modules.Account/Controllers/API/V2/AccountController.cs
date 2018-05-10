@@ -2,10 +2,10 @@
 using AwesomeCMSCore.Modules.Account.Repositories;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
-using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Enum;
+using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Account.Controllers.API.V2
@@ -16,37 +16,43 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V2
     [Route("api/v{version:apiVersion}/account/[action]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly IAccountRepository _accountRepository;
+        private readonly IUserService _userService;
 
         public AccountController(
-            UserManager<User> userManager,
-            SignInManager<User> signInManager,
             IEmailSender emailSender,
-            IAccountRepository accountRepository)
+            IAccountRepository accountRepository,
+            IUserService userService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _emailSender = emailSender;
             _accountRepository = accountRepository;
+            _userService = userService;
         }
 
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
+            var user = await _userService.FindByNameAsync(model.Username);
+            if (!user.EmailConfirmed)
+            {
+                return StatusCode(AccStatusCode.EmailNotConfirmed);
+            }
+
+            var result = await _userService.PasswordSignInAsync(model.Username, model.Password,
                 model.RememberMe, true);
 
             if (result.Succeeded)
             {
                 return Ok();
             }
+
+            await _userService.SetLockoutEnabledAsync(user, true);
+
             if (result.IsLockedOut)
             {
-                return Forbid();
+                return StatusCode(AccStatusCode.Forbid);
             }
 
             return BadRequest();

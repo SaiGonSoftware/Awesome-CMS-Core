@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Admin.Repositories;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Helper.Filter;
@@ -9,7 +6,6 @@ using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 {

@@ -10,10 +10,8 @@ using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using AwesomeCMSCore.Modules.Email;
-using AwesomeCMSCore.Modules.Helper.Enum;
 using AwesomeCMSCore.Modules.Helper.Services;
 
 namespace AwesomeCMSCore.Modules.Account.Repositories
@@ -27,7 +25,6 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         private readonly IUrlHelperExtension _urlHelperExtension;
         private readonly IUserService _userService;
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<User> _userManager;
 
         public AccountRepository(
             IMapper mapper,
@@ -36,8 +33,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             IEmailSender emailSender,
             IUrlHelperExtension urlHelperExtension,
             IUserService userService,
-            ApplicationDbContext context,
-            UserManager<User> userManager)
+            ApplicationDbContext context)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
@@ -46,7 +42,6 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             _urlHelperExtension = urlHelperExtension;
             _userService = userService;
             _context = context;
-            _userManager = userManager;
         }
 
         public async Task<IEnumerable<UserViewModel>> UserList()
@@ -101,17 +96,17 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         {
             var user = new User { UserName = userInputVm.Username, Email = userInputVm.Email };
             var randomPassword = RandomString.GenerateRandomString();
-            var result = await _userManager.CreateAsync(user, randomPassword);
+            var result = await _userService.CreateAsync(user, randomPassword);
 
             if (!result.Succeeded)
             {
                 return false;
             }
 
-            await _userManager.AddToRolesAsync(user, userInputVm.Roles);
+            await _userService.AddToRolesAsync(user, userInputVm.Roles);
 
             var context = _httpContextAccessor.HttpContext;
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var code = await _userService.GenerateEmailConfirmationTokenAsync(user);
             var callbackUrl = _urlHelperExtension.EmailConfirmationLink(user.Id, code, context.Request.Scheme);
             var emailOptions = new EmailOptions
             {
