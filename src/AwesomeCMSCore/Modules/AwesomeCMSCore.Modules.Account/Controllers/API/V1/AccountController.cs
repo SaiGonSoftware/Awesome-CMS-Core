@@ -55,7 +55,6 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
                 await _userService.SetLockoutEnabledAsync(user, true);
             }
             
-
             if (result.IsLockedOut)
             {
                 return StatusCode(AccStatusCode.Forbid);
