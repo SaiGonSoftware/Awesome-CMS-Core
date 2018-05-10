@@ -62,7 +62,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
 
             return BadRequest();
         }
-
+        
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

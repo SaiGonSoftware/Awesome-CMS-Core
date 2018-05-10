@@ -1,6 +1,6 @@
 # Awesome Cms Core
 
-Awesome Cms Core is an Open Source Content Management System built using .Net Core
+Awesome Cms Core is an open source CMS built using ASP.Net Core & ReactJS
 
 <img src="img/icon.png" width="150px"/>
 
