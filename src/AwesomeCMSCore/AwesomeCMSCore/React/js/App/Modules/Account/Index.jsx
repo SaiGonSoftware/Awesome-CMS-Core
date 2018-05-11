@@ -1,14 +1,15 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
-import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
+import React, {Component} from "react";
+import {render} from "react-dom";
+import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 import toastr from "toastr";
 
-import { isDomExist } from "../../Helper/util";
-import { Get, Post } from "../../Helper/ajax";
+import {isDomExist} from "../../Helper/util";
+import {Get, Post} from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
 
 import AddUserModal from "./Manage/AddUserModal.jsx";
 import EditUserRoles from "./Manage/EditUserRoles.jsx";
+import { findObjectByKey } from '../../Helper/util';
 
 class AccountTable extends Component {
   constructor(props) {
@@ -21,7 +22,8 @@ class AccountTable extends Component {
       userName: "",
       btnActivate: "",
       btnDeactivate: "",
-      toogleFlag: false
+      toogleFlag: false,
+      selectedRow: null
     };
 
     this.validationArr = [];
@@ -52,7 +54,7 @@ class AccountTable extends Component {
 
   componentDidMount() {
     Get(env.userList).then(res => {
-      this.setState({ userList: res.data });
+      this.setState({userList: res.data});
     });
   }
 
@@ -61,37 +63,32 @@ class AccountTable extends Component {
       Post(env.deactiveAccount, {
         AccountId: this.state.selectedUserId,
         ToogleFlag: this.state.toogleFlag
-      })
-        .then(() => {
-          toastr.info("Account status successfully set");
-        })
-        .catch(() => {
-          toastr.error("Something went wrong");
-        });
+      }).then(() => {
+        toastr.info("Account status successfully set");
+        let data = findObjectByKey(this.state.userList, "userId", this.state.selectedUserId);
+        data.emailConfirmed = this.state.toogleFlag ? "True": "False";
+        this.setState({userList: data});
+      }).catch(() => {
+        toastr.error("Something went wrong");
+      });
     }
   };
 
   onSelectAccount = row => {
-    this.setState({ userName: row.userName, selectedUserId: row.userId });
+    this.setState({userName: row.userName, selectedUserId: row.userId, selectedRow: row});
 
     if (row.emailConfirmed === "True") {
-      this.setState({ btnDeactivate: "", btnActivate: "disabled" });
-      this.setState({ toogleFlag: false });
+      this.setState({btnDeactivate: "", btnActivate: "disabled"});
+      this.setState({toogleFlag: false});
     }
     if (row.emailConfirmed === "False") {
-      this.setState({ btnActivate: "", btnDeactivate: "disabled" });
-      this.setState({ toogleFlag: true });
+      this.setState({btnActivate: "", btnDeactivate: "disabled"});
+      this.setState({toogleFlag: true});
     }
   };
 
   render() {
-    const {
-      userList,
-      userName,
-      selectedUserId,
-      btnActivate,
-      btnDeactivate
-    } = this.state;
+    const {userList, userName, selectedUserId, btnActivate, btnDeactivate} = this.state;
 
     return (
       <div className="card">
@@ -104,13 +101,11 @@ class AccountTable extends Component {
                 className="btn btn-primary"
                 id="btnAddUser"
                 data-toggle="modal"
-                data-target="#addUserModal"
-              >
-                <i className="fa fa-user-plus" aria-hidden="true" />
+                data-target="#addUserModal">
+                <i className="fa fa-user-plus" aria-hidden="true"/>
                 &nbsp; Add User
               </button>
-              <AddUserModal id="addUserModal" />
-              {/* <button
+              <AddUserModal id="addUserModal"/> {/* <button
                 type="button"
                 className="btn btn-warning"
                 data-toggle="modal"
@@ -132,18 +127,16 @@ class AccountTable extends Component {
                 type="button"
                 className="btn btn-danger pull-right"
                 onClick={this.toggleAccountStatus}
-                disabled={btnDeactivate}
-              >
-                <i className="fa fa-power-off" aria-hidden="true" /> Deactive
-                Account
+                disabled={btnDeactivate}>
+                <i className="fa fa-power-off" aria-hidden="true"/>
+                Deactive Account
               </button>
               <button
                 type="button"
                 className="btn btn-success pull-right"
                 onClick={this.toggleAccountStatus}
-                disabled={btnActivate}
-              >
-                <i className="fa fa-toggle-on" aria-hidden="true" />
+                disabled={btnActivate}>
+                <i className="fa fa-toggle-on" aria-hidden="true"/>
                 &nbsp; Activate Account
               </button>
             </div>
@@ -154,28 +147,31 @@ class AccountTable extends Component {
             selectRow={this.selectRow}
             options={this.tableOptions}
             pagination
-            containerclassName="table text-center table-hover table-bordered table-striped"
-          >
+            containerclassName="table text-center table-hover table-bordered table-striped">
             <TableHeaderColumn
               dataField="userName"
               isKey
               dataSort={true}
-              filter={{ type: "TextFilter" }}
-            >
+              filter={{
+              type: "TextFilter"
+            }}>
               User Name
             </TableHeaderColumn>
             <TableHeaderColumn
               dataField="email"
               dataSort={true}
-              filter={{ type: "TextFilter" }}
-            >
+              filter={{
+              type: "TextFilter"
+            }}>
               Email
             </TableHeaderColumn>
             <TableHeaderColumn
               dataField="emailConfirmed"
               dataSort={true}
-              filter={{ type: "SelectFilter", options: this.accountStatus }}
-            >
+              filter={{
+              type: "SelectFilter",
+              options: this.accountStatus
+            }}>
               Email Confirmed
             </TableHeaderColumn>
             <TableHeaderColumn dataField="roles">Roles</TableHeaderColumn>
@@ -187,5 +183,6 @@ class AccountTable extends Component {
 }
 
 if (isDomExist("accountTable")) {
-  render(<AccountTable />, document.getElementById("accountTable"));
+  render(
+    <AccountTable/>, document.getElementById("accountTable"));
 }
