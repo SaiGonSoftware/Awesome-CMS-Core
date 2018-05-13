@@ -65,9 +65,16 @@ class AccountTable extends Component {
         ToogleFlag: this.state.toogleFlag
       }).then(() => {
         toastr.info("Account status successfully set");
-        let data = findObjectByKey(this.state.userList, "userId", this.state.selectedUserId);
-        data.emailConfirmed = this.state.toogleFlag ? "True": "False";
-        this.setState({userList: data});
+        let userListData = findObjectByKey(this.state.userList, "userId", this.state.selectedUserId);
+        const newUserList = this.state.userList.map(stateItem => {
+          if (stateItem.userId !== userListData.userId) return stateItem;
+          console.log(stateItem['emailConfirmed']);
+          let emailConfirmed = this.state.toogleFlag ? "True": "False";
+          //return {...stateItem, stateItem['emailConfirmed'] : emailConfirmed};
+          return Object.assign({}, stateItem, {emailConfirmed: emailConfirmed});
+        });
+        this.setState({userList: newUserList});
+        //this.state.toogleFlag ? "True": "False"
       }).catch(() => {
         toastr.error("Something went wrong");
       });
