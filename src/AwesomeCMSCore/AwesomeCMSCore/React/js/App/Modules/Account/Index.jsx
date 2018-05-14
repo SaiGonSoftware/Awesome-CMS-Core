@@ -8,7 +8,7 @@ import {Get, Post} from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
 
 import AddUserModal from "./Manage/AddUserModal.jsx";
-import EditUserRoles from "./Manage/EditUserRoles.jsx";
+//import EditUserRoles from "./Manage/EditUserRoles.jsx";
 import { findObjectByKey } from '../../Helper/util';
 
 class AccountTable extends Component {
@@ -93,7 +93,7 @@ class AccountTable extends Component {
   };
 
   render() {
-    const {userList, userName, selectedUserId, btnActivate, btnDeactivate} = this.state;
+    const {userList, /*  userName, selectedUserId, */ btnActivate, btnDeactivate} = this.state;
 
     return (
       <div className="card">

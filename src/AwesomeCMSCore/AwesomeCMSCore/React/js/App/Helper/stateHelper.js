@@ -4,7 +4,6 @@ export function onChange(e) {
   });
 }
 
-
 export function handleOnChange(value) {
   this.setState({ value });
 }

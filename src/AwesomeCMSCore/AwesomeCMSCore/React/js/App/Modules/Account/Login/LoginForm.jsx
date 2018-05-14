@@ -4,22 +4,22 @@ import toastr from "toastr";
 import qs from "qs";
 import PropTypes from "prop-types";
 
-import { onChange, onBlur, onCheck } from "../../Helper/stateHelper";
-import { navigateToUrl, isDomExist } from "../../Helper/util";
-import { setStorage } from "../../Helper/storageHelper";
-import { APP_ENUM } from "../../Helper/appEnum";
-import { Post, PostWithSpinner } from "../../Helper/ajax";
+import { onChange, onBlur, onCheck } from "../../../Helper/stateHelper";
+import { navigateToUrl, isDomExist } from "../../../Helper/util";
+import { setStorage } from "../../../Helper/storageHelper";
+import { APP_ENUM } from "../../../Helper/appEnum";
+import { Post, PostWithSpinner } from "../../../Helper/ajax";
 import {
   shouldMarkError,
   validateInput,
   isFormValid
-} from "../../Helper/Validation";
-import env from "../../Helper/envConfig";
-import statusCode from "../../Helper/StatusCode";
+} from "../../../Helper/Validation";
+import env from "../../../Helper/envConfig";
+import statusCode from "../../../Helper/StatusCode";
 
-import ACCInput from "../../Common/ACCInput/ACCInput.jsx";
-import ACCCheckbox from "../../Common/ACCInput/ACCCheckbox.jsx";
-import ACCButton from "../../Common/ACCButton.jsx";
+import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
+import ACCCheckbox from "../../../Common/ACCInput/ACCCheckbox.jsx";
+import ACCButton from "../../../Common/ACCButton.jsx";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -53,9 +53,15 @@ class LoginForm extends Component {
         if (res.status === statusCode.Success) this.tokenRequest();
       })
       .catch((err) => {
-        if(err.response.status === statusCode.EmailNotConfirmed) toastr.warning("Please confirm email");
-        if(err.response.status === statusCode.Forbid) toastr.warning("Account is lockout");
-        if(err.response.status === statusCode.BadRequest) toastr.error("Invalid credentials");
+        switch(err.response.status)
+        {
+          case statusCode.EmailNotConfirmed:
+           return toastr.warning("Please confirm email");
+          case statusCode.Forbid:
+           return toastr.warning("Account is lockout");
+          case statusCode.BadRequest:
+           return toastr.error("Invalid credentials");
+        }
       });
   };
 
