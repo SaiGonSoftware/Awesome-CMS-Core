@@ -3574,3 +3574,9 @@ a {
 .post-options-content {
   margin-top: -50px;
 }
+
+.modal-dialog.modal-dialog-centered {
+  button {
+    margin-right: 0 !important;
+  }
+}
