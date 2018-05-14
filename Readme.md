@@ -55,6 +55,10 @@ Please read
 
 ---
 
+### Add User Roles
+
+<img src="img/add-user-roles.png"/>
+
 ### Tag & Categories manage page
 
 <img src="img/tag&cat.png"/>
