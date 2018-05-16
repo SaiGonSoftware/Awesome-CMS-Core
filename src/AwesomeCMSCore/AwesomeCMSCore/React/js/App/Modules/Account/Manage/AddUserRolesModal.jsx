@@ -31,16 +31,10 @@ class AddUserRolesModal extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const tagData = JSON.stringify(this.state.value.map(x => x.value));
-        const tagOptions = JSON.stringify(this.state.value);
+        const roles = JSON.stringify(this.state.value.map(x => x.value));
 
-        const tagVm = {
-            tagData,
-            tagOptions
-        };
-
-        PostWithSpinner
-            .call(this, env.tagCreate, tagVm)
+         PostWithSpinner
+            .call(this, env.addUserRoles, {userRoles: [roles]})
             .then(res => {
                 if (res.status === statusCode.Success) 
                     toastr.success("Create success");

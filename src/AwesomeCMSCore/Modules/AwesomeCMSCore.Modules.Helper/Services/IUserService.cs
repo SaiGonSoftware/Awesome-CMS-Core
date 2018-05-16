@@ -35,7 +35,8 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         Task<User> GetUserAsync(ClaimsPrincipal principal);
         Task<SignInResult> CheckPasswordSignInAsync(User user, string password,bool lockoutOnFailure);
         Task SignInAsync(User user, bool isPersistent);
-        Task AddToRolesAsync(User user, List<string> roles);
+        Task AddUserToRolesAsync(User user, List<string> roles);
+        Task AddUserRoles(string[] userRoles);
         Task SignOutAsync();
     }
 }
