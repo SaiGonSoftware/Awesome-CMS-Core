@@ -103,7 +103,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                 return false;
             }
 
-            await _userService.AddToRolesAsync(user, userInputVm.Roles);
+            await _userService.AddUserToRolesAsync(user, userInputVm.Roles);
 
             var context = _httpContextAccessor.HttpContext;
             var code = await _userService.GenerateEmailConfirmationTokenAsync(user);

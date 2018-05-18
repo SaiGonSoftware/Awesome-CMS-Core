@@ -6,10 +6,10 @@ import toastr from "toastr";
 import {isDomExist} from "../../Helper/util";
 import {Get, Post} from "../../Helper/ajax";
 import env from "../../Helper/envConfig";
+import { findObjectByKey } from '../../Helper/util';
 
 import AddUserModal from "./Manage/AddUserModal.jsx";
 //import EditUserRoles from "./Manage/EditUserRoles.jsx";
-import { findObjectByKey } from '../../Helper/util';
 
 class AccountTable extends Component {
   constructor(props) {
@@ -110,7 +110,8 @@ class AccountTable extends Component {
                 <i className="fa fa-user-plus" aria-hidden="true"/>
                 &nbsp; Add User
               </button>
-              <AddUserModal id="addUserModal"/> {/* <button
+              <AddUserModal id="addUserModal"/>
+               {/* <button
                 type="button"
                 className="btn btn-warning"
                 data-toggle="modal"

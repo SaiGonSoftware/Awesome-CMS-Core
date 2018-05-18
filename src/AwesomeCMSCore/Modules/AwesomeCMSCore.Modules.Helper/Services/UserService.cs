@@ -16,21 +16,24 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         private readonly IGenericRepository<User> _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
         private readonly string _currentUserGuid;
         private readonly string _currentUserName;
         private readonly string _currentUserEmail;
 
         public UserService(
+            IHttpContextAccessor httpContextAccessor,
+            IGenericRepository<User> userRepository,
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IHttpContextAccessor httpContextAccessor,
-            IGenericRepository<User> userRepository)
+            RoleManager<ApplicationRole> roleManager)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
             _currentUserGuid = _httpContextAccessor?.HttpContext?.User?.FindFirst(UserClaimsKey.Sub)?.Value;
             _currentUserName = _httpContextAccessor?.HttpContext?.User?.Identity?.Name;
             _currentUserEmail = _currentUserGuid == null ? "" : userManager.FindByIdAsync(_currentUserGuid)?.Result?.Email;
@@ -157,9 +160,24 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             await _signInManager.SignInAsync(user, isPersistent);
         }
 
-        public async Task AddToRolesAsync(User user, List<string> roles)
+        public async Task AddUserToRolesAsync(User user, List<string> roles)
         {
             await _userManager.AddToRolesAsync(user, roles);
+        }
+
+        public async Task AddUserRoles(string[] userRoles)
+        {
+            foreach (var role in userRoles)
+            {
+                if (!await _roleManager.RoleExistsAsync(role))
+                {
+                    await _roleManager.CreateAsync(new ApplicationRole
+                    {
+                        Name = role,
+                        NormalizedName = role.ToUpper()
+                    });
+                }
+            }
         }
 
         public async Task SignOutAsync()
