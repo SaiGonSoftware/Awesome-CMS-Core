@@ -141,7 +141,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
 
         public async Task<RolesUserViewModel> GetUserRolesById(string userId)
         {
-            var userRoles = await _userService.GetUserRolesById(userId);
+            var userRoles = await _userService.GetUserRolesByGuid(userId);
             var roles = await GetUserRoles();
 
             var roleUserVm = new RolesUserViewModel

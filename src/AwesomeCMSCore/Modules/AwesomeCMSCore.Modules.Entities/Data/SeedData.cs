@@ -97,12 +97,15 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 
                 var roles = new[]
                     {"Owner", "Administrator", "Editor", "ContentWriter"};
-
+                
                 var roles1 = new[]
                     {"Administrator"};
 
                 var roles2 = new[]
                     {"Editor"};
+                
+                var roles4 = new[]
+                    {"Owner", "Administrator"};
 
                 foreach (var role in roles)
                 {
@@ -120,7 +123,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 
                 if (!context.Users.Any(u => u.UserName == tony.UserName))
                 {
-                    await SeedUser(tony, context, serviceProvider, roles);
+                    await SeedUser(tony, context, serviceProvider, roles4);
                     await SeedUser(tony1, context, serviceProvider, roles1);
                     await SeedUser(tony2, context, serviceProvider, roles2);
                     await SeedUser(tony3, context, serviceProvider, roles2);

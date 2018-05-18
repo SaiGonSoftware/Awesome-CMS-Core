@@ -67,9 +67,27 @@ class EditUserRoles extends Component {
     }
   }
 
+  renderUserRoles() {
+    
+    console.log("renderUserRoles", this.state.currentUserRole);
+    return this.state.roleList.map((role, index) => {
+        console.log(role);
+        console.log(index);
+        <ACCMultiCheckbox
+          index={index}
+          key={role.id}
+          id={`${role.id}-editRole`}
+          name={role.name}
+          label={role.name}
+          handleCheckboxChange={this.onSelectRoles}
+          checked={this.state.currentUserRole[index] === role ? "checked" : ""}
+        />
+    });
+  }
+
   render() {
     const { roleList, currentUserRoles } = this.state;
-
+    console.log(currentUserRoles);
     return (
       <div
         className="modal fade"
@@ -97,16 +115,7 @@ class EditUserRoles extends Component {
               <div className="card" id="userRoleSection">
                 <div className="card-body">
                   <h5 className="card-title">Roles</h5>
-                  {roleList.map((role, index) => (
-                    <ACCMultiCheckbox
-                      index={index}
-                      key={role.id}
-                      id={`${role.id}-editRole`}
-                      name={role.name}
-                      label={role.name}
-                      handleCheckboxChange={this.onSelectRoles}
-                    />
-                  ))}
+                  {this.renderUserRoles()}
                 </div>
               </div>
             </div>
