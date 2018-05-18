@@ -178,18 +178,6 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             return BadRequest();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddUserRoles([FromBody]string[] userRoles)
-        {
-            //if (userRoles == null || userRoles.Length == 0)
-            //{
-            //    return BadRequest();
-            //}
-
-            //await _userService.AddUserRoles(userRoles);
-            return Ok();
-        }
-
         [HttpPost, ValidModel]
         public async Task<IActionResult> ToggleAccountStatus([FromBody]AccountToggleViewModel accountToggleVm)
         {

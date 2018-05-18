@@ -10,7 +10,6 @@ import { findObjectByKey } from '../../Helper/util';
 
 import AddUserModal from "./Manage/AddUserModal.jsx";
 //import EditUserRoles from "./Manage/EditUserRoles.jsx";
-import AddUserRolesModal from './Manage/AddUserRolesModal.jsx';
 
 class AccountTable extends Component {
   constructor(props) {
@@ -112,16 +111,6 @@ class AccountTable extends Component {
                 &nbsp; Add User
               </button>
               <AddUserModal id="addUserModal"/>
-              <button
-                type="button"
-                className="btn btn-primary"
-                id="btnAddUserRoles"
-                data-toggle="modal"
-                data-target="#addUserRolesModal">
-                <i className="fa fa-user-plus" aria-hidden="true"/>
-                &nbsp; Add User roles
-              </button>
-              <AddUserRolesModal id="addUserRolesModal"/>
                {/* <button
                 type="button"
                 className="btn btn-warning"
