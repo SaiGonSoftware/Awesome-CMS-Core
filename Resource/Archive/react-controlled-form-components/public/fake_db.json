@@ -1,0 +1,11 @@
+{
+  "ownerName": "",
+  "petSelections": ["dog", "cat", "rabbit", "iguana", "pony", "ferret", "fish", "bird"],
+  "selectedPets": ["dog", "cat", "ferret"],
+  "ageOptions": ["18 - 25", "26 - 59", "60 or older"],
+  "ownerAgeRangeSelection": "",
+  "siblingOptions": ["yes", "no"],
+  "siblingSelection": ["yes"],
+  "currentPetCount": 0,
+  "description": ""
+}

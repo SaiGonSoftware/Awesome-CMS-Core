@@ -51,6 +51,7 @@ React
 * https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc
 * https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
 * https://hackernoon.com/reactjs-component-lifecycle-methods-a-deep-dive-38275d9d13c0
+* https://lorenstewart.me/2016/10/31/react-js-forms-controlled-components/
 
 ASP.Net
 * https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?tabs=aspnetcore2x
