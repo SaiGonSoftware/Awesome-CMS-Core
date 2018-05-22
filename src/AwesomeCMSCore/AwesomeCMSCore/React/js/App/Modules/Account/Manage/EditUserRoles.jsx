@@ -10,13 +10,14 @@ import statusCode from "../../../Helper/StatusCode";
 
 import ACCMultiCheckbox from "../../../Common/ACCInput/ACCMultiCheckbox.jsx";
 import Spinner from "../../../Common/Spinner.jsx";
+import CheckboxOrRadioGroup from '../../../Common/ACCInput/CheckboxOrRadioGroup.jsx';
 
 class EditUserRoles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      roleList: [],
-      currentUserRole: [],
+      rolesName: [],
+      currentUserRoles: [],
       loading: false
     };
   }
@@ -29,7 +30,7 @@ class EditUserRoles extends Component {
     const url = `${env.getUserRolesById}?userId=${this.props.userId}`;
     Get(url).then(res => {
       this.setState({
-        roleList: res.data.roleList,
+        rolesName: res.data.rolesName,
         currentUserRoles: res.data.currentUserRoles
       });
     });
@@ -40,7 +41,7 @@ class EditUserRoles extends Component {
       const url = `${env.getUserRolesById}?userId=${nextProps.userId}`;
       Get(url).then(res => {
         this.setState({
-          roleList: res.data.roleList,
+          rolesName: res.data.rolesName,
           currentUserRoles: res.data.currentUserRoles
         });
       });
@@ -67,27 +68,18 @@ class EditUserRoles extends Component {
     }
   }
 
-  renderUserRoles() {
-    
-    console.log("renderUserRoles", this.state.currentUserRole);
-    return this.state.roleList.map((role, index) => {
-        console.log(role);
-        console.log(index);
-        <ACCMultiCheckbox
-          index={index}
-          key={role.id}
-          id={`${role.id}-editRole`}
-          name={role.name}
-          label={role.name}
-          handleCheckboxChange={this.onSelectRoles}
-          checked={this.state.currentUserRole[index] === role ? "checked" : ""}
-        />
-    });
+  handleRoleSelection = e => {
+		const newSelection = e.target.value;
+		let newSelectionArray;
+		if(this.state.currentUserRoles.indexOf(newSelection) > -1) {
+			newSelectionArray = this.state.currentUserRoles.filter(s => s !== newSelection)
+		} else {
+			newSelectionArray = [...this.state.currentUserRoles, newSelection];
+		}
+		this.setState({ currentUserRoles: newSelectionArray }, () => console.log('pet selection', this.state.currentUserRoles));
   }
 
   render() {
-    const { roleList, currentUserRoles } = this.state;
-    console.log(currentUserRoles);
     return (
       <div
         className="modal fade"
@@ -115,7 +107,12 @@ class EditUserRoles extends Component {
               <div className="card" id="userRoleSection">
                 <div className="card-body">
                   <h5 className="card-title">Roles</h5>
-                  {this.renderUserRoles()}
+                  <CheckboxOrRadioGroup
+                    name={'roles'}
+                    type={'checkbox'}
+                    options={this.state.rolesName}
+                    selectedOptions={this.state.currentUserRoles}
+                    onChange={this.handleRoleSelection} />
                 </div>
               </div>
             </div>
