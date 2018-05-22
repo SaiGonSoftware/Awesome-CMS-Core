@@ -9,7 +9,8 @@ import env from "../../Helper/envConfig";
 import { findObjectByKey } from '../../Helper/util';
 
 import AddUserModal from "./Manage/AddUserModal.jsx";
-//import EditUserRoles from "./Manage/EditUserRoles.jsx";
+import EditUserRoles from "./Manage/EditUserRoles.jsx";
+//import AddUserRolesModal from './Manage/AddUserRolesModal.jsx';
 
 class AccountTable extends Component {
   constructor(props) {
@@ -93,7 +94,7 @@ class AccountTable extends Component {
   };
 
   render() {
-    const {userList, /*  userName, selectedUserId, */ btnActivate, btnDeactivate} = this.state;
+    const {userList,  userName, selectedUserId, btnActivate, btnDeactivate} = this.state;
 
     return (
       <div className="card">
@@ -110,8 +111,18 @@ class AccountTable extends Component {
                 <i className="fa fa-user-plus" aria-hidden="true"/>
                 &nbsp; Add User
               </button>
-              <AddUserModal id="addUserModal"/>
-               {/* <button
+             <AddUserModal id="addUserModal"/>
+             {/*  <button
+                type="button"
+                className="btn btn-primary"
+                id="btnAddUserRoles"
+                data-toggle="modal"
+                data-target="#addUserRolesModal">
+                <i className="fa fa-user-plus" aria-hidden="true"/>
+                &nbsp; Add User roles
+              </button>
+              <AddUserRolesModal id="addUserRolesModal"/> */}
+               <button
                 type="button"
                 className="btn btn-warning"
                 data-toggle="modal"
@@ -126,7 +137,7 @@ class AccountTable extends Component {
                   userName={userName}
                   userId={selectedUserId}
                 />
-              ) : null} */}
+              ) : null}
             </div>
             <div className="col-md-6" id="deactiveSection">
               <button

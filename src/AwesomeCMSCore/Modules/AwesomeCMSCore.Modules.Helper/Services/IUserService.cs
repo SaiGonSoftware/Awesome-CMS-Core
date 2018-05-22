@@ -12,8 +12,9 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         string GetCurrentUserGuid();
         string GetCurrentUserName();
         string GetCurrentUserEmail();
-        List<string> GetCurrentRoles();
-        Task<IList<string>> GetUserRolesById(string userId);
+        List<string> GetCurrentUserRoles();
+        Task<List<string>> GetUserRoles();
+        Task<IList<string>> GetUserRolesByGuid(string userId);
         bool IsAuthenticated();
         Task<User> FindByNameAsync(string username);
         Task<User> FindByEmailAsync(string email);
@@ -37,6 +38,8 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         Task SignInAsync(User user, bool isPersistent);
         Task AddUserToRolesAsync(User user, List<string> roles);
         Task AddUserRoles(string[] userRoles);
+        Task RemoveFromRolesAsync(User user, string roles);
+        Task RemoveFromRolesAsync(User user, string [] roles);
         Task SignOutAsync();
     }
 }

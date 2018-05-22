@@ -15,6 +15,7 @@ env = {
   getUserRolesById: "api/v1/Account/GetUserRolesById",
   addNewUser: "api/v1/Account/AddNewUser",
   addUserRoles:"api/v1/Account/AddUserRoles",
+  editUserRoles:"api/v1/Account/EditUserRoles",
   validateDuplicateAccountInfo: "api/v1/Account/ValidateDuplicateAccountInfo"
 };
 

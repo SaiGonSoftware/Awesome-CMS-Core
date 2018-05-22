@@ -92,6 +92,11 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             return _mapper.Map<IEnumerable<UserRoleViewModel>>(rolesList);
         }
 
+        public async Task<IEnumerable<string>> GetUserRolesName()
+        {
+            return await _unitOfWork.Repository<IdentityRole>().Query().Select(r=>r.Name).ToListAsync();
+        }
+
         public async Task<bool> AddNewUser(UserInputViewModel userInputVm)
         {
             var user = new User { UserName = userInputVm.Username, Email = userInputVm.Email };
@@ -141,16 +146,31 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
 
         public async Task<RolesUserViewModel> GetUserRolesById(string userId)
         {
-            var userRoles = await _userService.GetUserRolesById(userId);
-            var roles = await GetUserRoles();
+            var userRoles = await _userService.GetUserRolesByGuid(userId);
+            var roles = await GetUserRolesName();
 
             var roleUserVm = new RolesUserViewModel
             {
+                UserId = userId,
                 CurrentUserRoles =  userRoles,
-                RoleList = roles
+                RolesName = roles
             };
 
             return roleUserVm;
+        }
+
+        public async Task<bool> EditUserRoles(RolesUserViewModel rolesUserVm)
+        {
+            var userRoles = await _userService.GetUserRolesByGuid(rolesUserVm.UserId);
+            var currentEditUser = await _userService.FindByIdAsync(rolesUserVm.UserId);
+            await _userService.RemoveFromRolesAsync(currentEditUser, userRoles.ToArray());
+
+            if (rolesUserVm.CurrentUserRoles.Any())
+            {
+                await _userService.AddUserToRolesAsync(currentEditUser, rolesUserVm.CurrentUserRoles.ToList());
+            }
+
+            return true;
         }
     }
 }

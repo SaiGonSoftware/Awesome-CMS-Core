@@ -7,6 +7,7 @@ using AwesomeCMSCore.Modules.Helper.Enum;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace AwesomeCMSCore.Modules.Helper.Services
 {
@@ -59,12 +60,17 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             return _currentUserEmail;
         }
 
-        public async Task<IList<string>> GetUserRolesById(string userId)
+        public async Task<List<string>> GetUserRoles()
+        {
+            return await _roleManager.Roles.Select(x => x.Name).ToListAsync();
+        }
+
+        public async Task<IList<string>> GetUserRolesByGuid(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             return await _userManager.GetRolesAsync(user);
         }
-
+        
         public bool IsAuthenticated()
         {
             return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
@@ -180,12 +186,22 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             }
         }
 
+        public async Task RemoveFromRolesAsync(User user, string roles)
+        {
+            await _userManager.RemoveFromRoleAsync(user, roles);
+        }
+
+        public async Task RemoveFromRolesAsync(User user, string[] roles)
+        {
+            await _userManager.RemoveFromRolesAsync(user, roles);
+        }
+
         public async Task SignOutAsync()
         {
             await _signInManager.SignOutAsync();
         }
 
-        public List<string> GetCurrentRoles()
+        public List<string> GetCurrentUserRoles()
         {
             var roleList = new List<string>();
             var claims = _httpContextAccessor.HttpContext.User.Claims.ToList();
