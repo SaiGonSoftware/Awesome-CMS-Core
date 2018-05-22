@@ -53,6 +53,8 @@ Please read
 
 <img src="img/manage-account.png"/>
 
+<img src="img/edit-role.png"/>
+
 ---
 
 ### Tag & Categories manage page
