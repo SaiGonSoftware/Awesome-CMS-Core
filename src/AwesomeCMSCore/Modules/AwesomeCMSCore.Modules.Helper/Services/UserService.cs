@@ -186,6 +186,16 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             }
         }
 
+        public async Task RemoveFromRolesAsync(User user, string roles)
+        {
+            await _userManager.RemoveFromRoleAsync(user, roles);
+        }
+
+        public async Task RemoveFromRolesAsync(User user, string[] roles)
+        {
+            await _userManager.RemoveFromRolesAsync(user, roles);
+        }
+
         public async Task SignOutAsync()
         {
             await _signInManager.SignOutAsync();

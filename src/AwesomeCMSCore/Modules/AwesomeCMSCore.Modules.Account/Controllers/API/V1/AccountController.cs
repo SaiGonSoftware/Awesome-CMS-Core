@@ -189,5 +189,17 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
 
             return BadRequest();
         }
+
+        [HttpPost, ValidModel]
+        public async Task<IActionResult> EditUserRoles([FromBody] RolesUserViewModel rolesUserVm)
+        {
+            var result = await _accountRepository.EditUserRoles(rolesUserVm);
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
     }
 }

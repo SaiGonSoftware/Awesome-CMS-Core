@@ -38,6 +38,8 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         Task SignInAsync(User user, bool isPersistent);
         Task AddUserToRolesAsync(User user, List<string> roles);
         Task AddUserRoles(string[] userRoles);
+        Task RemoveFromRolesAsync(User user, string roles);
+        Task RemoveFromRolesAsync(User user, string [] roles);
         Task SignOutAsync();
     }
 }

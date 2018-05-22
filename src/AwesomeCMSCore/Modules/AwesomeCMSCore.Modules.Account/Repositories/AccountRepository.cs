@@ -151,11 +151,26 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
 
             var roleUserVm = new RolesUserViewModel
             {
+                UserId = userId,
                 CurrentUserRoles =  userRoles,
                 RolesName = roles
             };
 
             return roleUserVm;
+        }
+
+        public async Task<bool> EditUserRoles(RolesUserViewModel rolesUserVm)
+        {
+            var userRoles = await _userService.GetUserRolesByGuid(rolesUserVm.UserId);
+            var currentEditUser = await _userService.FindByIdAsync(rolesUserVm.UserId);
+            await _userService.RemoveFromRolesAsync(currentEditUser, userRoles.ToArray());
+
+            if (rolesUserVm.CurrentUserRoles.Any())
+            {
+                await _userService.AddUserToRolesAsync(currentEditUser, rolesUserVm.CurrentUserRoles.ToList());
+            }
+
+            return true;
         }
     }
 }
