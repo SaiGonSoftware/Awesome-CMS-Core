@@ -18,8 +18,8 @@ import env from "../../../Helper/envConfig";
 import statusCode from "../../../Helper/StatusCode";
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
-import ACCCheckbox from "../../../Common/ACCInput/ACCCheckbox.jsx";
-import ACCButton from "../../../Common/ACCButton.jsx";
+import ACCCheckbox from "../../../Common/ACCSelect/ACCCheckbox.jsx";
+import ACCButton from "../../../Common/ACCButton/ACCButton.jsx";
 
 class LoginForm extends Component {
   constructor(props) {

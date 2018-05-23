@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { validateInput } from "../Helper/Validation";
+import { validateInput } from "../../Helper/Validation";
 
-import Spinner from "./Spinner.jsx";
+import Spinner from "../ACCAnimation/Spinner.jsx";
 
 const ACCButton = props => {
   const errors = validateInput(props.validationArr);

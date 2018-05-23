@@ -10,8 +10,8 @@ import env from "../../../Helper/envConfig";
 import statusCode from "../../../Helper/StatusCode";
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
-import ACCMultiCheckbox from "../../../Common/ACCInput/ACCMultiCheckbox.jsx";
-import Spinner from "../../../Common/Spinner.jsx";
+import ACCMultiCheckbox from "../../../Common/ACCSelect/ACCMultiCheckbox.jsx";
+import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
 
 class AddUserModal extends Component {
   constructor(props) {

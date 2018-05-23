@@ -6,8 +6,8 @@ import {Get, PostWithSpinner} from "../../../Helper/ajax";
 import env from "../../../Helper/envConfig";
 import statusCode from "../../../Helper/StatusCode";
 
-import Spinner from "../../../Common/Spinner.jsx";
-import ACCCheckboxOrRadioGroup from '../../../Common/ACCInput/ACCCheckboxOrRadioGroup.jsx';
+import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
+import ACCCheckboxOrRadioGroup from '../../../Common/ACCSelect/ACCCheckboxOrRadioGroup.jsx';
 
 class EditUserRoles extends Component {
   constructor(props) {

@@ -5,8 +5,8 @@ import toastr from "toastr";
 import { handleOnChange } from "../../Helper/stateHelper";
 import { Get, PostWithSpinner } from "../../Helper/ajax";
 import { isDomExist } from "../../Helper/util";
-import ACCReactSelect from "../../Common/ACCReactSelect.jsx";
-import Spinner from "../../Common/Spinner.jsx";
+import ACCReactSelect from "../../Common/ACCSelect/ACCReactSelect.jsx";
+import Spinner from "../../Common/ACCAnimation/Spinner.jsx";
 import env from "./../../Helper/envConfig";
 import statusCode from "./../../Helper/StatusCode";
 
