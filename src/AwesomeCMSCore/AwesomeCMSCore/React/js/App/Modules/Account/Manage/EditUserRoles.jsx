@@ -7,7 +7,7 @@ import env from "../../../Helper/envConfig";
 import statusCode from "../../../Helper/StatusCode";
 
 import Spinner from "../../../Common/Spinner.jsx";
-import CheckboxOrRadioGroup from '../../../Common/ACCInput/CheckboxOrRadioGroup.jsx';
+import ACCCheckboxOrRadioGroup from '../../../Common/ACCInput/ACCCheckboxOrRadioGroup.jsx';
 
 class EditUserRoles extends Component {
   constructor(props) {
@@ -110,7 +110,7 @@ class EditUserRoles extends Component {
                 <div className="card" id="userRoleSection">
                   <div className="card-body">
                     <h5 className="card-title">Roles</h5>
-                    <CheckboxOrRadioGroup
+                    <ACCCheckboxOrRadioGroup
                       name={'roles'}
                       type={'checkbox'}
                       options={this.state.rolesName}
