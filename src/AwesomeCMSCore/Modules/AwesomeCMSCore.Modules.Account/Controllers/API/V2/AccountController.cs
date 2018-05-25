@@ -37,7 +37,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V2
             var user = await _userService.FindByNameAsync(model.Username);
             if (!user.EmailConfirmed)
             {
-                return StatusCode(AccStatusCode.EmailNotConfirmed);
+                return StatusCode(AppStatusCode.EmailNotConfirmed);
             }
 
             var result = await _userService.PasswordSignInAsync(model.Username, model.Password,
@@ -52,7 +52,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V2
 
             if (result.IsLockedOut)
             {
-                return StatusCode(AccStatusCode.Forbid);
+                return StatusCode(AppStatusCode.Forbid);
             }
 
             return BadRequest();
