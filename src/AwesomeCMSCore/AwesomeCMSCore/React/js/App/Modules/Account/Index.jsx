@@ -4,7 +4,7 @@ import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 import toastr from "toastr";
 
 import {isDomExist} from "../../Helper/Util";
-import {Get, Post} from "../../Helper/Ajax";
+import {Get, Post} from "../../Helper/Http";
 import env from "../../Helper/EnvConfig";
 import { findObjectByKey } from '../../Helper/Util';
 

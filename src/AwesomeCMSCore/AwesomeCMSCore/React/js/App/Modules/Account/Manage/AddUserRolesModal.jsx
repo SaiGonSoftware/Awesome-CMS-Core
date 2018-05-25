@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import toastr from "toastr";
 
 import {handleOnChange} from "../../../Helper/StateHelper";
-import {Get, PostWithSpinner, Post} from "../../../Helper/Ajax";
+import {Get, PostWithSpinner} from "../../../Helper/Http";
 import env from "../../../Helper/EnvConfig";
 import statusCode from "../../../Helper/StatusCode";
 
@@ -36,7 +36,7 @@ class AddUserRolesModal extends Component {
          PostWithSpinner
             .call(this, env.addUserRoles, {userRoles: [roles]})
             .then(res => {
-                if (res.status === statusCode.Success) 
+                if (res.status === statusCode.Success)
                     toastr.success("Create success");
                 }
             )

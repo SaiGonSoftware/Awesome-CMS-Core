@@ -8,7 +8,7 @@ import { onChange, onBlur, onCheck } from "../../../Helper/StateHelper";
 import { navigateToUrl, isDomExist } from "../../../Helper/Util";
 import { setStorage } from "../../../Helper/StorageHelper";
 import { APP_ENUM } from "../../../Helper/AppEnum";
-import { Post, PostWithSpinner } from "../../../Helper/Ajax";
+import { Post, PostWithSpinner } from "../../../Helper/Http";
 import {
   shouldMarkError,
   validateInput,

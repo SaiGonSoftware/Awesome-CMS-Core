@@ -4,7 +4,7 @@ import toastr from "toastr";
 
 import { shouldMarkError, validateInput } from "../../../Helper/Validation";
 import { onChange } from "../../../Helper/StateHelper";
-import { Get, PostWithSpinner, Post } from "../../../Helper/Ajax";
+import { Get, PostWithSpinner, Post } from "../../../Helper/Http";
 import { isFormValid } from "../../../Helper/Validation";
 import env from "../../../Helper/EnvConfig";
 import statusCode from "../../../Helper/StatusCode";

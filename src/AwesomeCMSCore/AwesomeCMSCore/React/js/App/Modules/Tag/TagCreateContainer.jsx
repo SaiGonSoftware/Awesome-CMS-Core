@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import toastr from "toastr";
 
 import { handleOnChange } from "../../Helper/StateHelper";
-import { Get, PostWithSpinner } from "../../Helper/Ajax";
+import { Get, PostWithSpinner } from "../../Helper/Http";
 import { isDomExist } from "../../Helper/Util";
 import ACCReactSelect from "../../Common/ACCSelect/ACCReactSelect.jsx";
 import Spinner from "../../Common/ACCAnimation/Spinner.jsx";
