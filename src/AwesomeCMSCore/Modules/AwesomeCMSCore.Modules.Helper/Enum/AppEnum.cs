@@ -1,5 +1,10 @@
-﻿namespace AwesomeCMSCore.Modules.Helper.Enum
+namespace AwesomeCMSCore.Modules.Helper.Enum
 {
+    public static class AppEnum
+    {
+        public static readonly int MaxFailedAccessAttempts = 2;
+    }
+
     public static class UserClaimsKey
     {
         public static readonly string Sub = "sub";

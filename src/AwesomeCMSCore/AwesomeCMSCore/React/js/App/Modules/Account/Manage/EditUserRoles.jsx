@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import toastr from "toastr";
 
-import {Get, PostWithSpinner} from "../../../Helper/ajax";
-import env from "../../../Helper/envConfig";
+import {Get, PostWithSpinner} from "../../../Helper/Ajax";
+import env from "../../../Helper/EnvConfig";
 import statusCode from "../../../Helper/StatusCode";
 
 import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";

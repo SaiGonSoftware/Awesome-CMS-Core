@@ -39,7 +39,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             var user = await _userService.FindByNameAsync(model.Username);
             if (!user.EmailConfirmed)
             {
-                return StatusCode(AccStatusCode.EmailNotConfirmed);
+                return StatusCode(AppStatusCode.EmailNotConfirmed);
             }
 
             var result = await _userService.PasswordSignInAsync(model.Username, model.Password,
@@ -50,14 +50,14 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
                 return Ok();
             }
 
-            if (await _userService.GetAccessFailedCountAsync(user) == AccAppEnum.MaxFailedAccessAttempts)
+            if (await _userService.GetAccessFailedCountAsync(user) == AppEnum.MaxFailedAccessAttempts)
             {
                 await _userService.SetLockoutEnabledAsync(user, true);
             }
             
             if (result.IsLockedOut)
             {
-                return StatusCode(AccStatusCode.Forbid);
+                return StatusCode(AppStatusCode.Forbid);
             }
 
             return BadRequest();

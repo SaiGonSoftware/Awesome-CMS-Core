@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import toastr from "toastr";
 
-import {handleOnChange} from "../../../Helper/stateHelper";
-import {Get, PostWithSpinner, Post} from "../../../Helper/ajax";
-import env from "../../../Helper/envConfig";
+import {handleOnChange} from "../../../Helper/StateHelper";
+import {Get, PostWithSpinner, Post} from "../../../Helper/Ajax";
+import env from "../../../Helper/EnvConfig";
 import statusCode from "../../../Helper/StatusCode";
 
 import ACCReactSelect from "../../../Common/ACCReactSelect.jsx";

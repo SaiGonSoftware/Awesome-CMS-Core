@@ -3,10 +3,10 @@ import {render} from "react-dom";
 import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 import toastr from "toastr";
 
-import {isDomExist} from "../../Helper/util";
-import {Get, Post} from "../../Helper/ajax";
-import env from "../../Helper/envConfig";
-import { findObjectByKey } from '../../Helper/util';
+import {isDomExist} from "../../Helper/Util";
+import {Get, Post} from "../../Helper/Ajax";
+import env from "../../Helper/EnvConfig";
+import { findObjectByKey } from '../../Helper/Util';
 
 import AddUserModal from "./Manage/AddUserModal.jsx";
 import EditUserRoles from "./Manage/EditUserRoles.jsx";
