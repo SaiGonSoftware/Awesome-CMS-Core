@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import toastr from "toastr";
 
-import {handleOnChange} from "../../../Helper/stateHelper";
-import {Get, PostWithSpinner, Post} from "../../../Helper/ajax";
-import env from "../../../Helper/envConfig";
+import {handleOnChange} from "../../../Helper/StateHelper";
+import {Get, PostWithSpinner} from "../../../Helper/Http";
+import env from "../../../Helper/EnvConfig";
 import statusCode from "../../../Helper/StatusCode";
 
 import ACCReactSelect from "../../../Common/ACCReactSelect.jsx";
@@ -36,7 +36,7 @@ class AddUserRolesModal extends Component {
          PostWithSpinner
             .call(this, env.addUserRoles, {userRoles: [roles]})
             .then(res => {
-                if (res.status === statusCode.Success) 
+                if (res.status === statusCode.Success)
                     toastr.success("Create success");
                 }
             )

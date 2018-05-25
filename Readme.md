@@ -25,10 +25,6 @@ Please read
 
 * [Docs](https://awesome-cms-core.gitbook.io/awesome-cms-core/) for setup, prerequisites and project architecture, development guideline etc...
 
-## Graphs
-
-![Throughput Graph](https://graphs.waffle.io/Awesome-CMS-Core/Awesome-CMS-Core/throughput.svg)
-
 ## Contributors
 
 | [Tony Hudson](https://github.com/ngohungphuc)                  | [David Pine](https://github.com/IEvangelist)                        |

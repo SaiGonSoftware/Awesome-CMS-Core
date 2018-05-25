@@ -1,7 +1,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 
-const CheckboxOrRadioGroup = (props) => {
+const ACCCheckboxOrRadioGroup = (props) => {
     return (
         <div>
             <div className="checkbox-group">
@@ -9,12 +9,12 @@ const CheckboxOrRadioGroup = (props) => {
                     .options
                     .map((option, index) => {
                         const styleClass = index % 2 === 0
-                            ? "form-group custom-checkbox card-split alignleft"
-                            : "form-group custom-checkbox card-split alignright";
+                            ? `form-group custom-${props.type} card-split alignleft`
+                            : `form-group custom--${props.type} card-split alignright`;
 
                         return (
                             <div key={option} className={styleClass}>
-                                <div className="custom-control custom-checkbox">
+                                <div className={`custom-control custom-${props.type}`}>
                                     <input
                                         className="custom-control-input"
                                         name={props.name}
@@ -38,7 +38,7 @@ const CheckboxOrRadioGroup = (props) => {
 
 };
 
-CheckboxOrRadioGroup.propTypes = {
+ACCCheckboxOrRadioGroup.propTypes = {
     type: PropTypes
         .oneOf(['checkbox', 'radio'])
         .isRequired,
@@ -48,4 +48,4 @@ CheckboxOrRadioGroup.propTypes = {
     onChange: PropTypes.func.isRequired
 };
 
-export default CheckboxOrRadioGroup;
+export default ACCCheckboxOrRadioGroup;

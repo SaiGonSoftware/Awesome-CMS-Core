@@ -125,18 +125,18 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             return true;
         }
 
-        public async Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject)
+         public async Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject)
         {
             switch (accountValidateObject.Key)
             {
                 case "UserName":
                     var isUserNameDuplicate = await _unitOfWork.Repository<User>().Query().Where(acc =>
-                            acc.UserName.Equals(accountValidateObject.Value, StringComparison.CurrentCultureIgnoreCase))
+                            acc.UserName.Equals(accountValidateObject.Value, StringComparison.OrdinalIgnoreCase))
                         .AnyAsync();
                     return isUserNameDuplicate;
                 case "Email":
                     var isEmailDuplicate = await _unitOfWork.Repository<User>().Query().Where(acc =>
-                            acc.Email.Equals(accountValidateObject.Value, StringComparison.CurrentCultureIgnoreCase))
+                            acc.Email.Equals(accountValidateObject.Value, StringComparison.OrdinalIgnoreCase))
                         .AnyAsync();
                     return isEmailDuplicate;
                 default:

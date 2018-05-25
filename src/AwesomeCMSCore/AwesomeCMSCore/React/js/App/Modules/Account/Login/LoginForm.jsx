@@ -4,22 +4,22 @@ import toastr from "toastr";
 import qs from "qs";
 import PropTypes from "prop-types";
 
-import { onChange, onBlur, onCheck } from "../../../Helper/stateHelper";
-import { navigateToUrl, isDomExist } from "../../../Helper/util";
-import { setStorage } from "../../../Helper/storageHelper";
-import { APP_ENUM } from "../../../Helper/appEnum";
-import { Post, PostWithSpinner } from "../../../Helper/ajax";
+import { onChange, onBlur, onCheck } from "../../../Helper/StateHelper";
+import { navigateToUrl, isDomExist } from "../../../Helper/Util";
+import { setStorage } from "../../../Helper/StorageHelper";
+import { APP_ENUM } from "../../../Helper/AppEnum";
+import { Post, PostWithSpinner } from "../../../Helper/Http";
 import {
   shouldMarkError,
   validateInput,
   isFormValid
 } from "../../../Helper/Validation";
-import env from "../../../Helper/envConfig";
+import env from "../../../Helper/EnvConfig";
 import statusCode from "../../../Helper/StatusCode";
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
-import ACCCheckbox from "../../../Common/ACCInput/ACCCheckbox.jsx";
-import ACCButton from "../../../Common/ACCButton.jsx";
+import ACCCheckbox from "../../../Common/ACCSelect/ACCCheckbox.jsx";
+import ACCButton from "../../../Common/ACCButton/ACCButton.jsx";
 
 class LoginForm extends Component {
   constructor(props) {

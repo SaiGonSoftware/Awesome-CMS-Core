@@ -1,15 +1,15 @@
 import axios from "axios";
 import qs from 'qs';
 
-import env from './envConfig';
+import env from './EnvConfig';
 import {
   APP_ENUM
-} from "./appEnum";
+} from "./AppEnum";
 import statusCode from "./StatusCode";
 import {
   getStorage,
   setStorage
-} from "./storageHelper";
+} from "./StorageHelper";
 
 export function Get(url) {
   const authHeader = initAuthHeaders();

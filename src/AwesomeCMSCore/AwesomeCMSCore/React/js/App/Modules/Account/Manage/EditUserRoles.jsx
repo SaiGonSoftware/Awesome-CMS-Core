@@ -2,12 +2,12 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import toastr from "toastr";
 
-import {Get, PostWithSpinner} from "../../../Helper/ajax";
-import env from "../../../Helper/envConfig";
+import {Get, PostWithSpinner} from "../../../Helper/Http";
+import env from "../../../Helper/EnvConfig";
 import statusCode from "../../../Helper/StatusCode";
 
-import Spinner from "../../../Common/Spinner.jsx";
-import CheckboxOrRadioGroup from '../../../Common/ACCInput/CheckboxOrRadioGroup.jsx';
+import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
+import ACCCheckboxOrRadioGroup from '../../../Common/ACCSelect/ACCCheckboxOrRadioGroup.jsx';
 
 class EditUserRoles extends Component {
   constructor(props) {
@@ -110,7 +110,7 @@ class EditUserRoles extends Component {
                 <div className="card" id="userRoleSection">
                   <div className="card-body">
                     <h5 className="card-title">Roles</h5>
-                    <CheckboxOrRadioGroup
+                    <ACCCheckboxOrRadioGroup
                       name={'roles'}
                       type={'checkbox'}
                       options={this.state.rolesName}
