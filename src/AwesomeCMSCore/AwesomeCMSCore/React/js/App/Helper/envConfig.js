@@ -14,9 +14,10 @@ env = {
   getUserRolesList: "api/v1/Account/UserRoles",
   getUserRolesById: "api/v1/Account/GetUserRolesById",
   addNewUser: "api/v1/Account/AddNewUser",
-  addUserRoles:"api/v1/Account/AddUserRoles",
-  editUserRoles:"api/v1/Account/EditUserRoles",
-  validateDuplicateAccountInfo: "api/v1/Account/ValidateDuplicateAccountInfo"
+  addUserRoles: "api/v1/Account/AddUserRoles",
+  editUserRoles: "api/v1/Account/EditUserRoles",
+  validateDuplicateAccountInfo: "api/v1/Account/ValidateDuplicateAccountInfo",
+  forgotPassword: "api/v1/Account/ForgotPassword"
 };
 
 if (isDevEnviroment()) {

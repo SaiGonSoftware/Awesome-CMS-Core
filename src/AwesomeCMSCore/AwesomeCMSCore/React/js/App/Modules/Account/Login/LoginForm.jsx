@@ -1,19 +1,15 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
+import React, {Component} from "react";
+import {render} from "react-dom";
 import toastr from "toastr";
 import qs from "qs";
 import PropTypes from "prop-types";
 
-import { onChange, onBlur, onCheck } from "../../../Helper/StateHelper";
-import { navigateToUrl, isDomExist } from "../../../Helper/Util";
-import { setStorage } from "../../../Helper/StorageHelper";
-import { APP_ENUM } from "../../../Helper/AppEnum";
-import { Post, PostWithSpinner } from "../../../Helper/Http";
-import {
-  shouldMarkError,
-  validateInput,
-  isFormValid
-} from "../../../Helper/Validation";
+import {onChange, onBlur, onCheck} from "../../../Helper/StateHelper";
+import {navigateToUrl, isDomExist} from "../../../Helper/Util";
+import {setStorage} from "../../../Helper/StorageHelper";
+import {APP_ENUM} from "../../../Helper/AppEnum";
+import {Post, PostWithSpinner} from "../../../Helper/Http";
+import {shouldMarkError, validateInput, isFormValid} from "../../../Helper/Validation";
 import env from "../../../Helper/EnvConfig";
 import statusCode from "../../../Helper/StatusCode";
 
@@ -44,50 +40,47 @@ class LoginForm extends Component {
 
     e.preventDefault();
 
-    PostWithSpinner.call(this, env.loginUrl, {
+    PostWithSpinner
+      .call(this, env.loginUrl, {
       Username: this.state.username,
       Password: this.state.password,
-      RememberMe: this.state.rememberMe ? true : false
+      RememberMe: this.state.rememberMe
+        ? true
+        : false
     })
       .then(res => {
-        if (res.status === statusCode.Success) this.tokenRequest();
-      })
+        if (res.status === statusCode.Success) 
+          this.tokenRequest();
+        }
+      )
       .catch((err) => {
-        switch(err.response.status)
-        {
+        switch (err.response.status) {
           case statusCode.EmailNotConfirmed:
-           return toastr.warning("Please confirm email");
+            return toastr.warning("Please confirm email");
           case statusCode.Forbid:
-           return toastr.warning("Account is lockout");
+            return toastr.warning("Account is lockout");
           case statusCode.BadRequest:
-           return toastr.error("Invalid credentials");
+            return toastr.error("Invalid credentials");
         }
       });
   };
 
   tokenRequest() {
-    Post(
-      env.tokenUrl,
-      qs.stringify({
-        username: this.state.username,
-        password: this.state.password,
-        grant_type: "password",
-        scope: "offline_access"
-      })
-    ).then(function(res) {
-      let token = {
-        access_token: res.data.access_token,
-        refresh_token: res.data.refresh_token,
-        token_type: res.data.token_type,
-        expires_in: res.data.expires_in
-      };
-      setStorage(APP_ENUM.AUTH_TOKEN, token);
-      navigateToUrl(env.portal);
-    });
+    Post(env.tokenUrl, qs.stringify({username: this.state.username, password: this.state.password, grant_type: "password", scope: "offline_access"}))
+      .then(function (res) {
+        let token = {
+          access_token: res.data.access_token,
+          refresh_token: res.data.refresh_token,
+          token_type: res.data.token_type,
+          expires_in: res.data.expires_in
+        };
+        setStorage(APP_ENUM.AUTH_TOKEN, token);
+        navigateToUrl(env.portal);
+      });
   }
 
   render() {
-    const { username, password, rememberMe, loading } = this.state;
+    const {username, password, rememberMe, loading} = this.state;
     this.validationArr = [
       {
         username: username,
@@ -100,7 +93,9 @@ class LoginForm extends Component {
     return (
       <div id="loginContainer">
         <div className="card">
-          <div className="card-header text-center"> Admin portal </div>
+          <div className="card-header text-center">
+            Admin portal
+          </div>
           <div className="card-body">
             <form onSubmit={this.login}>
               <div id="loginFormContent">
@@ -113,8 +108,7 @@ class LoginForm extends Component {
                   required="required"
                   value={username}
                   onChange={username => onChange.call(this, username)}
-                  onBlur={username => onBlur.call(this, username)}
-                />
+                  onBlur={username => onBlur.call(this, username)}/>
                 <ACCInput
                   className={shouldMarkError.call(this, "password", errors)}
                   type="password"
@@ -124,21 +118,19 @@ class LoginForm extends Component {
                   required="required"
                   value={password}
                   onChange={password => onChange.call(this, password)}
-                  onBlur={password => onBlur.call(this, password)}
-                />
+                  onBlur={password => onBlur.call(this, password)}/>
                 <ACCCheckbox
                   id="rememberMe"
                   name="rememberMe"
                   checked={rememberMe}
                   label="Remember me ?"
-                  onChange={rememberMe => onCheck.call(this, rememberMe)}
-                />
+                  onChange={rememberMe => onCheck.call(this, rememberMe)}/>
                 <ACCButton
                   validationArr={this.validationArr}
                   loading={loading}
                   btnBlocked="btn-block"
-                  label="Login"
-                />
+                  label="Login"/>
+                <a href="/Account/ForgotPassword">Forgot Password ?</a>
               </div>
             </form>
           </div>
@@ -149,7 +141,8 @@ class LoginForm extends Component {
 }
 
 if (isDomExist("loginForm")) {
-  render(<LoginForm />, document.getElementById("loginForm"));
+  render(
+    <LoginForm/>, document.getElementById("loginForm"));
 }
 
 LoginForm.propTypes = {

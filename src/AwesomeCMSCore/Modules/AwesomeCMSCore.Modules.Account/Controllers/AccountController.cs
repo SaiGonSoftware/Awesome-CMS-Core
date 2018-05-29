@@ -89,13 +89,6 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
        
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
         public IActionResult ResetPassword(string code = null)
         {
             if (code == null)

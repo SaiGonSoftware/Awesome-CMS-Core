@@ -4,6 +4,7 @@ using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Helper.Enum;
+using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Helper.Filter;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -21,15 +22,18 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         private readonly IEmailSender _emailSender;
         private readonly IAccountRepository _accountRepository;
         private readonly IUserService _userService;
+        private readonly IUrlHelperExtension _urlHelper;
 
         public AccountController(
             IEmailSender emailSender,
             IAccountRepository accountRepository,
-            IUserService userService)
+            IUserService userService,
+            IUrlHelperExtension urlHelper)
         {
             _emailSender = emailSender;
             _accountRepository = accountRepository;
             _userService = userService;
+            _urlHelper = urlHelper;
         }
 
         [HttpPost]
@@ -54,7 +58,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             {
                 await _userService.SetLockoutEnabledAsync(user, true);
             }
-            
+
             if (result.IsLockedOut)
             {
                 return StatusCode(AppStatusCode.Forbid);
@@ -62,7 +66,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
 
             return BadRequest();
         }
-        
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -88,31 +92,26 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             return View(model);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        [HttpPost, AllowAnonymous, ValidModel]
+        public async Task<IActionResult> ForgotPassword([FromBody]ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            var user = await _userService.FindByEmailAsync(model.Email);
+            if (user == null || !(await _userService.IsEmailConfirmedAsync(user)))
             {
-                var user = await _userService.FindByEmailAsync(model.Email);
-                if (user == null || !(await _userService.IsEmailConfirmedAsync(user)))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return NotFound();
-                }
-
-                // For more information on how to enable account confirmation and password reset please
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                var code = await _userService.GeneratePasswordResetTokenAsync(user);
-                //var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
-                //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-                return Ok();
+                return StatusCode(AppStatusCode.BadRequest);
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            var code = await _userService.GeneratePasswordResetTokenAsync(user);
+            var callbackUrl = _urlHelper.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
+            var emailOptions = new EmailOptions
+            {
+                Url = callbackUrl,
+                Code = code
+            };
+
+            await _emailSender.SendEmailAsync(model.Email, "", emailOptions, EmailType.ForgotPassword);
+
+            return Ok();
         }
 
         [HttpPost]
