@@ -3,6 +3,6 @@
     public interface IUrlHelperExtension
     {
         string EmailConfirmationLink(string userId, string code, string scheme);
-        string ResetPasswordCallbackLink(string userId, string code, string scheme);
+        string ResetPasswordCallbackLink(string email, string code, string scheme);
     }
 }

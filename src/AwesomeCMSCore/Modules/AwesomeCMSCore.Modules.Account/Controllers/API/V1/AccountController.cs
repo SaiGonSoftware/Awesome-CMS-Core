@@ -102,7 +102,10 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             }
 
             var code = await _userService.GeneratePasswordResetTokenAsync(user);
-            var callbackUrl = _urlHelper.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
+
+            await _userService.SaveResetPasswordRequest(code, model.Email);
+
+            var callbackUrl = _urlHelper.ResetPasswordCallbackLink(model.Email, code, Request.Scheme);
             var emailOptions = new EmailOptions
             {
                 Url = callbackUrl,

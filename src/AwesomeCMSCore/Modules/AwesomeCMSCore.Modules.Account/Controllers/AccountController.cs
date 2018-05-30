@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Controllers;
+using AwesomeCMSCore.Modules.Helper.Enum;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -89,12 +91,19 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
        
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult ResetPassword(string code = null)
+        public async Task<IActionResult> ResetPassword(string code, string email)
         {
-            if (code == null)
+            if (code == null || email == null)
             {
-                throw new ApplicationException("A code must be supplied for password reset.");
+                return RedirectToAction("Index", "Error", new {statusCode = AppStatusCode.NotFound});
             }
+
+            var isResetTokenValid = await _userService.CheckValidResetPasswordToken(code, email);
+            if (!isResetTokenValid)
+            {
+                return RedirectToAction("Index", "Error", new { statusCode = AppStatusCode.NotFound });
+            }
+
             var model = new ResetPasswordViewModel { Code = code };
             return View(model);
         }
