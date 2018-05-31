@@ -89,23 +89,21 @@ namespace AwesomeCMSCore.Modules.Account.Controllers
             return View();
         }
        
-        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ResetPassword(string code, string email)
+        public async Task<IActionResult> RequestResetPassword(string token, string email)
         {
-            if (code == null || email == null)
+            if (token == null || email == null)
             {
                 return RedirectToAction("Index", "Error", new {statusCode = AppStatusCode.NotFound});
             }
 
-            var isResetTokenValid = await _userService.CheckValidResetPasswordToken(code, email);
+            var isResetTokenValid = await _userService.CheckValidResetPasswordToken(token, email);
             if (!isResetTokenValid)
             {
                 return RedirectToAction("Index", "Error", new { statusCode = AppStatusCode.NotFound });
             }
-
-            var model = new ResetPasswordViewModel { Code = code };
-            return View(model);
+            
+            return View();
         }
 
         [HttpGet]

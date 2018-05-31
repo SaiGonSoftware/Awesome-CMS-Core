@@ -130,6 +130,7 @@ class LoginForm extends Component {
                   loading={loading}
                   btnBlocked="btn-block"
                   label="Login"/>
+                <br/>
                 <a href="/Account/ForgotPassword">Forgot Password ?</a>
               </div>
             </form>

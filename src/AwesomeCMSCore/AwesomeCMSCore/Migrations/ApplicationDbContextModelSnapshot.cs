@@ -72,8 +72,6 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Code");
-
                     b.Property<DateTime>("DateCreate");
 
                     b.Property<DateTime>("DateModified");
@@ -81,6 +79,8 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<string>("Email");
 
                     b.Property<bool>("IsActive");
+
+                    b.Property<string>("Token");
 
                     b.Property<Guid>("UniqeId");
 

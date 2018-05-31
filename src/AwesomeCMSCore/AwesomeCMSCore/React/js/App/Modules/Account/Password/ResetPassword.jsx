@@ -2,77 +2,81 @@ import React, {Component} from "react";
 import {render} from "react-dom";
 
 import {onChange, onBlur} from "../../../Helper/StateHelper";
-import {isDomExist} from "../../../Helper/Util";
+import {navigateToUrl, isDomExist} from "../../../Helper/Util";
 import {shouldMarkError, validateInput, isFormValid} from "../../../Helper/Validation";
 import {PostWithSpinner} from "../../../Helper/Http";
 import env from "../../../Helper/EnvConfig";
+import statusCode from "../../../Helper/StatusCode";
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
 import ACCButton from "../../../Common/ACCButton/ACCButton.jsx";
 
-class ForgotPassword extends Component {
+class ResetPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
+            password: "",
             loading: false,
             showSuccessMessage: false,
             touched: {
-                email: false
+                password: false
             }
         }
 
         this.validationArr = [];
     }
 
-    forgotPassword = e => {
+    resetPassword = e => {
         if (!isFormValid(this.validationArr)) {
             return;
         }
 
         e.preventDefault();
+
         PostWithSpinner
-            .call(this, env.forgotPassword, {Email: this.state.email})
-            .then(() => {
-                this.setState({showSuccessMessage: true})
+            .call(this, env.resetPassword, {Password: this.state.password})
+            .then((res) => {
+                if (res.status === statusCode.Success) {
+                    this.setState({showSuccessMessage: true})
+                    window.setTimeout(navigateToUrl(env.login), 2000);
+                }
             });
     }
 
     render() {
-        const {email, loading, showSuccessMessage} = this.state;
+        const {password, loading, showSuccessMessage} = this.state;
         this.validationArr = [
             {
-                email: email
+                password: password
             }
         ];
 
         const errors = validateInput.call(this, this.validationArr);
 
         return (
-            <div id="forgotPasswordContainer">
+            <div id="resetPasswordContainer">
                 <div className="card">
                     <div className="card-header text-center">
-                        Forgot Password
+                        Reset Password
                     </div>
                     <div className="card-body">
-                        <form onSubmit={this.forgotPassword}>
-                            <div id="forgotPasswordFormContent">
+                        <form onSubmit={this.resetPassword}>
+                            <div id="resetPasswordFormContent">
                                 {showSuccessMessage
                                     ? <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                                            If your account register with our system we will send email for you to reset
-                                            password
+                                            You can now login using your new password
                                         </div>
                                     : null}
                                 <ACCInput
-                                    className={shouldMarkError.call(this, "email", errors)}
-                                    type="text"
-                                    name="email"
-                                    id="email"
-                                    placeholder="Email"
+                                    className={shouldMarkError.call(this, "password", errors)}
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    placeholder="Password"
                                     required="required"
-                                    value={email}
-                                    onChange={email => onChange.call(this, email)}
-                                    onBlur={email => onBlur.call(this, email)}/>
+                                    value={password}
+                                    onChange={password => onChange.call(this, password)}
+                                    onBlur={password => onBlur.call(this, password)}/>
                                 <ACCButton
                                     validationArr={this.validationArr}
                                     loading={loading}
@@ -87,9 +91,9 @@ class ForgotPassword extends Component {
     }
 }
 
-if (isDomExist("forgotPassForm")) {
+if (isDomExist("resetPasswordForm")) {
     render(
-        <ForgotPassword/>, document.getElementById("forgotPassForm"));
+        <ResetPassword/>, document.getElementById("resetPasswordForm"));
 }
 
-export default ForgotPassword;
+export default ResetPassword;

@@ -216,11 +216,11 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             return roleList;
         }
 
-        public async Task SaveResetPasswordRequest(string code, string email)
+        public async Task SaveResetPasswordRequest(string token, string email)
         {
             var passwordRequest = new PasswordRequest
             {
-                Code = code,
+                Token = token,
                 Email = email,
                 IsActive = true
             };
@@ -228,25 +228,25 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             await _unitOfWork.Repository<PasswordRequest>().AddAsync(passwordRequest);
         }
 
-        public async Task<bool> CheckValidResetPasswordToken(string code, string email)
+        public async Task<bool> CheckValidResetPasswordToken(string token, string email)
         {
-            var passwordRequest = await GetByCodeAndEmail(code, email);
+            var passwordRequest = await _unitOfWork.Repository<PasswordRequest>().Query().Where(rq => rq.Email.Equals(email, StringComparison.OrdinalIgnoreCase)
+                                                                                                      && rq.Token.Equals(token, StringComparison.OrdinalIgnoreCase)
+                                                                                                      && rq.IsActive).SingleOrDefaultAsync();
             return passwordRequest != null;
         }
 
-        public async Task ToggleRequestPasswordStatus(string code, string email)
+        public async Task ToggleRequestPasswordStatusByEmail(string email)
         {
-            var passwordRequest = await GetByCodeAndEmail(code, email);
-            passwordRequest.IsActive = false;
+            var passwordRequests = await _unitOfWork.Repository<PasswordRequest>().Query()
+                .Where(rq => rq.Email.Equals(email, StringComparison.OrdinalIgnoreCase) && rq.IsActive)
+                .ToListAsync();
 
-            await _unitOfWork.Repository<PasswordRequest>().UpdateAsync(passwordRequest);
-        }
-
-        private async Task<PasswordRequest> GetByCodeAndEmail(string code, string email)
-        {
-            return await _unitOfWork.Repository<PasswordRequest>().Query().Where(rq => rq.Email.Equals(email, StringComparison.OrdinalIgnoreCase)
-                                                                                && rq.Code.Equals(code, StringComparison.OrdinalIgnoreCase)
-                                                                                && rq.IsActive).SingleOrDefaultAsync();
+            foreach (var passwordRequest in passwordRequests)
+            {
+                passwordRequest.IsActive = false;
+                await _unitOfWork.Repository<PasswordRequest>().UpdateAsync(passwordRequest);
+            }
         }
     }
 }

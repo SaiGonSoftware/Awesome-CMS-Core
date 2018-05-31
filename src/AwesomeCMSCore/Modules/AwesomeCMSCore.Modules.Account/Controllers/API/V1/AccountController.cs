@@ -9,6 +9,7 @@ using AwesomeCMSCore.Modules.Helper.Filter;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
@@ -23,17 +24,20 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         private readonly IAccountRepository _accountRepository;
         private readonly IUserService _userService;
         private readonly IUrlHelperExtension _urlHelper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AccountController(
             IEmailSender emailSender,
             IAccountRepository accountRepository,
             IUserService userService,
-            IUrlHelperExtension urlHelper)
+            IUrlHelperExtension urlHelper,
+            IHttpContextAccessor httpContextAccessor)
         {
             _emailSender = emailSender;
             _accountRepository = accountRepository;
             _userService = userService;
             _urlHelper = urlHelper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpPost]
@@ -98,18 +102,19 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             var user = await _userService.FindByEmailAsync(model.Email);
             if (user == null || !(await _userService.IsEmailConfirmedAsync(user)))
             {
-                return StatusCode(AppStatusCode.BadRequest);
+                return Ok();
             }
 
-            var code = await _userService.GeneratePasswordResetTokenAsync(user);
+            var token = await _userService.GeneratePasswordResetTokenAsync(user);
 
-            await _userService.SaveResetPasswordRequest(code, model.Email);
+            await _userService.ToggleRequestPasswordStatusByEmail(model.Email);
+            await _userService.SaveResetPasswordRequest(token, model.Email);
 
-            var callbackUrl = _urlHelper.ResetPasswordCallbackLink(model.Email, code, Request.Scheme);
+            var callbackUrl = _urlHelper.ResetPasswordCallbackLink(model.Email, token, Request.Scheme);
             var emailOptions = new EmailOptions
             {
                 Url = callbackUrl,
-                Code = code
+                Token = token
             };
 
             await _emailSender.SendEmailAsync(model.Email, "", emailOptions, EmailType.ForgotPassword);
@@ -117,26 +122,32 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             return Ok();
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        [HttpPost, ValidModel, AllowAnonymous]
+        public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordViewModel model, string token, string email)
         {
-            if (!ModelState.IsValid)
+            var request = _httpContextAccessor.HttpContext.Request;
+            //var token = HttpContext.Request.Query["token"].ToString();
+            //var email = HttpContext.Request.Query["email"].ToString();
+
+            if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(email))
             {
-                return BadRequest(model);
+                return RedirectToAction("Index", "Error", new { statusCode = AppStatusCode.NotFound });
             }
-            var user = await _userService.FindByEmailAsync(model.Email);
+            
+            var isResetTokenValid = await _userService.CheckValidResetPasswordToken(token, email);
+
+            if (!isResetTokenValid || string.IsNullOrEmpty(email))
+            {
+                return StatusCode(AppStatusCode.ResetPassTokenExpire);
+            }
+
+            var user = await _userService.FindByEmailAsync(email);
             if (user == null)
             {
-                // Don't reveal that the user does not exist
                 return Ok();
             }
-            var result = await _userService.ResetPasswordAsync(user, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
+
+            await _userService.ResetPasswordAsync(user, token, model.Password);
             return Ok();
         }
 
