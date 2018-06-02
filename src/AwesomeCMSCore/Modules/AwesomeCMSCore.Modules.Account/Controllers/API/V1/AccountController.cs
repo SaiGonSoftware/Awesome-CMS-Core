@@ -123,31 +123,27 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         }
 
         [HttpPost, ValidModel, AllowAnonymous]
-        public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordViewModel model, string token, string email)
+        public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordViewModel model)
         {
-            var request = _httpContextAccessor.HttpContext.Request;
-            //var token = HttpContext.Request.Query["token"].ToString();
-            //var email = HttpContext.Request.Query["email"].ToString();
-
-            if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(model.Token) || string.IsNullOrEmpty(model.Email))
             {
                 return RedirectToAction("Index", "Error", new { statusCode = AppStatusCode.NotFound });
             }
             
-            var isResetTokenValid = await _userService.CheckValidResetPasswordToken(token, email);
+            var isResetTokenValid = await _userService.CheckValidResetPasswordToken(model.Token, model.Email);
 
-            if (!isResetTokenValid || string.IsNullOrEmpty(email))
+            if (!isResetTokenValid || string.IsNullOrEmpty(model.Email))
             {
                 return StatusCode(AppStatusCode.ResetPassTokenExpire);
             }
 
-            var user = await _userService.FindByEmailAsync(email);
+            var user = await _userService.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 return Ok();
             }
 
-            await _userService.ResetPasswordAsync(user, token, model.Password);
+            await _userService.ResetPasswordAsync(user, model.Token, model.Password);
             return Ok();
         }
 

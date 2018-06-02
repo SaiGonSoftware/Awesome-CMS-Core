@@ -21,12 +21,11 @@ namespace AwesomeCMSCore.Modules.Helper.Extensions
 
         public string ResetPasswordCallbackLink(string email, string token, string scheme)
         {
-            var url = _urlHelper.Action(
+            return _urlHelper.Action(
                 action: "RequestResetPassword",
                 controller: "Account",
                 values: new { email, token },
                 protocol: scheme);
-            return url;
         }
     }
 }

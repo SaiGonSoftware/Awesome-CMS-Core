@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {render} from "react-dom";
+import toastr from "toastr";
 
+import {getAllUrlParams} from '../../../Helper/QueryStringParser';
 import {onChange, onBlur} from "../../../Helper/StateHelper";
 import {navigateToUrl, isDomExist} from "../../../Helper/Util";
 import {shouldMarkError, validateInput, isFormValid} from "../../../Helper/Validation";
@@ -15,7 +17,9 @@ class ResetPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: "",
             password: "",
+            token: "",
             loading: false,
             showSuccessMessage: false,
             touched: {
@@ -26,6 +30,12 @@ class ResetPassword extends Component {
         this.validationArr = [];
     }
 
+    componentWillMount() {
+        const email = getAllUrlParams().email;
+        const token = decodeURIComponent(getAllUrlParams().token);
+        this.setState({email, token});
+    }
+
     resetPassword = e => {
         if (!isFormValid(this.validationArr)) {
             return;
@@ -34,11 +44,21 @@ class ResetPassword extends Component {
         e.preventDefault();
 
         PostWithSpinner
-            .call(this, env.resetPassword, {Password: this.state.password})
+            .call(this, env.resetPassword, {
+            Email: this.state.email,
+            Token: this.state.token,
+            Password: this.state.password
+        })
             .then((res) => {
                 if (res.status === statusCode.Success) {
                     this.setState({showSuccessMessage: true})
-                    window.setTimeout(navigateToUrl(env.login), 2000);
+                    window.setTimeout(navigateToUrl(env.login), 5000);
+                }
+            })
+            .catch((err) => {
+                switch (err.response.status) {
+                    case statusCode.ResetPassTokenExpire:
+                        return toastr.warning("Your reset password token is invalid. Please check email again");
                 }
             });
     }
