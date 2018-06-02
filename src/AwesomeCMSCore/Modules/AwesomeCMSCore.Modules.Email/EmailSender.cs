@@ -37,6 +37,11 @@ namespace AwesomeCMSCore.Modules.Email
                     builder.HtmlBody = AccountCreationConfirm(options);
                     email.Body = builder.ToMessageBody();
                     break;
+                case EmailType.ForgotPassword:
+                    email.Subject = "Your account reset password";
+                    builder.HtmlBody = AccountForgotPassword(options);
+                    email.Body = builder.ToMessageBody();
+                    break;
                 default:
                     break;
             }
@@ -52,16 +57,6 @@ namespace AwesomeCMSCore.Modules.Email
             }
 
             return Task.CompletedTask;
-        }
-
-        public Task SendEmailAsync(string email, string subject, string message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SendEmailConfirmationAsync(string email, string callbackUrl)
-        {
-            throw new NotImplementedException();
         }
 
         #region Email render
@@ -98,6 +93,23 @@ namespace AwesomeCMSCore.Modules.Email
                 .Button($"{options.Url}", "Confirm Email Address")
                 .Paragraph("— [Awesome CMS Core]")
                 .ToString();
+
+            return body;
+        }
+
+        private static string AccountForgotPassword(EmailOptions options)
+        {
+            const string appName = "Awesome CMS Core";
+
+            var body = MailBody
+                .CreateBody()
+                .Paragraph("Hi,")
+                .Paragraph("You're receiving this email because someone requested a password reset for your user account at " + appName + ".")
+                .Button(options.Url, "Reset password")
+                .Paragraph("Thanks for using " + appName + "!")
+                .Paragraph("— [Awesome CMS Core support team]")
+                .ToString();
+
 
             return body;
         }

@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="/icon.png">
+    <title>@ViewData["Title"] - AwesomeCMSCore</title>
+
+    <link href="~/dist/cmscore.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    <script src="~/dist/main.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

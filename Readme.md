@@ -1,6 +1,6 @@
 # Awesome Cms Core
 
-Awesome Cms Core is an open source CMS built using ASP.Net Core & ReactJS
+Awesome Cms Core is an open source CMS built using ASP.Net Core & ReactJS with module seperation concern
 
 <img src="img/icon.png" width="150px"/>
 
@@ -46,6 +46,8 @@ Please read
 ---
 
 ### Manage Account
+
+<img src="img/forgot-pass.png"/>
 
 <img src="img/manage-account.png"/>
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace AwesomeCMSCore.Modules.Helper.Services
     public class UserService : IUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IGenericRepository<User> _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
@@ -25,13 +26,13 @@ namespace AwesomeCMSCore.Modules.Helper.Services
 
         public UserService(
             IHttpContextAccessor httpContextAccessor,
-            IGenericRepository<User> userRepository,
+            IUnitOfWork unitOfWork,
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             RoleManager<ApplicationRole> roleManager)
         {
             _httpContextAccessor = httpContextAccessor;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
@@ -42,7 +43,7 @@ namespace AwesomeCMSCore.Modules.Helper.Services
 
         public async Task<User> GetCurrentUserAsync()
         {
-           return await _userRepository.GetByIdAsync(_currentUserGuid);
+           return await _unitOfWork.Repository<User>().GetByIdAsync(_currentUserGuid);
         }
 
         public string GetCurrentUserGuid()
@@ -213,6 +214,39 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             }
 
             return roleList;
+        }
+
+        public async Task SaveResetPasswordRequest(string token, string email)
+        {
+            var passwordRequest = new PasswordRequest
+            {
+                Token = token,
+                Email = email,
+                IsActive = true
+            };
+
+            await _unitOfWork.Repository<PasswordRequest>().AddAsync(passwordRequest);
+        }
+
+        public async Task<bool> CheckValidResetPasswordToken(string token, string email)
+        {
+            var passwordRequest = await _unitOfWork.Repository<PasswordRequest>().Query().Where(rq => rq.Email.Equals(email, StringComparison.OrdinalIgnoreCase)
+                                                                                                      && rq.Token.Equals(token, StringComparison.OrdinalIgnoreCase)
+                                                                                                      && rq.IsActive).SingleOrDefaultAsync();
+            return passwordRequest != null;
+        }
+
+        public async Task ToggleRequestPasswordStatusByEmail(string email)
+        {
+            var passwordRequests = await _unitOfWork.Repository<PasswordRequest>().Query()
+                .Where(rq => rq.Email.Equals(email, StringComparison.OrdinalIgnoreCase) && rq.IsActive)
+                .ToListAsync();
+
+            foreach (var passwordRequest in passwordRequests)
+            {
+                passwordRequest.IsActive = false;
+                await _unitOfWork.Repository<PasswordRequest>().UpdateAsync(passwordRequest);
+            }
         }
     }
 }

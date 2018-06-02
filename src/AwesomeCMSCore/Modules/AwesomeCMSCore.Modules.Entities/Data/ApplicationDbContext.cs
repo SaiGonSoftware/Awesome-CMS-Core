@@ -12,7 +12,8 @@ namespace AwesomeCMSCore.Modules.Entities.Data
         public DbSet<Theme> Themes { get; set; }
         public DbSet<TagOptions> TagOptions { get; set; }
         public DbSet<Categories> Categories { get; set; }
-         
+        public DbSet<PasswordRequest> PasswordRequests { get; set; }
+        
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
