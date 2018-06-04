@@ -12,8 +12,8 @@ using System;
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180412075817_InitDB_20181204_145606")]
-    partial class InitDB_20181204_145606
+    [Migration("20180531172611_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,28 @@ namespace AwesomeCMSCore.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Categories", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CategoriesData");
+
+                    b.Property<string>("CategoriesOptions");
+
+                    b.Property<DateTime>("DateCreate");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<Guid>("UniqeId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Media", b =>
                 {
@@ -44,6 +66,28 @@ namespace AwesomeCMSCore.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Medias");
+                });
+
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.PasswordRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreate");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<string>("Email");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("Token");
+
+                    b.Property<Guid>("UniqeId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PasswordRequests");
                 });
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Post", b =>

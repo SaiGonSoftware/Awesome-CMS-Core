@@ -67,6 +67,28 @@ namespace AwesomeCMSCore.Migrations
                     b.ToTable("Medias");
                 });
 
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.PasswordRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreate");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<string>("Email");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("Token");
+
+                    b.Property<Guid>("UniqeId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PasswordRequests");
+                });
+
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Post", b =>
                 {
                     b.Property<int>("Id")

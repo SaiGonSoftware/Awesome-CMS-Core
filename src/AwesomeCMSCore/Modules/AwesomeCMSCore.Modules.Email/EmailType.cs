@@ -6,6 +6,7 @@
         Register,
         ResetPassword,
         RequestPassword,
+        ForgotPassword,
         SystemLog
     }
 }

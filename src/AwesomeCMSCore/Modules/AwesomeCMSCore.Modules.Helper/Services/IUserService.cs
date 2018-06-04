@@ -41,5 +41,8 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         Task RemoveFromRolesAsync(User user, string roles);
         Task RemoveFromRolesAsync(User user, string [] roles);
         Task SignOutAsync();
+        Task SaveResetPasswordRequest(string token, string email);
+        Task<bool> CheckValidResetPasswordToken(string token, string email);
+        Task ToggleRequestPasswordStatusByEmail(string email);
     }
 }

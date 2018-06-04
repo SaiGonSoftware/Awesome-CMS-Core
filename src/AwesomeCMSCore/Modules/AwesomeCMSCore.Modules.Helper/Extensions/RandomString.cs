@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using AwesomeCMSCore.Modules.Helper.Enum;
 
 namespace AwesomeCMSCore.Modules.Helper.Extensions
 {
@@ -11,7 +12,7 @@ namespace AwesomeCMSCore.Modules.Helper.Extensions
         public static string GenerateRandomString()
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars.ToLower(CultureInfo.InvariantCulture), 20)
+            return new string(Enumerable.Repeat(chars.ToLower(CultureInfo.InvariantCulture), AppEnum.MinPasswordChar)
                 .Select(s => s[Random.Next(s.Length)]).ToArray());
         }
     }
