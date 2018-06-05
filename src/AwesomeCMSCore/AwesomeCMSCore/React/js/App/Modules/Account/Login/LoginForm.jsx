@@ -10,7 +10,7 @@ import {setStorage} from "../../../Helper/StorageHelper";
 import {APP_ENUM} from "../../../Helper/AppEnum";
 import {Post, PostWithSpinner} from "../../../Helper/Http";
 import {shouldMarkError, validateInput, isFormValid} from "../../../Helper/Validation";
-import env from "../../../Helper/EnvConfig";
+import env from "../../../Helper/Enviroment";
 import statusCode from "../../../Helper/StatusCode";
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import toastr from "toastr";
 
 import {Get, PostWithSpinner} from "../../../Helper/Http";
-import env from "../../../Helper/EnvConfig";
+import env from "../../../Helper/Enviroment";
 import statusCode from "../../../Helper/StatusCode";
 
 import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";

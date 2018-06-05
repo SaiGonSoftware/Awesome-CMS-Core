@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from 'qs';
 
-import env from './EnvConfig';
+import env from './Enviroment';
 import {
   APP_ENUM
 } from "./AppEnum";

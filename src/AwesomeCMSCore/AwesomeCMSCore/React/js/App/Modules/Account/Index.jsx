@@ -5,12 +5,12 @@ import toastr from "toastr";
 
 import {isDomExist} from "../../Helper/Util";
 import {Get, Post} from "../../Helper/Http";
-import env from "../../Helper/EnvConfig";
+import env from "../../Helper/Enviroment";
 import { findObjectByKey } from '../../Helper/Util';
 
 import AddUserModal from "./Manage/AddUserModal.jsx";
-import EditUserRoles from "./Manage/EditUserRoles.jsx";
-//import AddUserRolesModal from './Manage/AddUserRolesModal.jsx';
+import EditUserRolesModal from "./Manage/EditUserRolesModal.jsx";
+import ManageRolesModal from './Manage/ManageRolesModal.jsx';
 
 class AccountTable extends Component {
   constructor(props) {
@@ -112,16 +112,16 @@ class AccountTable extends Component {
                 &nbsp; Add User
               </button>
              <AddUserModal id="addUserModal"/>
-             {/*  <button
+             <button
                 type="button"
                 className="btn btn-primary"
                 id="btnAddUserRoles"
                 data-toggle="modal"
-                data-target="#addUserRolesModal">
+                data-target="#manageRolesModal">
                 <i className="fa fa-user-plus" aria-hidden="true"/>
-                &nbsp; Add User roles
+                &nbsp; Manage Roles
               </button>
-              <AddUserRolesModal id="addUserRolesModal"/> */}
+              <ManageRolesModal id="manageRolesModal"/>
                <button
                 type="button"
                 className="btn btn-warning"
@@ -132,7 +132,7 @@ class AccountTable extends Component {
                 Role for User
               </button>
               {selectedUserId ? (
-                <EditUserRoles
+                <EditUserRolesModal
                   id="editUserRoleModal"
                   userName={userName}
                   userId={selectedUserId}

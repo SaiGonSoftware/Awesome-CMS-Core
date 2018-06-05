@@ -7,7 +7,7 @@ import { Get, PostWithSpinner } from "../../Helper/Http";
 import { isDomExist } from "../../Helper/Util";
 import ACCReactSelect from "../../Common/ACCSelect/ACCReactSelect.jsx";
 import Spinner from "../../Common/ACCAnimation/Spinner.jsx";
-import env from "./../../Helper/EnvConfig";
+import env from "./../../Helper/Enviroment";
 import statusCode from "./../../Helper/StatusCode";
 
 class TagCreateContainer extends Component {

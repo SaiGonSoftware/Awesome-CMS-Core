@@ -22,6 +22,7 @@ const ACCInput = props => {
           onBlur={props.onBlur}
           value={props.value}
           required={props.required}
+          disabled={props.disabled}
         />
       </div>
     </div>
@@ -32,13 +33,14 @@ ACCInput.propTypes = {
   className: PropTypes.bool,
   id: PropTypes.string,
   type: PropTypes.string,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
-  required: PropTypes.string
+  required: PropTypes.string,
+  disabled: PropTypes.string
 };
 
 export default ACCInput;

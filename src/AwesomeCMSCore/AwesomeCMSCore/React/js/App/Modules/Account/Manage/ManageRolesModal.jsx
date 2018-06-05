@@ -4,34 +4,31 @@ import toastr from "toastr";
 
 import {handleOnChange} from "../../../Helper/StateHelper";
 import {Get, PostWithSpinner} from "../../../Helper/Http";
-import env from "../../../Helper/EnvConfig";
+import env from "../../../Helper/Enviroment";
 import statusCode from "../../../Helper/StatusCode";
 
-import ACCReactSelect from "../../../Common/ACCReactSelect.jsx";
-import Spinner from "../../../Common/Spinner.jsx";
+import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
+import ACCInput from '../../../Common/ACCInput/ACCInput.jsx';
 
-class AddUserRolesModal extends Component {
+class ManageRolesModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loading: false,
-            options: [],
-            value: []
+            rolesList: []
         };
     }
 
-    /*     componentDidMount() {
-        Get(env.tag).then(res => {
-          this.setState({
-            value: res.data.tagOptions ? JSON.parse(res.data.tagOptions) : []
-          });
+    componentDidMount() {
+        Get(env.getUserRolesList).then(res => {
+            this.setState({rolesList: res.data});
         });
-    } */
+    }
 
     handleSubmit = e => {
         e.preventDefault();
 
-        const roles = JSON.stringify(this.state.value.map(x => x.value));
+        /* const roles = JSON.stringify(this.state.value.map(x => x.value));
 
          PostWithSpinner
             .call(this, env.addUserRoles, {userRoles: [roles]})
@@ -42,11 +39,11 @@ class AddUserRolesModal extends Component {
             )
             .catch(() => {
                 toastr.error("Something went wrong.Please try again");
-            });
+            }); */
     };
 
     renderButton() {
-        const isDataNotValid = this.state.value.length === 0;
+        const isDataNotValid = this.state.rolesList.length === 0;
 
         if (this.state.loading) {
             return <Spinner/>;
@@ -64,7 +61,7 @@ class AddUserRolesModal extends Component {
     }
 
     render() {
-        const {options, value} = this.state;
+        const {rolesList} = this.state;
 
         return (
             <div
@@ -77,19 +74,20 @@ class AddUserRolesModal extends Component {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">
-                                Add new role for User
+                               Manage Roles
                             </h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div className="modal-body">
-                            <ACCReactSelect
-                                id="tagCreate"
-                                {...options}
-                                value={value}
-                                handleOnChange={value => handleOnChange.call(this, value)}/>
-                            <br/>
+                            {rolesList.map(role => (
+                            <ACCInput
+                                key={role.name}
+                                type="text"
+                                value={role.name}
+                                disabled="disabled"/>
+                            ))}
                         </div>
                         <div className="modal-footer">
                             {this.renderButton()}
@@ -104,8 +102,8 @@ class AddUserRolesModal extends Component {
     }
 }
 
-AddUserRolesModal.propTypes = {
+ManageRolesModal.propTypes = {
     id: PropTypes.string.isRequired
 };
 
-export default AddUserRolesModal;
+export default ManageRolesModal;
