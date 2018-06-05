@@ -1,4 +1,4 @@
-import "./Helper/EnvConfig";
+import "./Helper/Enviroment";
 import "./Modules/Account/Login/LoginForm.jsx";
 import "./Modules/Account/Password/ForgotPassword.jsx";
 import "./Modules/Account/Password/ResetPassword.jsx";

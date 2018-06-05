@@ -5,7 +5,7 @@ import {onChange, onBlur} from "../../../Helper/StateHelper";
 import {isDomExist} from "../../../Helper/Util";
 import {shouldMarkError, validateInput, isFormValid} from "../../../Helper/Validation";
 import {PostWithSpinner} from "../../../Helper/Http";
-import env from "../../../Helper/EnvConfig";
+import env from "../../../Helper/Enviroment";
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
 import ACCButton from "../../../Common/ACCButton/ACCButton.jsx";
