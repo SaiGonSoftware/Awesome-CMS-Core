@@ -46,11 +46,7 @@
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Repositories\AwesomeCMSCore.Modules.Repositories.csproj" />
   </ItemGroup>
 
-    <ItemGroup>
-        <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
-    </ItemGroup>
-
-    <ItemGroup>
+  <ItemGroup>
     <Folder Include="Modules\" />
   </ItemGroup>
 
