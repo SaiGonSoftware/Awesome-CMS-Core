@@ -74,7 +74,7 @@ class ManageRolesModal extends Component {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">
-                               Manage Roles
+                                Manage Roles
                             </h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -82,11 +82,10 @@ class ManageRolesModal extends Component {
                         </div>
                         <div className="modal-body">
                             {rolesList.map(role => (
-                            <ACCInput
-                                key={role.name}
-                                type="text"
-                                value={role.name}
-                                disabled="disabled"/>
+                                <div key={role.name}>
+                                    <ACCInput type="text" value={role.name} disabled="disabled"/>
+                                    <button type="button" className="btn btn-light">X</button>
+                                </div>
                             ))}
                         </div>
                         <div className="modal-footer">
