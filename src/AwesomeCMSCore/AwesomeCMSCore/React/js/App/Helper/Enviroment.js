@@ -17,6 +17,7 @@ env = {
   addNewUser: "api/v1/Account/AddNewUser",
   addUserRoles: "api/v1/Account/AddUserRoles",
   editUserRoles: "api/v1/Account/EditUserRoles",
+  manageRole: "api/v1/Account/ManageRoles",
   validateDuplicateAccountInfo: "api/v1/Account/ValidateDuplicateAccountInfo",
   forgotPassword: "api/v1/Account/ForgotPassword",
   resetPassword: "api/v1/Account/ResetPassword"

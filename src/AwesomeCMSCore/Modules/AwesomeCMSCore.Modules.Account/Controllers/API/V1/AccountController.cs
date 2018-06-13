@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Account.Repositories;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
@@ -169,6 +170,16 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             }
 
             return BadRequest();
+        }
+
+        [HttpPost,ValidModel]
+        public async Task<IActionResult> ManageRoles([FromBody] RoleViewModel roleVm)
+        {
+            if (roleVm.RoleData.Any())
+            {
+                await _userService.AddUserRoles(roleVm.RoleData);
+            }
+            return Ok();
         }
 
         [HttpPost]
