@@ -7,43 +7,54 @@ import {Get, PostWithSpinner} from "../../../Helper/Http";
 import env from "../../../Helper/Enviroment";
 import statusCode from "../../../Helper/StatusCode";
 
+import ACCReactSelect from "../../../Common/ACCSelect/ACCReactSelect.jsx";
 import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
-import ACCInput from '../../../Common/ACCInput/ACCInput.jsx';
 
 class ManageRolesModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loading: false,
-            rolesList: []
+            options: [],
+            value: []
         };
     }
 
     componentDidMount() {
+        let value = [];
         Get(env.getUserRolesList).then(res => {
-            this.setState({rolesList: res.data});
+            res
+                .data
+                .map(item => {
+                    if(item.name !== "Administrator")
+                        value.push({"value": item.name, "label": item.name})
+                });
+            this.setState({value});
         });
     }
 
     handleSubmit = e => {
         e.preventDefault();
 
-        /* const roles = JSON.stringify(this.state.value.map(x => x.value));
+        const roles = this
+            .state
+            .value
+            .map(x => x.value);
 
-         PostWithSpinner
-            .call(this, env.addUserRoles, {userRoles: [roles]})
+        PostWithSpinner
+            .call(this, env.manageRole, {roleData: roles})
             .then(res => {
-                if (res.status === statusCode.Success)
+                if (res.status === statusCode.Success) 
                     toastr.success("Create success");
                 }
             )
             .catch(() => {
                 toastr.error("Something went wrong.Please try again");
-            }); */
+            });
     };
 
     renderButton() {
-        const isDataNotValid = this.state.rolesList.length === 0;
+        const isDataNotValid = this.state.value.length === 0;
 
         if (this.state.loading) {
             return <Spinner/>;
@@ -61,7 +72,7 @@ class ManageRolesModal extends Component {
     }
 
     render() {
-        const {rolesList} = this.state;
+        const {options, value} = this.state;
 
         return (
             <div
@@ -81,12 +92,12 @@ class ManageRolesModal extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            {rolesList.map(role => (
-                                <div key={role.name}>
-                                    <ACCInput type="text" value={role.name} disabled="disabled"/>
-                                    <button type="button" className="btn btn-light">X</button>
-                                </div>
-                            ))}
+                            <ACCReactSelect
+                                id="tagCreate"
+                                {...options}
+                                value={value}
+                                handleOnChange={value => handleOnChange.call(this, value)}/>
+                            <br/>
                         </div>
                         <div className="modal-footer">
                             {this.renderButton()}

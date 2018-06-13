@@ -14,5 +14,6 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject);
         Task<RolesUserViewModel> GetUserRolesById(string userId);
         Task<bool> EditUserRoles(RolesUserViewModel rolesUserVm);
+        Task ManageRoles(string[] roles);
     }
 }

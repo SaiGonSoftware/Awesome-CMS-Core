@@ -6,7 +6,7 @@ import toastr from "toastr";
 import {isDomExist} from "../../Helper/Util";
 import {Get, Post} from "../../Helper/Http";
 import env from "../../Helper/Enviroment";
-import { findObjectByKey } from '../../Helper/Util';
+import {findObjectByKey} from '../../Helper/Util';
 
 import AddUserModal from "./Manage/AddUserModal.jsx";
 import EditUserRolesModal from "./Manage/EditUserRolesModal.jsx";
@@ -66,11 +66,20 @@ class AccountTable extends Component {
         ToogleFlag: this.state.toogleFlag
       }).then(() => {
         let userListData = findObjectByKey(this.state.userList, "userId", this.state.selectedUserId);
-        const newUserList = this.state.userList.map(stateItem => {
-          if (stateItem.userId !== userListData.userId) return stateItem;
-          let emailConfirmed = this.state.toogleFlag ? "True": "False";
-          return {...stateItem, emailConfirmed};
-        });
+        const newUserList = this
+          .state
+          .userList
+          .map(stateItem => {
+            if (stateItem.userId !== userListData.userId) 
+              return stateItem;
+            let emailConfirmed = this.state.toogleFlag
+              ? "True"
+              : "False";
+            return {
+              ...stateItem,
+              emailConfirmed
+            };
+          });
 
         this.setState({userList: newUserList});
         toastr.info("Account status successfully set");
@@ -94,7 +103,7 @@ class AccountTable extends Component {
   };
 
   render() {
-    const {userList,  userName, selectedUserId, btnActivate, btnDeactivate} = this.state;
+    const {userList, userName, selectedUserId, btnActivate, btnDeactivate} = this.state;
 
     return (
       <div className="card">
@@ -111,8 +120,8 @@ class AccountTable extends Component {
                 <i className="fa fa-user-plus" aria-hidden="true"/>
                 &nbsp; Add User
               </button>
-             <AddUserModal id="addUserModal"/>
-             <button
+              <AddUserModal id="addUserModal"/>
+              <button
                 type="button"
                 className="btn btn-primary"
                 id="btnAddUserRoles"
@@ -122,22 +131,20 @@ class AccountTable extends Component {
                 &nbsp; Manage Roles
               </button>
               <ManageRolesModal id="manageRolesModal"/>
-               <button
+              <button
                 type="button"
                 className="btn btn-warning"
                 data-toggle="modal"
-                data-target="#editUserRoleModal"
-              >
-                <i className="fa fa-pencil-square-o" aria-hidden="true" /> Edit
-                Role for User
+                data-target="#editUserRoleModal">
+                <i className="fa fa-pencil-square-o" aria-hidden="true"/>
+                Edit Role for User
               </button>
-              {selectedUserId ? (
-                <EditUserRolesModal
+              {selectedUserId
+                ? (<EditUserRolesModal
                   id="editUserRoleModal"
                   userName={userName}
-                  userId={selectedUserId}
-                />
-              ) : null}
+                  userId={selectedUserId}/>)
+                : null}
             </div>
             <div className="col-md-6" id="deactiveSection">
               <button

@@ -172,5 +172,11 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
 
             return true;
         }
+
+        public async Task ManageRoles(string[] roles)
+        {
+            var roleList = await _userService.GetUserRoles();
+            //var roleToDelete = roles.Where(x=> x.)
+        }
     }
 }
