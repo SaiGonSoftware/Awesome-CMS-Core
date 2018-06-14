@@ -40,7 +40,7 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         Task AddUserRoles(string[] userRoles);
         Task RemoveFromRolesAsync(User user, string roles);
         Task RemoveFromRolesAsync(User user, string[] roles);
-        Task RemoveRolesForUsers(string[] roles);
+        Task<List<User>> GetListRoleOfUser(string role);
         IEnumerable<string> GetCurrentUserRoles();
         Task<List<string>> GetUserRoles();
         Task<IList<string>> GetUserRolesByGuid(string userId);

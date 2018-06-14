@@ -4,6 +4,7 @@ using AwesomeCMSCore.Modules.Account.Repositories;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Entities.ViewModel;
 using AwesomeCMSCore.Modules.Helper.Enum;
 using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Helper.Filter;
@@ -173,24 +174,10 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         }
 
         [HttpPost,ValidModel]
-        public async Task<IActionResult> ManageRoles([FromBody] RoleViewModel roleVm)
+        public async Task<IActionResult> ManageRoles([FromBody] SelectOptionList roleList)
         {
-            if (roleVm.RoleData.Any())
-            {
-                await _userService.AddUserRoles(roleVm.RoleData);
-            }
-            return Ok();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RemoveRolesForUsers([FromBody] string[] roles)
-        {
-            if (roles == null || roles.Length == 0)
-            {
-                return BadRequest();
-            }
-
-            await _userService.RemoveRolesForUsers(roles);
+            if (!roleList.SelectOptionViewModels.Any()) return BadRequest();
+            await _accountRepository.ManageRoles(roleList);
             return Ok();
         }
         #endregion

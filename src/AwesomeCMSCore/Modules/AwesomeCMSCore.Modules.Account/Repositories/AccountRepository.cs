@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using AutoMapper;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Data;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using AwesomeCMSCore.Modules.Email;
+using AwesomeCMSCore.Modules.Entities.ViewModel;
 using AwesomeCMSCore.Modules.Helper.Services;
 
 namespace AwesomeCMSCore.Modules.Account.Repositories
@@ -94,7 +96,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
 
         public async Task<IEnumerable<string>> GetUserRolesName()
         {
-            return await _unitOfWork.Repository<IdentityRole>().Query().Select(r=>r.Name).ToListAsync();
+            return await _unitOfWork.Repository<IdentityRole>().Query().Select(r => r.Name).ToListAsync();
         }
 
         public async Task<bool> AddNewUser(UserInputViewModel userInputVm)
@@ -125,7 +127,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             return true;
         }
 
-         public async Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject)
+        public async Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject)
         {
             switch (accountValidateObject.Key)
             {
@@ -152,7 +154,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             var roleUserVm = new RolesUserViewModel
             {
                 UserId = userId,
-                CurrentUserRoles =  userRoles,
+                CurrentUserRoles = userRoles,
                 RolesName = roles
             };
 
@@ -173,10 +175,37 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             return true;
         }
 
-        public async Task ManageRoles(string[] roles)
+        public async Task ManageRoles(SelectOptionList roles)
         {
-            var roleList = await _userService.GetUserRoles();
-            //var roleToDelete = roles.Where(x=> x.)
+            var roleList = await GetUserRoles();
+            //when add new role value and label will be the same
+            var roleToAdd = roles.SelectOptionViewModels.Where(x => x.Label == x.Value).ToList();
+            var roleToRemove = roleList.Where(existingRole => roles.SelectOptionViewModels
+                .All(item => item.Value != existingRole.Id && existingRole.Name != "Administrator")).ToList();
+
+            if (roleToRemove.Any())
+            {
+                var roleName = roleToRemove.Select(x => x.Name).ToArray();
+                foreach (var roleRemove in roleToRemove)
+                {
+                    var userInRole = await _userService.GetListRoleOfUser(roleRemove.Name);
+                    if (!userInRole.Any()) continue;
+                    foreach (var user in userInRole)
+                    {
+                        await _userService.RemoveFromRolesAsync(user, roleName);
+                    }
+
+                    var role = await _unitOfWork.Repository<IdentityRole>().FindAsync(x =>
+                        x.Name.Equals(roleRemove.Name, StringComparison.OrdinalIgnoreCase));
+                    await _unitOfWork.Repository<IdentityRole>().DeleteAsync(role);
+                }
+            }
+
+            if (roleToAdd.Any())
+            {
+                var roleName = roleToAdd.Select(x => x.Label).ToArray();
+                await _userService.AddUserRoles(roleName);
+            }
         }
     }
 }

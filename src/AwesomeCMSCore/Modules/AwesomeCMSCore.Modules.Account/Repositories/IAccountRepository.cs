@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Account.ViewModels;
+using AwesomeCMSCore.Modules.Entities.ViewModel;
 
 namespace AwesomeCMSCore.Modules.Account.Repositories
 {
@@ -14,6 +15,6 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         Task<bool> ValidateDuplicateAccountInfo(UserAccountValidateObject accountValidateObject);
         Task<RolesUserViewModel> GetUserRolesById(string userId);
         Task<bool> EditUserRoles(RolesUserViewModel rolesUserVm);
-        Task ManageRoles(string[] roles);
+        Task ManageRoles(SelectOptionList roles);
     }
 }

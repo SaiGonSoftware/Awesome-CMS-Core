@@ -195,15 +195,6 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             await _userManager.RemoveFromRolesAsync(user, roles);
         }
 
-        public async Task RemoveRolesForUsers(string[] roles)
-        {
-            var userList = await GetAllUser();
-            foreach (var user in userList)
-            {
-                await RemoveFromRolesAsync(user, roles);
-            }
-        }
-
         public IEnumerable<string> GetCurrentUserRoles()
         {
             var claims = _httpContextAccessor.HttpContext.User.Claims.ToList();
@@ -224,6 +215,12 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         {
             var user = await _userManager.FindByIdAsync(userId);
             return await _userManager.GetRolesAsync(user);
+        }
+
+        public async Task<List<User>> GetListRoleOfUser(string role)
+        {
+           var userList = await _userManager.GetUsersInRoleAsync(role);
+            return userList.ToList();
         }
         #endregion
 

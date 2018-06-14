@@ -26,8 +26,8 @@ class ManageRolesModal extends Component {
             res
                 .data
                 .map(item => {
-                    if(item.name !== "Administrator")
-                        value.push({"value": item.name, "label": item.name})
+                    if (item.name !== "Administrator") 
+                        value.push({"value": item.id, "label": item.name})
                 });
             this.setState({value});
         });
@@ -36,13 +36,8 @@ class ManageRolesModal extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const roles = this
-            .state
-            .value
-            .map(x => x.value);
-
         PostWithSpinner
-            .call(this, env.manageRole, {roleData: roles})
+            .call(this, env.manageRole, {selectOptionViewModels: this.state.value})
             .then(res => {
                 if (res.status === statusCode.Success) 
                     toastr.success("Create success");
