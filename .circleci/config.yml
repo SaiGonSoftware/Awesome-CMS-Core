@@ -1,5 +1,0 @@
-compile:
-override:
-- cd src/AwesomeCMSCore
-- dotnet restore
-- dotnet build
