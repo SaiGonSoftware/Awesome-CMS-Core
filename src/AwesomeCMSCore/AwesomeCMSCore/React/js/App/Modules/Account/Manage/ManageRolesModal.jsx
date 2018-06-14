@@ -4,13 +4,13 @@ import toastr from "toastr";
 
 import {handleOnChange} from "../../../Helper/StateHelper";
 import {Get, PostWithSpinner} from "../../../Helper/Http";
-import env from "../../../Helper/EnvConfig";
+import env from "../../../Helper/Enviroment";
 import statusCode from "../../../Helper/StatusCode";
 
-import ACCReactSelect from "../../../Common/ACCReactSelect.jsx";
-import Spinner from "../../../Common/Spinner.jsx";
+import ACCReactSelect from "../../../Common/ACCSelect/ACCReactSelect.jsx";
+import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
 
-class AddUserRolesModal extends Component {
+class ManageRolesModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,23 +20,26 @@ class AddUserRolesModal extends Component {
         };
     }
 
-    /*     componentDidMount() {
-        Get(env.tag).then(res => {
-          this.setState({
-            value: res.data.tagOptions ? JSON.parse(res.data.tagOptions) : []
-          });
+    componentDidMount() {
+        let value = [];
+        Get(env.getUserRolesList).then(res => {
+            res
+                .data
+                .map(item => {
+                    if (item.name !== "Administrator") 
+                        value.push({"value": item.id, "label": item.name})
+                });
+            this.setState({value});
         });
-    } */
+    }
 
     handleSubmit = e => {
         e.preventDefault();
 
-        const roles = JSON.stringify(this.state.value.map(x => x.value));
-
-         PostWithSpinner
-            .call(this, env.addUserRoles, {userRoles: [roles]})
+        PostWithSpinner
+            .call(this, env.manageRole, {selectOptionViewModels: this.state.value})
             .then(res => {
-                if (res.status === statusCode.Success)
+                if (res.status === statusCode.Success) 
                     toastr.success("Create success");
                 }
             )
@@ -77,7 +80,7 @@ class AddUserRolesModal extends Component {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">
-                                Add new role for User
+                                Manage Roles
                             </h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -104,8 +107,8 @@ class AddUserRolesModal extends Component {
     }
 }
 
-AddUserRolesModal.propTypes = {
+ManageRolesModal.propTypes = {
     id: PropTypes.string.isRequired
 };
 
-export default AddUserRolesModal;
+export default ManageRolesModal;

@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import toastr from "toastr";
 
 import {Get, PostWithSpinner} from "../../../Helper/Http";
-import env from "../../../Helper/EnvConfig";
+import env from "../../../Helper/Enviroment";
 import statusCode from "../../../Helper/StatusCode";
 
 import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
 import ACCCheckboxOrRadioGroup from '../../../Common/ACCSelect/ACCCheckboxOrRadioGroup.jsx';
 
-class EditUserRoles extends Component {
+class EditUserRolesModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -133,10 +133,10 @@ class EditUserRoles extends Component {
   }
 }
 
-EditUserRoles.propTypes = {
+EditUserRolesModal.propTypes = {
   id: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired
 };
 
-export default EditUserRoles;
+export default EditUserRolesModal;
