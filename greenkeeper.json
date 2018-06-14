@@ -1,0 +1,13 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "Resource/Archive/openiddict-samples-dev/samples/CodeFlow/AuthorizationServer/package.json",
+        "Resource/Archive/openiddict-samples-dev/samples/ImplicitFlow/AureliaApp/package.json",
+        "Resource/Archive/openiddict-samples-dev/samples/RefreshFlow/AngularApp/package.json",
+        "Resource/Archive/react-controlled-form-components/package.json",
+        "src/AwesomeCMSCore/AwesomeCMSCore/package.json"
+      ]
+    }
+  }
+}
