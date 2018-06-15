@@ -12,6 +12,7 @@ import statusCode from "../../../Helper/StatusCode";
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
 import ACCMultiCheckbox from "../../../Common/ACCSelect/ACCMultiCheckbox.jsx";
 import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
+import { ROLE_API_PATH } from './../../../Helper/Enviroment';
 
 class AddUserModal extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class AddUserModal extends Component {
   };
 
   componentDidMount() {
-    Get(env.getUserRolesList).then(res => {
+    Get(ROLE_API_PATH).then(res => {
       this.setState({ roleList: res.data });
     });
   }

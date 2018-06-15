@@ -26,20 +26,17 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         private readonly IAccountRepository _accountRepository;
         private readonly IUserService _userService;
         private readonly IUrlHelperExtension _urlHelper;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AccountController(
             IEmailSender emailSender,
             IAccountRepository accountRepository,
             IUserService userService,
-            IUrlHelperExtension urlHelper,
-            IHttpContextAccessor httpContextAccessor)
+            IUrlHelperExtension urlHelper)
         {
             _emailSender = emailSender;
             _accountRepository = accountRepository;
             _userService = userService;
             _urlHelper = urlHelper;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         #region Login, Register, Password
@@ -142,42 +139,6 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             }
 
             await _userService.ResetPasswordAsync(user, model.Token, model.Password);
-            return Ok();
-        }
-        #endregion
-
-        #region User Roles 
-        [HttpGet]
-        public async Task<IActionResult> UserRoles()
-        {
-            var userRoles = await _accountRepository.GetUserRoles();
-            return Ok(userRoles);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetUserRolesById(string userId)
-        {
-            var userRolesById = await _accountRepository.GetUserRolesById(userId);
-            return Ok(userRolesById);
-        }
-        
-        [HttpPost, ValidModel]
-        public async Task<IActionResult> EditUserRoles([FromBody] RolesUserViewModel rolesUserVm)
-        {
-            var result = await _accountRepository.EditUserRoles(rolesUserVm);
-            if (result)
-            {
-                return Ok();
-            }
-
-            return BadRequest();
-        }
-
-        [HttpPost,ValidModel]
-        public async Task<IActionResult> ManageRoles([FromBody] SelectOptionList roleList)
-        {
-            if (!roleList.SelectOptionViewModels.Any()) return BadRequest();
-            await _accountRepository.ManageRoles(roleList);
             return Ok();
         }
         #endregion

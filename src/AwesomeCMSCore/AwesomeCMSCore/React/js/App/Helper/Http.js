@@ -63,6 +63,36 @@ export function PostWithSpinner(url, data) {
   });
 }
 
+export function PutWithSpinner(url, data) {
+  return new Promise((resolve, reject) => {
+    const authHeader = initAuthHeaders();
+    const config = {
+      headers: {
+        Authorization: "Bearer " + authHeader
+      }
+    };
+
+    this.setState({
+      loading: true
+    });
+
+    axios
+      .put(url, data, config)
+      .then(data => {
+        this.setState({
+          loading: false
+        });
+        resolve(data);
+      })
+      .catch(error => {
+        this.setState({
+          loading: false
+        });
+        reject(error);
+      });
+  });
+}
+
 function initAuthHeaders() {
   const token = getStorage(APP_ENUM.AUTH_TOKEN);
   if (token != null) {
