@@ -66,6 +66,5 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             await _accountRepository.ManageRoles(roleList);
             return Ok();
         }
-
     }
 }
