@@ -12,7 +12,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiVersion("1.0")]
     [ApiExplorerSettings(GroupName = "v1")]
-    [Route("api/v{version:apiVersion}/PostOptions/[action]")]
+    [Route("api/v{version:apiVersion}/PostOptions/")]
     public class PostOptionsController : Controller
     {
         private readonly IPostOptionsRepository _postOptionsRepository;
@@ -26,13 +26,13 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
             _userService = userService;
         }
 
-        [HttpGet]
+        [HttpGet("Tag")]
         public async Task<IActionResult> Tag()
         {
             return Ok(await _postOptionsRepository.GetAllTag());
         }
 
-        [HttpPost, ValidModel]
+        [HttpPost("Tag"), ValidModel]
         public async Task<IActionResult> CreateTag([FromBody]TagViewModel tagDataVm)
         {
             if (_postOptionsRepository.IsTagExist())
@@ -46,13 +46,13 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
             return Ok();
         }
 
-        [HttpGet]
+        [HttpGet("Categories")]
         public async Task<IActionResult> Categories()
         {
             return Ok(await _postOptionsRepository.GetAllCategories());
         }
 
-        [HttpPost, ValidModel]
+        [HttpPost("Categories"), ValidModel]
         public async Task<IActionResult> CreateCategories([FromBody]CategoriesViewModel categoriesVm)
         {
             if (_postOptionsRepository.IsCategoriesExist())

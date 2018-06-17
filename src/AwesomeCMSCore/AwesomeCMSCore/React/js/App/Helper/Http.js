@@ -1,7 +1,6 @@
 import axios from "axios";
 import qs from 'qs';
 
-import env from './Enviroment';
 import {
   APP_ENUM
 } from "./AppEnum";
@@ -10,6 +9,7 @@ import {
   getStorage,
   setStorage
 } from "./StorageHelper";
+import { TOKEN_ENDPOINT } from './API_Endpoint/AccountEndpoint';
 
 export function Get(url) {
   const authHeader = initAuthHeaders();
@@ -109,7 +109,7 @@ axios.interceptors.response.use(function (response) {
     const refreshToken = token.refresh_token;
 
     Post(
-      env.tokenUrl,
+      TOKEN_ENDPOINT,
       qs.stringify({
         refresh_token: refreshToken,
         grant_type: "refresh_token",

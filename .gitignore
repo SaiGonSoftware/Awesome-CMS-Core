@@ -293,4 +293,4 @@ __pycache__/
 /src/AwesomeCMSCore/AwesomeCMSCore/log.txt
 package-lock.json
 *.hot-update.js.gz
-/src/AwesomeCMSCore/AwesomeCMSCore/wwwroot/dist/
+/src/AwesomeCMSCore/AwesomeCMSCore/wwwroot/dist/**
