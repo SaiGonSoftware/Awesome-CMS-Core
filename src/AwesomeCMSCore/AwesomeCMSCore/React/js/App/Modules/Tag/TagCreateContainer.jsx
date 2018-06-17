@@ -5,10 +5,11 @@ import toastr from "toastr";
 import { handleOnChange } from "../../Helper/StateHelper";
 import { Get, PostWithSpinner } from "../../Helper/Http";
 import { isDomExist } from "../../Helper/Util";
+import statusCode from "./../../Helper/StatusCode";
+import { TAG_API } from './../../Helper/API_Endpoint/PostOptionEndpoint';
+
 import ACCReactSelect from "../../Common/ACCSelect/ACCReactSelect.jsx";
 import Spinner from "../../Common/ACCAnimation/Spinner.jsx";
-import env from "./../../Helper/Enviroment";
-import statusCode from "./../../Helper/StatusCode";
 
 class TagCreateContainer extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class TagCreateContainer extends Component {
   }
 
   componentDidMount() {
-    Get(env.tag).then(res => {
+    Get(TAG_API).then(res => {
       this.setState({
         value: res.data.tagOptions ? JSON.parse(res.data.tagOptions) : []
       });
@@ -39,7 +40,7 @@ class TagCreateContainer extends Component {
       tagOptions
     };
 
-    PostWithSpinner.call(this, env.tagCreate, tagVm)
+    PostWithSpinner.call(this, TAG_API, tagVm)
       .then(res => {
         if (res.status === statusCode.Success) toastr.success("Create success");
       })

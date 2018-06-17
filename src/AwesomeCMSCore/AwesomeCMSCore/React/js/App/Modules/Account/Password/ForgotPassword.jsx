@@ -5,7 +5,7 @@ import {onChange, onBlur} from "../../../Helper/StateHelper";
 import {isDomExist} from "../../../Helper/Util";
 import {shouldMarkError, validateInput, isFormValid} from "../../../Helper/Validation";
 import {PostWithSpinner} from "../../../Helper/Http";
-import env from "../../../Helper/Enviroment";
+import { FORGOT_PASSWORD_API } from '../../../Helper/API_Endpoint/AccountEndpoint';
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
 import ACCButton from "../../../Common/ACCButton/ACCButton.jsx";
@@ -32,7 +32,7 @@ class ForgotPassword extends Component {
 
         e.preventDefault();
         PostWithSpinner
-            .call(this, env.forgotPassword, {Email: this.state.email})
+            .call(this, FORGOT_PASSWORD_API, {Email: this.state.email})
             .then(() => {
                 this.setState({showSuccessMessage: true})
             });

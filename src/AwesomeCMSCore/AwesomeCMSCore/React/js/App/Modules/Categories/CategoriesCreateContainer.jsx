@@ -5,10 +5,11 @@ import toastr from "toastr";
 import { handleOnChange } from "../../Helper/StateHelper";
 import { Get, PostWithSpinner } from "../../Helper/Http";
 import { isDomExist } from "../../Helper/Util";
+import statusCode from "./../../Helper/StatusCode";
+import { CATEGORIES_API } from './../../Helper/API_Endpoint/PostOptionEndpoint';
+
 import ACCReactSelect from "../../Common/ACCSelect/ACCReactSelect.jsx";
 import Spinner from "../../Common/ACCAnimation/Spinner.jsx";
-import env from "./../../Helper/Enviroment";
-import statusCode from "./../../Helper/StatusCode";
 
 class CategoriesCreateContainer extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class CategoriesCreateContainer extends Component {
   }
 
   componentDidMount() {
-    Get(env.categories).then(res => {
+    Get(CATEGORIES_API).then(res => {
       this.setState({
         value: res.data.categoriesOptions
           ? JSON.parse(res.data.categoriesOptions)
@@ -41,7 +42,7 @@ class CategoriesCreateContainer extends Component {
       categoriesOptions
     };
 
-    PostWithSpinner.call(this, env.categoriesCreate, categoriesVm)
+    PostWithSpinner.call(this, CATEGORIES_API, categoriesVm)
       .then(res => {
         if (res.status === statusCode.Success) toastr.success("Create success");
       })

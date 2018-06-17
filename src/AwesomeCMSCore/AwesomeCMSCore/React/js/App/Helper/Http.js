@@ -1,7 +1,6 @@
 import axios from "axios";
 import qs from 'qs';
 
-import env from './Enviroment';
 import {
   APP_ENUM
 } from "./AppEnum";
@@ -10,6 +9,7 @@ import {
   getStorage,
   setStorage
 } from "./StorageHelper";
+import { TOKEN_ENDPOINT } from './API_Endpoint/AccountEndpoint';
 
 export function Get(url) {
   const authHeader = initAuthHeaders();
@@ -63,6 +63,36 @@ export function PostWithSpinner(url, data) {
   });
 }
 
+export function PutWithSpinner(url, data) {
+  return new Promise((resolve, reject) => {
+    const authHeader = initAuthHeaders();
+    const config = {
+      headers: {
+        Authorization: "Bearer " + authHeader
+      }
+    };
+
+    this.setState({
+      loading: true
+    });
+
+    axios
+      .put(url, data, config)
+      .then(data => {
+        this.setState({
+          loading: false
+        });
+        resolve(data);
+      })
+      .catch(error => {
+        this.setState({
+          loading: false
+        });
+        reject(error);
+      });
+  });
+}
+
 function initAuthHeaders() {
   const token = getStorage(APP_ENUM.AUTH_TOKEN);
   if (token != null) {
@@ -79,7 +109,7 @@ axios.interceptors.response.use(function (response) {
     const refreshToken = token.refresh_token;
 
     Post(
-      env.tokenUrl,
+      TOKEN_ENDPOINT,
       qs.stringify({
         refresh_token: refreshToken,
         grant_type: "refresh_token",

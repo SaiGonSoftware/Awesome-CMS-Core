@@ -19,31 +19,28 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiVersion("1.0")]
     [ApiExplorerSettings(GroupName = "v1")]
-    [Route("api/v{version:apiVersion}/account/[action]")]
+    [Route("api/v{version:apiVersion}/account/")]
     public class AccountController : Controller
     {
         private readonly IEmailSender _emailSender;
         private readonly IAccountRepository _accountRepository;
         private readonly IUserService _userService;
         private readonly IUrlHelperExtension _urlHelper;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AccountController(
             IEmailSender emailSender,
             IAccountRepository accountRepository,
             IUserService userService,
-            IUrlHelperExtension urlHelper,
-            IHttpContextAccessor httpContextAccessor)
+            IUrlHelperExtension urlHelper)
         {
             _emailSender = emailSender;
             _accountRepository = accountRepository;
             _userService = userService;
             _urlHelper = urlHelper;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         #region Login, Register, Password
-        [HttpPost]
+        [HttpPost("Login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
@@ -75,7 +72,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         }
 
         //no need now will update later
-        [HttpPost, AllowAnonymous, ValidModel]
+        [HttpPost("Register"), AllowAnonymous, ValidModel]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             var user = new User { UserName = model.Email, Email = model.Email };
@@ -94,7 +91,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             return View(model);
         }
 
-        [HttpPost, AllowAnonymous, ValidModel]
+        [HttpPost("ForgotPassword"), AllowAnonymous, ValidModel]
         public async Task<IActionResult> ForgotPassword([FromBody]ForgotPasswordViewModel model)
         {
             var user = await _userService.FindByEmailAsync(model.Email);
@@ -120,7 +117,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             return Ok();
         }
 
-        [HttpPost, ValidModel, AllowAnonymous]
+        [HttpPost("ResetPassword"), ValidModel, AllowAnonymous]
         public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordViewModel model)
         {
             if (string.IsNullOrEmpty(model.Token) || string.IsNullOrEmpty(model.Email))
@@ -146,58 +143,22 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         }
         #endregion
 
-        #region User Roles 
-        [HttpGet]
-        public async Task<IActionResult> UserRoles()
-        {
-            var userRoles = await _accountRepository.GetUserRoles();
-            return Ok(userRoles);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetUserRolesById(string userId)
-        {
-            var userRolesById = await _accountRepository.GetUserRolesById(userId);
-            return Ok(userRolesById);
-        }
-        
-        [HttpPost, ValidModel]
-        public async Task<IActionResult> EditUserRoles([FromBody] RolesUserViewModel rolesUserVm)
-        {
-            var result = await _accountRepository.EditUserRoles(rolesUserVm);
-            if (result)
-            {
-                return Ok();
-            }
-
-            return BadRequest();
-        }
-
-        [HttpPost,ValidModel]
-        public async Task<IActionResult> ManageRoles([FromBody] SelectOptionList roleList)
-        {
-            if (!roleList.SelectOptionViewModels.Any()) return BadRequest();
-            await _accountRepository.ManageRoles(roleList);
-            return Ok();
-        }
-        #endregion
-
         #region Account
-        [HttpGet]
-        public async Task<IActionResult> UserList()
+        [HttpGet("Users")]
+        public async Task<IActionResult> Users()
         {
-            var userList = await _accountRepository.UserList();
+            var userList = await _accountRepository.GetUserList();
             return Ok(userList);
         }
         
-        [HttpPost, ValidModel]
+        [HttpPost("ValidateDuplicateAccountInfo"), ValidModel]
         public async Task<IActionResult> ValidateDuplicateAccountInfo([FromBody] UserAccountValidateObject accountValidateObject)
         {
             var isDuplicateAccountInfo = await _accountRepository.ValidateDuplicateAccountInfo(accountValidateObject);
             return Ok(isDuplicateAccountInfo);
         }
 
-        [HttpPost, ValidModel]
+        [HttpPost("Users"), ValidModel]
         public async Task<IActionResult> AddNewUser([FromBody] UserInputViewModel userInputVm)
         {
             var result = await _accountRepository.AddNewUser(userInputVm);
@@ -209,7 +170,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             return BadRequest();
         }
 
-        [HttpPost, ValidModel]
+        [HttpPost("Status"), ValidModel]
         public async Task<IActionResult> ToggleAccountStatus([FromBody] AccountToggleViewModel accountToggleVm)
         {
             var result = await _accountRepository.AccountToggle(accountToggleVm);
