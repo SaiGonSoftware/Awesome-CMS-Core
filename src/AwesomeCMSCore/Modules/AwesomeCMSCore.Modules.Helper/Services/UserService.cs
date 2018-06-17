@@ -105,15 +105,7 @@ namespace AwesomeCMSCore.Modules.Helper.Services
 
         public async Task<IdentityResult> ResetPasswordAsync(User user, string code, string password)
         {
-            try
-            {
-                var res= await _userManager.ResetPasswordAsync(user, code, password);
-                return res;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return await _userManager.ResetPasswordAsync(user, code, password);
         }
 
         public async Task<IdentityResult> ConfirmEmailAsync(User user, string code)
