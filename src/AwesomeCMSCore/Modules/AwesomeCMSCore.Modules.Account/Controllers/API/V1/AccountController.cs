@@ -19,7 +19,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiVersion("1.0")]
     [ApiExplorerSettings(GroupName = "v1")]
-    [Route("api/v{version:apiVersion}/account/")]
+    [Route("api/v{version:apiVersion}/Account/")]
     public class AccountController : Controller
     {
         private readonly IEmailSender _emailSender;

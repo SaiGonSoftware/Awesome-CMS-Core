@@ -30,6 +30,7 @@ using AwesomeCMSCore.Modules.Repositories;
 using AwesomeCMSCore.Modules.Queue;
 using Microsoft.IdentityModel.Tokens;
 using AwesomeCMSCore.Modules.Helper.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
@@ -91,6 +92,7 @@ namespace AwesomeCMSCore.Extension
         {
             var mvcBuilder = services
                 .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddRazorOptions(o =>
                 {
                     foreach (var module in modules)
@@ -179,6 +181,13 @@ namespace AwesomeCMSCore.Extension
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
 
             //The default value is 14 days.
             services.ConfigureApplicationCookie(options =>
