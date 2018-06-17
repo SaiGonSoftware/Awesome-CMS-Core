@@ -47,7 +47,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             return Ok(userRolesById);
         }
 
-        [HttpPut("userRoles/edit"), ValidModel]
+        [HttpPut("UserRoles/Edit"), ValidModel]
         public async Task<IActionResult> EditUserRoles([FromBody] RolesUserViewModel rolesUserVm)
         {
             var result = await _accountRepository.EditUserRoles(rolesUserVm);
@@ -59,7 +59,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             return BadRequest();
         }
 
-        [HttpPost("manage"), ValidModel]
+        [HttpPost("Manage"), ValidModel]
         public async Task<IActionResult> ManageRoles([FromBody] SelectOptionList roleList)
         {
             if (!roleList.SelectOptionViewModels.Any()) return BadRequest();

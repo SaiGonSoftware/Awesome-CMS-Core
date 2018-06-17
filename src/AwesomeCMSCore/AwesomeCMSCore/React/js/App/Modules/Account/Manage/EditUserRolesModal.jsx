@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 import toastr from "toastr";
 
 import {Get, PutWithSpinner} from "../../../Helper/Http";
-import env from "../../../Helper/Enviroment";
+import { ROLE_API, USER_ROLES_EDIT_API } from './../../../Helper/API_Endpoint/RoleEndpoint';
 import statusCode from "../../../Helper/StatusCode";
 
 import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
 import ACCCheckboxOrRadioGroup from '../../../Common/ACCSelect/ACCCheckboxOrRadioGroup.jsx';
-import { ROLE_API_PATH } from './../../../Helper/Enviroment';
 
 class EditUserRolesModal extends Component {
   constructor(props) {
@@ -22,7 +21,7 @@ class EditUserRolesModal extends Component {
   }
 
   componentDidMount() {
-    const url = `${env.getUserRolesById}/${this.props.userId}`;
+    const url = `${ROLE_API}/${this.props.userId}`;
     Get(url).then(res => {
       this.setState({rolesName: res.data.rolesName, currentUserRoles: res.data.currentUserRoles, userId: res.data.userId});
     });
@@ -30,7 +29,7 @@ class EditUserRolesModal extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.userId !== nextProps.userId) {
-      const url = `${env.getUserRolesById}/${nextProps.userId}`;
+      const url = `${ROLE_API}/${nextProps.userId}`;
       Get(url).then(res => {
         this.setState({rolesName: res.data.rolesName, currentUserRoles: res.data.currentUserRoles, userId: res.data.userId});
       });
@@ -56,7 +55,7 @@ class EditUserRolesModal extends Component {
 
     if (isRoleValid) {
       PutWithSpinner
-        .call(this, `${ROLE_API_PATH}/userRoles/edit`, {
+        .call(this, USER_ROLES_EDIT_API, {
         UserId: this.state.userId,
         CurrentUserRoles: this.state.currentUserRoles
       })

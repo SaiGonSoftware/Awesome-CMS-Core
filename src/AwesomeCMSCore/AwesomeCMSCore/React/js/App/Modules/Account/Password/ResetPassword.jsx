@@ -7,8 +7,8 @@ import {onChange, onBlur} from "../../../Helper/StateHelper";
 import {navigateToUrl, isDomExist} from "../../../Helper/Util";
 import {shouldMarkError, validateInput, isFormValid} from "../../../Helper/Validation";
 import {PostWithSpinner} from "../../../Helper/Http";
-import env from "../../../Helper/Enviroment";
 import statusCode from "../../../Helper/StatusCode";
+import { LOGIN_ENDPOINT, RESET_PASSWORD_API } from "../../../Helper/API_Endpoint/AccountEndpoint";
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
 import ACCButton from "../../../Common/ACCButton/ACCButton.jsx";
@@ -44,7 +44,7 @@ class ResetPassword extends Component {
         e.preventDefault();
 
         PostWithSpinner
-            .call(this, env.resetPassword, {
+            .call(this, RESET_PASSWORD_API, {
             Email: this.state.email,
             Token: this.state.token,
             Password: this.state.password
@@ -52,7 +52,7 @@ class ResetPassword extends Component {
             .then((res) => {
                 if (res.status === statusCode.Success) {
                     this.setState({showSuccessMessage: true})
-                    window.setTimeout(navigateToUrl(env.login), 5000);
+                    window.setTimeout(navigateToUrl(LOGIN_ENDPOINT), 5000);
                 }
             })
             .catch((err) => {

@@ -46,7 +46,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<UserViewModel>> UserList()
+        public async Task<IEnumerable<UserViewModel>> GetUserList()
         {
             var userList = await (from user in _context.Users
                                   select new

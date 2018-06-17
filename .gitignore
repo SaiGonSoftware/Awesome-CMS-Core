@@ -290,5 +290,7 @@ __pycache__/
 *.db
 .vscode/
 /src/AwesomeCMSCore/.vs/AwesomeCMSCore/
+/src/AwesomeCMSCore/AwesomeCMSCore/log.txt
 package-lock.json
 *.hot-update.js.gz
+/src/AwesomeCMSCore/AwesomeCMSCore/wwwroot/dist/

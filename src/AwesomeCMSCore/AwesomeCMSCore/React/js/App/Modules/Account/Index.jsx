@@ -5,7 +5,7 @@ import toastr from "toastr";
 
 import {isDomExist} from "../../Helper/Util";
 import {Get, Post} from "../../Helper/Http";
-import env from "../../Helper/Enviroment";
+import {USER_API, TOGGLE_ACCOUNT_STATUS_API} from "../../Helper/API_Endpoint/AccountEndpoint";
 import {findObjectByKey} from '../../Helper/Util';
 
 import AddUserModal from "./Manage/AddUserModal.jsx";
@@ -54,14 +54,14 @@ class AccountTable extends Component {
   }
 
   componentDidMount() {
-    Get(env.userList).then(res => {
+    Get(USER_API).then(res => {
       this.setState({userList: res.data});
     });
   }
 
   toggleAccountStatus = () => {
     if (this.state.selectedUserId) {
-      Post(env.deactiveAccount, {
+      Post(TOGGLE_ACCOUNT_STATUS_API, {
         AccountId: this.state.selectedUserId,
         ToogleFlag: this.state.toogleFlag
       }).then(() => {

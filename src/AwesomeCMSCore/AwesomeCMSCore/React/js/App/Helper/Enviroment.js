@@ -23,7 +23,6 @@ env = {
   resetPassword: "api/v1/Account/ResetPassword"
 };
 
-export const ROLE_API_PATH =  "/api/v1/roles";
 
 if (isDevEnviroment()) {
   axios.defaults.baseURL = "http://localhost:5000/";

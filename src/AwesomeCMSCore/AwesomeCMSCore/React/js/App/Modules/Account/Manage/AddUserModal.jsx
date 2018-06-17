@@ -1,18 +1,18 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
 import toastr from "toastr";
 
-import { shouldMarkError, validateInput } from "../../../Helper/Validation";
-import { onChange } from "../../../Helper/StateHelper";
-import { Get, PostWithSpinner, Post } from "../../../Helper/Http";
-import { isFormValid } from "../../../Helper/Validation";
-import env from "../../../Helper/Enviroment";
+import {shouldMarkError, validateInput} from "../../../Helper/Validation";
+import {onChange} from "../../../Helper/StateHelper";
+import {Get, PostWithSpinner, Post} from "../../../Helper/Http";
+import {ROLE_API} from './../../../Helper/API_Endpoint/RoleEndpoint';
+import {ACCOUNT_DUPLICATE_API, USER_API} from './../../../Helper/API_Endpoint/AccountEndpoint';
+import {isFormValid} from "../../../Helper/Validation";
 import statusCode from "../../../Helper/StatusCode";
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
 import ACCMultiCheckbox from "../../../Common/ACCSelect/ACCMultiCheckbox.jsx";
 import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
-import { ROLE_API_PATH } from './../../../Helper/Enviroment';
 
 class AddUserModal extends Component {
   constructor(props) {
@@ -37,68 +37,73 @@ class AddUserModal extends Component {
   };
 
   componentDidMount() {
-    Get(ROLE_API_PATH).then(res => {
-      this.setState({ roleList: res.data });
+    Get(ROLE_API).then(res => {
+      this.setState({roleList: res.data});
     });
   }
 
   onSelectRoles = role => {
     if (this.selectedRoles.has(role)) {
-      this.selectedRoles.delete(role);
+      this
+        .selectedRoles
+        .delete(role);
     } else {
-      this.selectedRoles.add(role);
+      this
+        .selectedRoles
+        .add(role);
     }
   };
 
   onBlur(e) {
     this.setState({
-      touched: { ...this.state.touched, [e.target.name]: true }
+      touched: {
+        ...this.state.touched,
+        [e.target.name]: true
+      }
     });
 
     if (e.target.name === "username") {
-      Post(env.validateDuplicateAccountInfo, {
+      Post(ACCOUNT_DUPLICATE_API, {
         Key: "UserName",
         Value: this.state.username
       }).then(res => {
         res.data
-          ? this.setState({ duplicateUserName: true })
-          : this.setState({ duplicateUserName: false });
+          ? this.setState({duplicateUserName: true})
+          : this.setState({duplicateUserName: false});
       });
     }
 
     if (e.target.name === "email") {
-      Post(env.validateDuplicateAccountInfo, {
+      Post(ACCOUNT_DUPLICATE_API, {
         Key: "Email",
         Value: this.state.email
       }).then(res => {
         res.data
-          ? this.setState({ duplicateEmail: true })
-          : this.setState({ duplicateEmail: false });
+          ? this.setState({duplicateEmail: true})
+          : this.setState({duplicateEmail: false});
       });
     }
   }
 
   addNewUser = e => {
-    if (
-      !isFormValid(this.validationArr) ||
-      this.state.duplicateEmail ||
-      this.state.duplicateUserName
-    ) {
+    if (!isFormValid(this.validationArr) || this.state.duplicateEmail || this.state.duplicateUserName) {
       return;
     }
 
     e.preventDefault();
 
     if (!this.state.duplicateEmail || !this.state.duplicateUserName) {
-      PostWithSpinner.call(this, env.addNewUser, {
+      PostWithSpinner
+        .call(this, USER_API, {
         Username: this.state.username,
         Email: this.state.email,
         Roles: [...this.selectedRoles]
       })
         .then(res => {
-          if (res.status === statusCode.Success)
+          if (res.status === statusCode.Success) 
             toastr.info("Account successfully create");
-        })
+          }
+        )
         .catch(() => {
           toastr.error("Something went wrong. Please try again");
         });
@@ -107,19 +112,17 @@ class AddUserModal extends Component {
 
   renderButton() {
     const errors = validateInput(this.validationArr);
-    const inputErrors = Object.keys(errors).some(x => errors[x]);
+    const inputErrors = Object
+      .keys(errors)
+      .some(x => errors[x]);
     let isDisabled = false;
 
-    if (
-      inputErrors ||
-      this.state.duplicateEmail ||
-      this.state.duplicateUserName
-    ) {
+    if (inputErrors || this.state.duplicateEmail || this.state.duplicateUserName) {
       isDisabled = true;
     }
 
     if (this.state.loading) {
-      return <Spinner />;
+      return <Spinner/>;
     } else {
       return (
         <button className="btn btn-primary" type="submit" disabled={isDisabled}>
@@ -130,13 +133,7 @@ class AddUserModal extends Component {
   }
 
   render() {
-    const {
-      username,
-      email,
-      roleList,
-      duplicateUserName,
-      duplicateEmail
-    } = this.state;
+    const {username, email, roleList, duplicateUserName, duplicateEmail} = this.state;
 
     this.validationArr = [
       {
@@ -153,33 +150,33 @@ class AddUserModal extends Component {
         id={this.props.id}
         role="dialog"
         aria-labelledby={this.props.id}
-        aria-hidden="true"
-      >
+        aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered" role="document">
           <form onSubmit={this.addNewUser}>
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title"> Add new account </h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
+                <h5 className="modal-title">
+                  Add new account
+                </h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div className="modal-body">
-                {duplicateUserName ? (
-                  <div className="alert alert-danger" role="alert">
-                    UserName is duplicate
-                  </div>
-                ) : null}
-                {duplicateEmail ? (
-                  <div className="alert alert-danger" role="alert">
-                    Email is duplicate
-                  </div>
-                ) : null}
+                {duplicateUserName
+                  ? (
+                    <div className="alert alert-danger" role="alert">
+                      UserName is duplicate
+                    </div>
+                  )
+                  : null}
+                {duplicateEmail
+                  ? (
+                    <div className="alert alert-danger" role="alert">
+                      Email is duplicate
+                    </div>
+                  )
+                  : null}
 
                 <ACCInput
                   className={shouldMarkError.call(this, "username", errors)}
@@ -190,8 +187,7 @@ class AddUserModal extends Component {
                   required="required"
                   value={username}
                   onChange={username => onChange.call(this, username)}
-                  onBlur={username => this.onBlur(username)}
-                />
+                  onBlur={username => this.onBlur(username)}/>
                 <ACCInput
                   className={shouldMarkError.call(this, "email", errors)}
                   type="email"
@@ -201,31 +197,23 @@ class AddUserModal extends Component {
                   required="required"
                   value={email}
                   onChange={email => onChange.call(this, email)}
-                  onBlur={email => this.onBlur(email)}
-                />
+                  onBlur={email => this.onBlur(email)}/>
                 <div className="card" id="userRoleSection">
                   <div className="card-body">
                     <h5 className="card-title">Roles</h5>
-                    {roleList.map((role, index) => (
-                      <ACCMultiCheckbox
-                        index={index}
-                        key={role.id}
-                        id={`${role.id}-addRole`}
-                        name={role.name}
-                        label={role.name}
-                        handleCheckboxChange={this.onSelectRoles}
-                      />
-                    ))}
+                    {roleList.map((role, index) => (<ACCMultiCheckbox
+                      index={index}
+                      key={role.id}
+                      id={`${role.id}-addRole`}
+                      name={role.name}
+                      label={role.name}
+                      handleCheckboxChange={this.onSelectRoles}/>))}
                   </div>
                 </div>
               </div>
               <div className="modal-footer">
                 {this.renderButton()}
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
-                >
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">
                   Close
                 </button>
               </div>

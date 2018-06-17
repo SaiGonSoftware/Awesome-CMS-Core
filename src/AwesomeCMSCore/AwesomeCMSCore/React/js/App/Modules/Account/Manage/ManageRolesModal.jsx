@@ -8,7 +8,7 @@ import statusCode from "../../../Helper/StatusCode";
 
 import ACCReactSelect from "../../../Common/ACCSelect/ACCReactSelect.jsx";
 import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
-import { ROLE_API_PATH } from './../../../Helper/Enviroment';
+import {ROLE_API, ROLE_MANAGE_API} from './../../../Helper/API_Endpoint/RoleEndpoint';
 
 class ManageRolesModal extends Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class ManageRolesModal extends Component {
 
     componentDidMount() {
         let value = [];
-        Get(ROLE_API_PATH).then(res => {
+        Get(ROLE_API).then(res => {
             res
                 .data
                 .map(item => {
@@ -37,7 +37,7 @@ class ManageRolesModal extends Component {
         e.preventDefault();
 
         PostWithSpinner
-            .call(this, `${ROLE_API_PATH}/manage`, {selectOptionViewModels: this.state.value})
+            .call(this, ROLE_MANAGE_API, {selectOptionViewModels: this.state.value})
             .then(res => {
                 if (res.status === statusCode.Success) 
                     toastr.success("Create success");
