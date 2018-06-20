@@ -7,7 +7,7 @@ export default function globalReducer(state = initialState.global, action) {
             {
                 return {
                     ...state,
-                    showSpinner: action.showSpinner,
+                    showSpinner: action.showSpinner
                 };
             }
 
