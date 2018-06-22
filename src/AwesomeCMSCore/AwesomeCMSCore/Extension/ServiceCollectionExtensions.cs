@@ -205,7 +205,6 @@ namespace AwesomeCMSCore.Extension
                 options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
             });
 
-
             services.AddOpenIddict()
                 // Register the OpenIddict core services.
                 .AddCore(options =>
