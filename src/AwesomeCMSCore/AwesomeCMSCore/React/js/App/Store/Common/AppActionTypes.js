@@ -1,1 +1,0 @@
-export const SET_SHOW_SPINNER = 'SET_SHOW_SPINNER';
