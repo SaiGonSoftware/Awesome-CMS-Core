@@ -26,7 +26,7 @@ class ManageRolesModal extends Component {
             res
                 .data
                 .map(item => {
-                    if (item.name !== "Administrator") 
+                    if (item.name !== "Administrator")
                         value.push({"value": item.id, "label": item.name})
                 });
             this.setState({value});
@@ -39,8 +39,8 @@ class ManageRolesModal extends Component {
         PostWithSpinner
             .call(this, ROLE_MANAGE_API, {selectOptionViewModels: this.state.value})
             .then(res => {
-                if (res.status === statusCode.Success) 
-                    toastr.success("Create success");
+                if (res.status === statusCode.Success)
+                    toastr.success("Remove role success");
                 }
             )
             .catch(() => {
