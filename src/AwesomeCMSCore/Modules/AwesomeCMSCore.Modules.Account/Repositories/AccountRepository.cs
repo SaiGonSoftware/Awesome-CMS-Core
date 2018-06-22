@@ -83,8 +83,12 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             }
 
             account.EmailConfirmed = accountToggleVm.ToogleFlag;
-            await _unitOfWork.Repository<User>().UpdateAsync(account);
-
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                await _unitOfWork.Repository<User>().UpdateAsync(account);
+                transaction.Complete();
+            }
+            
             return true;
         }
 
@@ -183,28 +187,33 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             var roleToRemove = roleList.Where(existingRole => roles.SelectOptionViewModels
                 .All(item => item.Value != existingRole.Id && existingRole.Name != "Administrator")).ToList();
 
-            if (roleToRemove.Any())
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var roleName = roleToRemove.Select(x => x.Name).ToArray();
-                foreach (var roleRemove in roleToRemove)
+                if (roleToRemove.Any())
                 {
-                    var userInRole = await _userService.GetListRoleOfUser(roleRemove.Name);
-                    if (!userInRole.Any()) continue;
-                    foreach (var user in userInRole)
+                    var roleName = roleToRemove.Select(x => x.Name).ToArray();
+                    foreach (var roleRemove in roleToRemove)
                     {
-                        await _userService.RemoveFromRolesAsync(user, roleName);
+                        var userInRole = await _userService.GetListRoleOfUser(roleRemove.Name);
+                        if (!userInRole.Any()) continue;
+                        foreach (var user in userInRole)
+                        {
+                            await _userService.RemoveFromRolesAsync(user, roleName);
+                        }
+
+                        var role = await _unitOfWork.Repository<IdentityRole>().FindAsync(x =>
+                            x.Name.Equals(roleRemove.Name, StringComparison.OrdinalIgnoreCase));
+                        await _unitOfWork.Repository<IdentityRole>().DeleteAsync(role);
                     }
-
-                    var role = await _unitOfWork.Repository<IdentityRole>().FindAsync(x =>
-                        x.Name.Equals(roleRemove.Name, StringComparison.OrdinalIgnoreCase));
-                    await _unitOfWork.Repository<IdentityRole>().DeleteAsync(role);
                 }
-            }
 
-            if (roleToAdd.Any())
-            {
-                var roleName = roleToAdd.Select(x => x.Label).ToArray();
-                await _userService.AddUserRoles(roleName);
+                if (roleToAdd.Any())
+                {
+                    var roleName = roleToAdd.Select(x => x.Label).ToArray();
+                    await _userService.AddUserRoles(roleName);
+                }
+
+                transaction.Complete();
             }
         }
     }
