@@ -81,12 +81,19 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             {
                 return false;
             }
-
-            account.EmailConfirmed = accountToggleVm.ToogleFlag;
+            
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                await _unitOfWork.Repository<User>().UpdateAsync(account);
-                transaction.Complete();
+                try
+                {
+                    account.EmailConfirmed = accountToggleVm.ToogleFlag;
+                    await _unitOfWork.Repository<User>().UpdateAsync(account);
+                    transaction.Complete();
+                }
+                catch (Exception)
+                {
+                    _unitOfWork.Rollback();
+                }
             }
             
             return true;
@@ -169,11 +176,23 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         {
             var userRoles = await _userService.GetUserRolesByGuid(rolesUserVm.UserId);
             var currentEditUser = await _userService.FindByIdAsync(rolesUserVm.UserId);
-            await _userService.RemoveFromRolesAsync(currentEditUser, userRoles.ToArray());
-
-            if (rolesUserVm.CurrentUserRoles.Any())
+           
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                await _userService.AddUserToRolesAsync(currentEditUser, rolesUserVm.CurrentUserRoles.ToList());
+                try
+                {
+                    await _userService.RemoveFromRolesAsync(currentEditUser, userRoles.ToArray());
+                    if (rolesUserVm.CurrentUserRoles.Any())
+                    {
+                        await _userService.AddUserToRolesAsync(currentEditUser, rolesUserVm.CurrentUserRoles.ToList());
+                    }
+
+                    transaction.Complete();
+                }
+                catch (Exception)
+                {
+                    _unitOfWork.Rollback();
+                }
             }
 
             return true;
@@ -189,31 +208,38 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
 
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                if (roleToRemove.Any())
+                try
                 {
-                    var roleName = roleToRemove.Select(x => x.Name).ToArray();
-                    foreach (var roleRemove in roleToRemove)
+                    if (roleToRemove.Any())
                     {
-                        var userInRole = await _userService.GetListRoleOfUser(roleRemove.Name);
-                        if (!userInRole.Any()) continue;
-                        foreach (var user in userInRole)
+                        var roleName = roleToRemove.Select(x => x.Name).ToArray();
+                        foreach (var roleRemove in roleToRemove)
                         {
-                            await _userService.RemoveFromRolesAsync(user, roleName);
+                            var userInRole = await _userService.GetListRoleOfUser(roleRemove.Name);
+                            if (!userInRole.Any()) continue;
+                            foreach (var user in userInRole)
+                            {
+                                await _userService.RemoveFromRolesAsync(user, roleName);
+                            }
+
+                            var role = await _unitOfWork.Repository<IdentityRole>().FindAsync(x =>
+                                x.Name.Equals(roleRemove.Name, StringComparison.OrdinalIgnoreCase));
+                            await _unitOfWork.Repository<IdentityRole>().DeleteAsync(role);
                         }
-
-                        var role = await _unitOfWork.Repository<IdentityRole>().FindAsync(x =>
-                            x.Name.Equals(roleRemove.Name, StringComparison.OrdinalIgnoreCase));
-                        await _unitOfWork.Repository<IdentityRole>().DeleteAsync(role);
                     }
-                }
 
-                if (roleToAdd.Any())
+                    if (roleToAdd.Any())
+                    {
+                        var roleName = roleToAdd.Select(x => x.Label).ToArray();
+                        await _userService.AddUserRoles(roleName);
+                    }
+
+                    transaction.Complete();
+                }
+                catch (Exception)
                 {
-                    var roleName = roleToAdd.Select(x => x.Label).ToArray();
-                    await _userService.AddUserRoles(roleName);
+                    _unitOfWork.Rollback();
                 }
-
-                transaction.Complete();
             }
         }
     }
