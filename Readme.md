@@ -10,7 +10,6 @@ Awesome Cms Core is an open source CMS built using ASP.Net Core & ReactJS with m
 | ------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | AppVeyor     | Windows       | [![Build status](https://ci.appveyor.com/api/projects/status/brpoki3qovv7pkab?svg=true)](https://ci.appveyor.com/project/ngohungphuc/awesome-cms-core) |
 | Travis       | Linux / MacOS | [![Build Status](https://travis-ci.org/Awesome-CMS-Core/Awesome-CMS-Core.svg?branch=master)](https://travis-ci.org/Awesome-CMS-Core/Awesome-CMS-Core)  |
-| CircleCI     | Linux         | [![CircleCI](https://circleci.com/gh/Awesome-CMS-Core/Awesome-CMS-Core.svg?style=shield)](https://circleci.com/gh/Awesome-CMS-Core/Awesome-CMS-Core)      |
 
 ## Code quality
 
