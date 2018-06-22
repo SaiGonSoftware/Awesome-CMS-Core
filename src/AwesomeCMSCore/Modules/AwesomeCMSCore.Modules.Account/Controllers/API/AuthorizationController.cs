@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using OpenIddict.Core;
+using OpenIddict.Abstractions;
 
 namespace AwesomeCMSCore.Modules.Account.Controllers.API
 {

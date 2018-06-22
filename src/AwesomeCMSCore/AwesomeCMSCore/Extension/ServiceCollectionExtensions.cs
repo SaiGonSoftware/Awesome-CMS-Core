@@ -30,6 +30,7 @@ using AwesomeCMSCore.Modules.Repositories;
 using AwesomeCMSCore.Modules.Queue;
 using Microsoft.IdentityModel.Tokens;
 using AwesomeCMSCore.Modules.Helper.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
@@ -91,6 +92,7 @@ namespace AwesomeCMSCore.Extension
         {
             var mvcBuilder = services
                 .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddRazorOptions(o =>
                 {
                     foreach (var module in modules)
@@ -134,7 +136,7 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection InjectApplicationServices(this IServiceCollection services)
         {
             services.AddUrlHelper();
-            
+
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddScoped<IQueueService, QueueService>();
@@ -180,6 +182,13 @@ namespace AwesomeCMSCore.Extension
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             //The default value is 14 days.
             services.ConfigureApplicationCookie(options =>
             {
@@ -196,50 +205,55 @@ namespace AwesomeCMSCore.Extension
                 options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
             });
 
-            // Register the OpenIddict services.
-            services.AddOpenIddict(options =>
-            {
-                // Register the Entity Framework stores.
-                options.AddEntityFrameworkCoreStores<ApplicationDbContext>();
+            services.AddOpenIddict()
+                // Register the OpenIddict core services.
+                .AddCore(options =>
+                {
+                    // Register the Entity Framework stores and models.
+                    options.UseEntityFrameworkCore()
+                        .UseDbContext<ApplicationDbContext>();
+                })
+                // Register the OpenIddict server handler.
+                .AddServer(options =>
+                {
+                    // Register the ASP.NET Core MVC binder used by OpenIddict.
+                    // Note: if you don't call this method, you won't be able to
+                    // bind OpenIdConnectRequest or OpenIdConnectResponse parameters.
+                    options.UseMvc();
 
-                // Register the ASP.NET Core MVC binder used by OpenIddict.
-                // Note: if you don't call this method, you won't be able to
-                // bind OpenIdConnectRequest or OpenIdConnectResponse parameters.
-                options.AddMvcBinders();
+                    // Enable the token endpoint.
+                    options.EnableTokenEndpoint("/connect/token")
+                        .EnableAuthorizationEndpoint("/connect/authorize")
+                        .EnableLogoutEndpoint("/connect/logout")
+                        .EnableIntrospectionEndpoint("/connect/introspect")
+                        .EnableUserinfoEndpoint("/connect/userinfo");
 
-                // Enable the token endpoint.
-                options
-                    .EnableTokenEndpoint("/connect/token")
-                    .EnableAuthorizationEndpoint("/connect/authorize")
-                    .EnableLogoutEndpoint("/connect/logout")
-                    .EnableIntrospectionEndpoint("/connect/introspect")
-                    .EnableUserinfoEndpoint("/connect/userinfo");
+                    // Enable the password and the refresh token flows.
+                    options.AllowPasswordFlow()
+                        .AllowRefreshTokenFlow();
 
-                // Enable the password and the refresh token flows.
-                options.AllowPasswordFlow()
-                    .AllowRefreshTokenFlow();
+                    // Accept anonymous clients (i.e clients that don't send a client_id).
+                    options.AcceptAnonymousClients();
 
-                // During development, you can disable the HTTPS requirement.
-                options.DisableHttpsRequirement();
+                    // During development, you can disable the HTTPS requirement.
+                    options.DisableHttpsRequirement();
 
-                // Enable scope validation, so that authorization and token requests
-                // that specify unregistered scopes are automatically rejected.
-                options.EnableScopeValidation();
+                    // Note: to use JWT access tokens instead of the default
+                    // encrypted format, the following lines are required:
+                    //
+                    options.UseJsonWebTokens();
+                    options.AddEphemeralSigningKey();
 
-                // Note: to use JWT access tokens instead of the default
-                // encrypted format, the following lines are required:
-                //
-                options.AddEphemeralSigningKey();
-                options.UseJsonWebTokens();
+                    options.SetAccessTokenLifetime(TimeSpan.FromMinutes(60))
+                        .SetRefreshTokenLifetime(TimeSpan.FromMinutes(60));
+                });
 
-                //will change it to 120 when fix issue refresh flow not return refresh token
-                options
-                    .SetAccessTokenLifetime(TimeSpan.FromMinutes(60));
-                //.SetRefreshTokenLifetime(TimeSpan.FromMinutes(60));
-            });
-
-            services.AddAuthentication();
-
+                // Register the OpenIddict validation handler.
+                // Note: the OpenIddict validation handler is only compatible with the
+                // default token format or with reference tokens and cannot be used with
+                // JWT tokens. For JWT tokens, use the Microsoft JWT bearer handler.
+                //.AddValidation();
+           
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
 
@@ -255,6 +269,20 @@ namespace AwesomeCMSCore.Extension
                          RoleClaimType = OpenIdConnectConstants.Claims.Role
                      };
                  });
+
+            // Alternatively, you can also use the introspection middleware.
+            // Using it is recommended if your resource server is in a
+            // different application/separated from the authorization server.
+            //
+            // services.AddAuthentication()
+            //     .AddOAuthIntrospection(options =>
+            //     {
+            //         options.Authority = new Uri("http://localhost:54895/");
+            //         options.Audiences.Add("resource_server");
+            //         options.ClientId = "resource_server";
+            //         options.ClientSecret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd";
+            //         options.RequireHttpsMetadata = false;
+            //     });
 
             return services;
         }

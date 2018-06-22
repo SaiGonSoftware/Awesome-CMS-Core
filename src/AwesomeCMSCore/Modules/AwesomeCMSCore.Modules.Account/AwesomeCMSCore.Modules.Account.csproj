@@ -7,11 +7,11 @@
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.0" />
         <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-*" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.3.0" />
         <PackageReference Include="OpenIddict" Version="2.0.0-*" />
         <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-*" />
         <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-*" />
-        <PackageReference Include="AutoMapper" Version="6.2.2" />
+        <PackageReference Include="AutoMapper" Version="7.0.0" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\AwesomeCMSCore.Modules.Email\AwesomeCMSCore.Modules.Email.csproj" />

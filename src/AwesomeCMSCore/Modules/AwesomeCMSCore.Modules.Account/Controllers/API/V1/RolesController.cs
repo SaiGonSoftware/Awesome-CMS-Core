@@ -19,7 +19,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiVersion("1.0")]
     [ApiExplorerSettings(GroupName = "v1")]
-    [Route("api/v{version:apiVersion}/roles/")]
+    [Route("api/v{version:apiVersion}/Roles/")]
     public class RolesController: Controller
     {
         private readonly IAccountRepository _accountRepository;
@@ -47,7 +47,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
             return Ok(userRolesById);
         }
 
-        [HttpPut("UserRoles/Edit"), ValidModel]
+        [HttpPut("UserRoles"), ValidModel]
         public async Task<IActionResult> EditUserRoles([FromBody] RolesUserViewModel rolesUserVm)
         {
             var result = await _accountRepository.EditUserRoles(rolesUserVm);

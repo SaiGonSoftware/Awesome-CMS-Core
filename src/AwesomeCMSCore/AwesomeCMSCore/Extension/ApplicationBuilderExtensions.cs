@@ -47,7 +47,6 @@ namespace AwesomeCMSCore.Extension
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true,
@@ -57,8 +56,11 @@ namespace AwesomeCMSCore.Extension
             else
             {
                 app.UseExceptionless("NvjyUM7jZdHylprZ5oAPxEpBmvgZXnYZxVyUf5y5");
+                app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
+            app.UseCookiePolicy();
             #region Custom Middleware
             app.UseExceptionHandler("/Error/500");
             app.Use(async (context, next) =>
