@@ -20,6 +20,7 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2004" />
     <PackageReference Include="HangFire" Version="1.6.19" />
+    <PackageReference Include="HangFire.SqlServer" Version="1.6.19" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="5.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.0" />
@@ -47,7 +48,7 @@
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Mapper\AwesomeCMSCore.Modules.Mapper.csproj" />
-    <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Queue\AwesomeCMSCore.Modules.Queue.csproj" />
+    <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.BackgroundProcess\AwesomeCMSCore.Modules.BackgroundProcess.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Repositories\AwesomeCMSCore.Modules.Repositories.csproj" />
   </ItemGroup>
 
