@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Help
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Mapper", "Modules\AwesomeCMSCore.Modules.Mapper\AwesomeCMSCore.Modules.Mapper.csproj", "{50B36C91-040D-4A68-8481-5346B2917670}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Queue", "Modules\AwesomeCMSCore.Modules.Queue\AwesomeCMSCore.Modules.Queue.csproj", "{63AE0BC3-61C4-4FEE-8A57-14386347A19F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.BackgroundProcess", "Modules\AwesomeCMSCore.Modules.BackgroundProcess\AwesomeCMSCore.Modules.BackgroundProcess.csproj", "{63AE0BC3-61C4-4FEE-8A57-14386347A19F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Repositories", "Modules\AwesomeCMSCore.Modules.Repositories\AwesomeCMSCore.Modules.Repositories.csproj", "{FF3827CF-2B31-46F6-9D54-F51C2262A837}"
 EndProject
@@ -30,6 +30,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Admin", "Modules\AwesomeCMSCore.Modules.Admin\AwesomeCMSCore.Modules.Admin.csproj", "{C7C4AC31-EEE0-4D5F-B2AB-03F41F96DBB9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.Client", "Modules\AwesomeCMSCore.Modules.Client\AwesomeCMSCore.Modules.Client.csproj", "{7C938504-EB4E-4EA1-9596-FE6647A256B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeCMSCore.Modules.BackgroundJob", "Modules\AwesomeCMSCore.Modules.BackgroundJob\AwesomeCMSCore.Modules.BackgroundJob.csproj", "{AF7A0855-3C09-4E5B-B3DC-5591E79DD05B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +87,10 @@ Global
 		{7C938504-EB4E-4EA1-9596-FE6647A256B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C938504-EB4E-4EA1-9596-FE6647A256B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C938504-EB4E-4EA1-9596-FE6647A256B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF7A0855-3C09-4E5B-B3DC-5591E79DD05B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF7A0855-3C09-4E5B-B3DC-5591E79DD05B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF7A0855-3C09-4E5B-B3DC-5591E79DD05B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF7A0855-3C09-4E5B-B3DC-5591E79DD05B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{807A19DE-F47E-4ACE-BDFC-D54EBB6F3060} = {E7336353-0A8B-4D18-BD7D-0ADBA5A8A617}
 		{C7C4AC31-EEE0-4D5F-B2AB-03F41F96DBB9} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
 		{7C938504-EB4E-4EA1-9596-FE6647A256B8} = {3071F932-215D-4EEE-8D7E-C0705716AAF0}
+		{AF7A0855-3C09-4E5B-B3DC-5591E79DD05B} = {E7336353-0A8B-4D18-BD7D-0ADBA5A8A617}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14095F44-17CE-422B-9875-A9597D2BD3B0}

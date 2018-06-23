@@ -34,6 +34,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
+using Hangfire;
+using GlobalConfiguration = AwesomeCMSCore.Infrastructure.Config.GlobalConfiguration;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -159,6 +161,8 @@ namespace AwesomeCMSCore.Extension
             services.AddDbContextPool<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("AwesomeCMSCore")).UseOpenIddict());
+
+            services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("DefaultConnection")));
 
             return services;
         }
