@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AwesomeCMSCore.Modules.BackgroundJob
 {
-    public class Program
+    public static class Program
     {
         public static void Main()
         {
