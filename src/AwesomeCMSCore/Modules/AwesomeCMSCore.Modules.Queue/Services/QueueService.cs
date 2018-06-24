@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Options;
-using RabbitMQ.Client;
-using System.Text;
+﻿using System.Text;
+using AwesomeCMSCore.Modules.Queue.Settings;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
 
-namespace AwesomeCMSCore.Modules.Queue
+namespace AwesomeCMSCore.Modules.Queue.Services
 {
     public class QueueService : IQueueService
     {

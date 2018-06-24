@@ -48,7 +48,7 @@
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Mapper\AwesomeCMSCore.Modules.Mapper.csproj" />
-    <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.BackgroundProcess\AwesomeCMSCore.Modules.BackgroundProcess.csproj" />
+    <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Queue\AwesomeCMSCore.Modules.Queue.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Repositories\AwesomeCMSCore.Modules.Repositories.csproj" />
   </ItemGroup>
 

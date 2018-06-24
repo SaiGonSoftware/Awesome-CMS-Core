@@ -1,21 +1,46 @@
 ﻿using System;
 using System.Text;
+using AwesomeCMSCore.Modules.Queue.Settings;
+using AwesomeCMSCore.Modules.WebJob.Settings;
+using Hangfire;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace AwesomeCMSCore.Modules.WebJob
+namespace AwesomeCMSCore.Modules.WebJobRunner
 {
-    public class Program
+    public class WebJob
     {
+        private readonly IOptions<WebJobSettings> _webJobSettings;
+        private readonly IOptions<QueueSettings> _queueSettings;
+        public WebJob(
+            IOptions<WebJobSettings> webJobSettings,
+            IOptions<QueueSettings> queueSettings)
+        {
+            _webJobSettings = webJobSettings;
+            _queueSettings = queueSettings;
+        }
+
+        public void Run()
+        {
+            GlobalConfiguration.Configuration.UseSqlServerStorage(_webJobSettings.Value.DbConnectionString);
+
+            using (var server = new BackgroundJobServer())
+            {
+                Console.WriteLine("Hangfire Server started. Press any key to exit...");
+                //Console.ReadLine();
+            }
+        }
+
         /// <summary>
         /// This is just for testing 
         /// To make sure message arent lost need to mark both queue as durable: true
         /// Tun on message ack we need to change it to false
         /// </summary>
-        public static void Main()
+        public void RunQueue()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = _queueSettings.Value.Host };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
@@ -44,7 +69,7 @@ namespace AwesomeCMSCore.Modules.WebJob
                     consumer: consumer);
 
                 Console.WriteLine(" Press [enter] to exit.");
-                Console.ReadLine();
+                //Console.ReadLine();
             }
         }
     }

@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AwesomeCMSCore.Modules.BackgroundProcess\AwesomeCMSCore.Modules.BackgroundProcess.csproj" />
+    <ProjectReference Include="..\AwesomeCMSCore.Modules.Queue\AwesomeCMSCore.Modules.Queue.csproj" />
   </ItemGroup>
 
 </Project>

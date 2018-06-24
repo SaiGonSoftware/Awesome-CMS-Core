@@ -1,4 +1,4 @@
-﻿namespace AwesomeCMSCore.Modules.Queue
+﻿namespace AwesomeCMSCore.Modules.Queue.Services
 {
     public class QueueMessage
     {
