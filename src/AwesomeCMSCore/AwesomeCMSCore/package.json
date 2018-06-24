@@ -8,8 +8,8 @@
     "scripts": {
         "prod": "SET NODE_ENV=production& webpack -p --mode=production",
         "start": "webpack --mode=development",
-        "lint:js": "eslint \"wwwroot/frontend/**/*.{js,jsx}\" --color",
-        "lint:style": "stylelint \"wwwroot/frontend/**/*.scss\" --syntax scss"
+        "lint:js": "eslint \"React/js/**/*.{js,jsx}\" --color",
+        "lint:style": "stylelint \"React/css/**/*.scss\" --syntax scss"
     },
     "devDependencies": {
         "aspnet-webpack": "3.0.0",
