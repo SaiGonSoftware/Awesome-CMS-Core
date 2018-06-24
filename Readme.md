@@ -1,6 +1,7 @@
-# Awesome Cms Core
+# Awesome CMS Core
 
-Awesome Cms Core is an open source CMS built using ASP.Net Core & ReactJS with module seperation concern
+Awesome CMS Core is an open source CMS built using ASP.Net Core & ReactJS with module seperation concern in mind.
+Awesome CMS Core provide lastest trend of technology like .Net Core, React, Webpack, SASS, Background Job, Queue. 
 
 <img src="img/icon.png" width="150px"/>
 
