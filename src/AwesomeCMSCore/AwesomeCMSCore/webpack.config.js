@@ -14,6 +14,9 @@ module.exports = {
     publicPath: "/dist/"
   },
   plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {}
+    }),
     new MiniCssExtractPlugin({
       filename: "cmscore.css"
     }),
@@ -28,8 +31,7 @@ module.exports = {
     })
   ],
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
