@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using AwesomeCMSCore.Infrastructure.Config;
 using AwesomeCMSCore.Infrastructure.Module;
 using AwesomeCMSCore.Modules.Entities.Data;
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +26,6 @@ using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Helper.ExceptionHandler;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
-using AwesomeCMSCore.Modules.Queue;
 using Microsoft.IdentityModel.Tokens;
 using AwesomeCMSCore.Modules.Helper.Extensions;
 using Microsoft.AspNetCore.Http;
@@ -35,6 +33,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 using Hangfire;
+using AwesomeCMSCore.Modules.Queue.Services;
+using AwesomeCMSCore.Modules.Queue.Settings;
 using GlobalConfiguration = AwesomeCMSCore.Infrastructure.Config.GlobalConfiguration;
 
 namespace AwesomeCMSCore.Extension

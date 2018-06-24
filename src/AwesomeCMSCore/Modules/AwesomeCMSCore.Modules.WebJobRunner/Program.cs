@@ -1,11 +1,11 @@
 ﻿using System;
-using System.IO;
 using AwesomeCMSCore.Modules.Helper.Extensions;
-using Hangfire;
+using AwesomeCMSCore.Modules.Queue.Settings;
+using AwesomeCMSCore.Modules.WebJob.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AwesomeCMSCore.Modules.BackgroundJob
+namespace AwesomeCMSCore.Modules.WebJobRunner
 {
     public static class Program
     {
@@ -18,7 +18,9 @@ namespace AwesomeCMSCore.Modules.BackgroundJob
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             // entry to run app
-            serviceProvider.GetService<BackgroundJob>().Run();
+            serviceProvider.GetService<WebJob>().RunQueue();
+            serviceProvider.GetService<WebJob>().Run();
+            Console.ReadLine();
         }
 
         private static void ConfigureServices(IServiceCollection serviceCollection)
@@ -31,10 +33,10 @@ namespace AwesomeCMSCore.Modules.BackgroundJob
                 .AddJsonFile("appsettings.json", false)
                 .Build();
             serviceCollection.AddOptions();
-            serviceCollection.Configure<BackgroundJobSettings>(configuration.GetSection("BackgroundJobSettings"));
-
+            serviceCollection.Configure<WebJobSettings>(configuration.GetSection("WebJobSettings"));
+            serviceCollection.Configure<QueueSettings>(configuration.GetSection("QueueSettings"));
             // add app
-            serviceCollection.AddTransient<BackgroundJob>();
+            serviceCollection.AddTransient<WebJob>();
         }
     }
 }
