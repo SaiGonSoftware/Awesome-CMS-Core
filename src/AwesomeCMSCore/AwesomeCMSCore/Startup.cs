@@ -54,7 +54,7 @@ namespace AwesomeCMSCore
         {
             app.UseResponseCompression();
             app.UseStaticFiles();
-            app.UseHangFire();
+            app.UseThirdPartyLib();
             app.SetupEnv(env);
             app.ConfigSwagger();
             app.ServeStaticModuleFile(GlobalConfiguration.Modules);

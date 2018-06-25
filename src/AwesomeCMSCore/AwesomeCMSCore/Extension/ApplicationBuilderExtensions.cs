@@ -110,11 +110,11 @@ namespace AwesomeCMSCore.Extension
             return app;
         }
 
-        public static IApplicationBuilder UseHangFire(this IApplicationBuilder app)
+        public static IApplicationBuilder UseThirdPartyLib(this IApplicationBuilder app)
         {
             app.UseHangfireServer();
             app.UseHangfireDashboard();
-
+            app.UseGraphiQl();
             return app;
         }
     }
