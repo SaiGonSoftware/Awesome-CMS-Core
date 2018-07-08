@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AwesomeCMSCore.Modules.Helper.Filter;
+using AwesomeCMSCore.Modules.Helper.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Admin.Controllers
 {
-    [Authorize]
+    [Authorize, RoleFilter]
     public class PortalController : Controller
     {
         [HttpGet]

@@ -26,7 +26,7 @@ class ManageRolesModal extends Component {
             res
                 .data
                 .map(item => {
-                    if (item.name !== "Administrator")
+                    if (item.name !== "Administrator") 
                         value.push({"value": item.id, "label": item.name})
                 });
             this.setState({value});
@@ -39,7 +39,7 @@ class ManageRolesModal extends Component {
         PostWithSpinner
             .call(this, ROLE_MANAGE_API, {selectOptionViewModels: this.state.value})
             .then(res => {
-                if (res.status === statusCode.Success)
+                if (res.status === statusCode.Success) 
                     toastr.success("Remove role success");
                 }
             )
@@ -93,6 +93,12 @@ class ManageRolesModal extends Component {
                                 value={value}
                                 handleOnChange={value => handleOnChange.call(this, value)}/>
                             <br/>
+                            <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                                Please note that user don't have any role will not allow to login system
+                                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             {this.renderButton()}
