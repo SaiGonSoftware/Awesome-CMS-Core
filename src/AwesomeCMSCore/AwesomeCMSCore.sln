@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.WebJ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AwesomeCMSCore.Modules.WebJobRunner", "Modules\AwesomeCMSCore.Modules.WebJobRunner\AwesomeCMSCore.Modules.WebJobRunner.csproj", "{AAC27999-EF80-4A92-A888-D43647548C85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeCMSCore.Modules.GraphQL", "Modules\AwesomeCMSCore.Modules.GraphQL\AwesomeCMSCore.Modules.GraphQL.csproj", "{7FEC0F56-3567-4169-B4CE-EF8455F23D75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{AAC27999-EF80-4A92-A888-D43647548C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAC27999-EF80-4A92-A888-D43647548C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAC27999-EF80-4A92-A888-D43647548C85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FEC0F56-3567-4169-B4CE-EF8455F23D75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FEC0F56-3567-4169-B4CE-EF8455F23D75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FEC0F56-3567-4169-B4CE-EF8455F23D75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FEC0F56-3567-4169-B4CE-EF8455F23D75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +120,7 @@ Global
 		{6F52E271-A801-4B47-9FBB-612B4F7F87AC} = {C4D58412-5926-43AF-A759-A30940EEE7FC}
 		{6A2456F9-6F33-460D-A83A-E3658161FBEC} = {C4D58412-5926-43AF-A759-A30940EEE7FC}
 		{AAC27999-EF80-4A92-A888-D43647548C85} = {C4D58412-5926-43AF-A759-A30940EEE7FC}
+		{7FEC0F56-3567-4169-B4CE-EF8455F23D75} = {E7336353-0A8B-4D18-BD7D-0ADBA5A8A617}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14095F44-17CE-422B-9875-A9597D2BD3B0}
