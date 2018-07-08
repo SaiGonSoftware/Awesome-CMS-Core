@@ -366,5 +366,16 @@ namespace AwesomeCMSCore.Extension
 
             return services;
         }
+
+        public static IServiceCollection IntegrateRedis(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDistributedRedisCache(options =>
+            {
+                options.InstanceName = configuration.GetValue<string>("Redis:Name");
+                options.Configuration = configuration.GetValue<string>("Redis:Host");
+            });
+
+            return services;
+        }
     }
 }
