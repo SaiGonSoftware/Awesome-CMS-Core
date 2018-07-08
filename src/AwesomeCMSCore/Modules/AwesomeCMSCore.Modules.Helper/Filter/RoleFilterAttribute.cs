@@ -13,7 +13,7 @@ namespace AwesomeCMSCore.Modules.Helper.Filter
         
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            base.OnActionExecuting(context);;
+            base.OnActionExecuting(context);
             var currentUserRole = _userService.GetCurrentUserRoles();
             if (!currentUserRole.Any())
             {
