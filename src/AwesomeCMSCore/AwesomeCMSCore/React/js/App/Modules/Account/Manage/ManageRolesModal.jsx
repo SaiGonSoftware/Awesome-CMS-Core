@@ -94,7 +94,9 @@ class ManageRolesModal extends Component {
                                 handleOnChange={value => handleOnChange.call(this, value)}/>
                             <br/>
                             <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                                Please note that user don't have any role will not allow to login system
+                                <span>
+                                    Please note that user dont have any role will not allow to login system
+                                </span>
                                 <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
