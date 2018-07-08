@@ -40,6 +40,12 @@ namespace AwesomeCMSCore.Modules.Helper.Services
             _currentUserName = _httpContextAccessor?.HttpContext?.User?.Identity?.Name;
             _currentUserEmail = _currentUserGuid == null ? "" : userManager.FindByIdAsync(_currentUserGuid)?.Result?.Email;
         }
+
+        public UserService()
+        {
+            _httpContextAccessor = new HttpContextAccessor();
+        }
+
         #region User
         public async Task<User> GetCurrentUserAsync()
         {
