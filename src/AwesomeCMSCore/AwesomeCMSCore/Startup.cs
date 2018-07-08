@@ -47,6 +47,7 @@ namespace AwesomeCMSCore
             services.ConfigApiVersioning();
             services.IntegrateSwagger();
             services.RegisterGzip();
+            services.IntegrateRedis(_configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
