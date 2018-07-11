@@ -1,6 +1,9 @@
-﻿using AwesomeCMSCore.Modules.Entities.Entities;
+﻿using System.Linq;
+using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace AwesomeCMSCore.Modules.Entities.Data
 {
@@ -22,6 +25,11 @@ namespace AwesomeCMSCore.Modules.Entities.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
             modelBuilder.Entity<User>().HasMany(u => u.Claims).WithOne().HasForeignKey(c => c.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<User>().HasMany(u => u.Roles).WithOne().HasForeignKey(r => r.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
@@ -29,6 +37,16 @@ namespace AwesomeCMSCore.Modules.Entities.Data
             modelBuilder.Entity<ApplicationRole>().HasMany(r => r.Users).WithOne().HasForeignKey(r => r.RoleId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.EnableAutoHistory(null);
+        }
+    }
+
+    public class ApplicationDbContextDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+    {
+        public ApplicationDbContext CreateDbContext(string[] args)
+        {
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            builder.UseSqlServer("Server=TONYHUDSON\\SQLEXPRESS;Database=CMSCore;Trusted_Connection=True;MultipleActiveResultSets=true");
+            return new ApplicationDbContext(builder.Options);
         }
     }
 }
