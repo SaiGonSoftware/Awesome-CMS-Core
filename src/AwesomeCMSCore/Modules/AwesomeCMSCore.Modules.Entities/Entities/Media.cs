@@ -4,6 +4,8 @@
     {
         public string Name { get; set; }
         public string Path { get; set; }
-        public User Owner { get; set; }
+        public bool IsDeleted { get; set; }
+        public Post Post { get; set; }
+        public User User { get; set; }
     }
 }
