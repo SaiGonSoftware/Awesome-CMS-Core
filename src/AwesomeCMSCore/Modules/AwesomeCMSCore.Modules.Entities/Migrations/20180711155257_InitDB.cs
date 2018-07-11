@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace AwesomeCMSCore.Migrations
+namespace AwesomeCMSCore.Modules.Entities.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,10 +13,10 @@ namespace AwesomeCMSCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Discriminator = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
+                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Discriminator = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,21 +27,21 @@ namespace AwesomeCMSCore.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    SecurityStamp = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true)
+                    Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,11 +54,11 @@ namespace AwesomeCMSCore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Changed = table.Column<string>(maxLength: 2048, nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Kind = table.Column<int>(nullable: false),
                     RowId = table.Column<string>(maxLength: 50, nullable: false),
-                    TableName = table.Column<string>(maxLength: 128, nullable: false)
+                    TableName = table.Column<string>(maxLength: 128, nullable: false),
+                    Changed = table.Column<string>(nullable: true),
+                    Kind = table.Column<int>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,11 +71,11 @@ namespace AwesomeCMSCore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CategoriesData = table.Column<string>(nullable: true),
-                    CategoriesOptions = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<Guid>(nullable: false),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
-                    UniqeId = table.Column<Guid>(nullable: false),
+                    CategoriesData = table.Column<string>(nullable: true),
+                    CategoriesOptions = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -85,55 +84,17 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OpenIddictApplications",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    ClientId = table.Column<string>(nullable: false),
-                    ClientSecret = table.Column<string>(nullable: true),
-                    ConcurrencyToken = table.Column<string>(nullable: true),
-                    ConsentType = table.Column<string>(nullable: true),
-                    DisplayName = table.Column<string>(nullable: true),
-                    Permissions = table.Column<string>(nullable: true),
-                    PostLogoutRedirectUris = table.Column<string>(nullable: true),
-                    Properties = table.Column<string>(nullable: true),
-                    RedirectUris = table.Column<string>(nullable: true),
-                    Type = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OpenIddictApplications", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OpenIddictScopes",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    ConcurrencyToken = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    DisplayName = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: false),
-                    Properties = table.Column<string>(nullable: true),
-                    Resources = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OpenIddictScopes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PasswordRequests",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UniqeId = table.Column<Guid>(nullable: false),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     Email = table.Column<string>(nullable: true),
-                    IsActive = table.Column<bool>(nullable: false),
                     Token = table.Column<string>(nullable: true),
-                    UniqeId = table.Column<Guid>(nullable: false)
+                    IsActive = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -146,11 +107,11 @@ namespace AwesomeCMSCore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UniqeId = table.Column<Guid>(nullable: false),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     TagData = table.Column<string>(nullable: true),
                     TagOptions = table.Column<string>(nullable: true),
-                    UniqeId = table.Column<Guid>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -164,12 +125,12 @@ namespace AwesomeCMSCore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UniqeId = table.Column<Guid>(nullable: false),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Path = table.Column<string>(nullable: true),
                     Thumbnail = table.Column<string>(nullable: true),
-                    UniqeId = table.Column<Guid>(nullable: false)
+                    Path = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -182,9 +143,9 @@ namespace AwesomeCMSCore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
-                    RoleId = table.Column<string>(nullable: false)
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -195,6 +156,12 @@ namespace AwesomeCMSCore.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId1",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,9 +170,9 @@ namespace AwesomeCMSCore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -235,7 +202,7 @@ namespace AwesomeCMSCore.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -254,6 +221,12 @@ namespace AwesomeCMSCore.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId1",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -279,7 +252,7 @@ namespace AwesomeCMSCore.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -288,12 +261,12 @@ namespace AwesomeCMSCore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UniqeId = table.Column<Guid>(nullable: false),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    OwnerId = table.Column<string>(nullable: true),
                     Path = table.Column<string>(nullable: true),
-                    UniqeId = table.Column<Guid>(nullable: false)
+                    OwnerId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -307,44 +280,20 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OpenIddictAuthorizations",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    ApplicationId = table.Column<string>(nullable: true),
-                    ConcurrencyToken = table.Column<string>(nullable: true),
-                    Properties = table.Column<string>(nullable: true),
-                    Scopes = table.Column<string>(nullable: true),
-                    Status = table.Column<string>(nullable: false),
-                    Subject = table.Column<string>(nullable: false),
-                    Type = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OpenIddictAuthorizations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OpenIddictAuthorizations_OpenIddictApplications_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "OpenIddictApplications",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Content = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<Guid>(nullable: false),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    ShortDescription = table.Column<string>(nullable: true),
-                    TagsId = table.Column<int>(nullable: true),
                     Title = table.Column<string>(nullable: true),
-                    UniqeId = table.Column<Guid>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    ShortDescription = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true),
+                    TagsId = table.Column<int>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -364,51 +313,17 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OpenIddictTokens",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    ApplicationId = table.Column<string>(nullable: true),
-                    AuthorizationId = table.Column<string>(nullable: true),
-                    ConcurrencyToken = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTimeOffset>(nullable: true),
-                    ExpirationDate = table.Column<DateTimeOffset>(nullable: true),
-                    Payload = table.Column<string>(nullable: true),
-                    Properties = table.Column<string>(nullable: true),
-                    ReferenceId = table.Column<string>(nullable: true),
-                    Status = table.Column<string>(nullable: true),
-                    Subject = table.Column<string>(nullable: false),
-                    Type = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OpenIddictTokens", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OpenIddictTokens_OpenIddictApplications_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "OpenIddictApplications",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OpenIddictTokens_OpenIddictAuthorizations_AuthorizationId",
-                        column: x => x.AuthorizationId,
-                        principalTable: "OpenIddictAuthorizations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TagOptions",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UniqeId = table.Column<Guid>(nullable: false),
                     DateCreate = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
                     Options = table.Column<string>(nullable: true),
-                    PostId = table.Column<int>(nullable: true),
-                    UniqeId = table.Column<Guid>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    PostId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -472,40 +387,6 @@ namespace AwesomeCMSCore.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictApplications_ClientId",
-                table: "OpenIddictApplications",
-                column: "ClientId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictAuthorizations_ApplicationId",
-                table: "OpenIddictAuthorizations",
-                column: "ApplicationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictScopes_Name",
-                table: "OpenIddictScopes",
-                column: "Name",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictTokens_ApplicationId",
-                table: "OpenIddictTokens",
-                column: "ApplicationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictTokens_AuthorizationId",
-                table: "OpenIddictTokens",
-                column: "AuthorizationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictTokens_ReferenceId",
-                table: "OpenIddictTokens",
-                column: "ReferenceId",
-                unique: true,
-                filter: "[ReferenceId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Posts_TagsId",
                 table: "Posts",
                 column: "TagsId");
@@ -553,12 +434,6 @@ namespace AwesomeCMSCore.Migrations
                 name: "Medias");
 
             migrationBuilder.DropTable(
-                name: "OpenIddictScopes");
-
-            migrationBuilder.DropTable(
-                name: "OpenIddictTokens");
-
-            migrationBuilder.DropTable(
                 name: "PasswordRequests");
 
             migrationBuilder.DropTable(
@@ -571,13 +446,7 @@ namespace AwesomeCMSCore.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "OpenIddictAuthorizations");
-
-            migrationBuilder.DropTable(
                 name: "Posts");
-
-            migrationBuilder.DropTable(
-                name: "OpenIddictApplications");
 
             migrationBuilder.DropTable(
                 name: "Tags");
