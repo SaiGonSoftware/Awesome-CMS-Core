@@ -57,6 +57,7 @@
         "webpack-hot-middleware": "2.22.2"
     },
     "dependencies": {
+        "@tinymce/tinymce-react": "^2.2.5",
         "axios": "^0.18.0",
         "bootstrap": "^4.1.1",
         "chart.js": "^2.7.2",
@@ -68,6 +69,7 @@
         "react-bootstrap-table": "^4.3.1",
         "react-dom": "^16.4.1",
         "react-select": "^1.2.1",
+        "reactstrap": "^6.3.0",
         "toastr": "^2.1.4"
     }
 }

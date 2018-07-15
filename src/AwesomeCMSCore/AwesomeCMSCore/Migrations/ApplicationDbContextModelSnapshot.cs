@@ -52,17 +52,23 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<string>("Name");
+                    b.Property<bool>("IsDeleted");
 
-                    b.Property<string>("OwnerId");
+                    b.Property<string>("Name");
 
                     b.Property<string>("Path");
 
+                    b.Property<int?>("PostId");
+
                     b.Property<Guid>("UniqeId");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Medias");
                 });
@@ -535,9 +541,14 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Media", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "Owner")
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post", "Post")
+                        .WithMany("Media")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("OwnerId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -557,7 +568,7 @@ namespace AwesomeCMSCore.Migrations
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.TagOptions", b =>
                 {
                     b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post", "Post")
-                        .WithMany()
+                        .WithMany("TagOptions")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict);
 
