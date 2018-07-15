@@ -1,24 +1,13 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {Editor} from '@tinymce/tinymce-react';
+import React, {Component} from "react";
 import {render} from "react-dom";
-import {
-    Container,
-    Row,
-    Col,
-    ListGroup,
-    ListGroupItem,
-    Badge,
-    Card,
-    Button,
-    CardTitle
-} from 'reactstrap';
-import ACCEditor from '../../Common/ACCInput/ACCEditor.jsx';
+import {Container, Row, Col} from 'reactstrap';
 
 import {isDomExist} from "../../Helper/Util";
+import ACCEditor from '../../Common/ACCInput/ACCEditor.jsx';
 
 class Post extends Component {
     constructor(props) {
+        console.log(isDomExist("postContent"))
         super(props);
     }
 
@@ -38,10 +27,6 @@ class Post extends Component {
         );
     }
 }
-
-Post.propTypes = {};
-
-export default Post;
 
 if (isDomExist("postContent")) {
     render(
