@@ -146,6 +146,7 @@ namespace AwesomeCMSCore.Extension
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUrlHelperExtension, UrlHelperExtension>();
+            services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<IPostOptionsRepository, PostOptionsRepository>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountRepository, AccountRepository>();
