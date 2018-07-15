@@ -568,7 +568,7 @@ namespace AwesomeCMSCore.Migrations
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.TagOptions", b =>
                 {
                     b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post", "Post")
-                        .WithMany()
+                        .WithMany("TagOptions")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict);
 
