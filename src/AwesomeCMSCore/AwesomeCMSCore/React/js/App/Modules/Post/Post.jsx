@@ -13,10 +13,14 @@ import {
     Button,
     CardTitle
 } from 'reactstrap';
+import ACCEditor from '../../Common/ACCInput/ACCEditor.jsx';
 
 import {isDomExist} from "../../Helper/Util";
 
 class Post extends Component {
+    constructor(props) {
+        super(props);
+    }
 
     handleEditorChange = (e) => {
         console.log('Content was updated:', e.target.getContent());
@@ -27,13 +31,7 @@ class Post extends Component {
             <Container>
                 <Row>
                     <Col md="12">
-                        <Editor
-                            initialValue="<p>This is the initial content of the editor</p>"
-                            init={{
-                            plugins: 'link image code',
-                            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
-                        }}
-                            onChange={this.handleEditorChange}/>
+                        <ACCEditor onChange={this.handleEditorChange}/>
                     </Col>
                 </Row>
             </Container>
@@ -45,7 +43,7 @@ Post.propTypes = {};
 
 export default Post;
 
-if (isDomExist("postForm")) {
+if (isDomExist("postContent")) {
     render(
-        <Post/>, document.getElementById("postForm"));
+        <Post/>, document.getElementById("postContent"));
 }
