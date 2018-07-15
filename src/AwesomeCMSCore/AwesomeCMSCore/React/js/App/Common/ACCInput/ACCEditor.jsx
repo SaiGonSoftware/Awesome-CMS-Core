@@ -6,6 +6,7 @@ import {APP_CONFIG} from './../../Helper/Config';
 const ACCEditor = (props) => {
     return (<Editor
         apiKey={APP_CONFIG.EDITOR_API_KEY}
+        selector="textarea"
         initialValue="<p>This is the initial content of the editor</p>"
         init={{
         theme: 'modern',

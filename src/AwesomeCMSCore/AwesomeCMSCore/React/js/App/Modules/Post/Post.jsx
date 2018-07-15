@@ -7,7 +7,6 @@ import ACCEditor from '../../Common/ACCInput/ACCEditor.jsx';
 
 class Post extends Component {
     constructor(props) {
-        console.log(isDomExist("postContent"))
         super(props);
     }
 
@@ -28,7 +27,7 @@ class Post extends Component {
     }
 }
 
-if (isDomExist("postContent")) {
+if (isDomExist("newPostContent")) {
     render(
-        <Post/>, document.getElementById("postContent"));
+        <Post/>, document.getElementById("newPostContent"));
 }
