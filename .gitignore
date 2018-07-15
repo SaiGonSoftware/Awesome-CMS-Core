@@ -295,3 +295,4 @@ package-lock.json
 yarn.lock
 *.hot-update.js.gz
 /src/AwesomeCMSCore/AwesomeCMSCore/wwwroot/dist/**
+Nuget.Config
