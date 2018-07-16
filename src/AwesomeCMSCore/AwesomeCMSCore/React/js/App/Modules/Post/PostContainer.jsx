@@ -11,8 +11,7 @@ import {
     Button,
     CardTitle
 } from 'reactstrap';
-import {isDomExist} from "../../Helper/Util";
-import { navigateToUrl } from './../../Helper/Util';
+import {isDomExist, navigateToUrl} from "../../Helper/Util";
 
 class PostContainer extends Component {
     render() {
