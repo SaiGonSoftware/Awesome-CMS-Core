@@ -32,8 +32,8 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
             return Ok(postList);
         }
 
-        [HttpPost("Posts")]
-        public async Task<IActionResult> SavePost(PostViewModel viewModel)
+        [HttpPost("SavePost")]
+        public async Task<IActionResult> SavePost([FromBody] PostViewModel viewModel)
         {
             if (viewModel.Id.HasValue)
             {

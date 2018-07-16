@@ -47,9 +47,11 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task SavePost(PostViewModel postViewModel)
         {
+            var user =  await _userService.GetCurrentUserAsync();
+
             var postData = _mapper.Map<PostViewModel, Post>(postViewModel, options =>
             {
-                options.AfterMap((src, dest) => dest.User.Id = _currentUserId);
+                options.AfterMap((src, dest) => dest.User = user);
             });
 
             await _unitOfWork.Repository<Post>().AddAsync(postData);
