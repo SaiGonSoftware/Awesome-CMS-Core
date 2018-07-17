@@ -17,15 +17,18 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         private readonly IUserService _userService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IPostOptionsRepository _postOptionsRepository;
         private readonly string _currentUserId;
 
         public PostRepository(IUserService userService,
             IUnitOfWork unitOfWork,
-            IMapper mapper)
+            IMapper mapper,
+            IPostOptionsRepository postOptionsRepository)
         {
             _userService = userService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _postOptionsRepository = postOptionsRepository;
             _currentUserId = _userService.GetCurrentUserGuid();
         }
 
@@ -53,7 +56,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             {
                 options.AfterMap((src, dest) => dest.User = user);
             });
-
+            
             await _unitOfWork.Repository<Post>().AddAsync(postData);
         }
     }

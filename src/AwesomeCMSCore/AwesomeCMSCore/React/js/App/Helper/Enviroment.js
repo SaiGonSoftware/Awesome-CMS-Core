@@ -1,5 +1,6 @@
 import axios from "axios";
 
+console.log(isDevEnviroment());
 if (isDevEnviroment()) {
   axios.defaults.baseURL = "http://localhost:5000/";
 } else {

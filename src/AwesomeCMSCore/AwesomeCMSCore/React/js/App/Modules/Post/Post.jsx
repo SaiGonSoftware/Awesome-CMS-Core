@@ -1,18 +1,25 @@
 import React, {Component} from "react";
 import {render} from "react-dom";
-import {Container, Row, Col} from 'reactstrap';
+import {
+    Container,
+    Row,
+    Col,
+    Button,
+    Card,
+    CardTitle
+} from 'reactstrap';
 import toastr from "toastr";
-
+import statusCode from './../../Helper/StatusCode';
 import {SAVE_POST_API} from './../../Helper/API_Endpoint/PostEndpoint';
 import {PostWithSpinner} from './../../Helper/Http';
 import {isDomExist} from "../../Helper/Util";
 import {shouldMarkError, validateInput, isFormValid} from './../../Helper/Validation';
-import {onChange, onBlur} from './../../Helper/StateHelper';
+import {onChange, onBlur, handleOnChange} from './../../Helper/StateHelper';
 
 import ACCEditor from '../../Common/ACCInput/ACCEditor.jsx';
 import ACCButton from "../../Common/ACCButton/ACCButton.jsx";
 import ACCInput from "../../Common/ACCInput/ACCInput.jsx";
-import statusCode from './../../Helper/StatusCode';
+import ACCReactSelect from './../../Common/ACCSelect/ACCReactSelect.jsx';
 
 class Post extends Component {
     constructor(props) {
@@ -21,6 +28,8 @@ class Post extends Component {
             postContent: "",
             title: "",
             shortDescription: "",
+            value: [],
+            tagOptions: [],
             loading: false,
             touched: {
                 title: false,
@@ -41,7 +50,8 @@ class Post extends Component {
             .call(this, SAVE_POST_API, {
             Title: this.state.title,
             ShortDescription: this.state.shortDescription,
-            Content: this.state.postContent
+            Content: this.state.postContent,
+            TagOptions: JSON.stringify(this.state.value)
         })
             .then(res => {
                 if (res.status === statusCode.Success) 
@@ -59,7 +69,7 @@ class Post extends Component {
     }
 
     render() {
-        const {shortDescription, title, loading} = this.state;
+        const {shortDescription, title, loading, value, tagOptions} = this.state;
         this.validationArr = [
             {
                 title,
@@ -71,50 +81,68 @@ class Post extends Component {
 
         return (
             <Container>
-                <form onSubmit={this.newPost}>
-                    <Row>
-                        <Col md="12">
-                            <ACCInput
-                                className={shouldMarkError.call(this, "title", errors)}
-                                type="text"
-                                name="title"
-                                id="title"
-                                placeholder="Title"
-                                required="required"
-                                value={title}
-                                onChange={title => onChange.call(this, title)}
-                                onBlur={title => onBlur.call(this, title)}/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md="12">
-                            <ACCInput
-                                className={shouldMarkError.call(this, "shortDescription", errors)}
-                                type="text"
-                                name="shortDescription"
-                                id="shortDescription"
-                                placeholder="Short Description"
-                                required="required"
-                                value={shortDescription}
-                                onChange={shortDescription => onChange.call(this, shortDescription)}
-                                onBlur={shortDescription => onBlur.call(this, shortDescription)}/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md="12">
-                            <ACCEditor onChange={this.handleEditorChange}/>
-                        </Col>
-                    </Row>
-                    <Row id="postFooter">
-                        <Col md="12">
-                            <ACCButton
-                                validationArr={this.validationArr}
-                                loading={loading}
-                                btnBlocked="btn-block"
-                                label="Save post"/>
-                        </Col>
-                    </Row>
-                </form>
+                <div id="postContainer">
+                    <form onSubmit={this.newPost}>
+                        <Row>
+                            <Col md="9">
+                                <Row>
+                                    <Col md="12">
+                                        <ACCInput
+                                            className={shouldMarkError.call(this, "title", errors)}
+                                            type="text"
+                                            name="title"
+                                            id="title"
+                                            placeholder="Title"
+                                            required="required"
+                                            value={title}
+                                            onChange={title => onChange.call(this, title)}
+                                            onBlur={title => onBlur.call(this, title)}/>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col md="12">
+                                        <ACCInput
+                                            className={shouldMarkError.call(this, "shortDescription", errors)}
+                                            type="text"
+                                            name="shortDescription"
+                                            id="shortDescription"
+                                            placeholder="Short Description"
+                                            required="required"
+                                            value={shortDescription}
+                                            onChange={shortDescription => onChange.call(this, shortDescription)}
+                                            onBlur={shortDescription => onBlur.call(this, shortDescription)}/>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col md="12">
+                                        <ACCEditor onChange={this.handleEditorChange}/>
+                                    </Col>
+                                </Row>
+                                <Row id="postFooter">
+                                    <Col md="12">
+                                        <ACCButton
+                                            validationArr={this.validationArr}
+                                            loading={loading}
+                                            btnBlocked="btn-block"
+                                            label="Save post"/>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col md="3">
+                                <Card body>
+                                    <CardTitle>Post Options</CardTitle>
+                                    <ACCReactSelect
+                                        {...tagOptions}
+                                        value={value}
+                                        handleOnChange={value => handleOnChange.call(this, value)}/>
+                                    <br/>    
+                                    <Button onClick={() => window.history.go(-1)}>
+                                        Back</Button>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </form>
+                </div>
             </Container>
         );
     }

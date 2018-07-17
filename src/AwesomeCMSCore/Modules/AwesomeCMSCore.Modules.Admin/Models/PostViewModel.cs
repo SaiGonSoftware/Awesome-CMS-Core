@@ -12,7 +12,7 @@ namespace AwesomeCMSCore.Modules.Admin.Models
         public string ShortDescription { get; set; }
         public string Content { get; set; }
         public bool IsDeleted { get; set; }
-        public ICollection<TagOptions> TagOptions { get; set; }
+        public string TagOptions { get; set; }
         public ICollection<Media> Media { get; set; }
     }
 }
