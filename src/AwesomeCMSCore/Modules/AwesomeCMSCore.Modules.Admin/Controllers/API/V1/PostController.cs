@@ -25,7 +25,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
             _postRepository = postRepository;
         }
 
-        [HttpGet("Posts")]
+        [HttpGet("")]
         public async Task<IActionResult> GetPosts()
         {
             var postList = await _postRepository.GetAllPost();

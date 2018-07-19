@@ -35,7 +35,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         public async Task<IEnumerable<PostListViewModel>> GetAllPost()
         {
             var posts = await _unitOfWork.Repository<Post>().Query().ToListAsync();
-            return _mapper.Map<List<Post>, List<PostListViewModel>>(posts);
+            return _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(posts);
         }
 
         public async Task EditPost(PostViewModel postViewModel)

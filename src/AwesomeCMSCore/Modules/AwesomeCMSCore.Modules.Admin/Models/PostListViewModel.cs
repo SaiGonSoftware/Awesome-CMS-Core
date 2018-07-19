@@ -10,5 +10,6 @@ namespace AwesomeCMSCore.Modules.Admin.Models
         public string ShortDescription { get; set; }
         public string Content { get; set; }
         public bool IsDeleted { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

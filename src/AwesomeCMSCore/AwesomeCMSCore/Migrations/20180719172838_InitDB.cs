@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AwesomeCMSCore.Migrations
 {
-    public partial class InitDB_20181507_174449 : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,7 +72,7 @@ namespace AwesomeCMSCore.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UniqeId = table.Column<Guid>(nullable: false),
-                    DateCreate = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     CategoriesData = table.Column<string>(nullable: true),
                     CategoriesOptions = table.Column<string>(nullable: true),
@@ -128,7 +128,7 @@ namespace AwesomeCMSCore.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UniqeId = table.Column<Guid>(nullable: false),
-                    DateCreate = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     Token = table.Column<string>(nullable: true),
@@ -146,7 +146,7 @@ namespace AwesomeCMSCore.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UniqeId = table.Column<Guid>(nullable: false),
-                    DateCreate = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     TagData = table.Column<string>(nullable: true),
                     TagOptions = table.Column<string>(nullable: true),
@@ -164,7 +164,7 @@ namespace AwesomeCMSCore.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UniqeId = table.Column<Guid>(nullable: false),
-                    DateCreate = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Thumbnail = table.Column<string>(nullable: true),
@@ -324,14 +324,15 @@ namespace AwesomeCMSCore.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UniqeId = table.Column<Guid>(nullable: false),
-                    DateCreate = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     ShortDescription = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     TagsId = table.Column<int>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
+                    TagOptions = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -391,7 +392,7 @@ namespace AwesomeCMSCore.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UniqeId = table.Column<Guid>(nullable: false),
-                    DateCreate = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Path = table.Column<string>(nullable: true),
@@ -423,7 +424,7 @@ namespace AwesomeCMSCore.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UniqeId = table.Column<Guid>(nullable: false),
-                    DateCreate = table.Column<DateTime>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     Options = table.Column<string>(nullable: true),

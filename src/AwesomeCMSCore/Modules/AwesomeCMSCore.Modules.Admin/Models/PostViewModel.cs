@@ -13,6 +13,7 @@ namespace AwesomeCMSCore.Modules.Admin.Models
         public string Content { get; set; }
         public bool IsDeleted { get; set; }
         public string TagOptions { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
         public ICollection<Media> Media { get; set; }
     }
 }

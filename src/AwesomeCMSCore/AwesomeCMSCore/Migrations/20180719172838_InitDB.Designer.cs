@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180717164824_InitDB_20181707_234813")]
-    partial class InitDB_20181707_234813
+    [Migration("20180719172838_InitDB")]
+    partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,7 +31,7 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("CategoriesOptions");
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -50,7 +50,7 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -81,7 +81,7 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -106,7 +106,7 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -139,7 +139,7 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -162,7 +162,7 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -189,7 +189,7 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
