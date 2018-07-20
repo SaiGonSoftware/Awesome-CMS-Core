@@ -29,7 +29,7 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("CategoriesOptions");
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -48,7 +48,7 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -79,7 +79,7 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -104,13 +104,15 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<string>("ShortDescription");
+
+                    b.Property<string>("TagOptions");
 
                     b.Property<int?>("TagsId");
 
@@ -135,7 +137,7 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -158,7 +160,7 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -185,7 +187,7 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreate");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
@@ -568,7 +570,7 @@ namespace AwesomeCMSCore.Migrations
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.TagOptions", b =>
                 {
                     b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post", "Post")
-                        .WithMany("TagOptions")
+                        .WithMany()
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict);
 

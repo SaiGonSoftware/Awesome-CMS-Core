@@ -22,3 +22,7 @@ export function isFormValid(validationArr) {
 
   return !isFormValid;
 }
+
+export function isEmptyArray(array) {
+  return typeof array !== 'undefined' && array.length > 0;
+}

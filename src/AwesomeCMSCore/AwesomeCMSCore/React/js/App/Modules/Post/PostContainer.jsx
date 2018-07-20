@@ -11,10 +11,40 @@ import {
     Button,
     CardTitle
 } from 'reactstrap';
-import {isDomExist} from "../../Helper/Util";
-import { navigateToUrl } from './../../Helper/Util';
+import moment from 'moment/src/moment';
+
+import {Get} from './../../Helper/Http';
+import {isDomExist, navigateToUrl} from "../../Helper/Util";
+import {GET_POSTS_API} from './../../Helper/API_Endpoint/PostEndpoint';
 
 class PostContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            posts: []
+        }
+    }
+
+    componentDidMount() {
+        Get(GET_POSTS_API).then(res => {
+            this.setState({posts: res.data});
+        });
+    }
+
+    renderPost() {
+        return this
+            .state
+            .posts
+            .map(post => {
+                return (
+                    <ListGroupItem key={post.title} className="postItem" tag="a" href="#" action>
+                        <h3>{post.title}</h3>
+                        <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
+                    </ListGroupItem>
+                )
+            });
+    }
+
     render() {
         return (
             <Container>
@@ -38,10 +68,7 @@ class PostContainer extends Component {
                                     <i className="fa fa-search" aria-hidden="true"></i>
                                 </Button>
                             </ListGroupItem>
-                            <ListGroupItem className="postItem" tag="a" href="#" action>Dapibus ac facilisis in</ListGroupItem>
-                            <ListGroupItem className="postItem" tag="a" href="#" action>Morbi leo risus</ListGroupItem>
-                            <ListGroupItem className="postItem" tag="a" href="#" action>Porta ac consectetur ac</ListGroupItem>
-                            <ListGroupItem className="postItem" disabled tag="a" href="#" action>Vestibulum at eros</ListGroupItem>
+                            {this.renderPost()}
                         </ListGroup>
                     </Col>
                     <Col md="3">

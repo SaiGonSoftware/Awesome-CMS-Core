@@ -11,8 +11,8 @@ import {APP_ENUM} from "../../../Helper/AppEnum";
 import {Post, PostWithSpinner} from "../../../Helper/Http";
 import {shouldMarkError, validateInput, isFormValid} from "../../../Helper/Validation";
 import statusCode from "../../../Helper/StatusCode";
-import { TOKEN_ENDPOINT, ACCOUNT_LOGIN_API } from '../../../Helper/API_Endpoint/AccountEndpoint';
-import { PORTAL_ENDPOINT } from '../../../Helper/API_Endpoint/PortalEndpoint';
+import {TOKEN_ENDPOINT, ACCOUNT_LOGIN_API} from '../../../Helper/API_Endpoint/AccountEndpoint';
+import {PORTAL_ENDPOINT} from '../../../Helper/API_Endpoint/PortalEndpoint';
 
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
 import ACCCheckbox from "../../../Common/ACCSelect/ACCCheckbox.jsx";
@@ -66,18 +66,26 @@ class LoginForm extends Component {
       });
   };
 
-  tokenRequest() {
-    Post(TOKEN_ENDPOINT, qs.stringify({username: this.state.username, password: this.state.password, grant_type: "password", scope: "offline_access"}))
-      .then(function (res) {
-        let token = {
-          access_token: res.data.access_token,
-          refresh_token: res.data.refresh_token,
-          token_type: res.data.token_type,
-          expires_in: res.data.expires_in
-        };
-        setStorage(APP_ENUM.AUTH_TOKEN, token);
-        navigateToUrl(PORTAL_ENDPOINT);
-      });
+  tokenRequest = () => {
+    Post(TOKEN_ENDPOINT,
+      qs.stringify(
+        {
+          username: this.state.username,
+          password: this.state.password,
+          grant_type: "password",
+          scope: "offline_access"}
+        ))
+    .then(res => {
+      let token = {
+        access_token: res.data.access_token,
+        refresh_token: res.data.refresh_token,
+        token_type: res.data.token_type,
+        expires_in: res.data.expires_in
+      };
+
+      setStorage(APP_ENUM.AUTH_TOKEN, token);
+      navigateToUrl(PORTAL_ENDPOINT);
+    });
   }
 
   render() {

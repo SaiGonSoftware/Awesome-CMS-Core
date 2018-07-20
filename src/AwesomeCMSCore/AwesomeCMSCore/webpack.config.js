@@ -14,6 +14,7 @@ module.exports = {
     publicPath: "/dist/"
   },
   plugins: [
+    new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /jsx$/),
     new webpack.LoaderOptionsPlugin({
       options: {}
     }),

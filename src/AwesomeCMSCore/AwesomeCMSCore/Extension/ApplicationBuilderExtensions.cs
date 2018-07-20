@@ -50,8 +50,7 @@ namespace AwesomeCMSCore.Extension
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
-                    HotModuleReplacement = true,
-                    ReactHotModuleReplacement = true
+                    HotModuleReplacement = true
                 });
             }
             else
