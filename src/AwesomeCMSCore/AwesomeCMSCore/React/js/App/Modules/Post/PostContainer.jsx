@@ -31,13 +31,17 @@ class PostContainer extends Component {
         });
     }
 
+    navigateToPostDetail() {
+        console.log("12");
+    }
+
     renderPost() {
         return this
             .state
             .posts
             .map(post => {
                 return (
-                    <ListGroupItem key={post.title} className="postItem" tag="a" href="#" action>
+                    <ListGroupItem key={post.id} className="postItem" tag="a" onClick={this.navigateToPostDetail()} action>
                         <h3>{post.title}</h3>
                         <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
                     </ListGroupItem>

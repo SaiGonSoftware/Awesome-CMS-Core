@@ -134,6 +134,7 @@ class Post extends Component {
                                     <ACCReactSelect
                                         {...tagOptions}
                                         value={value}
+                                        placeholder="Post tag"
                                         handleOnChange={value => handleOnChange.call(this, value)}/>
                                     <br/>    
                                     <Button onClick={() => window.history.go(-1)}>

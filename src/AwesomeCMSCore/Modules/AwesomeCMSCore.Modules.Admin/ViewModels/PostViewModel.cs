@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AwesomeCMSCore.Modules.Entities.Entities;
 
-namespace AwesomeCMSCore.Modules.Admin.Models
+namespace AwesomeCMSCore.Modules.Admin.ViewModels
 {
     public class PostViewModel
     {

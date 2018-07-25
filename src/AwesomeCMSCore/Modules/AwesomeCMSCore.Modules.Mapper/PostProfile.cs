@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using AwesomeCMSCore.Modules.Admin.Models;
+using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 
 namespace AwesomeCMSCore.Modules.Mapper

@@ -49,7 +49,7 @@ namespace AwesomeCMSCore.Modules.Helper.Services
         #region User
         public async Task<User> GetCurrentUserAsync()
         {
-            return await _unitOfWork.Repository<User>().GetByIdAsync(_currentUserGuid);
+            return await _unitOfWork.Repository<User>().GetByUniqueIdAsync(_currentUserGuid);
         }
 
         public async Task<IEnumerable<User>> GetAllUser()

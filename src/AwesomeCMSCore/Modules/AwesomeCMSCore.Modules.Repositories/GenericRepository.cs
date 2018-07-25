@@ -34,12 +34,22 @@ namespace AwesomeCMSCore.Modules.Repositories
             return await _context.Set<T>().ToListAsync();
         }
 
-        public T GetById(string id)
+        public T GetById(int id)
         {
             return _context.Set<T>().Find(id);
         }
 
-        public async Task<T> GetByIdAsync(string id)
+        public async Task<T> GetByIdAsync(int id)
+        {
+            return await _context.Set<T>().FindAsync(id);
+        }
+
+        public T GetByUniqueId(string id)
+        {
+            return _context.Set<T>().Find(id);
+        }
+
+        public async Task<T> GetByUniqueIdAsync(string id)
         {
             return await _context.Set<T>().FindAsync(id);
         }
