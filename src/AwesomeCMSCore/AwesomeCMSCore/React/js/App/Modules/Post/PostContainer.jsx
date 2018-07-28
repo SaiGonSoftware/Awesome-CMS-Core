@@ -40,6 +40,10 @@ class PostContainer extends Component {
         }
     }
 
+    onNavigateBack = () => {
+        this.setState({visible: false});
+    }
+    
     renderPost() {
         return this
             .state
@@ -58,7 +62,7 @@ class PostContainer extends Component {
                 )
             });
     }
-
+    
     render() {
         const {visible} = this.state;
 
@@ -99,7 +103,7 @@ class PostContainer extends Component {
                         </Col>
                     </Row>
                 </Container>
-                <PostDetail visible={visible}></PostDetail>
+                <PostDetail visible={visible} onNavigateBack={this.onNavigateBack}></PostDetail>
             </div>
         )
     }

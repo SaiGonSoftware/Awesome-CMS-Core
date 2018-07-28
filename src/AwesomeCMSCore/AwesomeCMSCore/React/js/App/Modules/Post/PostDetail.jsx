@@ -67,6 +67,10 @@ class PostDetail extends Component {
         });
     }
 
+    onNavigateBack = () => {
+        this.props.onNavigateBack();
+    }
+
     render() {
         const {shortDescription, title, loading, value, tagOptions} = this.state;
         this.validationArr = [
@@ -136,7 +140,7 @@ class PostDetail extends Component {
                                         placeholder="Post tag"
                                         handleOnChange={value => handleOnChange.call(this, value)}/>
                                     <br/>
-                                    <Button onClick={() => window.history.go(-1)}>
+                                    <Button onClick={this.onNavigateBack}>
                                         Back</Button>
                                 </Card>
                             </Col>
@@ -149,7 +153,8 @@ class PostDetail extends Component {
 }
 
 PostDetail.propTypes = {
-    visible: PropTypes.bool
+    visible: PropTypes.bool,
+    onNavigateBack: PropTypes.func
 };
 
 export default PostDetail;
