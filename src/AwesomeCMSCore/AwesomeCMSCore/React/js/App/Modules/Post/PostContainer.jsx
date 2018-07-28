@@ -32,7 +32,7 @@ class PostContainer extends Component {
     }
 
     navigateToPostDetail(postId) {
-        console.log(postId);
+      
     }
 
     renderPost() {
