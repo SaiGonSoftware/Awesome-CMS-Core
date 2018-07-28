@@ -13,10 +13,10 @@ import {
 } from 'reactstrap';
 import moment from 'moment/src/moment';
 
-import {Get} from './../../Helper/Http';
-import {isDomExist, navigateToUrl} from "../../Helper/Util";
-import {isEmptyString} from '../../Helper/Validation';
-import {GET_POSTS_API} from './../../Helper/API_Endpoint/PostEndpoint';
+import {Get} from '../../../Helper/Http';
+import {isDomExist, navigateToUrl} from "../../../Helper/Util";
+import {isEmptyString} from '../../../Helper/Validation';
+import {GET_POSTS_API} from '../../../Helper/API_Endpoint/PostEndpoint';
 import PostDetail from './PostDetail.jsx';
 
 class PostContainer extends Component {
