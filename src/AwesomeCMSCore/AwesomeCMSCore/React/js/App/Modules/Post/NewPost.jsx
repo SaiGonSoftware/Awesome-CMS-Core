@@ -9,6 +9,7 @@ import {
     CardTitle
 } from 'reactstrap';
 import toastr from "toastr";
+import PropTypes from "prop-types";
 import statusCode from './../../Helper/StatusCode';
 import {SAVE_POST_API} from './../../Helper/API_Endpoint/PostEndpoint';
 import {PostWithSpinner} from './../../Helper/Http';
@@ -21,7 +22,7 @@ import ACCButton from "../../Common/ACCButton/ACCButton.jsx";
 import ACCInput from "../../Common/ACCInput/ACCInput.jsx";
 import ACCReactSelect from './../../Common/ACCSelect/ACCReactSelect.jsx';
 
-class Post extends Component {
+class NewPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -136,7 +137,7 @@ class Post extends Component {
                                         value={value}
                                         placeholder="Post tag"
                                         handleOnChange={value => handleOnChange.call(this, value)}/>
-                                    <br/>    
+                                    <br/>
                                     <Button onClick={() => window.history.go(-1)}>
                                         Back</Button>
                                 </Card>
@@ -148,7 +149,12 @@ class Post extends Component {
         );
     }
 }
+
+NewPost.propTypes = {
+    visible: PropTypes.bool
+};
+
 if (isDomExist("newPostContent")) {
     render(
-        <Post/>, document.getElementById("newPostContent"));
+        <NewPost/>, document.getElementById("newPostContent"));
 }
