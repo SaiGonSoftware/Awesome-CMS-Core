@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Admin.Models;
 using AwesomeCMSCore.Modules.Admin.Repositories;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
-using AwesomeCMSCore.Modules.Helper.Filter;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +28,13 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
         {
             var postList = await _postRepository.GetAllPost();
             return Ok(postList);
+        }
+        
+        [HttpGet("{postId}")]
+        public async Task<IActionResult> GetPost(int postId)
+        {
+            var post = await _postRepository.GetPost(postId);
+            return Ok(post);
         }
 
         [HttpPost("SavePost")]

@@ -7,6 +7,7 @@ const ACCEditor = (props) => {
     return (<Editor
         apiKey={APP_CONFIG.EDITOR_API_KEY}
         initialValue=""
+        value={props.value}
         init={{
         theme: 'modern',
         plugins: 'print preview fullpage powerpaste searchreplace autolink directionality advcode visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount tinymcespellchecker a11ychecker imagetools mediaembed linkchecker contextmenu colorpicker textpattern help',
@@ -17,7 +18,8 @@ const ACCEditor = (props) => {
 }
 
 ACCEditor.propTypes = {
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.string
 }
 
 export default ACCEditor

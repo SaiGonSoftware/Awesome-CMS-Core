@@ -9,19 +9,20 @@ import {
     CardTitle
 } from 'reactstrap';
 import toastr from "toastr";
-import statusCode from './../../Helper/StatusCode';
-import {SAVE_POST_API} from './../../Helper/API_Endpoint/PostEndpoint';
-import {PostWithSpinner} from './../../Helper/Http';
-import {isDomExist} from "../../Helper/Util";
-import {shouldMarkError, validateInput, isFormValid} from './../../Helper/Validation';
-import {onChange, onBlur, handleOnChange} from './../../Helper/StateHelper';
+import PropTypes from "prop-types";
+import statusCode from '../../../Helper/StatusCode';
+import {SAVE_POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
+import {PostWithSpinner} from '../../../Helper/Http';
+import {isDomExist} from "../../../Helper/Util";
+import {shouldMarkError, validateInput, isFormValid} from '../../../Helper/Validation';
+import {onChange, onBlur, handleOnChange} from '../../../Helper/StateHelper';
 
-import ACCEditor from '../../Common/ACCInput/ACCEditor.jsx';
-import ACCButton from "../../Common/ACCButton/ACCButton.jsx";
-import ACCInput from "../../Common/ACCInput/ACCInput.jsx";
-import ACCReactSelect from './../../Common/ACCSelect/ACCReactSelect.jsx';
+import ACCEditor from '../../../Common/ACCInput/ACCEditor.jsx';
+import ACCButton from "../../../Common/ACCButton/ACCButton.jsx";
+import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
+import ACCReactSelect from '../../../Common/ACCSelect/ACCReactSelect.jsx';
 
-class Post extends Component {
+class NewPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -51,6 +52,7 @@ class Post extends Component {
             Title: this.state.title,
             ShortDescription: this.state.shortDescription,
             Content: this.state.postContent,
+            TagData: JSON.stringify(this.state.value.map(x => x.value)),
             TagOptions: JSON.stringify(this.state.value)
         })
             .then(res => {
@@ -118,7 +120,7 @@ class Post extends Component {
                                         <ACCEditor onChange={this.handleEditorChange}/>
                                     </Col>
                                 </Row>
-                                <Row id="postFooter">
+                                <Row className="postFooter">
                                     <Col md="12">
                                         <ACCButton
                                             validationArr={this.validationArr}
@@ -134,8 +136,9 @@ class Post extends Component {
                                     <ACCReactSelect
                                         {...tagOptions}
                                         value={value}
+                                        placeholder="Post tag"
                                         handleOnChange={value => handleOnChange.call(this, value)}/>
-                                    <br/>    
+                                    <br/>
                                     <Button onClick={() => window.history.go(-1)}>
                                         Back</Button>
                                 </Card>
@@ -147,7 +150,12 @@ class Post extends Component {
         );
     }
 }
+
+NewPost.propTypes = {
+    visible: PropTypes.bool
+};
+
 if (isDomExist("newPostContent")) {
     render(
-        <Post/>, document.getElementById("newPostContent"));
+        <NewPost/>, document.getElementById("newPostContent"));
 }

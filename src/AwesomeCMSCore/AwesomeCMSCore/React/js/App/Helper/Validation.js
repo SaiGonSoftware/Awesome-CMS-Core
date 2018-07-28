@@ -26,3 +26,7 @@ export function isFormValid(validationArr) {
 export function isEmptyArray(array) {
   return typeof array !== 'undefined' && array.length > 0;
 }
+
+export function isEmptyString(value) {
+  return (value == null || value === '');
+}

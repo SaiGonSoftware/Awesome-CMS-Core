@@ -10,7 +10,6 @@ namespace AwesomeCMSCore.Modules.Entities.Entities
         public bool IsDeleted { get; set; }
         public Tag Tags { get; set; }
         public User User { get; set; }
-        public string TagOptions { get; set; }
         public ICollection<Media> Media { get; set; }
     }
 }

@@ -14,9 +14,13 @@ namespace AwesomeCMSCore.Modules.Repositories
 
         Task<ICollection<T>> GetAllAsync();
 
-        T GetById(string id);
+        T GetById(int id);
 
-        Task<T> GetByIdAsync(string id);
+        Task<T> GetByIdAsync(int id);
+
+        T GetByUniqueId(string id);
+
+        Task<T> GetByUniqueIdAsync(string id);
 
         T Find(Expression<Func<T, bool>> match);
 

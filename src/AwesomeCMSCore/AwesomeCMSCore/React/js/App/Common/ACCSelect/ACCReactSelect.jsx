@@ -10,6 +10,7 @@ const ACCReactSelect = props => {
       {...selectedOptions}
       value={value}
       multi={true}
+      placeholder={props.placeholder}
       onChange={handleOnChange}
     />
   );
@@ -18,7 +19,8 @@ const ACCReactSelect = props => {
 ACCReactSelect.propTypes = {
   handleOnChange: PropTypes.func.isRequired,
   selectedOptions: PropTypes.arrayOf(PropTypes.object),
-  value: PropTypes.arrayOf(PropTypes.object)
+  value: PropTypes.arrayOf(PropTypes.object),
+  placeholder: PropTypes.string
 };
 
 export default ACCReactSelect;

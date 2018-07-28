@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import toastr from "toastr";
 
-import { handleOnChange } from "../../Helper/StateHelper";
-import { Get, PostWithSpinner } from "../../Helper/Http";
-import { isDomExist } from "../../Helper/Util";
-import statusCode from "./../../Helper/StatusCode";
-import { TAG_API } from './../../Helper/API_Endpoint/PostOptionEndpoint';
+import { handleOnChange } from "../../../Helper/StateHelper";
+import { Get, PostWithSpinner } from "../../../Helper/Http";
+import { isDomExist } from "../../../Helper/Util";
+import statusCode from "../../../Helper/StatusCode";
+import { CATEGORIES_API } from '../../../Helper/API_Endpoint/PostOptionEndpoint';
 
-import ACCReactSelect from "../../Common/ACCSelect/ACCReactSelect.jsx";
-import Spinner from "../../Common/ACCAnimation/Spinner.jsx";
+import ACCReactSelect from "../../../Common/ACCSelect/ACCReactSelect.jsx";
+import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
 
-class TagCreateContainer extends Component {
+class CategoriesCreateContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,9 +22,11 @@ class TagCreateContainer extends Component {
   }
 
   componentDidMount() {
-    Get(TAG_API).then(res => {
+    Get(CATEGORIES_API).then(res => {
       this.setState({
-        value: res.data.tagOptions ? JSON.parse(res.data.tagOptions) : []
+        value: res.data.categoriesOptions
+          ? JSON.parse(res.data.categoriesOptions)
+          : []
       });
     });
   }
@@ -32,15 +34,15 @@ class TagCreateContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const tagData = JSON.stringify(this.state.value.map(x => x.value));
-    const tagOptions = JSON.stringify(this.state.value);
+    const categoriesData = JSON.stringify(this.state.value.map(x => x.value));
+    const categoriesOptions = JSON.stringify(this.state.value);
 
-    const tagVm = {
-      tagData,
-      tagOptions
+    const categoriesVm = {
+      categoriesData,
+      categoriesOptions
     };
 
-    PostWithSpinner.call(this, TAG_API, tagVm)
+    PostWithSpinner.call(this, CATEGORIES_API, categoriesVm)
       .then(res => {
         if (res.status === statusCode.Success) toastr.success("Create success");
       })
@@ -77,7 +79,7 @@ class TagCreateContainer extends Component {
           <div className="col col-md-12" id="tagContainer">
             <div className="card">
               <div className="card-header">
-                Create tag for your post
+                Create categories for your post
               </div>
               <div className="card-body">
                 <ACCReactSelect
@@ -97,8 +99,11 @@ class TagCreateContainer extends Component {
   }
 }
 
-if (isDomExist("tagCreationSelect")) {
-  render(<TagCreateContainer />, document.getElementById("tagCreationSelect"));
+if (isDomExist("categoriesCreationSelect")) {
+  render(
+    <CategoriesCreateContainer />,
+    document.getElementById("categoriesCreationSelect")
+  );
 }
 
-TagCreateContainer.propTypes = {};
+CategoriesCreateContainer.propTypes = {};

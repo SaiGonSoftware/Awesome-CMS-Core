@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import toastr from "toastr";
 
-import {handleOnChange} from "../../../Helper/StateHelper";
-import {Get, PostWithSpinner} from "../../../Helper/Http";
-import statusCode from "../../../Helper/StatusCode";
+import {handleOnChange} from "../../../../Helper/StateHelper";
+import {Get, PostWithSpinner} from "../../../../Helper/Http";
+import statusCode from "../../../../Helper/StatusCode";
 
-import ACCReactSelect from "../../../Common/ACCSelect/ACCReactSelect.jsx";
-import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
-import {ROLE_API, ROLE_MANAGE_API} from './../../../Helper/API_Endpoint/RoleEndpoint';
+import ACCReactSelect from "../../../../Common/ACCSelect/ACCReactSelect.jsx";
+import Spinner from "../../../../Common/ACCAnimation/Spinner.jsx";
+import {ROLE_API, ROLE_MANAGE_API} from '../../../../Helper/API_Endpoint/RoleEndpoint';
 
 class ManageRolesModal extends Component {
     constructor(props) {

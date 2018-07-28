@@ -4,14 +4,16 @@ using AwesomeCMSCore.Modules.Entities.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180725145743_InitDB_20182507_215734")]
+    partial class InitDB_20182507_215734
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,7 +137,7 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<int?>("PostId");
+                    b.Property<int>("PostId");
 
                     b.Property<string>("TagData");
 
@@ -148,8 +150,7 @@ namespace AwesomeCMSCore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PostId")
-                        .IsUnique()
-                        .HasFilter("[PostId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Tags");
                 });
@@ -537,7 +538,7 @@ namespace AwesomeCMSCore.Migrations
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Tag", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post")
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post", "Post")
                         .WithOne("Tags")
                         .HasForeignKey("AwesomeCMSCore.Modules.Entities.Entities.Tag", "PostId")
                         .OnDelete(DeleteBehavior.Restrict);
