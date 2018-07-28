@@ -24,7 +24,8 @@ class PostContainer extends Component {
         super(props);
         this.state = {
             posts: [],
-            visible: false
+            visible: false,
+            postId: null
         }
     }
 
@@ -37,13 +38,14 @@ class PostContainer extends Component {
     navigateToPostDetail(postId) {
         if (!isEmptyString(postId)) {
             this.setState({visible: true});
+            this.setState({postId});
         }
     }
 
     onNavigateBack = () => {
         this.setState({visible: false});
     }
-    
+
     renderPost() {
         return this
             .state
@@ -62,13 +64,13 @@ class PostContainer extends Component {
                 )
             });
     }
-    
+
     render() {
-        const {visible} = this.state;
+        const {visible, postId} = this.state;
 
         return (
             <div>
-                <Container style={{ display: !visible ? '': 'none'}}>
+                <Container className={!visible ? 'visiblity': 'hidden' }>
                     <Row>
                         <Col md="9">
                             <ListGroup>
@@ -103,7 +105,11 @@ class PostContainer extends Component {
                         </Col>
                     </Row>
                 </Container>
-                <PostDetail visible={visible} onNavigateBack={this.onNavigateBack}></PostDetail>
+                {postId ? <PostDetail
+                    visible={visible}
+                    onNavigateBack={this.onNavigateBack}
+                    postId={postId}
+                /> : null}
             </div>
         )
     }

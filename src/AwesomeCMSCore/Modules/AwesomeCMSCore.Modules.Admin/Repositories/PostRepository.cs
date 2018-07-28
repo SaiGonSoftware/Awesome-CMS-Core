@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
@@ -9,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AwesomeCMSCore.Modules.Admin.Repositories
 {
-    public class PostRepository: IPostRepository
+    public class PostRepository : IPostRepository
     {
         private readonly IUserService _userService;
         private readonly IUnitOfWork _unitOfWork;
@@ -39,10 +40,15 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         {
             var post = await _unitOfWork.Repository<Post>().GetByIdAsync(postId);
             var tag = await _unitOfWork.Repository<Tag>().FindAsync(x => x.PostId == post.Id);
-            var postViewModel = _mapper.Map<Post, PostViewModel>(post, options =>
-            {
-                options.AfterMap((src, dest) => dest.TagOptions = tag.TagOptions);
-            });
+            var postViewModel = _mapper.Map<Post, PostViewModel>(post,
+                options =>
+                {
+                    options.AfterMap((src, dest) =>
+                    {
+                        dest.TagData = tag?.TagData;
+                        dest.TagOptions = tag?.TagOptions;
+                    });
+                });
 
             return postViewModel;
         }
@@ -59,19 +65,19 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task SavePost(PostViewModel postViewModel)
         {
-            var user =  await _userService.GetCurrentUserAsync();
+            var user = await _userService.GetCurrentUserAsync();
 
             var postData = _mapper.Map<PostViewModel, Post>(postViewModel, options =>
             {
                 options.AfterMap((src, dest) => dest.User = user);
             });
-            
+
             var post = await _unitOfWork.Repository<Post>().AddAsync(postData);
 
             var tag = new Tag
             {
                 PostId = post.Id,
-                TagData = postViewModel.TagOptions,
+                TagData = postViewModel.TagData,
                 TagOptions = postViewModel.TagOptions,
                 UserId = _currentUserId
             };

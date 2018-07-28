@@ -14,6 +14,8 @@ import {SAVE_POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
 import {PostWithSpinner} from '../../../Helper/Http';
 import {shouldMarkError, validateInput, isFormValid} from '../../../Helper/Validation';
 import {onChange, onBlur, handleOnChange} from '../../../Helper/StateHelper';
+import {GET_POSTS_API} from '../../../Helper/API_Endpoint/PostEndpoint';
+import {Get} from './../../../Helper/Http';
 
 import ACCEditor from '../../../Common/ACCInput/ACCEditor.jsx';
 import ACCButton from "../../../Common/ACCButton/ACCButton.jsx";
@@ -33,9 +35,28 @@ class PostDetail extends Component {
             touched: {
                 title: false,
                 shortDescription: false
-            }
+            },
+            postId: "",
+            post: null
         },
         this.validationArr = [];
+    }
+
+    componentDidMount() {
+        const url = `${GET_POSTS_API}/${this.props.postId}`;
+        Get(url).then(res => {
+            this.setState({post: res.data, value: res.data.tagOptions
+                ? JSON.parse(res.data.tagOptions) : []});
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.postId !== nextProps.postId) {
+            const url = `${GET_POSTS_API}/${nextProps.postId}`;
+            Get(url).then(res => {
+                this.setState({post: res.data});
+            });
+        }
     }
 
     newPost = e => {
@@ -68,11 +89,13 @@ class PostDetail extends Component {
     }
 
     onNavigateBack = () => {
-        this.props.onNavigateBack();
+        this
+            .props
+            .onNavigateBack();
     }
 
     render() {
-        const {shortDescription, title, loading, value, tagOptions} = this.state;
+        const {shortDescription, title, loading, value, tagOptions, post} = this.state;
         this.validationArr = [
             {
                 title,
@@ -83,7 +106,10 @@ class PostDetail extends Component {
         const errors = validateInput.call(this, this.validationArr);
 
         return (
-            <Container style={{ display: this.props.visible ? '': 'none'}}>
+            <Container
+                className={this.props.visible
+                ? 'visiblity'
+                : 'hidden'}>
                 <div id="postContainer">
                     <form onSubmit={this.newPost}>
                         <Row>
@@ -97,7 +123,7 @@ class PostDetail extends Component {
                                             id="title"
                                             placeholder="Title"
                                             required="required"
-                                            value={title}
+                                            value={post ? post.title : title}
                                             onChange={title => onChange.call(this, title)}
                                             onBlur={title => onBlur.call(this, title)}/>
                                     </Col>
@@ -111,14 +137,14 @@ class PostDetail extends Component {
                                             id="shortDescription"
                                             placeholder="Short Description"
                                             required="required"
-                                            value={shortDescription}
+                                            value={post ? post.shortDescription : shortDescription}
                                             onChange={shortDescription => onChange.call(this, shortDescription)}
                                             onBlur={shortDescription => onBlur.call(this, shortDescription)}/>
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col md="12">
-                                        <ACCEditor onChange={this.handleEditorChange}/>
+                                        <ACCEditor onChange={this.handleEditorChange} value={post ? post.content : null}/>
                                     </Col>
                                 </Row>
                                 <Row id="postFooter">
@@ -154,7 +180,8 @@ class PostDetail extends Component {
 
 PostDetail.propTypes = {
     visible: PropTypes.bool,
-    onNavigateBack: PropTypes.func
+    onNavigateBack: PropTypes.func,
+    postId: PropTypes.number
 };
 
 export default PostDetail;

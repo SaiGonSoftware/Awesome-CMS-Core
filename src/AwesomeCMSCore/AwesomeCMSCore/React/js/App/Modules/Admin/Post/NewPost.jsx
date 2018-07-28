@@ -52,6 +52,7 @@ class NewPost extends Component {
             Title: this.state.title,
             ShortDescription: this.state.shortDescription,
             Content: this.state.postContent,
+            TagData: JSON.stringify(this.state.value.map(x => x.value)),
             TagOptions: JSON.stringify(this.state.value)
         })
             .then(res => {
