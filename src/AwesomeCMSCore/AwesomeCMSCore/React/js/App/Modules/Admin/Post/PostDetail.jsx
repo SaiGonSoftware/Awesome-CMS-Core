@@ -147,7 +147,7 @@ class PostDetail extends Component {
                                         <ACCEditor onChange={this.handleEditorChange} value={post ? post.content : null}/>
                                     </Col>
                                 </Row>
-                                <Row id="postFooter">
+                                <Row className="postFooter">
                                     <Col md="12">
                                         <ACCButton
                                             validationArr={this.validationArr}

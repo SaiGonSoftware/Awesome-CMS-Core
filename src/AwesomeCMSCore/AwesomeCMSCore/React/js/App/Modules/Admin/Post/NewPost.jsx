@@ -120,7 +120,7 @@ class NewPost extends Component {
                                         <ACCEditor onChange={this.handleEditorChange}/>
                                     </Col>
                                 </Row>
-                                <Row id="postFooter">
+                                <Row className="postFooter">
                                     <Col md="12">
                                         <ACCButton
                                             validationArr={this.validationArr}
