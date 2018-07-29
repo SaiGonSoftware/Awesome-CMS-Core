@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AwesomeCMSCore.Modules.Entities.Enums;
 
 namespace AwesomeCMSCore.Modules.Entities.Entities
 {
@@ -7,7 +8,7 @@ namespace AwesomeCMSCore.Modules.Entities.Entities
         public string Title { get; set; }
         public string ShortDescription { get; set; }
         public string Content { get; set; }
-        public bool IsDeleted { get; set; }
+        public PostStatus PostStatus { get; set; }
         public Tag Tags { get; set; }
         public User User { get; set; }
         public ICollection<Media> Media { get; set; }
