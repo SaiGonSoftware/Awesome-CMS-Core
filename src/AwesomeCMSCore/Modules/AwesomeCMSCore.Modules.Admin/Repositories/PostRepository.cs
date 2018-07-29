@@ -55,12 +55,26 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task EditPost(PostViewModel postViewModel)
         {
+            var user = await _userService.GetCurrentUserAsync();
+
             var postData = _mapper.Map<PostViewModel, Post>(postViewModel, options =>
             {
-                options.AfterMap((src, dest) => dest.User.Id = _currentUserId);
+                options.AfterMap((src, dest) => dest.User = user);
             });
 
             await _unitOfWork.Repository<Post>().UpdateAsync(postData);
+
+            var tagToDelete = await _unitOfWork.Repository<Tag>().FindAsync(t => t.PostId == postViewModel.Id);
+            await _unitOfWork.Repository<Tag>().DeleteAsync(tagToDelete);
+
+            var tag = new Tag
+            {
+                PostId = postViewModel.Id,
+                TagData = postViewModel.TagData,
+                TagOptions = postViewModel.TagOptions,
+                UserId = _currentUserId
+            };
+            await _unitOfWork.Repository<Tag>().AddAsync(tag);
         }
 
         public async Task SavePost(PostViewModel postViewModel)
