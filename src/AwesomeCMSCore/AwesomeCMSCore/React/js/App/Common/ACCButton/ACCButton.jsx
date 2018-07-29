@@ -33,7 +33,7 @@ const ACCButton = props => {
 ACCButton.propTypes = {
   loading: PropTypes.bool,
   label: PropTypes.string,
-  validationArr: PropTypes.array.isRequired,
+  validationArr: PropTypes.array,
   disable: PropTypes.bool,
   onClick: PropTypes.func,
   btnBlocked: PropTypes.string

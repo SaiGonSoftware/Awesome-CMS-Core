@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
     <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Models\**" />
     <EmbeddedResource Remove="Services\**" />
+    <None Remove="Models\**" />
     <None Remove="Services\**" />
   </ItemGroup>
 
@@ -21,10 +24,6 @@
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Repositories\AwesomeCMSCore.Modules.Repositories.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

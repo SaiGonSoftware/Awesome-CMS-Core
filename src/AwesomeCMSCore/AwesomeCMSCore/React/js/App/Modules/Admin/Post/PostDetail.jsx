@@ -45,8 +45,15 @@ class PostDetail extends Component {
     componentDidMount() {
         const url = `${GET_POSTS_API}/${this.props.postId}`;
         Get(url).then(res => {
-            this.setState({post: res.data, value: res.data.tagOptions
-                ? JSON.parse(res.data.tagOptions) : []});
+            this.setState({
+                post: res.data,
+                value: res.data.tagOptions
+                    ? JSON.parse(res.data.tagOptions)
+                    : [],
+                title: res.data.title,
+                shortDescription: res.data.shortDescription,
+                postContent: res.data.content
+            });
         });
     }
 
@@ -54,30 +61,38 @@ class PostDetail extends Component {
         if (this.props.postId !== nextProps.postId) {
             const url = `${GET_POSTS_API}/${nextProps.postId}`;
             Get(url).then(res => {
-                this.setState({post: res.data});
+                this.setState({
+                    post: res.data,
+                    value: res.data.tagOptions
+                        ? JSON.parse(res.data.tagOptions)
+                        : [],
+                    title: res.data.title,
+                    shortDescription: res.data.shortDescription,
+                    postContent: res.data.content
+                });
             });
         }
     }
 
-    newPost = e => {
+    editPost = e => {
         if (!isFormValid(this.validationArr)) {
             return;
         }
 
         e.preventDefault();
 
-        PostWithSpinner
-            .call(this, SAVE_POST_API, {
+        PostWithSpinner.call(this, SAVE_POST_API, {
+            Id: this.state.post.id,
             Title: this.state.title,
             ShortDescription: this.state.shortDescription,
             Content: this.state.postContent,
+            TagData: JSON.stringify(this.state.value.map(x => x.value)),
             TagOptions: JSON.stringify(this.state.value)
-        })
-            .then(res => {
-                if (res.status === statusCode.Success) 
-                    return toastr.success("Create new post success");
-                }
-            )
+        }).then(res => {
+            if (res.status === statusCode.Success) 
+                return toastr.success("Edit post success");
+            }
+        )
     }
 
     handleEditorChange = (e) => {
@@ -95,7 +110,15 @@ class PostDetail extends Component {
     }
 
     render() {
-        const {shortDescription, title, loading, value, tagOptions, post} = this.state;
+        const {
+            shortDescription,
+            title,
+            loading,
+            value,
+            tagOptions,
+            postContent
+        } = this.state;
+
         this.validationArr = [
             {
                 title,
@@ -111,7 +134,7 @@ class PostDetail extends Component {
                 ? 'visiblity'
                 : 'hidden'}>
                 <div id="postContainer">
-                    <form onSubmit={this.newPost}>
+                    <form onSubmit={this.editPost}>
                         <Row>
                             <Col md="9">
                                 <Row>
@@ -123,7 +146,7 @@ class PostDetail extends Component {
                                             id="title"
                                             placeholder="Title"
                                             required="required"
-                                            value={post ? post.title : title}
+                                            value={title}
                                             onChange={title => onChange.call(this, title)}
                                             onBlur={title => onBlur.call(this, title)}/>
                                     </Col>
@@ -137,14 +160,16 @@ class PostDetail extends Component {
                                             id="shortDescription"
                                             placeholder="Short Description"
                                             required="required"
-                                            value={post ? post.shortDescription : shortDescription}
+                                            value={shortDescription}
                                             onChange={shortDescription => onChange.call(this, shortDescription)}
                                             onBlur={shortDescription => onBlur.call(this, shortDescription)}/>
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col md="12">
-                                        <ACCEditor onChange={this.handleEditorChange} value={post ? post.content : null}/>
+                                        <ACCEditor
+                                            onChange={this.handleEditorChange}
+                                            value={postContent}/>
                                     </Col>
                                 </Row>
                                 <Row className="postFooter">
