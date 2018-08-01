@@ -3,7 +3,7 @@ using AwesomeCMSCore.Modules.Entities.Enums;
 
 namespace AwesomeCMSCore.Modules.Entities.Entities
 {
-    public class Post:BaseEntity
+    public class Post: BaseEntity
     {
         public string Title { get; set; }
         public string ShortDescription { get; set; }

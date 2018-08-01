@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Entities.Enums;
 
 namespace AwesomeCMSCore.Modules.Admin.ViewModels
 {
@@ -16,5 +17,6 @@ namespace AwesomeCMSCore.Modules.Admin.ViewModels
         public string TagOptions { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public ICollection<Media> Media { get; set; }
+        public PostStatus PostStatus { get; set; }
     }
 }
