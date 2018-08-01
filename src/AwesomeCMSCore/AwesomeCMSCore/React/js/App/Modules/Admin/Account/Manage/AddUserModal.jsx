@@ -8,7 +8,7 @@ import {Get, PostWithSpinner, Post} from "../../../../Helper/Http";
 import {ROLE_API} from '../../../../Helper/API_Endpoint/RoleEndpoint';
 import {ACCOUNT_DUPLICATE_API, USER_API} from '../../../../Helper/API_Endpoint/AccountEndpoint';
 import {isFormValid} from "../../../../Helper/Validation";
-import statusCode from "../../../../Helper/StatusCode";
+import {STATUS_CODE} from '../../../../Helper/AppEnum';
 
 import ACCInput from "../../../../Common/ACCInput/ACCInput.jsx";
 import ACCMultiCheckbox from "../../../../Common/ACCSelect/ACCMultiCheckbox.jsx";
@@ -100,7 +100,7 @@ class AddUserModal extends Component {
         Roles: [...this.selectedRoles]
       })
         .then(res => {
-          if (res.status === statusCode.Success) 
+          if (res.status === STATUS_CODE.Success) 
             toastr.info("Account successfully create");
           }
         )

@@ -10,7 +10,7 @@ import {
 } from 'reactstrap';
 import toastr from "toastr";
 import PropTypes from "prop-types";
-import statusCode from '../../../Helper/StatusCode';
+import {STATUS_CODE} from "../../../Helper/AppEnum";
 import {SAVE_POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
 import {PostWithSpinner} from '../../../Helper/Http';
 import {isDomExist} from "../../../Helper/Util";
@@ -56,7 +56,7 @@ class NewPost extends Component {
             TagOptions: JSON.stringify(this.state.value)
         })
             .then(res => {
-                if (res.status === statusCode.Success) 
+                if (res.status === STATUS_CODE.Success) 
                     return toastr.success("Create new post success");
                 }
             )

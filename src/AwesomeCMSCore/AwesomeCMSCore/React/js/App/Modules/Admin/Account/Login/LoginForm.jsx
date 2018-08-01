@@ -7,10 +7,9 @@ import PropTypes from "prop-types";
 import {onChange, onBlur, onCheck} from "../../../../Helper/StateHelper";
 import {navigateToUrl, isDomExist} from "../../../../Helper/Util";
 import {setStorage} from "../../../../Helper/StorageHelper";
-import {APP_ENUM} from "../../../../Helper/AppEnum";
+import {APP_ENUM, STATUS_CODE} from "../../../../Helper/AppEnum";
 import {Post, PostWithSpinner} from "../../../../Helper/Http";
 import {shouldMarkError, validateInput, isFormValid} from "../../../../Helper/Validation";
-import statusCode from "../../../../Helper/StatusCode";
 import {TOKEN_ENDPOINT, ACCOUNT_LOGIN_API} from '../../../../Helper/API_Endpoint/AccountEndpoint';
 import {PORTAL_ENDPOINT} from '../../../../Helper/API_Endpoint/PortalEndpoint';
 
@@ -50,17 +49,17 @@ class LoginForm extends Component {
         : false
     })
       .then(res => {
-        if (res.status === statusCode.Success) 
+        if (res.status === STATUS_CODE.Success) 
           this.tokenRequest();
         }
       )
       .catch((err) => {
         switch (err.response.status) {
-          case statusCode.EmailNotConfirmed:
+          case STATUS_CODE.EmailNotConfirmed:
             return toastr.warning("Please confirm email");
-          case statusCode.Forbid:
+          case STATUS_CODE.Forbid:
             return toastr.warning("Account is lockout");
-          case statusCode.BadRequest:
+          case STATUS_CODE.BadRequest:
             return toastr.error("Invalid credentials");
         }
       });

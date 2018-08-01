@@ -9,7 +9,7 @@ import {
 } from 'reactstrap';
 import toastr from "toastr";
 import PropTypes from "prop-types";
-import statusCode from '../../../Helper/StatusCode';
+import {STATUS_CODE} from "../../../Helper/AppEnum";
 import {SAVE_POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
 import {PostWithSpinner} from '../../../Helper/Http';
 import {shouldMarkError, validateInput, isFormValid} from '../../../Helper/Validation';
@@ -89,7 +89,7 @@ class PostDetail extends Component {
             TagData: JSON.stringify(this.state.value.map(x => x.value)),
             TagOptions: JSON.stringify(this.state.value)
         }).then(res => {
-            if (res.status === statusCode.Success) 
+            if (res.status === STATUS_CODE.Success) 
                 return toastr.success("Edit post success");
             }
         )

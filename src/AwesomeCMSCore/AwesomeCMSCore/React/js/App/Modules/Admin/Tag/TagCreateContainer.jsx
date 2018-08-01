@@ -5,7 +5,7 @@ import toastr from "toastr";
 import { handleOnChange } from "../../../Helper/StateHelper";
 import { Get, PostWithSpinner } from "../../../Helper/Http";
 import { isDomExist } from "../../../Helper/Util";
-import statusCode from "../../../Helper/StatusCode";
+import {STATUS_CODE} from "../../../Helper/AppEnum";
 import { TAG_API } from '../../../Helper/API_Endpoint/PostOptionEndpoint';
 
 import ACCReactSelect from "../../../Common/ACCSelect/ACCReactSelect.jsx";
@@ -42,7 +42,7 @@ class TagCreateContainer extends Component {
 
     PostWithSpinner.call(this, TAG_API, tagVm)
       .then(res => {
-        if (res.status === statusCode.Success) toastr.success("Create success");
+        if (res.status === STATUS_CODE.Success) toastr.success("Create success");
       })
       .catch(() => {
         toastr.error("Something went wrong.Please try again");
