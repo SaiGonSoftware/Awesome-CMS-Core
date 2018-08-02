@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Entities.Enums;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -30,10 +32,27 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             _currentUserId = _userService.GetCurrentUserGuid();
         }
 
-        public async Task<IEnumerable<PostListViewModel>> GetAllPost()
+        public async Task<IEnumerable<PostListViewModel>> GetAllPosts()
         {
             var posts = await _unitOfWork.Repository<Post>().Query().ToListAsync();
             return _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(posts);
+        }
+
+        public async Task<PostDefaultViewModel> GetPostsDefaultViewModel()
+        {
+            var posts = _unitOfWork.Repository<Post>().Query();
+
+            var viewModel = new PostDefaultViewModel
+            {
+                PostsPublished = await GetPostsByStatus(posts, PostStatus.Published),
+                NumberOfPostPublished = CountPost(posts, PostStatus.Published),
+                PostsDrafted = await GetPostsByStatus(posts, PostStatus.Draft),
+                NumberOfDraftedPost = CountPost(posts, PostStatus.Draft),
+                PostDeleted = await GetPostsByStatus(posts, PostStatus.Deleted),
+                NumberOfDeletedPost = CountPost(posts, PostStatus.Deleted)
+            };
+
+            return viewModel;
         }
 
         public async Task<PostViewModel> GetPost(int postId)
@@ -96,6 +115,17 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
                 UserId = _currentUserId
             };
             await _unitOfWork.Repository<Tag>().AddAsync(tag);
+        }
+
+        private async Task<IEnumerable<PostListViewModel>> GetPostsByStatus(IQueryable<Post> posts, PostStatus postStatus)
+        {
+            return _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(
+                await posts.Where(p => p.PostStatus == postStatus).ToListAsync());
+        }
+
+        private int CountPost(IQueryable<Post> posts, PostStatus postStatus)
+        {
+            return posts.Count(p => p.PostStatus.Equals(postStatus));
         }
     }
 }

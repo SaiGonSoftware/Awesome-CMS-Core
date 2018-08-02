@@ -8,7 +8,8 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 {
     public interface IPostRepository
     {
-        Task<IEnumerable<PostListViewModel>> GetAllPost();
+        Task<PostDefaultViewModel> GetPostsDefaultViewModel();
+        Task<IEnumerable<PostListViewModel>> GetAllPosts();
         Task<PostViewModel> GetPost(int postId);
         Task EditPost(PostViewModel postViewModel);
         Task SavePost(PostViewModel postViewModel);

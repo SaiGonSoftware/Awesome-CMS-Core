@@ -125,8 +125,11 @@ class NewPost extends Component {
                                         <ACCButton
                                             validationArr={this.validationArr}
                                             loading={loading}
-                                            btnBlocked="btn-block"
-                                            label="Save post"/>
+                                            label="Save Post"/>
+                                        <ACCButton
+                                            validationArr={this.validationArr}
+                                            loading={loading}
+                                            label="Published Post"/>
                                     </Col>
                                 </Row>
                             </Col>

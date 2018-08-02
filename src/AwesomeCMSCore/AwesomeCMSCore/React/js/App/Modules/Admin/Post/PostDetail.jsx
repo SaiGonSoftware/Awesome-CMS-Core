@@ -116,7 +116,8 @@ class PostDetail extends Component {
             loading,
             value,
             tagOptions,
-            postContent
+            postContent,
+            post
         } = this.state;
 
         this.validationArr = [
@@ -128,78 +129,76 @@ class PostDetail extends Component {
 
         const errors = validateInput.call(this, this.validationArr);
 
-        return (
-            <Container
-                className={this.props.visible
-                ? 'visiblity'
-                : 'hidden'}>
-                <div id="postContainer">
-                    <form onSubmit={this.editPost}>
-                        <Row>
-                            <Col md="9">
-                                <Row>
-                                    <Col md="12">
-                                        <ACCInput
-                                            className={shouldMarkError.call(this, "title", errors)}
-                                            type="text"
-                                            name="title"
-                                            id="title"
-                                            placeholder="Title"
-                                            required="required"
-                                            value={title}
-                                            onChange={title => onChange.call(this, title)}
-                                            onBlur={title => onBlur.call(this, title)}/>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col md="12">
-                                        <ACCInput
-                                            className={shouldMarkError.call(this, "shortDescription", errors)}
-                                            type="text"
-                                            name="shortDescription"
-                                            id="shortDescription"
-                                            placeholder="Short Description"
-                                            required="required"
-                                            value={shortDescription}
-                                            onChange={shortDescription => onChange.call(this, shortDescription)}
-                                            onBlur={shortDescription => onBlur.call(this, shortDescription)}/>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col md="12">
-                                        <ACCEditor
-                                            onChange={this.handleEditorChange}
-                                            value={postContent}/>
-                                    </Col>
-                                </Row>
-                                <Row className="postFooter">
-                                    <Col md="12">
-                                        <ACCButton
-                                            validationArr={this.validationArr}
-                                            loading={loading}
-                                            btnBlocked="btn-block"
-                                            label="Save post"/>
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col md="3">
-                                <Card body>
-                                    <CardTitle>Post Options</CardTitle>
-                                    <ACCReactSelect
-                                        {...tagOptions}
-                                        value={value}
-                                        placeholder="Post tag"
-                                        handleOnChange={value => handleOnChange.call(this, value)}/>
-                                    <br/>
-                                    <Button onClick={this.onNavigateBack}>
-                                        Back</Button>
-                                </Card>
-                            </Col>
-                        </Row>
-                    </form>
-                </div>
-            </Container>
-        );
+        return (post && postContent
+            ? <Container
+                    className={this.props.visible
+                    ? 'visiblity'
+                    : 'hidden'}>
+                    <div id="postContainer">
+                        <form onSubmit={this.editPost}>
+                            <Row>
+                                <Col md="9">
+                                    <Row>
+                                        <Col md="12">
+                                            <ACCInput
+                                                className={shouldMarkError.call(this, "title", errors)}
+                                                type="text"
+                                                name="title"
+                                                id="title"
+                                                placeholder="Title"
+                                                required="required"
+                                                value={title}
+                                                onChange={title => onChange.call(this, title)}
+                                                onBlur={title => onBlur.call(this, title)}/>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col md="12">
+                                            <ACCInput
+                                                className={shouldMarkError.call(this, "shortDescription", errors)}
+                                                type="text"
+                                                name="shortDescription"
+                                                id="shortDescription"
+                                                placeholder="Short Description"
+                                                required="required"
+                                                value={shortDescription}
+                                                onChange={shortDescription => onChange.call(this, shortDescription)}
+                                                onBlur={shortDescription => onBlur.call(this, shortDescription)}/>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col md="12">
+                                            <ACCEditor onChange={this.handleEditorChange} value={postContent}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="postFooter">
+                                        <Col md="12">
+                                            <ACCButton
+                                                validationArr={this.validationArr}
+                                                loading={loading}
+                                                btnBlocked="btn-block"
+                                                label="Save Post"/>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col md="3">
+                                    <Card body>
+                                        <CardTitle>Post Options</CardTitle>
+                                        <ACCReactSelect
+                                            {...tagOptions}
+                                            value={value}
+                                            placeholder="Post tag"
+                                            handleOnChange={value => handleOnChange.call(this, value)}/>
+                                        <br/>
+                                        <Button onClick={this.onNavigateBack}>
+                                            Back</Button>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </form>
+                    </div>
+                </Container>
+            : null);
     }
 }
 
