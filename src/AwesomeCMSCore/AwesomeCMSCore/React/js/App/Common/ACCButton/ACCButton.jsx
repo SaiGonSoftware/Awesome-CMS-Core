@@ -9,7 +9,7 @@ const ACCButton = props => {
   let isDisabled;
   if (props.validationArr) {
     const errors = validateInput(props.validationArr);
-    isDisabled = props.disable
+    isDisabled = props.disabled
       ? true
       : Object
         .keys(errors)
