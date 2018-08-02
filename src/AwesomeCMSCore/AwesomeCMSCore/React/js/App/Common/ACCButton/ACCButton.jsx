@@ -39,7 +39,7 @@ ACCButton.propTypes = {
   loading: PropTypes.bool,
   label: PropTypes.string,
   validationArr: PropTypes.array,
-  disable: PropTypes.bool,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
   btnBlocked: PropTypes.string
 };
