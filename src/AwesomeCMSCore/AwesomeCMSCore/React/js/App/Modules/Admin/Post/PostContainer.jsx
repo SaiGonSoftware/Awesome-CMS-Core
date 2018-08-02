@@ -9,8 +9,14 @@ import {
     Badge,
     Card,
     Button,
-    CardTitle
+    CardTitle,
+    TabContent,
+    TabPane,
+    Nav,
+    NavItem,
+    NavLink
 } from 'reactstrap';
+import classnames from 'classnames';
 import moment from 'moment/src/moment';
 
 import {Get} from '../../../Helper/Http';
@@ -23,9 +29,10 @@ class PostContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: [],
+            posts: null,
             visible: false,
-            postId: null
+            postId: null,
+            activeTab: 'Published'
         }
     }
 
@@ -44,6 +51,12 @@ class PostContainer extends Component {
 
     onNavigateBack = () => {
         this.setState({visible: false});
+    }
+
+    toggle = (tab) => {
+        if (this.state.activeTab !== tab) {
+            this.setState({activeTab: tab});
+        }
     }
 
     renderPost() {
@@ -66,52 +79,145 @@ class PostContainer extends Component {
     }
 
     render() {
-        const {visible, postId} = this.state;
+        const {visible, postId, posts} = this.state;
 
-        return (
-            <div>
-                <Container className={!visible ? 'visiblity': 'hidden' }>
-                    <Row>
-                        <Col md="9">
-                            <ListGroup>
-                                <ListGroupItem tag="a" href="#" action id="postHeaderSection">
-                                    <Button color="primary" outline className="postHeaderBtn">
-                                        Publish &nbsp;
-                                        <Badge color="secondary">4</Badge>
+        return (posts
+            ? <div>
+                    <Container
+                        className={!visible
+                        ? 'visiblity'
+                        : 'hidden'}>
+                        <Row>
+                            <Col md="9">
+                                <ListGroup>
+                                    <ListGroupItem tag="a" href="#" action id="postHeaderSection">
+                                        <div>
+                                            <Nav tabs>
+                                                <NavItem>
+                                                    <NavLink
+                                                        className={classnames({
+                                                        active: this.state.activeTab === 'Published'
+                                                    })}
+                                                        onClick={() => {
+                                                        this.toggle('Published');
+                                                    }}>
+                                                        Published &nbsp;
+                                                        <Badge color="secondary">{posts.numberOfPostPublished}</Badge>
+                                                    </NavLink>
+                                                </NavItem>
+                                                <NavItem>
+                                                    <NavLink
+                                                        className={classnames({
+                                                        active: this.state.activeTab === 'Drafted'
+                                                    })}
+                                                        onClick={() => {
+                                                        this.toggle('Drafted');
+                                                    }}>
+                                                        Drafted &nbsp;
+                                                        <Badge color="secondary">{posts.numberOfDraftedPost}</Badge>
+                                                    </NavLink>
+                                                </NavItem>
+                                                <NavItem>
+                                                    <NavLink
+                                                        className={classnames({
+                                                        active: this.state.activeTab === 'Deleted'
+                                                    })}
+                                                        onClick={() => {
+                                                        this.toggle('Deleted');
+                                                    }}>
+                                                        Deleted &nbsp;
+                                                        <Badge color="secondary">{posts.numberOfDeletedPost}</Badge>
+                                                    </NavLink>
+                                                </NavItem>
+                                            </Nav>
+                                            <TabContent activeTab={this.state.activeTab}>
+                                                <TabPane tabId="Published" className="postsTabWrapper">
+                                                    <Row>
+                                                        <Col sm="12">
+                                                            {posts
+                                                                .postsPublished
+                                                                .map(post => {
+                                                                    return (
+                                                                        <ListGroupItem
+                                                                            key={post.id}
+                                                                            className="postItem"
+                                                                            tag="a"
+                                                                            onClick={() => this.navigateToPostDetail(post.id)}
+                                                                            action>
+                                                                            <h3>{post.title}</h3>
+                                                                            <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
+                                                                        </ListGroupItem>
+                                                                    )
+                                                                })}
+                                                        </Col>
+                                                    </Row>
+                                                </TabPane>
+                                                <TabPane tabId="Drafted" className="postsTabWrapper">
+                                                    <Row>
+                                                        <Col sm="12">
+                                                            {posts
+                                                                .postsDrafted
+                                                                .map(post => {
+                                                                    return (
+                                                                        <ListGroupItem
+                                                                            key={post.id}
+                                                                            className="postItem"
+                                                                            tag="a"
+                                                                            onClick={() => this.navigateToPostDetail(post.id)}
+                                                                            action>
+                                                                            <h3>{post.title}</h3>
+                                                                            <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
+                                                                        </ListGroupItem>
+                                                                    )
+                                                                })}
+                                                        </Col>
+                                                    </Row>
+                                                </TabPane>
+                                                <TabPane tabId="Deleted" className="postsTabWrapper">
+                                                    <Row>
+                                                        <Col sm="12">
+                                                            {posts
+                                                                .postDeleted
+                                                                .map(post => {
+                                                                    return (
+                                                                        <ListGroupItem
+                                                                            key={post.id}
+                                                                            className="postItem"
+                                                                            tag="a"
+                                                                            onClick={() => this.navigateToPostDetail(post.id)}
+                                                                            action>
+                                                                            <h3>{post.title}</h3>
+                                                                            <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
+                                                                        </ListGroupItem>
+                                                                    )
+                                                                })}
+                                                        </Col>
+                                                    </Row>
+                                                </TabPane>
+                                            </TabContent>
+                                        </div>
+                                    </ListGroupItem>
+                                </ListGroup>
+                            </Col>
+                            <Col md="3">
+                                <Card body>
+                                    <CardTitle>Management</CardTitle>
+                                    <Button onClick={() => navigateToUrl('/Post/NewPost')}>
+                                        <i className="fa fa-newspaper-o" aria-hidden="true"></i>
+                                        &nbsp; New post
                                     </Button>
-                                    <Button color="primary" outline className="postHeaderBtn">
-                                        Drap &nbsp;
-                                        <Badge color="secondary">4</Badge>
-                                    </Button>
-                                    <Button color="primary" outline className="postHeaderBtn">
-                                        Trash &nbsp;
-                                        <Badge color="secondary">4</Badge>
-                                    </Button>
-                                    <Button color="primary" className="float-right">
-                                        <i className="fa fa-search" aria-hidden="true"></i>
-                                    </Button>
-                                </ListGroupItem>
-                                {this.renderPost()}
-                            </ListGroup>
-                        </Col>
-                        <Col md="3">
-                            <Card body>
-                                <CardTitle>Management</CardTitle>
-                                <Button onClick={() => navigateToUrl('/Post/NewPost')}>
-                                    <i className="fa fa-newspaper-o" aria-hidden="true"></i>
-                                    &nbsp; New post
-                                </Button>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
-                {postId ? <PostDetail
-                    visible={visible}
-                    onNavigateBack={this.onNavigateBack}
-                    postId={postId}
-                /> : null}
-            </div>
-        )
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Container>
+                    {postId
+                        ? <PostDetail
+                                visible={visible}
+                                onNavigateBack={this.onNavigateBack}
+                                postId={postId}/>
+                        : null}
+                </div>
+            : null)
     }
 }
 

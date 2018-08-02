@@ -2,9 +2,9 @@ import axios from "axios";
 import qs from 'qs';
 
 import {
-  APP_ENUM
+  APP_ENUM,
+  STATUS_CODE
 } from "./AppEnum";
-import statusCode from "./StatusCode";
 import {
   getStorage,
   setStorage
@@ -104,7 +104,7 @@ axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
   const originalRequest = error.config;
-  if (error.response.status === statusCode.NotAuthorize) {
+  if (error.response.status === STATUS_CODE.NotAuthorize) {
     const token = getStorage(APP_ENUM.AUTH_TOKEN);
     const refreshToken = token.refresh_token;
 
