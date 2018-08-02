@@ -10,17 +10,17 @@ import {
 } from 'reactstrap';
 import toastr from "toastr";
 import PropTypes from "prop-types";
-import {STATUS_CODE} from "../../../Helper/AppEnum";
+import {STATUS_CODE, POST_STATUS} from "../../../Helper/AppEnum";
 import {SAVE_POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
 import {PostWithSpinner} from '../../../Helper/Http';
 import {isDomExist} from "../../../Helper/Util";
-import {shouldMarkError, validateInput, isFormValid} from '../../../Helper/Validation';
 import {onChange, onBlur, handleOnChange} from '../../../Helper/StateHelper';
 
 import ACCEditor from '../../../Common/ACCInput/ACCEditor.jsx';
 import ACCButton from "../../../Common/ACCButton/ACCButton.jsx";
 import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
 import ACCReactSelect from '../../../Common/ACCSelect/ACCReactSelect.jsx';
+import Spinner from '../../../Common/ACCAnimation/Spinner.jsx';
 
 class NewPost extends Component {
     constructor(props) {
@@ -31,35 +31,25 @@ class NewPost extends Component {
             shortDescription: "",
             value: [],
             tagOptions: [],
-            loading: false,
-            touched: {
-                title: false,
-                shortDescription: false
-            }
-        },
-        this.validationArr = [];
+            loading: false
+        }
     }
 
-    newPost = e => {
-        if (!isFormValid(this.validationArr)) {
-            return;
-        }
-
+    newPost = (e, postStatus) => {
         e.preventDefault();
 
-        PostWithSpinner
-            .call(this, SAVE_POST_API, {
+        PostWithSpinner.call(this, SAVE_POST_API, {
             Title: this.state.title,
             ShortDescription: this.state.shortDescription,
             Content: this.state.postContent,
             TagData: JSON.stringify(this.state.value.map(x => x.value)),
-            TagOptions: JSON.stringify(this.state.value)
-        })
-            .then(res => {
-                if (res.status === STATUS_CODE.Success) 
-                    return toastr.success("Create new post success");
-                }
-            )
+            TagOptions: JSON.stringify(this.state.value),
+            PostStatus: postStatus
+        }).then(res => {
+            if (res.status === STATUS_CODE.Success) 
+                return toastr.success("Create new post success");
+            }
+        );
     }
 
     handleEditorChange = (e) => {
@@ -71,26 +61,24 @@ class NewPost extends Component {
     }
 
     render() {
-        const {shortDescription, title, loading, value, tagOptions} = this.state;
-        this.validationArr = [
-            {
-                title,
-                shortDescription
-            }
-        ];
-
-        const errors = validateInput.call(this, this.validationArr);
+        const {
+            shortDescription,
+            title,
+            disabled,
+            loading,
+            value,
+            tagOptions
+        } = this.state;
 
         return (
             <Container>
                 <div id="postContainer">
-                    <form onSubmit={this.newPost}>
+                    <form>
                         <Row>
                             <Col md="9">
                                 <Row>
                                     <Col md="12">
                                         <ACCInput
-                                            className={shouldMarkError.call(this, "title", errors)}
                                             type="text"
                                             name="title"
                                             id="title"
@@ -104,7 +92,6 @@ class NewPost extends Component {
                                 <Row>
                                     <Col md="12">
                                         <ACCInput
-                                            className={shouldMarkError.call(this, "shortDescription", errors)}
                                             type="text"
                                             name="shortDescription"
                                             id="shortDescription"
@@ -120,18 +107,7 @@ class NewPost extends Component {
                                         <ACCEditor onChange={this.handleEditorChange}/>
                                     </Col>
                                 </Row>
-                                <Row className="postFooter">
-                                    <Col md="12">
-                                        <ACCButton
-                                            validationArr={this.validationArr}
-                                            loading={loading}
-                                            label="Save Post"/>
-                                        <ACCButton
-                                            validationArr={this.validationArr}
-                                            loading={loading}
-                                            label="Published Post"/>
-                                    </Col>
-                                </Row>
+                                <Row className="postFooter"></Row>
                             </Col>
                             <Col md="3">
                                 <Card body>
@@ -144,6 +120,21 @@ class NewPost extends Component {
                                     <br/>
                                     <Button onClick={() => window.history.go(-1)}>
                                         Back</Button>
+                                    <br/> {!loading
+                                        ? <div>
+                                                <ACCButton
+                                                    disabled={disabled}
+                                                    label="Save as Drafted"
+                                                    btnBlocked
+                                                    onClick={e => this.newPost(e, POST_STATUS.Draft)}/>
+                                                <br/>
+                                                <ACCButton
+                                                    disabled={disabled}
+                                                    label="Published Post"
+                                                    btnBlocked
+                                                    onClick={e => this.newPost(e, POST_STATUS.Published)}/>
+                                            </div>
+                                        : <Spinner/>}
                                 </Card>
                             </Col>
                         </Row>

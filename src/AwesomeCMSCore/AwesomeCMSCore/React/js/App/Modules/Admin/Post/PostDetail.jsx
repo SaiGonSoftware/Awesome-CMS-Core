@@ -12,7 +12,6 @@ import PropTypes from "prop-types";
 import {STATUS_CODE} from "../../../Helper/AppEnum";
 import {SAVE_POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
 import {PostWithSpinner} from '../../../Helper/Http';
-import {shouldMarkError, validateInput, isFormValid} from '../../../Helper/Validation';
 import {onChange, onBlur, handleOnChange} from '../../../Helper/StateHelper';
 import {GET_POSTS_API} from '../../../Helper/API_Endpoint/PostEndpoint';
 import {Get} from './../../../Helper/Http';
@@ -32,14 +31,9 @@ class PostDetail extends Component {
             value: [],
             tagOptions: [],
             loading: false,
-            touched: {
-                title: false,
-                shortDescription: false
-            },
             postId: "",
             post: null
-        },
-        this.validationArr = [];
+        }
     }
 
     componentDidMount() {
@@ -75,10 +69,6 @@ class PostDetail extends Component {
     }
 
     editPost = e => {
-        if (!isFormValid(this.validationArr)) {
-            return;
-        }
-
         e.preventDefault();
 
         PostWithSpinner.call(this, SAVE_POST_API, {
@@ -87,7 +77,8 @@ class PostDetail extends Component {
             ShortDescription: this.state.shortDescription,
             Content: this.state.postContent,
             TagData: JSON.stringify(this.state.value.map(x => x.value)),
-            TagOptions: JSON.stringify(this.state.value)
+            TagOptions: JSON.stringify(this.state.value),
+            PostStatus: this.state.post.postStatus
         }).then(res => {
             if (res.status === STATUS_CODE.Success) 
                 return toastr.success("Edit post success");
@@ -120,15 +111,6 @@ class PostDetail extends Component {
             post
         } = this.state;
 
-        this.validationArr = [
-            {
-                title,
-                shortDescription
-            }
-        ];
-
-        const errors = validateInput.call(this, this.validationArr);
-
         return (post && postContent
             ? <Container
                     className={this.props.visible
@@ -141,7 +123,6 @@ class PostDetail extends Component {
                                     <Row>
                                         <Col md="12">
                                             <ACCInput
-                                                className={shouldMarkError.call(this, "title", errors)}
                                                 type="text"
                                                 name="title"
                                                 id="title"
@@ -155,7 +136,6 @@ class PostDetail extends Component {
                                     <Row>
                                         <Col md="12">
                                             <ACCInput
-                                                className={shouldMarkError.call(this, "shortDescription", errors)}
                                                 type="text"
                                                 name="shortDescription"
                                                 id="shortDescription"
@@ -174,7 +154,6 @@ class PostDetail extends Component {
                                     <Row className="postFooter">
                                         <Col md="12">
                                             <ACCButton
-                                                validationArr={this.validationArr}
                                                 loading={loading}
                                                 btnBlocked="btn-block"
                                                 label="Save Post"/>

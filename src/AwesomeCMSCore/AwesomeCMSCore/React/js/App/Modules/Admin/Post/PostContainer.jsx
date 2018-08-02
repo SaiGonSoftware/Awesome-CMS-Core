@@ -14,8 +14,7 @@ import {
     TabPane,
     Nav,
     NavItem,
-    NavLink,
-    CardText
+    NavLink
 } from 'reactstrap';
 import classnames from 'classnames';
 import moment from 'moment/src/moment';
