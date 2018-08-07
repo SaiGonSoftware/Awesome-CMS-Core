@@ -18,12 +18,13 @@ import {
 } from 'reactstrap';
 import classnames from 'classnames';
 import moment from 'moment/src/moment';
+import toastr from "toastr";
 
-import {Get} from '../../../Helper/Http';
+import {Get, Delete} from '../../../Helper/Http';
 import {STATUS_CODE, POST_STATUS} from "../../../Helper/AppEnum";
 import {isDomExist, navigateToUrl} from "../../../Helper/Util";
 import {isEmptyString} from '../../../Helper/Validation';
-import {GET_POSTS_API} from '../../../Helper/API_Endpoint/PostEndpoint';
+import {POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
 import PostDetail from './PostDetail.jsx';
 
 class PostContainer extends Component {
@@ -38,7 +39,7 @@ class PostContainer extends Component {
     }
 
     componentDidMount() {
-        Get(GET_POSTS_API).then(res => {
+        Get(POST_API).then(res => {
             this.setState({posts: res.data});
         });
     }
@@ -84,10 +85,23 @@ class PostContainer extends Component {
             const post = this.state.posts.postsPublished.find(x => x.id === postId);
             this.state.posts.postsPublished.splice(this.state.posts.postsPublished.indexOf(post), 1);
         }
+
         else {
             const post = this.state.posts.postsDrafted.find(x => x.id === postId);
             this.state.posts.postsDrafted.splice(this.state.posts.postsPublished.indexOf(post), 1);
         }
+
+        const url = `${POST_API}/${postId}`;
+
+        Delete(url).then(res => {
+            if (res.status === STATUS_CODE.Success) 
+            {
+                toastr.success('Delete post success');
+            }
+            else {
+                toastr.error('Something went wrong. Please try again later');
+            }
+        });
 
         this.forceUpdate();
     }
