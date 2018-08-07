@@ -117,6 +117,13 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             await _unitOfWork.Repository<Tag>().AddAsync(tag);
         }
 
+        public async Task DeletePost(int postId)
+        {
+            var postsToDelete = await _unitOfWork.Repository<Post>().FindAsync(p => p.Id == postId);
+            postsToDelete.PostStatus = PostStatus.Deleted;
+            await _unitOfWork.Commit();
+        }
+
         private async Task<IEnumerable<PostListViewModel>> GetPostsByStatus(IQueryable<Post> posts, PostStatus postStatus)
         {
             return _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(

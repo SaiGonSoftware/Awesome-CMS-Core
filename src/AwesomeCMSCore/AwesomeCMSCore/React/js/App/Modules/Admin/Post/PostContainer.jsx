@@ -78,6 +78,10 @@ class PostContainer extends Component {
             });
     }
 
+    deletePost(postId) {
+        console.log(postId);
+    }
+
     render() {
         const {visible, postId, posts} = this.state;
 
@@ -138,15 +142,20 @@ class PostContainer extends Component {
                                                                 .postsPublished
                                                                 .map(post => {
                                                                     return (
-                                                                        <ListGroupItem
-                                                                            key={post.id}
-                                                                            className="postItem"
-                                                                            tag="a"
-                                                                            onClick={() => this.navigateToPostDetail(post.id)}
-                                                                            action>
-                                                                            <h3>{post.title}</h3>
-                                                                            <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
-                                                                        </ListGroupItem>
+                                                                        <div key={post.id}>
+                                                                            <ListGroupItem className="postItem" tag="a" action>
+                                                                                <h3>{post.title}</h3>
+                                                                                <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
+                                                                            </ListGroupItem>
+                                                                            <div className="postManage">
+                                                                                <Button color="info" onClick={() => this.navigateToPostDetail(post.id)}>
+                                                                                    <i className="fa fa-pencil"></i>
+                                                                                </Button>
+                                                                                <Button color="danger" onClick={() => this.deletePost(post.id)}>
+                                                                                    <i className="fa fa-trash"></i>
+                                                                                </Button>
+                                                                            </div>
+                                                                        </div>
                                                                     )
                                                                 })}
                                                         </Col>

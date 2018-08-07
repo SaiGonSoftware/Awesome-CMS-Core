@@ -61,3 +61,10 @@ Please read
 <img src="img/tag&cat.png"/>
 
 ---
+
+### Post Manage 
+
+<img src="img/post management.png"/>
+
+<img src="img/post detail.png"/>
+---
