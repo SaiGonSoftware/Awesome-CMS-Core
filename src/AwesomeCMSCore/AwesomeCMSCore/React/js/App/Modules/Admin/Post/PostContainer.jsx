@@ -20,6 +20,7 @@ import classnames from 'classnames';
 import moment from 'moment/src/moment';
 
 import {Get} from '../../../Helper/Http';
+import {STATUS_CODE, POST_STATUS} from "../../../Helper/AppEnum";
 import {isDomExist, navigateToUrl} from "../../../Helper/Util";
 import {isEmptyString} from '../../../Helper/Validation';
 import {GET_POSTS_API} from '../../../Helper/API_Endpoint/PostEndpoint';
@@ -78,8 +79,17 @@ class PostContainer extends Component {
             });
     }
 
-    deletePost(postId) {
-        console.log(postId);
+    deletePost(postStatus, postId) {
+        if(postStatus === POST_STATUS.Published) {
+            const post = this.state.posts.postsPublished.find(x => x.id === postId);
+            this.state.posts.postsPublished.splice(this.state.posts.postsPublished.indexOf(post), 1);
+        }
+        else {
+            const post = this.state.posts.postsDrafted.find(x => x.id === postId);
+            this.state.posts.postsDrafted.splice(this.state.posts.postsPublished.indexOf(post), 1);
+        }
+
+        this.forceUpdate();
     }
 
     render() {
@@ -94,7 +104,7 @@ class PostContainer extends Component {
                         <Row>
                             <Col md="9">
                                 <ListGroup>
-                                    <ListGroupItem tag="a" href="#" action id="postHeaderSection">
+                                    <ListGroupItem id="postHeaderSection">
                                         <div>
                                             <Nav tabs>
                                                 <NavItem>
@@ -142,8 +152,8 @@ class PostContainer extends Component {
                                                                 .postsPublished
                                                                 .map(post => {
                                                                     return (
-                                                                        <div key={post.id}>
-                                                                            <ListGroupItem className="postItem" tag="a" action>
+                                                                        <div id="postPublished" key={post.id}>
+                                                                            <ListGroupItem className="postItem">
                                                                                 <h3>{post.title}</h3>
                                                                                 <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
                                                                             </ListGroupItem>
@@ -151,7 +161,7 @@ class PostContainer extends Component {
                                                                                 <Button color="info" onClick={() => this.navigateToPostDetail(post.id)}>
                                                                                     <i className="fa fa-pencil"></i>
                                                                                 </Button>
-                                                                                <Button color="danger" onClick={() => this.deletePost(post.id)}>
+                                                                                <Button color="danger" onClick={() => this.deletePost(POST_STATUS.Published, post.id)}>
                                                                                     <i className="fa fa-trash"></i>
                                                                                 </Button>
                                                                             </div>
@@ -168,15 +178,20 @@ class PostContainer extends Component {
                                                                 .postsDrafted
                                                                 .map(post => {
                                                                     return (
-                                                                        <ListGroupItem
-                                                                            key={post.id}
-                                                                            className="postItem"
-                                                                            tag="a"
-                                                                            onClick={() => this.navigateToPostDetail(post.id)}
-                                                                            action>
-                                                                            <h3>{post.title}</h3>
-                                                                            <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
-                                                                        </ListGroupItem>
+                                                                        <div id="postDrafted" key={post.id}>
+                                                                            <ListGroupItem className="postItem">
+                                                                                <h3>{post.title}</h3>
+                                                                                <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
+                                                                            </ListGroupItem>
+                                                                            <div className="postManage">
+                                                                                <Button color="info" onClick={() => this.navigateToPostDetail(post.id)}>
+                                                                                    <i className="fa fa-pencil"></i>
+                                                                                </Button>
+                                                                                <Button color="danger" onClick={() => this.deletePost(POST_STATUS.Draft, post.id)}>
+                                                                                    <i className="fa fa-trash"></i>
+                                                                                </Button>
+                                                                            </div>
+                                                                        </div>
                                                                     )
                                                                 })}
                                                         </Col>
@@ -192,9 +207,8 @@ class PostContainer extends Component {
                                                                         <ListGroupItem
                                                                             key={post.id}
                                                                             className="postItem"
-                                                                            tag="a"
                                                                             onClick={() => this.navigateToPostDetail(post.id)}
-                                                                            action>
+                                                                            >
                                                                             <h3>{post.title}</h3>
                                                                             <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
                                                                         </ListGroupItem>
