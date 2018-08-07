@@ -93,6 +93,17 @@ export function PutWithSpinner(url, data) {
   });
 }
 
+export function Delete(url) {
+  const authHeader = initAuthHeaders();
+  const config = {
+    headers: {
+      Authorization: "Bearer " + authHeader
+    }
+  };
+
+  return axios.delete(url, config);
+}
+
 function initAuthHeaders() {
   const token = getStorage(APP_ENUM.AUTH_TOKEN);
   if (token != null) {

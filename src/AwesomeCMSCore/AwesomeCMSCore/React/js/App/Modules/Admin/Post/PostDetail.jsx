@@ -13,7 +13,7 @@ import {STATUS_CODE} from "../../../Helper/AppEnum";
 import {SAVE_POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
 import {PostWithSpinner} from '../../../Helper/Http';
 import {onChange, onBlur, handleOnChange} from '../../../Helper/StateHelper';
-import {GET_POSTS_API} from '../../../Helper/API_Endpoint/PostEndpoint';
+import {POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
 import {Get} from './../../../Helper/Http';
 
 import ACCEditor from '../../../Common/ACCInput/ACCEditor.jsx';
@@ -37,7 +37,7 @@ class PostDetail extends Component {
     }
 
     componentDidMount() {
-        const url = `${GET_POSTS_API}/${this.props.postId}`;
+        const url = `${POST_API}/${this.props.postId}`;
         Get(url).then(res => {
             this.setState({
                 post: res.data,
@@ -53,7 +53,7 @@ class PostDetail extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.postId !== nextProps.postId) {
-            const url = `${GET_POSTS_API}/${nextProps.postId}`;
+            const url = `${POST_API}/${nextProps.postId}`;
             Get(url).then(res => {
                 this.setState({
                     post: res.data,
