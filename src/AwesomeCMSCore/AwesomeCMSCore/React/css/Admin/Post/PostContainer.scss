@@ -17,6 +17,17 @@
 
   .postsTabWrapper {
     margin-top: 20px;
+
+    .postManage {
+      float: right;
+      margin-top: -60px;
+      z-index: 1;
+      position: relative;
+
+      button {
+        margin-right: 10px;
+      }
+    }
   }
 }
 
