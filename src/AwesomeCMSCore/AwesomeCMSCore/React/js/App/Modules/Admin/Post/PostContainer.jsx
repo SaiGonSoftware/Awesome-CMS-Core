@@ -20,7 +20,7 @@ import classnames from 'classnames';
 import moment from 'moment/src/moment';
 import toastr from "toastr";
 
-import {Get, Delete} from '../../../Helper/Http';
+import {Get, Delete, Put} from '../../../Helper/Http';
 import {STATUS_CODE, POST_STATUS} from "../../../Helper/AppEnum";
 import {isDomExist, navigateToUrl} from "../../../Helper/Util";
 import {isEmptyString} from '../../../Helper/Validation';
@@ -103,6 +103,14 @@ class PostContainer extends Component {
             }
         });
 
+        this.forceUpdate();
+    }
+
+    restorePost(postId) {
+        const post = this.state.posts.postDeleted.find(x => x.id === postId);
+        this.state.posts.postDeleted.splice(this.state.posts.postDeleted.indexOf(post), 1);
+        const url = `${POST_API}/${postId}`;
+        Put(url);
         this.forceUpdate();
     }
 
@@ -218,14 +226,20 @@ class PostContainer extends Component {
                                                                 .postDeleted
                                                                 .map(post => {
                                                                     return (
-                                                                        <ListGroupItem
-                                                                            key={post.id}
-                                                                            className="postItem"
-                                                                            onClick={() => this.navigateToPostDetail(post.id)}
-                                                                            >
-                                                                            <h3>{post.title}</h3>
-                                                                            <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
-                                                                        </ListGroupItem>
+                                                                        <div id="postDeleted" key={post.id}>
+                                                                            <ListGroupItem
+                                                                                key={post.id}
+                                                                                className="postItem"
+                                                                                >
+                                                                                <h3>{post.title}</h3>
+                                                                                <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
+                                                                            </ListGroupItem>
+                                                                        <div className="postManage">
+                                                                            <Button color="warning" onClick={() => this.restorePost(post.id)}>
+                                                                                <i className="fa fa-undo"></i>
+                                                                            </Button>
+                                                                        </div>
+                                                                    </div>
                                                                     )
                                                                 })}
                                                         </Col>
