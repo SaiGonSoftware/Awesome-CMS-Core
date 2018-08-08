@@ -57,7 +57,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task<PostViewModel> GetPost(int postId)
         {
-            var post = await _unitOfWork.Repository<Post>().GetByIdAsync(postId);
+            var post = await GetPostById(postId);
             var tag = await _unitOfWork.Repository<Tag>().FindAsync(x => x.PostId == post.Id);
             var postViewModel = _mapper.Map<Post, PostViewModel>(post,
                 options =>
@@ -117,9 +117,16 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             await _unitOfWork.Repository<Tag>().AddAsync(tag);
         }
 
+        public async Task RestorePost(int postId)
+        {
+            var postsToRestore = await GetPostById(postId);
+            postsToRestore.PostStatus = PostStatus.Published;
+            await _unitOfWork.Commit();
+        }
+
         public async Task DeletePost(int postId)
         {
-            var postsToDelete = await _unitOfWork.Repository<Post>().FindAsync(p => p.Id == postId);
+            var postsToDelete = await GetPostById(postId);
             postsToDelete.PostStatus = PostStatus.Deleted;
             await _unitOfWork.Commit();
         }
@@ -133,6 +140,11 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         private int CountPost(IQueryable<Post> posts, PostStatus postStatus)
         {
             return posts.Count(p => p.PostStatus.Equals(postStatus));
+        }
+
+        private async Task<Post> GetPostById(int postId)
+        {
+            return await _unitOfWork.Repository<Post>().GetByIdAsync(postId);
         }
     }
 }

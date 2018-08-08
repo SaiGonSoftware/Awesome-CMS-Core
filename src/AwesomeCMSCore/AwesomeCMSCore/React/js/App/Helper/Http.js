@@ -93,6 +93,17 @@ export function PutWithSpinner(url, data) {
   });
 }
 
+export function Put(url, data) {
+  const authHeader = initAuthHeaders();
+  const config = {
+    headers: {
+      Authorization: "Bearer " + authHeader
+    }
+  };
+
+  return axios.put(url, data, config);
+}
+
 export function Delete(url) {
   const authHeader = initAuthHeaders();
   const config = {

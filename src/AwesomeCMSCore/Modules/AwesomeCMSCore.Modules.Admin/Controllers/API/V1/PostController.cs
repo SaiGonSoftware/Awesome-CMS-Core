@@ -52,6 +52,13 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
             return Ok();
         }
 
+        [HttpPut("{postId}")]
+        public async Task<IActionResult> RestorePost(int postId)
+        {
+            await _postRepository.RestorePost(postId);
+            return Ok();
+        }
+
         [HttpDelete("{postId}")]
         public async Task<IActionResult> DeletePost(int postId)
         {
