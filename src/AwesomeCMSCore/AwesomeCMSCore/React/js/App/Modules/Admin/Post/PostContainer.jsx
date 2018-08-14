@@ -61,40 +61,25 @@ class PostContainer extends Component {
         }
     }
 
-    renderPost() {
-        return this
-            .state
-            .posts
-            .map(post => {
-                return (
-                    <ListGroupItem
-                        key={post.id}
-                        className="postItem"
-                        tag="a"
-                        onClick={() => this.navigateToPostDetail(post.id)}
-                        action>
-                        <h3>{post.title}</h3>
-                        <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
-                    </ListGroupItem>
-                )
-            });
-    }
-
     deletePost(postStatus, postId) {
         if(postStatus === POST_STATUS.Published) {
             const post = this.state.posts.postsPublished.find(x => x.id === postId);
             this.state.posts.postsPublished.splice(this.state.posts.postsPublished.indexOf(post), 1);
+
             let postNumber = {...this.state.posts};
             postNumber.numberOfPostPublished -= 1;
-            this.setState({ posts: postNumber });
+            this.setState({ posts: postNumber});
+            //this.setState({ posts: [...this.state.posts.postDeleted, post]});
         }
 
         else {
             const post = this.state.posts.postsDrafted.find(x => x.id === postId);
             this.state.posts.postsDrafted.splice(this.state.posts.postsPublished.indexOf(post), 1);
+
             let postNumber = {...this.state.posts};
             postNumber.numberOfDraftedPost -= 1;
             this.setState({ posts: postNumber });
+           // this.setState({ posts: [...this.state.posts.postDeleted, post]});
         }
 
         const url = `${POST_API}/${postId}`;
