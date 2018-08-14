@@ -84,11 +84,17 @@ class PostContainer extends Component {
         if(postStatus === POST_STATUS.Published) {
             const post = this.state.posts.postsPublished.find(x => x.id === postId);
             this.state.posts.postsPublished.splice(this.state.posts.postsPublished.indexOf(post), 1);
+            let postNumber = {...this.state.posts};
+            postNumber.numberOfPostPublished -= 1;
+            this.setState({ posts: postNumber });
         }
 
         else {
             const post = this.state.posts.postsDrafted.find(x => x.id === postId);
             this.state.posts.postsDrafted.splice(this.state.posts.postsPublished.indexOf(post), 1);
+            let postNumber = {...this.state.posts};
+            postNumber.numberOfDraftedPost -= 1;
+            this.setState({ posts: postNumber });
         }
 
         const url = `${POST_API}/${postId}`;
@@ -111,6 +117,10 @@ class PostContainer extends Component {
         this.state.posts.postDeleted.splice(this.state.posts.postDeleted.indexOf(post), 1);
         const url = `${POST_API}/${postId}`;
         Put(url);
+
+        let postNumber = {...this.state.posts};
+        postNumber.numberOfDeletedPost -= 1;
+        this.setState({ posts: postNumber });
         this.forceUpdate();
     }
 
