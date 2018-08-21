@@ -48,7 +48,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
                 NumberOfPostPublished = CountPost(posts, PostStatus.Published),
                 PostsDrafted = await GetPostsByStatus(posts, PostStatus.Draft),
                 NumberOfDraftedPost = CountPost(posts, PostStatus.Draft),
-                PostDeleted = await GetPostsByStatus(posts, PostStatus.Deleted),
+                PostsDeleted = await GetPostsByStatus(posts, PostStatus.Deleted),
                 NumberOfDeletedPost = CountPost(posts, PostStatus.Deleted)
             };
 

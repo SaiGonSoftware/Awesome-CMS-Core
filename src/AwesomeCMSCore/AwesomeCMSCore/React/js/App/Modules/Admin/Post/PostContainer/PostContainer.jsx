@@ -71,16 +71,12 @@ class PostContainer extends Component {
             let postToUpdate = {
                 ...this.state.posts
             };
-
-            let postDeleted = [
-                ...this.state.posts.postDeleted,
-                post
-            ]
-            console.log(postDeleted);
+            
             postToUpdate.numberOfPostPublished -= 1;
             postToUpdate.numberOfDeletedPost += 1;
+            postToUpdate.postsDeleted.push(post);
+
             this.setState({posts: postToUpdate});
-            //this.setState({ posts: postDeleted});
         } else {
             const post = this
                 .state
@@ -96,10 +92,11 @@ class PostContainer extends Component {
             let postToUpdate = {
                 ...this.state.posts
             };
-            postToUpdate.numberOfPostPublished -= 1;
+
+            postToUpdate.numberOfDraftedPost -= 1;
             postToUpdate.numberOfDeletedPost += 1;
+            postToUpdate.postsDeleted.push(post);
             this.setState({posts: postToUpdate});
-            // this.setState({ posts: [...this.state.posts.postDeleted, post]});
         }
 
         const url = `${POST_API}/${postId}`;
@@ -119,13 +116,13 @@ class PostContainer extends Component {
         const post = this
             .state
             .posts
-            .postDeleted
+            .postsDeleted
             .find(x => x.id === postId);
         this
             .state
             .posts
-            .postDeleted
-            .splice(this.state.posts.postDeleted.indexOf(post), 1);
+            .postsDeleted
+            .splice(this.state.posts.postsDeleted.indexOf(post), 1);
         const url = `${POST_API}/${postId}`;
         Put(url);
 
@@ -135,6 +132,7 @@ class PostContainer extends Component {
 
         postToUpdate.numberOfDeletedPost -= 1;
         postToUpdate.numberOfPostPublished += 1;
+        postToUpdate.postsPublished.push(post);
         this.setState({posts: postToUpdate});
 
         this.forceUpdate();
