@@ -77,10 +77,10 @@ const PostContainerDetail = (props) => {
                     <Col sm="12">
                         {props
                             .posts
-                            .postDeleted
+                            .postsDeleted
                             .map(post => {
                                 return (
-                                    <div id="postDeleted" key={post.id}>
+                                    <div id="postsDeleted" key={post.id}>
                                         <ListGroupItem key={post.id} className="postItem">
                                             <h3>{post.title}</h3>
                                             <h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
