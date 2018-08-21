@@ -68,12 +68,19 @@ class PostContainer extends Component {
                 .postsPublished
                 .splice(this.state.posts.postsPublished.indexOf(post), 1);
 
-            let postNumber = {
+            let postToUpdate = {
                 ...this.state.posts
             };
-            postNumber.numberOfPostPublished -= 1;
-            this.setState({posts: postNumber});
-            //this.setState({ posts: [...this.state.posts.postDeleted, post]});
+
+            let postDeleted = [
+                ...this.state.posts.postDeleted,
+                post
+            ]
+            console.log(postDeleted);
+            postToUpdate.numberOfPostPublished -= 1;
+            postToUpdate.numberOfDeletedPost += 1;
+            this.setState({posts: postToUpdate});
+            //this.setState({ posts: postDeleted});
         } else {
             const post = this
                 .state
@@ -86,11 +93,12 @@ class PostContainer extends Component {
                 .postsDrafted
                 .splice(this.state.posts.postsPublished.indexOf(post), 1);
 
-            let postNumber = {
+            let postToUpdate = {
                 ...this.state.posts
             };
-            postNumber.numberOfDraftedPost -= 1;
-            this.setState({posts: postNumber});
+            postToUpdate.numberOfPostPublished -= 1;
+            postToUpdate.numberOfDeletedPost += 1;
+            this.setState({posts: postToUpdate});
             // this.setState({ posts: [...this.state.posts.postDeleted, post]});
         }
 
@@ -121,11 +129,14 @@ class PostContainer extends Component {
         const url = `${POST_API}/${postId}`;
         Put(url);
 
-        let postNumber = {
+        let postToUpdate = {
             ...this.state.posts
         };
-        postNumber.numberOfDeletedPost -= 1;
-        this.setState({posts: postNumber});
+
+        postToUpdate.numberOfDeletedPost -= 1;
+        postToUpdate.numberOfPostPublished += 1;
+        this.setState({posts: postToUpdate});
+
         this.forceUpdate();
     }
 
