@@ -81,7 +81,6 @@ class TagCreateContainer extends Component {
               </div>
               <div className="card-body">
                 <ACCReactSelect
-                  id="tagCreate"
                   {...options}
                   value={value}
                   handleOnChange={value => handleOnChange.call(this, value)}

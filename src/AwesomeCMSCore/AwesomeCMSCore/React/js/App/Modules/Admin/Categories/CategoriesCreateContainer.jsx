@@ -76,14 +76,13 @@ class CategoriesCreateContainer extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col col-md-12" id="tagContainer">
+          <div className="col col-md-12" id="categoriesContainer">
             <div className="card">
               <div className="card-header">
                 Create categories for your post
               </div>
               <div className="card-body">
                 <ACCReactSelect
-                  id="tagCreate"
                   {...options}
                   value={value}
                   handleOnChange={value => handleOnChange.call(this, value)}

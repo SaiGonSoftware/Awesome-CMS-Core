@@ -6,17 +6,12 @@ import {
     Col,
     ListGroup,
     ListGroupItem,
-    Badge,
     Card,
     Button,
     CardTitle,
     TabContent,
-    TabPane,
-    Nav,
-    NavItem,
-    NavLink
+    TabPane
 } from 'reactstrap';
-import classnames from 'classnames';
 import moment from 'moment/src/moment';
 import toastr from "toastr";
 
@@ -26,6 +21,7 @@ import {isDomExist, navigateToUrl} from "../../../Helper/Util";
 import {isEmptyString} from '../../../Helper/Validation';
 import {POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
 import PostDetail from './PostDetail.jsx';
+import PostContainerHeader from './PostContainerHeader.jsx';
 
 class PostContainer extends Component {
     constructor(props) {
@@ -110,7 +106,7 @@ class PostContainer extends Component {
     }
 
     render() {
-        const {visible, postId, posts} = this.state;
+        const {visible, postId, posts, activeTab} = this.state;
 
         return (posts
             ? <div>
@@ -123,44 +119,7 @@ class PostContainer extends Component {
                                 <ListGroup>
                                     <ListGroupItem id="postHeaderSection">
                                         <div>
-                                            <Nav tabs>
-                                                <NavItem>
-                                                    <NavLink
-                                                        className={classnames({
-                                                        active: this.state.activeTab === 'Published'
-                                                    })}
-                                                        onClick={() => {
-                                                        this.toggle('Published');
-                                                    }}>
-                                                        Published &nbsp;
-                                                        <Badge color="secondary">{posts.numberOfPostPublished}</Badge>
-                                                    </NavLink>
-                                                </NavItem>
-                                                <NavItem>
-                                                    <NavLink
-                                                        className={classnames({
-                                                        active: this.state.activeTab === 'Drafted'
-                                                    })}
-                                                        onClick={() => {
-                                                        this.toggle('Drafted');
-                                                    }}>
-                                                        Drafted &nbsp;
-                                                        <Badge color="secondary">{posts.numberOfDraftedPost}</Badge>
-                                                    </NavLink>
-                                                </NavItem>
-                                                <NavItem>
-                                                    <NavLink
-                                                        className={classnames({
-                                                        active: this.state.activeTab === 'Deleted'
-                                                    })}
-                                                        onClick={() => {
-                                                        this.toggle('Deleted');
-                                                    }}>
-                                                        Deleted &nbsp;
-                                                        <Badge color="secondary">{posts.numberOfDeletedPost}</Badge>
-                                                    </NavLink>
-                                                </NavItem>
-                                            </Nav>
+                                            <PostContainerHeader activeTab={activeTab} toggle={this.toggle} posts={posts}/>
                                             <TabContent activeTab={this.state.activeTab}>
                                                 <TabPane tabId="Published" className="postsTabWrapper">
                                                     <Row>
