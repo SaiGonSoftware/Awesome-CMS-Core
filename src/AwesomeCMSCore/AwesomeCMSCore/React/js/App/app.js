@@ -5,7 +5,7 @@ import "./Modules/Admin/Account/Password/ResetPassword.jsx";
 import "./Modules/Admin/Account/Index.jsx";
 import "./Modules/Admin/Tag/TagCreateContainer.jsx";
 import "./Modules/Admin/Categories/CategoriesCreateContainer.jsx";
-import "./Modules/Admin/Post/PostContainer.jsx";
+import "./Modules/Admin/Post/PostContainer/PostContainer.jsx";
 import "./Modules/Admin/Post/NewPost.jsx";
 
 import "./Vendor/portal";

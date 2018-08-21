@@ -81,7 +81,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             {
                 return false;
             }
-            
+
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 try
@@ -95,7 +95,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                     _unitOfWork.Rollback();
                 }
             }
-            
+
             return true;
         }
 
@@ -121,19 +121,29 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                 return false;
             }
 
-            await _userService.AddUserToRolesAsync(user, userInputVm.Roles);
-
-            var context = _httpContextAccessor.HttpContext;
-            var code = await _userService.GenerateEmailConfirmationTokenAsync(user);
-            var callbackUrl = _urlHelperExtension.EmailConfirmationLink(user.Id, code, context.Request.Scheme);
-            var emailOptions = new EmailOptions
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                Url = callbackUrl,
-                Password = randomPassword,
-                UserName = userInputVm.Username
-            };
+                try
+                {
+                    await _userService.AddUserToRolesAsync(user, userInputVm.Roles);
 
-            await _emailSender.SendEmailAsync(userInputVm.Email, "", emailOptions, EmailType.AccountConfirm);
+                    var context = _httpContextAccessor.HttpContext;
+                    var code = await _userService.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = _urlHelperExtension.EmailConfirmationLink(user.Id, code, context.Request.Scheme);
+                    var emailOptions = new EmailOptions
+                    {
+                        Url = callbackUrl,
+                        Password = randomPassword,
+                        UserName = userInputVm.Username
+                    };
+
+                    await _emailSender.SendEmailAsync(userInputVm.Email, "", emailOptions, EmailType.AccountConfirm);
+                }
+                catch (Exception)
+                {
+                    _unitOfWork.Rollback();
+                }
+            }
 
             return true;
         }
@@ -176,7 +186,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         {
             var userRoles = await _userService.GetUserRolesByGuid(rolesUserVm.UserId);
             var currentEditUser = await _userService.FindByIdAsync(rolesUserVm.UserId);
-           
+
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 try

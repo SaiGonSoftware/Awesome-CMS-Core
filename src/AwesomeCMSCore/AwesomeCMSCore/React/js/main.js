@@ -6,8 +6,4 @@ import "../css/app.scss";
 
 import "./App/lib";
 import "./App/app";
-import { isDevEnviroment } from "./App/Helper/Enviroment";
 
-if (isDevEnviroment()) {
-  module.hot.accept();
-}
