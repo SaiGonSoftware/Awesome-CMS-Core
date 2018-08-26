@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -44,11 +43,11 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
             var viewModel = new PostDefaultViewModel
             {
-                PostsPublished = await GetPostsByStatus(posts, PostStatus.Published),
+                PostsPublished = await GetPostsByStatus(posts, PostStatus.Published).ConfigureAwait(false),
                 NumberOfPostPublished = CountPost(posts, PostStatus.Published),
-                PostsDrafted = await GetPostsByStatus(posts, PostStatus.Draft),
+                PostsDrafted = await GetPostsByStatus(posts, PostStatus.Draft).ConfigureAwait(false),
                 NumberOfDraftedPost = CountPost(posts, PostStatus.Draft),
-                PostsDeleted = await GetPostsByStatus(posts, PostStatus.Deleted),
+                PostsDeleted = await GetPostsByStatus(posts, PostStatus.Deleted).ConfigureAwait(false),
                 NumberOfDeletedPost = CountPost(posts, PostStatus.Deleted)
             };
 
@@ -134,10 +133,10 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         private async Task<IEnumerable<PostListViewModel>> GetPostsByStatus(IQueryable<Post> posts, PostStatus postStatus)
         {
             return _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(
-                await posts.Where(p => p.PostStatus == postStatus).ToListAsync());
+                await posts.Where(p => p.PostStatus.Equals(postStatus)).ToListAsync());
         }
 
-        private int CountPost(IQueryable<Post> posts, PostStatus postStatus)
+        private static int CountPost(IQueryable<Post> posts, PostStatus postStatus)
         {
             return posts.Count(p => p.PostStatus.Equals(postStatus));
         }

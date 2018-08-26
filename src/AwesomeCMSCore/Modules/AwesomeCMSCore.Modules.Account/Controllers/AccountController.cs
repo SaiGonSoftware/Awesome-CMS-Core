@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
-using AwesomeCMSCore.Modules.Entities.Entities;
-using AwesomeCMSCore.Modules.Helper.Controllers;
 using AwesomeCMSCore.Modules.Helper.Enum;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication;

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AwesomeCMSCore.Modules.Entities.Entities
+﻿namespace AwesomeCMSCore.Modules.Entities.Entities
 {
     public class Tag: BaseEntity
     {
