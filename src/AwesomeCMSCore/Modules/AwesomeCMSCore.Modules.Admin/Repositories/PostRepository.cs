@@ -133,10 +133,10 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         private async Task<IEnumerable<PostListViewModel>> GetPostsByStatus(IQueryable<Post> posts, PostStatus postStatus)
         {
             return _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(
-                await posts.Where(p => p.PostStatus == postStatus).ToListAsync());
+                await posts.Where(p => p.PostStatus.Equals(postStatus)).ToListAsync());
         }
 
-        private int CountPost(IQueryable<Post> posts, PostStatus postStatus)
+        private static int CountPost(IQueryable<Post> posts, PostStatus postStatus)
         {
             return posts.Count(p => p.PostStatus.Equals(postStatus));
         }
