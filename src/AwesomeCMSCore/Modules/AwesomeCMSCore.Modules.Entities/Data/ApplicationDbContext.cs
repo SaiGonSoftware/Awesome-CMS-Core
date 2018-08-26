@@ -9,6 +9,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
     {
         public DbSet<Media> Medias { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Theme> Themes { get; set; }
         public DbSet<Categories> Categories { get; set; }

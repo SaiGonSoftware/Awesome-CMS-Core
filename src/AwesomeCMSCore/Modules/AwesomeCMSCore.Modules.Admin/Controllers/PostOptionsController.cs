@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Admin.Repositories;
+﻿using AwesomeCMSCore.Modules.Admin.Repositories;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

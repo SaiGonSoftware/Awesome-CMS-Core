@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AwesomeCMSCore.Modules.Helper.Services;
+﻿using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore.Internal;
 
