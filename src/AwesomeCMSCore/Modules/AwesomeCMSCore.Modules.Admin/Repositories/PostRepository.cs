@@ -43,11 +43,11 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
             var viewModel = new PostDefaultViewModel
             {
-                PostsPublished = await GetPostsByStatus(posts, PostStatus.Published),
+                PostsPublished = await GetPostsByStatus(posts, PostStatus.Published).ConfigureAwait(false),
                 NumberOfPostPublished = CountPost(posts, PostStatus.Published),
-                PostsDrafted = await GetPostsByStatus(posts, PostStatus.Draft),
+                PostsDrafted = await GetPostsByStatus(posts, PostStatus.Draft).ConfigureAwait(false),
                 NumberOfDraftedPost = CountPost(posts, PostStatus.Draft),
-                PostsDeleted = await GetPostsByStatus(posts, PostStatus.Deleted),
+                PostsDeleted = await GetPostsByStatus(posts, PostStatus.Deleted).ConfigureAwait(false),
                 NumberOfDeletedPost = CountPost(posts, PostStatus.Deleted)
             };
 

@@ -33,17 +33,17 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         {
             var comments = _unitOfWork.Repository<Comment>().Query();
 
-            var viewModel = new CommentDefaultViewModel()
+            var viewModel = new CommentDefaultViewModel
             {
                 Comments = await comments.ToListAsync(),
                 NumberOfComments = comments.Count(),
-                ApprovedComments =  await GetCommentsByStatus(comments, CommentStatus.Approved),
+                ApprovedComments =  await GetCommentsByStatus(comments, CommentStatus.Approved).ConfigureAwait(false),
                 NumberOfApprovedComments = CountComment(comments, CommentStatus.Approved),
-                PendingComments = await GetCommentsByStatus(comments, CommentStatus.Pending),
+                PendingComments = await GetCommentsByStatus(comments, CommentStatus.Pending).ConfigureAwait(false),
                 NumberOfPendingComments = CountComment(comments, CommentStatus.Pending),
-                SpamComments = await GetCommentsByStatus(comments, CommentStatus.Spam),
+                SpamComments = await GetCommentsByStatus(comments, CommentStatus.Spam).ConfigureAwait(false),
                 NumberOfSpamComments = CountComment(comments, CommentStatus.Spam),
-                DeletedComments = await GetCommentsByStatus(comments, CommentStatus.Trash),
+                DeletedComments = await GetCommentsByStatus(comments, CommentStatus.Trash).ConfigureAwait(false),
                 NumberOfDeletedComments = CountComment(comments, CommentStatus.Trash)
             };
 
