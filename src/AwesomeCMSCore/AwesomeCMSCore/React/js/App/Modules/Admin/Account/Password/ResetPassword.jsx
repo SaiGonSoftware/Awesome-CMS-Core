@@ -2,16 +2,16 @@ import React, {Component} from "react";
 import {render} from "react-dom";
 import toastr from "toastr";
 
-import {getAllUrlParams} from '../../../../Helper/QueryStringParser';
-import {onChange, onBlur} from "../../../../Helper/StateHelper";
-import {navigateToUrl, isDomExist} from "../../../../Helper/Util";
-import {shouldMarkError, validateInput, isFormValid} from "../../../../Helper/Validation";
-import {PostWithSpinner} from "../../../../Helper/Http";
-import {STATUS_CODE} from "../../../../Helper/AppEnum";
-import { LOGIN_ENDPOINT, RESET_PASSWORD_API } from "../../../../Helper/API_Endpoint/AccountEndpoint";
+import {getAllUrlParams} from 'Helper/QueryStringParser';
+import {onChange, onBlur} from "Helper/StateHelper";
+import {navigateToUrl, isDomExist} from "Helper/Util";
+import {shouldMarkError, validateInput, isFormValid} from "Helper/Validation";
+import {PostWithSpinner} from "Helper/Http";
+import {STATUS_CODE} from "Helper/AppEnum";
+import { LOGIN_ENDPOINT, RESET_PASSWORD_API } from "Helper/API_Endpoint/AccountEndpoint";
 
-import ACCInput from "../../../../Common/ACCInput/ACCInput.jsx";
-import ACCButton from "../../../../Common/ACCButton/ACCButton.jsx";
+import ACCInput from "Common/ACCInput/ACCInput.jsx";
+import ACCButton from "Common/ACCButton/ACCButton.jsx";
 
 class ResetPassword extends Component {
     constructor(props) {

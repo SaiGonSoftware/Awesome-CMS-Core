@@ -2,17 +2,17 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import toastr from "toastr";
 
-import {shouldMarkError, validateInput} from "../../../../Helper/Validation";
-import {onChange} from "../../../../Helper/StateHelper";
-import {Get, PostWithSpinner, Post} from "../../../../Helper/Http";
-import {ROLE_API} from '../../../../Helper/API_Endpoint/RoleEndpoint';
-import {ACCOUNT_DUPLICATE_API, USER_API} from '../../../../Helper/API_Endpoint/AccountEndpoint';
-import {isFormValid} from "../../../../Helper/Validation";
-import {STATUS_CODE} from '../../../../Helper/AppEnum';
+import {shouldMarkError, validateInput} from "Helper/Validation";
+import {onChange} from "Helper/StateHelper";
+import {Get, PostWithSpinner, Post} from "Helper/Http";
+import {ROLE_API} from 'Helper/API_Endpoint/RoleEndpoint';
+import {ACCOUNT_DUPLICATE_API, USER_API} from 'Helper/API_Endpoint/AccountEndpoint';
+import {isFormValid} from "Helper/Validation";
+import {STATUS_CODE} from 'Helper/AppEnum';
 
-import ACCInput from "../../../../Common/ACCInput/ACCInput.jsx";
-import ACCMultiCheckbox from "../../../../Common/ACCSelect/ACCMultiCheckbox.jsx";
-import Spinner from "../../../../Common/ACCAnimation/Spinner.jsx";
+import ACCInput from "Common/ACCInput/ACCInput.jsx";
+import ACCMultiCheckbox from "Common/ACCSelect/ACCMultiCheckbox.jsx";
+import Spinner from "Common/ACCAnimation/Spinner.jsx";
 
 class AddUserModal extends Component {
   constructor(props) {

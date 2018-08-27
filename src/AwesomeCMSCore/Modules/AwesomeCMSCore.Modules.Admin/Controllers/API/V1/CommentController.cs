@@ -10,9 +10,10 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
     [Route("api/v{version:apiVersion}/Comments/")]
     public class CommentController : Controller
     {
-        public IActionResult Index()
+        [HttpGet("")]
+        public IActionResult GetAll()
         {
-            return View();
+            return Ok();
         }
     }
 }

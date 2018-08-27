@@ -1,14 +1,14 @@
 import React, {Component} from "react";
 import {render} from "react-dom";
 
-import {onChange, onBlur} from "../../../../Helper/StateHelper";
-import {isDomExist} from "../../../../Helper/Util";
-import {shouldMarkError, validateInput, isFormValid} from "../../../../Helper/Validation";
-import {PostWithSpinner} from "../../../../Helper/Http";
-import { FORGOT_PASSWORD_API } from '../../../../Helper/API_Endpoint/AccountEndpoint';
+import {onChange, onBlur} from "Helper/StateHelper";
+import {isDomExist} from "Helper/Util";
+import {shouldMarkError, validateInput, isFormValid} from "Helper/Validation";
+import {PostWithSpinner} from "Helper/Http";
+import { FORGOT_PASSWORD_API } from 'Helper/API_Endpoint/AccountEndpoint';
 
-import ACCInput from "../../../../Common/ACCInput/ACCInput.jsx";
-import ACCButton from "../../../../Common/ACCButton/ACCButton.jsx";
+import ACCInput from "Common/ACCInput/ACCInput.jsx";
+import ACCButton from "Common/ACCButton/ACCButton.jsx";
 
 class ForgotPassword extends Component {
     constructor(props) {

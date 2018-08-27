@@ -31,6 +31,12 @@ module.exports = {
       test: /\.(js|css)/
     })
   ],
+  resolve: {
+    modules: [
+      path.resolve('./React/js/App'),
+      path.resolve('./node_modules')
+    ]
+  },
   module: {
     rules: [{
         test: /\.scss$/,

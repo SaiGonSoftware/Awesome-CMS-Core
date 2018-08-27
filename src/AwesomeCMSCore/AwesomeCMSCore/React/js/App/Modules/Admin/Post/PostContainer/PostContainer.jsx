@@ -12,12 +12,13 @@ import {
 } from 'reactstrap';
 import toastr from "toastr";
 
-import {Get, Delete, Put} from '../../../../Helper/Http';
-import {STATUS_CODE, POST_STATUS} from "../../../../Helper/AppEnum";
-import {isDomExist, navigateToUrl} from "../../../../Helper/Util";
-import {isEmptyString} from '../../../../Helper/Validation';
-import {POST_API} from '../../../../Helper/API_Endpoint/PostEndpoint';
-import PostDetail from '../PostDetail.jsx';
+import {Get, Delete, Put} from 'Helper/Http';
+import {STATUS_CODE, POST_STATUS} from "Helper/AppEnum";
+import {isDomExist, navigateToUrl} from "Helper/Util";
+import {isEmptyString} from 'Helper/Validation';
+import {POST_API} from 'Helper/API_Endpoint/PostEndpoint';
+
+import PostDetail from 'Modules/Admin/Post/PostDetail.jsx';
 import PostContainerHeader from './PostContainerHeader.jsx';
 import PostContainerDetail from './PostContainerDetail.jsx';
 
