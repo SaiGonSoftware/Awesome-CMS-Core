@@ -9,17 +9,17 @@ import {
 } from 'reactstrap';
 import toastr from "toastr";
 import PropTypes from "prop-types";
-import {STATUS_CODE} from "../../../Helper/AppEnum";
-import {SAVE_POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
-import {PostWithSpinner} from '../../../Helper/Http';
-import {onChange, onBlur, handleOnChange} from '../../../Helper/StateHelper';
-import {POST_API} from '../../../Helper/API_Endpoint/PostEndpoint';
-import {Get} from './../../../Helper/Http';
+import {STATUS_CODE} from "Helper/AppEnum";
+import {SAVE_POST_API} from 'Helper/API_Endpoint/PostEndpoint';
+import {PostWithSpinner} from 'Helper/Http';
+import {onChange, onBlur, handleOnChange} from 'Helper/StateHelper';
+import {POST_API} from 'Helper/API_Endpoint/PostEndpoint';
+import {Get} from 'Helper/Http';
 
-import ACCEditor from '../../../Common/ACCInput/ACCEditor.jsx';
-import ACCButton from "../../../Common/ACCButton/ACCButton.jsx";
-import ACCInput from "../../../Common/ACCInput/ACCInput.jsx";
-import ACCReactSelect from '../../../Common/ACCSelect/ACCReactSelect.jsx';
+import ACCEditor from 'Common/ACCInput/ACCEditor.jsx';
+import ACCButton from "Common/ACCButton/ACCButton.jsx";
+import ACCInput from "Common/ACCInput/ACCInput.jsx";
+import ACCReactSelect from 'Common/ACCSelect/ACCReactSelect.jsx';
 
 class PostDetail extends Component {
     constructor(props) {

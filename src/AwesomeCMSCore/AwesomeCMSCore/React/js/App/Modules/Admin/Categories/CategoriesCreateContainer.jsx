@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import toastr from "toastr";
 
-import { handleOnChange } from "../../../Helper/StateHelper";
-import { Get, PostWithSpinner } from "../../../Helper/Http";
-import { isDomExist } from "../../../Helper/Util";
-import {STATUS_CODE} from "../../../Helper/AppEnum";
-import { CATEGORIES_API } from '../../../Helper/API_Endpoint/PostOptionEndpoint';
+import { handleOnChange } from "Helper/StateHelper";
+import { Get, PostWithSpinner } from "Helper/Http";
+import { isDomExist } from "Helper/Util";
+import {STATUS_CODE} from "Helper/AppEnum";
+import { CATEGORIES_API } from 'Helper/API_Endpoint/PostOptionEndpoint';
 
-import ACCReactSelect from "../../../Common/ACCSelect/ACCReactSelect.jsx";
-import Spinner from "../../../Common/ACCAnimation/Spinner.jsx";
+import ACCReactSelect from "Common/ACCSelect/ACCReactSelect.jsx";
+import Spinner from "Common/ACCAnimation/Spinner.jsx";
 
 class CategoriesCreateContainer extends Component {
   constructor(props) {

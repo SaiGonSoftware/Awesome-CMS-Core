@@ -2,12 +2,12 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import toastr from "toastr";
 
-import {Get, PutWithSpinner} from "../../../../Helper/Http";
-import { ROLE_API, USER_ROLES_EDIT_API } from '../../../../Helper/API_Endpoint/RoleEndpoint';
-import {STATUS_CODE} from '../../../../Helper/AppEnum';
+import {Get, PutWithSpinner} from "Helper/Http";
+import { ROLE_API, USER_ROLES_EDIT_API } from 'Helper/API_Endpoint/RoleEndpoint';
+import {STATUS_CODE} from 'Helper/AppEnum';
 
-import Spinner from "../../../../Common/ACCAnimation/Spinner.jsx";
-import ACCCheckboxOrRadioGroup from '../../../../Common/ACCSelect/ACCCheckboxOrRadioGroup.jsx';
+import Spinner from "Common/ACCAnimation/Spinner.jsx";
+import ACCCheckboxOrRadioGroup from 'Common/ACCSelect/ACCCheckboxOrRadioGroup.jsx';
 
 class EditUserRolesModal extends Component {
   constructor(props) {

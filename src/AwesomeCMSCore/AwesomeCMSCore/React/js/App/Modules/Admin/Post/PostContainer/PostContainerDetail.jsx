@@ -9,7 +9,7 @@ import {
     TabPane
 } from 'reactstrap';
 import moment from 'moment/src/moment';
-import {POST_STATUS} from "../../../../Helper/AppEnum";
+import {POST_STATUS} from "Helper/AppEnum";
 
 const PostContainerDetail = (props) => {
     return (
