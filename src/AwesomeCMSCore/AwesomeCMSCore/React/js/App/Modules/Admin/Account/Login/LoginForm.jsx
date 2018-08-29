@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {render} from "react-dom";
 import toastr from "toastr";
 import qs from "qs";
-import PropTypes from "prop-types";
 
 import {onChange, onBlur, onCheck} from "Helper/StateHelper";
 import {navigateToUrl, isDomExist} from "Helper/Util";
@@ -153,7 +152,3 @@ if (isDomExist("loginForm")) {
   render(
     <LoginForm/>, document.getElementById("loginForm"));
 }
-
-LoginForm.propTypes = {
-  loading: PropTypes.bool
-};

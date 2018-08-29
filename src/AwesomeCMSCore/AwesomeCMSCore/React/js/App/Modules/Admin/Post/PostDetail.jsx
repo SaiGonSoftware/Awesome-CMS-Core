@@ -182,9 +182,9 @@ class PostDetail extends Component {
 }
 
 PostDetail.propTypes = {
-    visible: PropTypes.bool,
-    onNavigateBack: PropTypes.func,
-    postId: PropTypes.number
+    visible: PropTypes.bool.isRequired,
+    onNavigateBack: PropTypes.func.isRequired,
+    postId: PropTypes.number.isRequired
 };
 
 export default PostDetail;

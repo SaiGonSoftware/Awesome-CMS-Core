@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {render} from "react-dom";
 import {Row, Col, ListGroup, ListGroupItem} from 'reactstrap';
-import {Get, Delete, Put} from 'Helper/Http';
+import {Get} from 'Helper/Http';
 import {isDomExist} from "Helper/Util";
 import {COMMENTS_ENDPOINT} from 'Helper/API_Endpoint/CommentEndpoint';
 
@@ -20,7 +20,6 @@ class CommentContainer extends Component {
 
     componentDidMount() {
         Get(COMMENTS_ENDPOINT).then(res => {
-            console.log(res.data);
             this.setState({comments: res.data});
         });
     }
@@ -44,7 +43,9 @@ class CommentContainer extends Component {
                                         activeTab={activeTab}
                                         toggle={this.toggle}
                                         comments={comments}/>
-                                    <CommentContainerDetail comments={comments} activeTab={activeTab}/>
+                                    <CommentContainerDetail 
+                                        comments={comments} 
+                                        activeTab={activeTab}/>
                                 </div>
                             </ListGroupItem>
                         </ListGroup>

@@ -14,7 +14,7 @@ const CommentContainerHeader = (props) => {
                     onClick={() => {
                     props.toggle('All');
                 }}>
-                    Published &nbsp;
+                    All &nbsp;
                     <Badge color="secondary">{props.comments.numberOfComments}</Badge>
                 </NavLink>
             </NavItem>
@@ -26,7 +26,7 @@ const CommentContainerHeader = (props) => {
                     onClick={() => {
                     props.toggle('Pending');
                 }}>
-                    Drafted &nbsp;
+                    Pending &nbsp;
                     <Badge color="secondary">{props.comments.numberOfPendingComments}</Badge>
                 </NavLink>
             </NavItem>
@@ -38,7 +38,7 @@ const CommentContainerHeader = (props) => {
                     onClick={() => {
                     props.toggle('Approved');
                 }}>
-                    Deleted &nbsp;
+                    Approved &nbsp;
                     <Badge color="secondary">{props.comments.numberOfApprovedComments}</Badge>
                 </NavLink>
             </NavItem>
@@ -50,7 +50,7 @@ const CommentContainerHeader = (props) => {
                     onClick={() => {
                     props.toggle('Spam');
                 }}>
-                    Deleted &nbsp;
+                    Spam &nbsp;
                     <Badge color="secondary">{props.comments.numberOfSpamComments}</Badge>
                 </NavLink>
             </NavItem>

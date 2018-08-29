@@ -100,9 +100,7 @@ class CategoriesCreateContainer extends Component {
 
 if (isDomExist("categoriesCreationSelect")) {
   render(
-    <CategoriesCreateContainer />,
-    document.getElementById("categoriesCreationSelect")
+    <CategoriesCreateContainer />, document.getElementById("categoriesCreationSelect")
   );
 }
 
-CategoriesCreateContainer.propTypes = {};

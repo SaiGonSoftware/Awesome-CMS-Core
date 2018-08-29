@@ -55,7 +55,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             return comments.Count(cm => cm.CommentStatus.Equals(commentStatus));
         }
 
-        private async Task<IEnumerable<Comment>> GetCommentsByStatus(IQueryable<Comment> comments, CommentStatus commentStatus)
+        private static async Task<IEnumerable<Comment>> GetCommentsByStatus(IQueryable<Comment> comments, CommentStatus commentStatus)
         {
             return await comments.Where(cm => cm.CommentStatus.Equals(commentStatus)).ToListAsync();
         }

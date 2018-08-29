@@ -47,9 +47,9 @@ const PostContainerHeader = (props) => {
 }
 
 PostContainerHeader.propTypes = {
-    posts: PropTypes.object,
-    activeTab: PropTypes.string,
-    toggle: PropTypes.func
+    posts: PropTypes.object.isRequired,
+    activeTab: PropTypes.string.isRequired,
+    toggle: PropTypes.func.isRequired
 };
 
 export default PostContainerHeader;
