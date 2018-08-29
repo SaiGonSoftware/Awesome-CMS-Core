@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Threading.Tasks;
+using AwesomeCMSCore.Modules.Admin.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +12,17 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
     [Route("api/v{version:apiVersion}/Comments/")]
     public class CommentController : Controller
     {
-        [HttpGet("")]
-        public IActionResult GetAll()
+        private readonly ICommentRepository _commentRepository;
+        public CommentController(ICommentRepository commentRepository)
         {
-            return Ok();
+            _commentRepository = commentRepository;
+        }
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetAll()
+        {
+            var comments = await _commentRepository.GetAllComments();
+            return Ok(comments);
         }
     }
 }
