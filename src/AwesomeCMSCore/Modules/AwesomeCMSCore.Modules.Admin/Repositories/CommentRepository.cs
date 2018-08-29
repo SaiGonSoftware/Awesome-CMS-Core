@@ -35,7 +35,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
             var viewModel = new CommentDefaultViewModel
             {
-                Comments = await comments.ToListAsync(),
+                AllComments = await comments.ToListAsync(),
                 NumberOfComments = comments.Count(),
                 ApprovedComments =  await GetCommentsByStatus(comments, CommentStatus.Approved).ConfigureAwait(false),
                 NumberOfApprovedComments = CountComment(comments, CommentStatus.Approved),
@@ -55,7 +55,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             return comments.Count(cm => cm.CommentStatus.Equals(commentStatus));
         }
 
-        private async Task<IEnumerable<Comment>> GetCommentsByStatus(IQueryable<Comment> comments, CommentStatus commentStatus)
+        private static async Task<IEnumerable<Comment>> GetCommentsByStatus(IQueryable<Comment> comments, CommentStatus commentStatus)
         {
             return await comments.Where(cm => cm.CommentStatus.Equals(commentStatus)).ToListAsync();
         }

@@ -99,5 +99,3 @@ class TagCreateContainer extends Component {
 if (isDomExist("tagCreationSelect")) {
   render(<TagCreateContainer />, document.getElementById("tagCreationSelect"));
 }
-
-TagCreateContainer.propTypes = {};

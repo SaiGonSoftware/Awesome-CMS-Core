@@ -7,6 +7,7 @@ import "./Modules/Admin/Tag/TagCreateContainer.jsx";
 import "./Modules/Admin/Categories/CategoriesCreateContainer.jsx";
 import "./Modules/Admin/Post/PostContainer/PostContainer.jsx";
 import "./Modules/Admin/Post/NewPost.jsx";
+import "./Modules/Admin/Comment/CommentContainer.jsx";
 
 import "./Vendor/portal";
 import "./Vendor/chart.home";

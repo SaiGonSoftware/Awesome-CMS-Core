@@ -1,0 +1,1 @@
+export const COMMENTS_ENDPOINT = "api/v1/Comments";
