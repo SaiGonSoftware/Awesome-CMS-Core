@@ -7,7 +7,7 @@ namespace AwesomeCMSCore.Modules.Admin.ViewModels
 {
     public class CommentDefaultViewModel
     {
-        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<Comment> AllComments { get; set; }
         public int NumberOfComments { get; set; }
         public IEnumerable<Comment> PendingComments { get; set; }
         public int NumberOfPendingComments { get; set; }

@@ -1,20 +1,12 @@
 import React, {Component} from 'react';
 import {render} from "react-dom";
-import {
-    Container,
-    Row,
-    Col,
-    ListGroup,
-    ListGroupItem,
-    Card,
-    Button,
-    CardTitle
-} from 'reactstrap';
+import {Row, Col, ListGroup, ListGroupItem} from 'reactstrap';
 import {Get, Delete, Put} from 'Helper/Http';
 import {isDomExist} from "Helper/Util";
 import {COMMENTS_ENDPOINT} from 'Helper/API_Endpoint/CommentEndpoint';
 
 import CommentContainerHeader from './CommentContainerHeader.jsx';
+import CommentContainerDetail from './CommentContainerDetail.jsx';
 
 class CommentContainer extends Component {
     constructor(props) {
@@ -28,6 +20,7 @@ class CommentContainer extends Component {
 
     componentDidMount() {
         Get(COMMENTS_ENDPOINT).then(res => {
+            console.log(res.data);
             this.setState({comments: res.data});
         });
     }
@@ -41,28 +34,29 @@ class CommentContainer extends Component {
     render() {
         const {comments, activeTab} = this.state;
 
-        return ( comments ?
-            <Row>
-                <Col md="12" id="commentHeaderSection">
-                    <ListGroup>
-                        <ListGroupItem>
-                            <div>
-                                <CommentContainerHeader
-                                    activeTab={activeTab}
-                                    toggle={this.toggle}
-                                    comments={comments}/>
-
-                            </div>
-                        </ListGroupItem>
-                    </ListGroup>
-                </Col>
-            </Row>
-        : null );
+        return (comments
+            ? <Row>
+                    <Col md="12" id="commentHeaderSection">
+                        <ListGroup>
+                            <ListGroupItem>
+                                <div>
+                                    <CommentContainerHeader
+                                        activeTab={activeTab}
+                                        toggle={this.toggle}
+                                        comments={comments}/>
+                                    <CommentContainerDetail comments={comments} activeTab={activeTab}/>
+                                </div>
+                            </ListGroupItem>
+                        </ListGroup>
+                    </Col>
+                </Row>
+            : null);
     }
 }
 
 export default CommentContainer;
 
 if (isDomExist("comments")) {
-    render(<CommentContainer/>, document.getElementById("comments"));
+    render(
+        <CommentContainer/>, document.getElementById("comments"));
 }

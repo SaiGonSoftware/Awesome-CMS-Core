@@ -35,7 +35,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
             var viewModel = new CommentDefaultViewModel
             {
-                Comments = await comments.ToListAsync(),
+                AllComments = await comments.ToListAsync(),
                 NumberOfComments = comments.Count(),
                 ApprovedComments =  await GetCommentsByStatus(comments, CommentStatus.Approved).ConfigureAwait(false),
                 NumberOfApprovedComments = CountComment(comments, CommentStatus.Approved),
