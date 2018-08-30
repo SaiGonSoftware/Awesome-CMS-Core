@@ -185,7 +185,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 
                 if (!context.Tags.Any())
                 {
-                    await SeedCatAndTag(context);
+                    await SeedCatAndTag(context).ConfigureAwait(false);
                 }
             }
         }
