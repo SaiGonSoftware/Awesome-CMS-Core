@@ -31,7 +31,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task<CommentDefaultViewModel> GetAllComments()
         {
-            var comments = _unitOfWork.Repository<Comment>().Query();
+            var comments = _unitOfWork.Repository<Comment>().Query().Include(x=> x.User).Include(c => c.Post);
 
             var viewModel = new CommentDefaultViewModel
             {
