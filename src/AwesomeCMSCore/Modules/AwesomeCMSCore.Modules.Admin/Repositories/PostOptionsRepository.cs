@@ -28,7 +28,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task<TagViewModel> GetAllTag()
         {
-            var tagData = await _unitOfWork.Repository<Tag>().FindBy(x => x.UserId == _currentUserId).SingleOrDefaultAsync();
+            var tagData = await _unitOfWork.Repository<Tag>().FindBy(x => x.UserId == _currentUserId && x.PostId == null).SingleOrDefaultAsync();
             var tagDataVm = _mapper.Map<Tag, TagViewModel>(tagData);
 
             return tagDataVm;
