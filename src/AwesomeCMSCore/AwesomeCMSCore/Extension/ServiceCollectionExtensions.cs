@@ -94,6 +94,9 @@ namespace AwesomeCMSCore.Extension
         {
             var mvcBuilder = services
                 .AddMvc()
+                .AddJsonOptions(
+                    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                )
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddRazorOptions(o =>
                 {
@@ -254,12 +257,12 @@ namespace AwesomeCMSCore.Extension
                         .SetRefreshTokenLifetime(TimeSpan.FromMinutes(60));
                 });
 
-                // Register the OpenIddict validation handler.
-                // Note: the OpenIddict validation handler is only compatible with the
-                // default token format or with reference tokens and cannot be used with
-                // JWT tokens. For JWT tokens, use the Microsoft JWT bearer handler.
-                //.AddValidation();
-           
+            // Register the OpenIddict validation handler.
+            // Note: the OpenIddict validation handler is only compatible with the
+            // default token format or with reference tokens and cannot be used with
+            // JWT tokens. For JWT tokens, use the Microsoft JWT bearer handler.
+            //.AddValidation();
+
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
 

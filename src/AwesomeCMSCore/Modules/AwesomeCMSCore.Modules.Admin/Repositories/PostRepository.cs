@@ -39,15 +39,15 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task<PostDefaultViewModel> GetPostsDefaultViewModel()
         {
-            var posts = _unitOfWork.Repository<Post>().Query();
+            var posts = await _unitOfWork.Repository<Post>().Query().ToListAsync();
 
             var viewModel = new PostDefaultViewModel
             {
-                PostsPublished = await GetPostsByStatus(posts, PostStatus.Published).ConfigureAwait(false),
+                PostsPublished = GetPostsByStatus(posts, PostStatus.Published),
                 NumberOfPostPublished = CountPost(posts, PostStatus.Published),
-                PostsDrafted = await GetPostsByStatus(posts, PostStatus.Draft).ConfigureAwait(false),
+                PostsDrafted = GetPostsByStatus(posts, PostStatus.Draft),
                 NumberOfDraftedPost = CountPost(posts, PostStatus.Draft),
-                PostsDeleted = await GetPostsByStatus(posts, PostStatus.Deleted).ConfigureAwait(false),
+                PostsDeleted = GetPostsByStatus(posts, PostStatus.Deleted),
                 NumberOfDeletedPost = CountPost(posts, PostStatus.Deleted)
             };
 
@@ -130,13 +130,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             await _unitOfWork.Commit();
         }
 
-        private async Task<IEnumerable<PostListViewModel>> GetPostsByStatus(IQueryable<Post> posts, PostStatus postStatus)
+        private IEnumerable<PostListViewModel> GetPostsByStatus(IEnumerable<Post> posts, PostStatus postStatus)
         {
-            return _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(
-                await posts.Where(p => p.PostStatus.Equals(postStatus)).ToListAsync());
+            return _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(posts.Where(p => p.PostStatus.Equals(postStatus)));
         }
 
-        private static int CountPost(IQueryable<Post> posts, PostStatus postStatus)
+        private static int CountPost(IEnumerable<Post> posts, PostStatus postStatus)
         {
             return posts.Count(p => p.PostStatus.Equals(postStatus));
         }

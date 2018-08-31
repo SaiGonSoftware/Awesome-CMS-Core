@@ -173,9 +173,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 
                 //if (!context.Posts.Any())
                 //{
-                //    comments[0].PostId = post.Id;
                 //    comments[0].Post = post;
-                //    comments[1].PostId = post.Id;
                 //    comments[1].Post = post;
                 //    post.Comments = comments;
 
