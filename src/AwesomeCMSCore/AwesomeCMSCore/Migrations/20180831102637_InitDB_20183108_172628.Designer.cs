@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AwesomeCMSCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180725150859_InitDB_20182507_220853")]
-    partial class InitDB_20182507_220853
+    [Migration("20180831102637_InitDB_20183108_172628")]
+    partial class InitDB_20183108_172628
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -42,6 +42,35 @@ namespace AwesomeCMSCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CommentStatus");
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<int?>("PostId");
+
+                    b.Property<Guid>("UniqeId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Media", b =>
@@ -110,7 +139,7 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<bool>("IsDeleted");
+                    b.Property<int>("PostStatus");
 
                     b.Property<string>("ShortDescription");
 
@@ -516,10 +545,23 @@ namespace AwesomeCMSCore.Migrations
                     b.HasDiscriminator().HasValue("ApplicationRole");
                 });
 
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Comment", b =>
+                {
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Media", b =>
                 {
                     b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post", "Post")
-                        .WithMany("Media")
+                        .WithMany("Medias")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict);
 

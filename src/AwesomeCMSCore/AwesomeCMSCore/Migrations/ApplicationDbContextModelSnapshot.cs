@@ -56,7 +56,7 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<int>("PostId");
+                    b.Property<int?>("PostId");
 
                     b.Property<Guid>("UniqeId");
 

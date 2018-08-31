@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AwesomeCMSCore.Migrations
 {
-    public partial class InitDB : Migration
+    public partial class InitDB_20183108_172628 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -137,24 +137,6 @@ namespace AwesomeCMSCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PasswordRequests", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tags",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UniqeId = table.Column<Guid>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
-                    TagData = table.Column<string>(nullable: true),
-                    TagOptions = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -294,6 +276,32 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UniqeId = table.Column<Guid>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    ShortDescription = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true),
+                    PostStatus = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Posts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictAuthorizations",
                 columns: table => new
                 {
@@ -318,7 +326,7 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -326,61 +334,24 @@ namespace AwesomeCMSCore.Migrations
                     UniqeId = table.Column<Guid>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    ShortDescription = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    TagsId = table.Column<int>(nullable: true),
+                    PostId = table.Column<int>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    TagOptions = table.Column<string>(nullable: true)
+                    CommentStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Posts_Tags_TagsId",
-                        column: x => x.TagsId,
-                        principalTable: "Tags",
+                        name: "FK_Comments_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Posts_AspNetUsers_UserId",
+                        name: "FK_Comments_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OpenIddictTokens",
-                columns: table => new
-                {
-                    ApplicationId = table.Column<string>(nullable: true),
-                    AuthorizationId = table.Column<string>(nullable: true),
-                    CreationDate = table.Column<DateTimeOffset>(nullable: true),
-                    ExpirationDate = table.Column<DateTimeOffset>(nullable: true),
-                    ConcurrencyToken = table.Column<string>(nullable: true),
-                    Id = table.Column<string>(nullable: false),
-                    Payload = table.Column<string>(nullable: true),
-                    Properties = table.Column<string>(nullable: true),
-                    ReferenceId = table.Column<string>(nullable: true),
-                    Status = table.Column<string>(nullable: true),
-                    Subject = table.Column<string>(nullable: false),
-                    Type = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OpenIddictTokens", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OpenIddictTokens_OpenIddictApplications_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "OpenIddictApplications",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OpenIddictTokens_OpenIddictAuthorizations_AuthorizationId",
-                        column: x => x.AuthorizationId,
-                        principalTable: "OpenIddictAuthorizations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -418,7 +389,7 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TagOptions",
+                name: "Tags",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -426,23 +397,52 @@ namespace AwesomeCMSCore.Migrations
                     UniqeId = table.Column<Guid>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
+                    TagData = table.Column<string>(nullable: true),
+                    TagOptions = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    Options = table.Column<string>(nullable: true),
                     PostId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TagOptions", x => x.Id);
+                    table.PrimaryKey("PK_Tags", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TagOptions_Posts_PostId",
+                        name: "FK_Tags_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OpenIddictTokens",
+                columns: table => new
+                {
+                    ApplicationId = table.Column<string>(nullable: true),
+                    AuthorizationId = table.Column<string>(nullable: true),
+                    CreationDate = table.Column<DateTimeOffset>(nullable: true),
+                    ExpirationDate = table.Column<DateTimeOffset>(nullable: true),
+                    ConcurrencyToken = table.Column<string>(nullable: true),
+                    Id = table.Column<string>(nullable: false),
+                    Payload = table.Column<string>(nullable: true),
+                    Properties = table.Column<string>(nullable: true),
+                    ReferenceId = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: true),
+                    Subject = table.Column<string>(nullable: false),
+                    Type = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OpenIddictTokens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TagOptions_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_OpenIddictTokens_OpenIddictApplications_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "OpenIddictApplications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OpenIddictTokens_OpenIddictAuthorizations_AuthorizationId",
+                        column: x => x.AuthorizationId,
+                        principalTable: "OpenIddictAuthorizations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -485,6 +485,16 @@ namespace AwesomeCMSCore.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_PostId",
+                table: "Comments",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_UserId",
+                table: "Comments",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Medias_PostId",
@@ -531,24 +541,16 @@ namespace AwesomeCMSCore.Migrations
                 filter: "[ReferenceId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_TagsId",
-                table: "Posts",
-                column: "TagsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",
                 table: "Posts",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TagOptions_PostId",
-                table: "TagOptions",
-                column: "PostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TagOptions_UserId",
-                table: "TagOptions",
-                column: "UserId");
+                name: "IX_Tags_PostId",
+                table: "Tags",
+                column: "PostId",
+                unique: true,
+                filter: "[PostId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -575,6 +577,9 @@ namespace AwesomeCMSCore.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
+                name: "Comments");
+
+            migrationBuilder.DropTable(
                 name: "Medias");
 
             migrationBuilder.DropTable(
@@ -587,7 +592,7 @@ namespace AwesomeCMSCore.Migrations
                 name: "PasswordRequests");
 
             migrationBuilder.DropTable(
-                name: "TagOptions");
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "Themes");
@@ -603,9 +608,6 @@ namespace AwesomeCMSCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
-
-            migrationBuilder.DropTable(
-                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
