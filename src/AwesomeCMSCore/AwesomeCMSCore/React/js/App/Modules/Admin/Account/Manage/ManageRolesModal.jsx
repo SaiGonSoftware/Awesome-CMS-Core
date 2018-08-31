@@ -6,7 +6,7 @@ import {handleOnChange} from "Helper/StateHelper";
 import {Get, PostWithSpinner} from "Helper/Http";
 import {STATUS_CODE} from 'Helper/AppEnum';
 
-import ACCReactSelect from "Common/ACCSelect/ACCReactSelect.jsx";
+import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect.jsx";
 import Spinner from "Common/ACCAnimation/Spinner.jsx";
 import {ROLE_API, ROLE_MANAGE_API} from 'Helper/API_Endpoint/RoleEndpoint';
 
@@ -87,7 +87,7 @@ class ManageRolesModal extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <ACCReactSelect
+                            <ACCReactCreateSelect
                                 id="tagCreate"
                                 {...options}
                                 value={value}

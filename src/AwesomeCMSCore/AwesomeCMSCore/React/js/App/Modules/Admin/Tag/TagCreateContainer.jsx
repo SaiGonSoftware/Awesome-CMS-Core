@@ -8,7 +8,7 @@ import { isDomExist } from "Helper/Util";
 import {STATUS_CODE} from "Helper/AppEnum";
 import { TAG_API } from 'Helper/API_Endpoint/PostOptionEndpoint';
 
-import ACCReactSelect from "Common/ACCSelect/ACCReactSelect.jsx";
+import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect.jsx";
 import Spinner from "Common/ACCAnimation/Spinner.jsx";
 
 class TagCreateContainer extends Component {
@@ -80,7 +80,7 @@ class TagCreateContainer extends Component {
                 Create tag for your post
               </div>
               <div className="card-body">
-                <ACCReactSelect
+                <ACCReactCreateSelect
                   {...options}
                   value={value}
                   handleOnChange={value => handleOnChange.call(this, value)}

@@ -131,6 +131,8 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Categories");
+
                     b.Property<string>("Content");
 
                     b.Property<DateTime>("DateCreated");
@@ -140,6 +142,8 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<int>("PostStatus");
 
                     b.Property<string>("ShortDescription");
+
+                    b.Property<string>("Tags");
 
                     b.Property<string>("Title");
 
@@ -175,10 +179,6 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PostId")
-                        .IsUnique()
-                        .HasFilter("[PostId] IS NOT NULL");
 
                     b.ToTable("Tags");
                 });
@@ -574,14 +574,6 @@ namespace AwesomeCMSCore.Migrations
                     b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Tag", b =>
-                {
-                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post")
-                        .WithOne("Tags")
-                        .HasForeignKey("AwesomeCMSCore.Modules.Entities.Entities.Tag", "PostId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

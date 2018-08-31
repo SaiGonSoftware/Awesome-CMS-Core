@@ -125,7 +125,9 @@ namespace AwesomeCMSCore.Modules.Entities.Data
                 PostStatus = PostStatus.Published,
                 Content = "<!DOCTYPE html>\n<html>\n<head>\n</head>\n<body>\n<p><span style=\"color: #495762; font-family: Karla, Tahoma, sans-serif; font-size: 16px;\">MassTransit is a free, open source, lightweight message bus for creating distributed applications using the .NET framework. MassTransit provides an extensive set of features on top existing message transports, resulting in a developer friendly way to asynchronously connect services using message-based conversation patterns. Message-based communication is a reliable and scalable way to implement a service oriented architecture.</span></p>\n</body>\n</html>",
                 ShortDescription = "MassTransit",
-                Title = "MassTransit with ASP.Net Core 2.1"
+                Title = "MassTransit with ASP.Net Core 2.1",
+                Tags = "[\"ASP.Net\"]",
+                Categories = "[\"Web\"]"
             };
         }
 
@@ -221,15 +223,15 @@ namespace AwesomeCMSCore.Modules.Entities.Data
                 UserId = tony.Id,
                 CategoriesData = "[\"Web\",\"Mobile\"]",
                 CategoriesOptions =
-                    "[{\"value\":\"ASP.Net\",\"label\":\"ASP.Net\",\"className\":\"Select-create-option-placeholder\"},{\"value\":\"React Native\",\"label\":\"React Native\",\"className\":\"Select-create-option-placeholder\"}]"
+                    "[{\"value\":\"Web\",\"label\":\"Web\",\"className\":\"Select-create-option-placeholder\"},{\"value\":\"Mobile\",\"label\":\"Mobile\",\"className\":\"Select-create-option-placeholder\"}]"
             };
 
             var tag = new Tag
             {
                 UserId = tony.Id,
-                TagData = "[\"Web\",\"Mobile\"]",
+                TagData = "[\"ASP.Net\",\"React\"]",
                 TagOptions =
-                    "[{\"value\":\"Web\",\"label\":\"Web\",\"className\":\"Select-create-option-placeholder\"},{\"value\":\"Mobile\",\"label\":\"Mobile\",\"className\":\"Select-create-option-placeholder\"}]"
+                    "[{\"value\":\"ASP.Net\",\"label\":\"ASP.Net\",\"className\":\"Select-create-option-placeholder\"},{\"value\":\"React\",\"label\":\"React\",\"className\":\"Select-create-option-placeholder\"}]"
             };
 
             await context.AddAsync(categorie);

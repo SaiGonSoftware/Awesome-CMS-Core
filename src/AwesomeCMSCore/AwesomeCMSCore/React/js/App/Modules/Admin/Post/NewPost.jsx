@@ -10,11 +10,13 @@ import {
 } from 'reactstrap';
 import toastr from "toastr";
 import PropTypes from "prop-types";
+
+import {Get, PostWithSpinner} from "Helper/Http";
 import {STATUS_CODE, POST_STATUS} from "Helper/AppEnum";
 import {SAVE_POST_API} from 'Helper/API_Endpoint/PostEndpoint';
-import {PostWithSpinner} from 'Helper/Http';
 import {isDomExist} from "Helper/Util";
 import {onChange, onBlur, handleOnChange} from 'Helper/StateHelper';
+import {POST_OPTIONS_API} from 'Helper/API_Endpoint/PostOptionEndpoint';
 
 import ACCEditor from 'Common/ACCInput/ACCEditor.jsx';
 import ACCButton from "Common/ACCButton/ACCButton.jsx";
@@ -29,10 +31,25 @@ class NewPost extends Component {
             postContent: "",
             title: "",
             shortDescription: "",
-            value: [],
+            tagValue: [],
             tagOptions: [],
+            categoriesOptions: [],
+            categoriesValue: [],
             loading: false
         }
+    }
+
+    componentDidMount() {
+        Get(`${POST_OPTIONS_API}/Options`).then(res => {
+            this.setState({
+                tagOptions: res.data.tagViewModel.tagOptions
+                    ? JSON.parse(res.data.tagViewModel.tagOptions)
+                    : [],
+                categoriesOptions: res.data.categoriesViewModel.categoriesOptions
+                    ? JSON.parse(res.data.categoriesViewModel.categoriesOptions)
+                    : []
+            });
+        });
     }
 
     newPost = (e, postStatus) => {
@@ -66,8 +83,10 @@ class NewPost extends Component {
             title,
             disabled,
             loading,
-            value,
-            tagOptions
+            tagValue,
+            tagOptions,
+            categoriesOptions,
+            categoriesValue
         } = this.state;
 
         return (
@@ -113,9 +132,15 @@ class NewPost extends Component {
                                 <Card body>
                                     <CardTitle>Post Options</CardTitle>
                                     <ACCReactSelect
-                                        {...tagOptions}
-                                        value={value}
-                                        placeholder="Post tag"
+                                        options={tagOptions}
+                                        value={tagValue}
+                                        placeholder="Tags"
+                                        handleOnChange={value => handleOnChange.call(this, value)}/>
+                                    <br/>
+                                    <ACCReactSelect
+                                        options={categoriesOptions}
+                                        value={categoriesValue}
+                                        placeholder="Categories"
                                         handleOnChange={value => handleOnChange.call(this, value)}/>
                                     <br/>
                                     <Button onClick={() => window.history.go(-1)}>
@@ -125,13 +150,13 @@ class NewPost extends Component {
                                                 <ACCButton
                                                     disabled={disabled}
                                                     label="Save as Drafted"
-                                                    btnBlocked
+                                                    btnBlocked="btn-block"
                                                     onClick={e => this.newPost(e, POST_STATUS.Draft)}/>
                                                 <br/>
                                                 <ACCButton
                                                     disabled={disabled}
                                                     label="Published Post"
-                                                    btnBlocked
+                                                    btnBlocked="btn-block"
                                                     onClick={e => this.newPost(e, POST_STATUS.Published)}/>
                                             </div>
                                         : <Spinner/>}

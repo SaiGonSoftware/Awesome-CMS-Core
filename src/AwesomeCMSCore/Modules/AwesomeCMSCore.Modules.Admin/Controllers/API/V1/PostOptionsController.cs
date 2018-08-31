@@ -26,6 +26,12 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
             _userService = userService;
         }
 
+        [HttpGet("Options")]
+        public async Task<IActionResult> GetAllOptions()
+        {
+            return Ok(await _postOptionsRepository.GetAllOptions());
+        }
+
         [HttpGet("Tag")]
         public async Task<IActionResult> Tag()
         {

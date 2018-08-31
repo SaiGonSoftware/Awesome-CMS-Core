@@ -1,13 +1,13 @@
 import React from "react";
-import Select from "react-select";
+import { Creatable } from "react-select";
 import PropTypes from "prop-types";
 
-const ACCReactSelect = props => {
-  const { options, value, handleOnChange } = props;
+const ACCReactCreateSelect = props => {
+  const { selectedOptions, value, handleOnChange } = props;
 
   return (
-    <Select
-      options={options}
+    <Creatable
+      {...selectedOptions}
       value={value}
       multi={true}
       placeholder={props.placeholder}
@@ -16,11 +16,11 @@ const ACCReactSelect = props => {
   );
 };
 
-ACCReactSelect.propTypes = {
+ACCReactCreateSelect.propTypes = {
   handleOnChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.object),
+  selectedOptions: PropTypes.arrayOf(PropTypes.object),
   value: PropTypes.arrayOf(PropTypes.object),
   placeholder: PropTypes.string
 };
 
-export default ACCReactSelect;
+export default ACCReactCreateSelect;

@@ -26,6 +26,17 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             _currentUserId = _userService.GetCurrentUserGuid();
         }
 
+        public async Task<PostOptionsDefaultViewModel> GetAllOptions()
+        {
+            var vm = new PostOptionsDefaultViewModel
+            {
+                TagViewModel = await GetAllTag(),
+                CategoriesViewModel = await GetAllCategories()
+            };
+
+            return vm;
+        }
+
         public async Task<TagViewModel> GetAllTag()
         {
             var tagData = await _unitOfWork.Repository<Tag>().FindBy(x => x.UserId == _currentUserId && x.PostId == null).SingleOrDefaultAsync();

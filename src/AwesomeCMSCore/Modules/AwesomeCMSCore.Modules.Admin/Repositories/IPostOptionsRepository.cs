@@ -5,6 +5,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 {
     public interface IPostOptionsRepository
     {
+        Task<PostOptionsDefaultViewModel> GetAllOptions();
         Task<TagViewModel> GetAllTag();
         Task CreateTag(TagViewModel tagDataVm);
         Task UpdateTag(TagViewModel tagDataVm);
