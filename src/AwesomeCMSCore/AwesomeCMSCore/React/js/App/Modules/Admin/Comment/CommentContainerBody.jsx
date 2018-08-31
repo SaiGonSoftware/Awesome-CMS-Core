@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Row, Col, ListGroupItem, TabContent, TabPane} from 'reactstrap';
 import moment from 'moment/src/moment';
 
-const CommentContainerDetail = (props) => {
+const CommentContainerBody = (props) => {
     return (
         <TabContent activeTab={props.activeTab}>
             <TabPane tabId="All" className="commentsTabWrapper">
@@ -17,8 +17,12 @@ const CommentContainerDetail = (props) => {
                                     return (
                                         <div id="allComments" key={comment.id}>
                                             <ListGroupItem className="commentItem">
-                                                <h3>{comment.content}</h3>
-                                                <h6>{moment(comment.dateCreated).format('DD MMMM YYYY')}</h6>
+                                                <h3>{comment.user.email}
+                                                    &nbsp;- {moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                <h3>{comment.post.title}</h3>
+                                                <blockquote className="blockquote">
+                                                    <small className="text-muted">{comment.content}</small>
+                                                </blockquote>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -38,8 +42,12 @@ const CommentContainerDetail = (props) => {
                                     return (
                                         <div id="pendingComments" key={comment.id}>
                                             <ListGroupItem className="commentItem">
-                                                <h3>{comment.content}</h3>
-                                                <h6>{moment(comment.dateCreated).format('DD MMMM YYYY')}</h6>
+                                                <h3>{comment.user.email}
+                                                    &nbsp;- {moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                <h3>{comment.post.title}</h3>
+                                                <blockquote className="blockquote">
+                                                    <small className="text-muted">{comment.content}</small>
+                                                </blockquote>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -59,8 +67,12 @@ const CommentContainerDetail = (props) => {
                                     return (
                                         <div id="approvedComments" key={comment.id}>
                                             <ListGroupItem key={comment.id} className="commentItem">
-                                                <h3>{comment.content}</h3>
-                                                <h6>{moment(comment.dateCreated).format('DD MMMM YYYY')}</h6>
+                                                <h3>{comment.user.email}
+                                                    &nbsp;-{moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                <h3>{comment.post.title}</h3>
+                                                <blockquote className="blockquote">
+                                                    <small className="text-muted">{comment.content}</small>
+                                                </blockquote>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -80,8 +92,12 @@ const CommentContainerDetail = (props) => {
                                     return (
                                         <div id="spamComments" key={comment.id}>
                                             <ListGroupItem key={comment.id} className="commentItem">
-                                                <h3>{comment.content}</h3>
-                                                <h6>{moment(comment.dateCreated).format('DD MMMM YYYY')}</h6>
+                                                <h3>{comment.user.email}
+                                                    &nbsp;-{moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                <h3>{comment.post.title}</h3>
+                                                <blockquote className="blockquote">
+                                                    <small className="text-muted">{comment.content}</small>
+                                                </blockquote>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -101,8 +117,12 @@ const CommentContainerDetail = (props) => {
                                     return (
                                         <div id="commentsDeleted" key={comment.id}>
                                             <ListGroupItem key={comment.id} className="commentItem">
-                                                <h3>{comment.content}</h3>
-                                                <h6>{moment(comment.dateCreated).format('DD MMMM YYYY')}</h6>
+                                                <h3>{comment.user.email}
+                                                    &nbsp;- {moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                <h3>{comment.post.title}</h3>
+                                                <blockquote className="blockquote">
+                                                    <small className="text-muted">{comment.content}</small>
+                                                </blockquote>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -115,9 +135,9 @@ const CommentContainerDetail = (props) => {
     )
 }
 
-CommentContainerDetail.propTypes = {
+CommentContainerBody.propTypes = {
     comments: PropTypes.object.isRequired,
     activeTab: PropTypes.string.isRequired
 }
 
-export default CommentContainerDetail
+export default CommentContainerBody
