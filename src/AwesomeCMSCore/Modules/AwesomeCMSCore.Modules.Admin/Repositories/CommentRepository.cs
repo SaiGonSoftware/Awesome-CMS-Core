@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -31,13 +32,13 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task<CommentDefaultViewModel> GetAllComments()
         {
-            var comments = await _unitOfWork.Repository<Comment>().Query().Include(x=> x.User).Include(c => c.Post).ToListAsync();
+            var comments = await _unitOfWork.Repository<Comment>().Query().Include(x => x.User).Include(c => c.Post).ToListAsync();
 
             var viewModel = new CommentDefaultViewModel
             {
                 AllComments = comments,
                 NumberOfComments = comments.Count(),
-                ApprovedComments =  GetCommentsByStatus(comments, CommentStatus.Approved),
+                ApprovedComments = GetCommentsByStatus(comments, CommentStatus.Approved),
                 NumberOfApprovedComments = CountComment(comments, CommentStatus.Approved),
                 PendingComments = GetCommentsByStatus(comments, CommentStatus.Pending),
                 NumberOfPendingComments = CountComment(comments, CommentStatus.Pending),
