@@ -171,15 +171,14 @@ namespace AwesomeCMSCore.Modules.Entities.Data
                     await SeedUser(tony5, context, serviceProvider, roles2);
                 }
 
-                //if (!context.Posts.Any())
-                //{
-                //    comments[0].Post = post;
-                //    comments[1].Post = post;
-                //    post.Comments = comments;
+                if (!context.Posts.Any())
+                {
+                    comments[0].Post = post;
+                    comments[1].Post = post;
+                    post.Comments = comments;
 
-                //    await SeedPost(context);
-                //    await SeedComments(context);
-                //}
+                    await SeedPost(context);
+                }
 
                 if (!context.Tags.Any())
                 {
@@ -212,16 +211,6 @@ namespace AwesomeCMSCore.Modules.Entities.Data
         private static async Task SeedPost(ApplicationDbContext context)
         {
             await context.AddAsync(post);
-            await context.SaveChangesAsync();
-        }
-
-        private static async Task SeedComments(ApplicationDbContext context)
-        {
-            foreach (var comment in comments)
-            {
-                await context.AddAsync(comment);
-            }
-
             await context.SaveChangesAsync();
         }
 
