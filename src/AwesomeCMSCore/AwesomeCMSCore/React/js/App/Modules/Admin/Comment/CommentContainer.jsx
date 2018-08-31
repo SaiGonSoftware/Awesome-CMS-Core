@@ -6,7 +6,7 @@ import {isDomExist} from "Helper/Util";
 import {COMMENTS_ENDPOINT} from 'Helper/API_Endpoint/CommentEndpoint';
 
 import CommentContainerHeader from './CommentContainerHeader.jsx';
-import CommentContainerDetail from './CommentContainerDetail.jsx';
+import CommentContainerBody from './CommentContainerBody.jsx';
 
 class CommentContainer extends Component {
     constructor(props) {
@@ -43,7 +43,7 @@ class CommentContainer extends Component {
                                         activeTab={activeTab}
                                         toggle={this.toggle}
                                         comments={comments}/>
-                                    <CommentContainerDetail 
+                                    <CommentContainerBody 
                                         comments={comments} 
                                         activeTab={activeTab}/>
                                 </div>
