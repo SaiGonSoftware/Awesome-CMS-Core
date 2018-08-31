@@ -31,33 +31,33 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task<CommentDefaultViewModel> GetAllComments()
         {
-            var comments = _unitOfWork.Repository<Comment>().Query().Include(x=> x.User).Include(c => c.Post);
+            var comments = await _unitOfWork.Repository<Comment>().Query().Include(x=> x.User).Include(c => c.Post).ToListAsync();
 
             var viewModel = new CommentDefaultViewModel
             {
-                AllComments = await comments.ToListAsync(),
+                AllComments = comments,
                 NumberOfComments = comments.Count(),
-                ApprovedComments =  await GetCommentsByStatus(comments, CommentStatus.Approved).ConfigureAwait(false),
+                ApprovedComments =  GetCommentsByStatus(comments, CommentStatus.Approved),
                 NumberOfApprovedComments = CountComment(comments, CommentStatus.Approved),
-                PendingComments = await GetCommentsByStatus(comments, CommentStatus.Pending).ConfigureAwait(false),
+                PendingComments = GetCommentsByStatus(comments, CommentStatus.Pending),
                 NumberOfPendingComments = CountComment(comments, CommentStatus.Pending),
-                SpamComments = await GetCommentsByStatus(comments, CommentStatus.Spam).ConfigureAwait(false),
+                SpamComments = GetCommentsByStatus(comments, CommentStatus.Spam),
                 NumberOfSpamComments = CountComment(comments, CommentStatus.Spam),
-                DeletedComments = await GetCommentsByStatus(comments, CommentStatus.Trash).ConfigureAwait(false),
+                DeletedComments = GetCommentsByStatus(comments, CommentStatus.Trash),
                 NumberOfDeletedComments = CountComment(comments, CommentStatus.Trash)
             };
 
             return viewModel;
         }
 
-        private static int CountComment(IQueryable<Comment> comments, CommentStatus commentStatus)
+        private static int CountComment(IEnumerable<Comment> comments, CommentStatus commentStatus)
         {
             return comments.Count(cm => cm.CommentStatus.Equals(commentStatus));
         }
 
-        private static async Task<IEnumerable<Comment>> GetCommentsByStatus(IQueryable<Comment> comments, CommentStatus commentStatus)
+        private static IEnumerable<Comment> GetCommentsByStatus(IEnumerable<Comment> comments, CommentStatus commentStatus)
         {
-            return await comments.Where(cm => cm.CommentStatus.Equals(commentStatus)).ToListAsync();
+            return comments.Where(cm => cm.CommentStatus == commentStatus);
         }
     }
 }
