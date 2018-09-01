@@ -12,8 +12,9 @@ import PropTypes from "prop-types";
 import {STATUS_CODE} from "Helper/AppEnum";
 import {SAVE_POST_API} from 'Helper/API_Endpoint/PostEndpoint';
 import {PostWithSpinner} from 'Helper/Http';
-import {onChange, onBlur, handleOnChange} from 'Helper/StateHelper';
+import {onChange, onBlur} from 'Helper/StateHelper';
 import {POST_API} from 'Helper/API_Endpoint/PostEndpoint';
+import {POST_OPTIONS_API} from 'Helper/API_Endpoint/PostOptionEndpoint';
 import {Get} from 'Helper/Http';
 
 import ACCEditor from 'Common/ACCInput/ACCEditor.jsx';
@@ -39,15 +40,26 @@ class PostDetail extends Component {
     }
 
     componentDidMount() {
+        Get(`${POST_OPTIONS_API}/Options`).then(res => {
+            this.setState({
+                tagOptions: res.data.tagViewModel.value
+                    ? JSON.parse(res.data.tagViewModel.value)
+                    : [],
+                categoriesOptions: res.data.categoriesViewModel.value
+                    ? JSON.parse(res.data.categoriesViewModel.value)
+                    : []
+            });
+        });
+
         const url = `${POST_API}/${this.props.postId}`;
         Get(url).then(res => {
             this.setState({
                 post: res.data,
-                tagOptions: res.data.postOptionsDefaultViewModel.tagViewModel.value
-                    ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.value)
+                tagValue: res.data.postOptionsDefaultViewModel.tagViewModel.key
+                    ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.key)
                     : [],
-                categoriesOptions: res.data.postOptionsDefaultViewModel.categoriesViewModel.value
-                    ? JSON.parse(res.data.postOptionsDefaultViewModel.categoriesViewModel.value)
+                categoriesValue: res.data.postOptionsDefaultViewModel.categoriesViewModel.key
+                    ? JSON.parse(res.data.postOptionsDefaultViewModel.categoriesViewModel.key)
                     : [],
                 title: res.data.title,
                 shortDescription: res.data.shortDescription,
