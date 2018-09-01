@@ -32,8 +32,8 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         {
             var vm = new PostOptionsDefaultViewModel
             {
-                TagViewModel = await GetAllTag(),
-                CategoriesViewModel = await GetAllCategories()
+                TagViewModel = await GetAllTag().ConfigureAwait(false),
+                CategoriesViewModel = await GetAllCategories().ConfigureAwait(false)
             };
 
             return vm;
@@ -73,7 +73,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task CreateTag(PostOptionsViewModel tagDataVm)
         {
-            var currentUser = await GetCurrentUser();
+            var currentUser = await GetCurrentUser().ConfigureAwait(false);
 
             var tagData = _mapper.Map<PostOptionsViewModel, PostOption>(tagDataVm, options =>
             {
