@@ -85,6 +85,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             {
                 options.AfterMap((src, dest) =>
                 {
+                    dest.Id = postViewModel.PostOptionsDefaultViewModel.TagViewModel.Id;
                     dest.User = currentUser;
                     dest.OptionType = PostOptionType.PostTags.ToString();
                 });
@@ -94,6 +95,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             {
                 options.AfterMap((src, dest) =>
                 {
+                    dest.Id = postViewModel.PostOptionsDefaultViewModel.CategoriesViewModel.Id;
                     dest.User = currentUser;
                     dest.OptionType = PostOptionType.PostCategories.ToString();
                 });

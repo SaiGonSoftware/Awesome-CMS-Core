@@ -35,6 +35,8 @@ class PostDetail extends Component {
             categoriesValue: [],
             loading: false,
             postId: "",
+            categoryId: null,
+            tagId: null,
             post: null
         }
     }
@@ -58,9 +60,11 @@ class PostDetail extends Component {
                 tagValue: res.data.postOptionsDefaultViewModel.tagViewModel.key
                     ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.key)
                     : [],
+                tagId: res.data.postOptionsDefaultViewModel.tagViewModel.id,
                 categoriesValue: res.data.postOptionsDefaultViewModel.categoriesViewModel.key
                     ? JSON.parse(res.data.postOptionsDefaultViewModel.categoriesViewModel.key)
                     : [],
+                categoryId: res.data.postOptionsDefaultViewModel.categoriesViewModel.id,
                 title: res.data.title,
                 shortDescription: res.data.shortDescription,
                 postContent: res.data.content
@@ -77,9 +81,11 @@ class PostDetail extends Component {
                     tagOptions: res.data.postOptionsDefaultViewModel.tagViewModel.value
                         ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.value)
                         : [],
+                    tagId: res.data.postOptionsDefaultViewModel.tagViewModel.id,
                     categoriesOptions: res.data.postOptionsDefaultViewModel.categoriesViewModel.value
                         ? JSON.parse(res.data.postOptionsDefaultViewModel.categoriesViewModel.value)
                         : [],
+                    categoryId: res.data.postOptionsDefaultViewModel.categoriesViewModel.id,
                     title: res.data.title,
                     shortDescription: res.data.shortDescription,
                     postContent: res.data.content
@@ -93,10 +99,12 @@ class PostDetail extends Component {
 
         const postOptionsDefaultViewModel = {
             tagViewModel: {
+                id: this.state.tagId,
                 key: JSON.stringify(this.state.tagValue.map(x => x.value)),
                 value: JSON.stringify(this.state.tagValue)
             },
             categoriesViewModel: {
+                id: this.state.categoryId,
                 key: JSON.stringify(this.state.categoriesValue.map(x => x.value)),
                 value: JSON.stringify(this.state.categoriesValue)
             }
@@ -112,7 +120,7 @@ class PostDetail extends Component {
             PostStatus: this.state.post.postStatus
         })
             .then(res => {
-                if (res.status === STATUS_CODE.Success)
+                if (res.status === STATUS_CODE.Success) 
                     return toastr.success("Edit post success");
                 }
             )
