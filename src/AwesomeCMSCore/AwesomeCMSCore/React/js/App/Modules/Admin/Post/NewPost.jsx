@@ -15,7 +15,7 @@ import {Get, PostWithSpinner} from "Helper/Http";
 import {STATUS_CODE, POST_STATUS} from "Helper/AppEnum";
 import {SAVE_POST_API} from 'Helper/API_Endpoint/PostEndpoint';
 import {isDomExist} from "Helper/Util";
-import {onChange, onBlur, handleOnChange} from 'Helper/StateHelper';
+import {onChange, onBlur} from 'Helper/StateHelper';
 import {POST_OPTIONS_API} from 'Helper/API_Endpoint/PostOptionEndpoint';
 
 import ACCEditor from 'Common/ACCInput/ACCEditor.jsx';
@@ -42,11 +42,11 @@ class NewPost extends Component {
     componentDidMount() {
         Get(`${POST_OPTIONS_API}/Options`).then(res => {
             this.setState({
-                tagOptions: res.data.tagViewModel.tagOptions
-                    ? JSON.parse(res.data.tagViewModel.tagOptions)
+                tagOptions: res.data.tagViewModel.value
+                    ? JSON.parse(res.data.tagViewModel.value)
                     : [],
-                categoriesOptions: res.data.categoriesViewModel.categoriesOptions
-                    ? JSON.parse(res.data.categoriesViewModel.categoriesOptions)
+                categoriesOptions: res.data.categoriesViewModel.value
+                    ? JSON.parse(res.data.categoriesViewModel.value)
                     : []
             });
         });
@@ -55,15 +55,25 @@ class NewPost extends Component {
     newPost = (e, postStatus) => {
         e.preventDefault();
 
+        const postOptionsDefaultViewModel = {
+            tagViewModel: {
+                key: JSON.stringify(this.state.tagValue.map(x => x.value)),
+                value: JSON.stringify(this.state.tagValue)
+            },
+            categoriesViewModel: {
+                key: JSON.stringify(this.state.categoriesValue.map(x => x.value)),
+                value: JSON.stringify(this.state.categoriesValue)
+            }
+        }
+
         PostWithSpinner.call(this, SAVE_POST_API, {
             Title: this.state.title,
             ShortDescription: this.state.shortDescription,
             Content: this.state.postContent,
-            TagData: JSON.stringify(this.state.value.map(x => x.value)),
-            TagOptions: JSON.stringify(this.state.value),
+            PostOptionsDefaultViewModel: postOptionsDefaultViewModel,
             PostStatus: postStatus
         }).then(res => {
-            if (res.status === STATUS_CODE.Success) 
+            if (res.status === STATUS_CODE.Success)
                 return toastr.success("Create new post success");
             }
         );
@@ -75,6 +85,14 @@ class NewPost extends Component {
                 .target
                 .getContent()
         });
+    }
+
+    handleOnTagChange = (tagValue) => {
+        this.setState({tagValue});
+    }
+
+    handleOnCatChange = (categoriesValue) => {
+        this.setState({categoriesValue});
     }
 
     render() {
@@ -135,13 +153,13 @@ class NewPost extends Component {
                                         options={tagOptions}
                                         value={tagValue}
                                         placeholder="Tags"
-                                        handleOnChange={value => handleOnChange.call(this, value)}/>
+                                        handleOnChange={value => this.handleOnTagChange(value)}/>
                                     <br/>
                                     <ACCReactSelect
                                         options={categoriesOptions}
                                         value={categoriesValue}
                                         placeholder="Categories"
-                                        handleOnChange={value => handleOnChange.call(this, value)}/>
+                                        handleOnChange={value => this.handleOnCatChange(value)}/>
                                     <br/>
                                     <Button onClick={() => window.history.go(-1)}>
                                         Back</Button>

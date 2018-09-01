@@ -39,6 +39,27 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             return vm;
         }
 
+        public async Task<PostOptionsDefaultViewModel> GetAllOptionsByPostId(int postId)
+        {
+            var tag = await _unitOfWork.Repository<PostOption>()
+                .FindBy(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase)
+                              && po.Post.Id == postId)
+                .SingleOrDefaultAsync();
+
+            var categories = await _unitOfWork.Repository<PostOption>()
+                .FindBy(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase)
+                              && po.Post.Id == postId)
+                .SingleOrDefaultAsync();
+
+            var vm = new PostOptionsDefaultViewModel
+            {
+                TagViewModel = _mapper.Map<PostOption, PostOptionsViewModel>(tag),
+                CategoriesViewModel = _mapper.Map<PostOption, PostOptionsViewModel>(categories)
+            };
+
+            return vm;
+        }
+
         public async Task<PostOptionsViewModel> GetAllTag()
         {
             var tagData = await _unitOfWork.Repository<PostOption>()
