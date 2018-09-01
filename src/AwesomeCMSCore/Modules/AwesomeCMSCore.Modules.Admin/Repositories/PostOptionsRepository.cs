@@ -72,7 +72,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public bool IsTagExist()
         {
-            return _unitOfWork.Repository<Tag>().Exist(x => x.UserId == _currentUserId);
+            return _unitOfWork.Repository<PostOption>().Exist(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase));
         }
 
         public async Task<PostOptionsViewModel> GetAllCategories()
@@ -108,7 +108,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public bool IsCategoriesExist()
         {
-            return _unitOfWork.Repository<Categories>().Exist(x => x.UserId == _currentUserId);
+            return _unitOfWork.Repository<PostOption>().Exist(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase));
         }
     }
 }
