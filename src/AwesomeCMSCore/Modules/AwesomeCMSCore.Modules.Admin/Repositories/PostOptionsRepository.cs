@@ -89,7 +89,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task UpdateTag(PostOptionsViewModel tagDataVm)
         {
-            var currentUser = await GetCurrentUser().ConfigureAwait(false;
+            var currentUser = await GetCurrentUser().ConfigureAwait(false);
 
             var tag = await _unitOfWork.Repository<PostOption>()
                         .FindAsync(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase));
