@@ -119,7 +119,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task CreateCategories(PostOptionsViewModel categoriesVm)
         {
-            var currentUser = await GetCurrentUser();
+            var currentUser = await GetCurrentUser().ConfigureAwait(false);
 
             var categoriesData = _mapper.Map<PostOptionsViewModel, PostOption>(categoriesVm, options =>
             {
