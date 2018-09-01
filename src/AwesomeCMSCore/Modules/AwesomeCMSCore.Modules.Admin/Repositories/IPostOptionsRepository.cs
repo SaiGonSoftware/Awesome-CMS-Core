@@ -7,12 +7,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
     {
         Task<PostOptionsDefaultViewModel> GetAllOptions();
         Task<PostOptionsViewModel> GetAllTag();
-        Task CreateTag(TagViewModel tagDataVm);
-        Task UpdateTag(TagViewModel tagDataVm);
+        Task CreateTag(PostOptionsViewModel tagDataVm);
+        Task UpdateTag(PostOptionsViewModel tagDataVm);
         bool IsTagExist();
         Task<PostOptionsViewModel> GetAllCategories();
-        Task CreateCategories(CategoriesViewModel categoriesVm);
-        Task UpdateCategories(CategoriesViewModel categoriesVm);
+        Task CreateCategories(PostOptionsViewModel categoriesVm);
+        Task UpdateCategories(PostOptionsViewModel categoriesVm);
         bool IsCategoriesExist();
     }
 }

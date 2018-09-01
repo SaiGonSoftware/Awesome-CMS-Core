@@ -24,7 +24,7 @@ class TagCreateContainer extends Component {
   componentDidMount() {
     Get(TAG_API).then(res => {
       this.setState({
-        value: res.data.tagOptions ? JSON.parse(res.data.tagOptions) : []
+        value: res.data.value ? JSON.parse(res.data.value) : []
       });
     });
   }
@@ -32,12 +32,12 @@ class TagCreateContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const tagData = JSON.stringify(this.state.value.map(x => x.value));
-    const tagOptions = JSON.stringify(this.state.value);
+    const data = JSON.stringify(this.state.value.map(x => x.value));
+    const value = JSON.stringify(this.state.value);
 
     const tagVm = {
-      tagData,
-      tagOptions
+      data,
+      value
     };
 
     PostWithSpinner.call(this, TAG_API, tagVm)

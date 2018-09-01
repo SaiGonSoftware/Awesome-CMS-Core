@@ -44,35 +44,41 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             var tagData = await _unitOfWork.Repository<PostOption>()
                     .FindBy(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase))
                     .SingleOrDefaultAsync();
+
             var tagDataVm = _mapper.Map<PostOption, PostOptionsViewModel>(tagData);
 
             return tagDataVm;
         }
 
-        public async Task CreateTag(TagViewModel tagDataVm)
+        public async Task CreateTag(PostOptionsViewModel tagDataVm)
         {
-            var tagData = _mapper.Map<TagViewModel, Tag>(tagDataVm, options =>
+            var currentUser = await GetCurrentUser();
+
+            var tagData = _mapper.Map<PostOptionsViewModel, PostOption>(tagDataVm, options =>
             {
-                options.AfterMap((src, dest) => dest.UserId = _currentUserId);
+                options.AfterMap((src, dest) =>
+                {
+                    dest.User = currentUser;
+                    dest.OptionType = PostOptionType.TagOptions.ToString();
+                });
             });
 
-            await _unitOfWork.Repository<Tag>().AddAsync(tagData);
+            await _unitOfWork.Repository<PostOption>().AddAsync(tagData);
         }
 
-        public async Task UpdateTag(TagViewModel tagDataVm)
+        public async Task UpdateTag(PostOptionsViewModel tagDataVm)
         {
-            var tag = await _unitOfWork.Repository<Tag>().FindAsync(x => x.UserId == _currentUserId);
+            var currentUser = await GetCurrentUser();
+
+            var tag = await _unitOfWork.Repository<PostOption>()
+                        .FindAsync(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+
             var tagToUpdate = _mapper.Map(tagDataVm, tag, options =>
             {
-                options.AfterMap((src, dest) => dest.UserId = _currentUserId);
+                options.AfterMap((src, dest) => dest.User = currentUser);
             });
 
-            await _unitOfWork.Repository<Tag>().UpdateAsync(tagToUpdate);
-        }
-
-        public bool IsTagExist()
-        {
-            return _unitOfWork.Repository<PostOption>().Exist(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+            await _unitOfWork.Repository<PostOption>().UpdateAsync(tagToUpdate);
         }
 
         public async Task<PostOptionsViewModel> GetAllCategories()
@@ -80,35 +86,52 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             var categoriesData = await _unitOfWork.Repository<PostOption>()
                     .FindBy(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase))
                     .SingleOrDefaultAsync();
+
             var tagDataVm = _mapper.Map<PostOption, PostOptionsViewModel>(categoriesData);
 
             return tagDataVm;
         }
 
-        public async Task CreateCategories(CategoriesViewModel categoriesVm)
+        public async Task CreateCategories(PostOptionsViewModel categoriesVm)
         {
-            var categoriesData = _mapper.Map<CategoriesViewModel, Categories>(categoriesVm, options =>
+            var currentUser = await GetCurrentUser();
+
+            var categoriesData = _mapper.Map<PostOptionsViewModel, PostOption>(categoriesVm, options =>
             {
-                options.AfterMap((src, dest) => dest.UserId = _currentUserId);
+                options.AfterMap((src, dest) => dest.User = currentUser);
             });
 
-            await _unitOfWork.Repository<Categories>().AddAsync(categoriesData);
+            await _unitOfWork.Repository<PostOption>().AddAsync(categoriesData);
         }
 
-        public async Task UpdateCategories(CategoriesViewModel categoriesVm)
+        public async Task UpdateCategories(PostOptionsViewModel categoriesVm)
         {
-            var categories = await _unitOfWork.Repository<Categories>().FindAsync(x => x.UserId == _currentUserId);
+            var currentUser = await GetCurrentUser();
+
+            var categories = await _unitOfWork.Repository<PostOption>()
+                    .FindAsync(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+
             var categoriesToUpdate = _mapper.Map(categoriesVm, categories, options =>
             {
-                options.AfterMap((src, dest) => dest.UserId = _currentUserId);
+                options.AfterMap((src, dest) => dest.User = currentUser);
             });
 
-            await _unitOfWork.Repository<Categories>().UpdateAsync(categoriesToUpdate);
+            await _unitOfWork.Repository<PostOption>().UpdateAsync(categoriesToUpdate);
         }
 
         public bool IsCategoriesExist()
         {
             return _unitOfWork.Repository<PostOption>().Exist(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+        }
+
+        public bool IsTagExist()
+        {
+            return _unitOfWork.Repository<PostOption>().Exist(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+        }
+
+        private async Task<User> GetCurrentUser()
+        {
+            return await _userService.GetCurrentUserAsync();
         }
     }
 }
