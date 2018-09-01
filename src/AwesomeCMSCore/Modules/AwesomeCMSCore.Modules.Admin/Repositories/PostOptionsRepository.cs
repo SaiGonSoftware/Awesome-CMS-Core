@@ -42,12 +42,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         public async Task<PostOptionsDefaultViewModel> GetAllOptionsByPostId(int postId)
         {
             var tag = await _unitOfWork.Repository<PostOption>()
-                .FindBy(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase)
+                .FindBy(po => po.OptionType.Equals(PostOptionType.PostTags.ToString(), StringComparison.OrdinalIgnoreCase)
                               && po.Post.Id == postId)
                 .SingleOrDefaultAsync();
 
             var categories = await _unitOfWork.Repository<PostOption>()
-                .FindBy(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase)
+                .FindBy(po => po.OptionType.Equals(PostOptionType.PostCategories.ToString(), StringComparison.OrdinalIgnoreCase)
                               && po.Post.Id == postId)
                 .SingleOrDefaultAsync();
 

@@ -28,8 +28,10 @@ class PostDetail extends Component {
             postContent: "",
             title: "",
             shortDescription: "",
-            value: [],
+            tagValue: [],
             tagOptions: [],
+            categoriesOptions: [],
+            categoriesValue: [],
             loading: false,
             postId: "",
             post: null
@@ -41,8 +43,11 @@ class PostDetail extends Component {
         Get(url).then(res => {
             this.setState({
                 post: res.data,
-                value: res.data.tagOptions
-                    ? JSON.parse(res.data.tagOptions)
+                tagOptions: res.data.postOptionsDefaultViewModel.tagViewModel.value
+                    ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.value)
+                    : [],
+                categoriesOptions: res.data.postOptionsDefaultViewModel.categoriesViewModel.value
+                    ? JSON.parse(res.data.postOptionsDefaultViewModel.categoriesViewModel.value)
                     : [],
                 title: res.data.title,
                 shortDescription: res.data.shortDescription,
@@ -57,8 +62,11 @@ class PostDetail extends Component {
             Get(url).then(res => {
                 this.setState({
                     post: res.data,
-                    value: res.data.tagOptions
-                        ? JSON.parse(res.data.tagOptions)
+                    tagOptions: res.data.postOptionsDefaultViewModel.tagViewModel.value
+                        ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.value)
+                        : [],
+                    categoriesOptions: res.data.postOptionsDefaultViewModel.categoriesViewModel.value
+                        ? JSON.parse(res.data.postOptionsDefaultViewModel.categoriesViewModel.value)
                         : [],
                     title: res.data.title,
                     shortDescription: res.data.shortDescription,
@@ -71,19 +79,31 @@ class PostDetail extends Component {
     editPost = e => {
         e.preventDefault();
 
-        PostWithSpinner.call(this, SAVE_POST_API, {
+        const postOptionsDefaultViewModel = {
+            tagViewModel: {
+                key: JSON.stringify(this.state.tagValue.map(x => x.value)),
+                value: JSON.stringify(this.state.tagValue)
+            },
+            categoriesViewModel: {
+                key: JSON.stringify(this.state.categoriesValue.map(x => x.value)),
+                value: JSON.stringify(this.state.categoriesValue)
+            }
+        }
+
+        PostWithSpinner
+            .call(this, SAVE_POST_API, {
             Id: this.state.post.id,
             Title: this.state.title,
             ShortDescription: this.state.shortDescription,
             Content: this.state.postContent,
-            TagData: JSON.stringify(this.state.value.map(x => x.value)),
-            TagOptions: JSON.stringify(this.state.value),
+            PostOptionsDefaultViewModel: postOptionsDefaultViewModel,
             PostStatus: this.state.post.postStatus
-        }).then(res => {
-            if (res.status === STATUS_CODE.Success) 
-                return toastr.success("Edit post success");
-            }
-        )
+        })
+            .then(res => {
+                if (res.status === STATUS_CODE.Success)
+                    return toastr.success("Edit post success");
+                }
+            )
     }
 
     handleEditorChange = (e) => {
@@ -92,6 +112,14 @@ class PostDetail extends Component {
                 .target
                 .getContent()
         });
+    }
+
+    handleOnTagChange = (tagValue) => {
+        this.setState({tagValue});
+    }
+
+    handleOnCatChange = (categoriesValue) => {
+        this.setState({categoriesValue});
     }
 
     onNavigateBack = () => {
@@ -105,8 +133,10 @@ class PostDetail extends Component {
             shortDescription,
             title,
             loading,
-            value,
+            tagValue,
             tagOptions,
+            categoriesOptions,
+            categoriesValue,
             postContent,
             post
         } = this.state;
@@ -153,10 +183,7 @@ class PostDetail extends Component {
                                     </Row>
                                     <Row className="postFooter">
                                         <Col md="12">
-                                            <ACCButton
-                                                loading={loading}
-                                                btnBlocked="btn-block"
-                                                label="Save Post"/>
+                                            <ACCButton loading={loading} btnBlocked="btn-block" label="Save Post"/>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -164,10 +191,16 @@ class PostDetail extends Component {
                                     <Card body>
                                         <CardTitle>Post Options</CardTitle>
                                         <ACCReactSelect
-                                            {...tagOptions}
-                                            value={value}
-                                            placeholder="Post tag"
-                                            handleOnChange={value => handleOnChange.call(this, value)}/>
+                                            options={tagOptions}
+                                            value={tagValue}
+                                            placeholder="Tags"
+                                            handleOnChange={value => this.handleOnTagChange(value)}/>
+                                        <br/>
+                                        <ACCReactSelect
+                                            options={categoriesOptions}
+                                            value={categoriesValue}
+                                            placeholder="Categories"
+                                            handleOnChange={value => this.handleOnCatChange(value)}/>
                                         <br/>
                                         <Button onClick={this.onNavigateBack}>
                                             Back</Button>

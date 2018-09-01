@@ -86,7 +86,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
                 options.AfterMap((src, dest) =>
                 {
                     dest.User = currentUser;
-                    dest.OptionType = PostOptionType.TagOptions.ToString();
+                    dest.OptionType = PostOptionType.PostTags.ToString();
                 });
             });
 
@@ -95,7 +95,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
                 options.AfterMap((src, dest) =>
                 {
                     dest.User = currentUser;
-                    dest.OptionType = PostOptionType.CategorieOptions.ToString();
+                    dest.OptionType = PostOptionType.PostCategories.ToString();
                 });
             });
 
@@ -118,7 +118,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             {
                 Key = postViewModel.PostOptionsDefaultViewModel.TagViewModel.Key,
                 Value = postViewModel.PostOptionsDefaultViewModel.TagViewModel.Value,
-                OptionType = PostOptionType.TagOptions.ToString(),
+                OptionType = PostOptionType.PostTags.ToString(),
                 User = await _userService.GetCurrentUserAsync(),
                 Post = post
             };
@@ -127,7 +127,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             {
                 Key = postViewModel.PostOptionsDefaultViewModel.CategoriesViewModel.Key,
                 Value = postViewModel.PostOptionsDefaultViewModel.CategoriesViewModel.Value,
-                OptionType = PostOptionType.CategorieOptions.ToString(),
+                OptionType = PostOptionType.PostCategories.ToString(),
                 User = await _userService.GetCurrentUserAsync(),
                 Post = post
             };

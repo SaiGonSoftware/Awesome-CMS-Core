@@ -7,6 +7,8 @@ namespace AwesomeCMSCore.Modules.Entities.Enums
     public enum PostOptionType
     {
         CategorieOptions,
-        TagOptions
+        TagOptions,
+        PostCategories,
+        PostTags
     }
 }
