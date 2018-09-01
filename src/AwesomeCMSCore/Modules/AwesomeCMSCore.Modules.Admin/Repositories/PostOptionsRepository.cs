@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Entities.Enums;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -37,10 +39,10 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             return vm;
         }
 
-        public async Task<TagViewModel> GetAllTag()
+        public async Task<PostOptionsViewModel> GetAllTag()
         {
-            var tagData = await _unitOfWork.Repository<Tag>().FindBy(x => x.UserId == _currentUserId && x.PostId == null).SingleOrDefaultAsync();
-            var tagDataVm = _mapper.Map<Tag, TagViewModel>(tagData);
+            var tagData = await _unitOfWork.Repository<PostOption>().FindBy(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase)).SingleOrDefaultAsync();
+            var tagDataVm = _mapper.Map<PostOption, PostOptionsViewModel>(tagData);
 
             return tagDataVm;
         }
@@ -71,10 +73,10 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             return _unitOfWork.Repository<Tag>().Exist(x => x.UserId == _currentUserId);
         }
 
-        public async Task<CategoriesViewModel> GetAllCategories()
+        public async Task<PostOptionsViewModel> GetAllCategories()
         {
-            var categoriesData = await _unitOfWork.Repository<Categories>().FindBy(x => x.UserId == _currentUserId).SingleOrDefaultAsync();
-            var tagDataVm = _mapper.Map<Categories, CategoriesViewModel>(categoriesData);
+            var categoriesData = await _unitOfWork.Repository<PostOption>().FindBy(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase)).SingleOrDefaultAsync(); ;
+            var tagDataVm = _mapper.Map<PostOption, PostOptionsViewModel>(categoriesData);
 
             return tagDataVm;
         }

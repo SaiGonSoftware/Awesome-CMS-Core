@@ -182,7 +182,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
                     await SeedPost(context);
                 }
 
-                if (!context.Tags.Any())
+                if (!context.PostOptions.Any())
                 {
                     await SeedCatAndTag(context).ConfigureAwait(false);
                 }
@@ -218,20 +218,22 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 
         private static async Task SeedCatAndTag(ApplicationDbContext context)
         {
-            var categorie = new Categories
+            var categorie = new PostOption
             {
-                UserId = tony.Id,
-                CategoriesData = "[\"Web\",\"Mobile\"]",
-                CategoriesOptions =
-                    "[{\"value\":\"Web\",\"label\":\"Web\",\"className\":\"Select-create-option-placeholder\"},{\"value\":\"Mobile\",\"label\":\"Mobile\",\"className\":\"Select-create-option-placeholder\"}]"
+                User = tony,
+                Key = "[\"Web\",\"Mobile\"]",
+                Value = 
+                    "[{\"value\":\"Web\",\"label\":\"Web\",\"className\":\"Select-create-option-placeholder\"},{\"value\":\"Mobile\",\"label\":\"Mobile\",\"className\":\"Select-create-option-placeholder\"}]",
+                OptionType = PostOptionType.CategorieOptions.ToString()
             };
 
-            var tag = new Tag
+            var tag = new PostOption
             {
-                UserId = tony.Id,
-                TagData = "[\"ASP.Net\",\"React\"]",
-                TagOptions =
-                    "[{\"value\":\"ASP.Net\",\"label\":\"ASP.Net\",\"className\":\"Select-create-option-placeholder\"},{\"value\":\"React\",\"label\":\"React\",\"className\":\"Select-create-option-placeholder\"}]"
+                User = tony,
+                Key = "[\"ASP.Net\",\"React\"]",
+                Value =
+                    "[{\"value\":\"ASP.Net\",\"label\":\"ASP.Net\",\"className\":\"Select-create-option-placeholder\"},{\"value\":\"React\",\"label\":\"React\",\"className\":\"Select-create-option-placeholder\"}]",
+                OptionType = PostOptionType.TagOptions.ToString()
             };
 
             await context.AddAsync(categorie);

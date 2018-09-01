@@ -6,7 +6,7 @@ namespace AwesomeCMSCore.Modules.Admin.ViewModels
 {
     public class PostOptionsDefaultViewModel
     {
-        public TagViewModel TagViewModel { get; set; }
-        public CategoriesViewModel CategoriesViewModel { get; set; }
+        public PostOptionsViewModel TagViewModel { get; set; }
+        public PostOptionsViewModel CategoriesViewModel { get; set; }
     }
 }
