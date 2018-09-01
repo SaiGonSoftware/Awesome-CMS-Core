@@ -41,7 +41,9 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task<PostOptionsViewModel> GetAllTag()
         {
-            var tagData = await _unitOfWork.Repository<PostOption>().FindBy(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase)).SingleOrDefaultAsync();
+            var tagData = await _unitOfWork.Repository<PostOption>()
+                    .FindBy(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase))
+                    .SingleOrDefaultAsync();
             var tagDataVm = _mapper.Map<PostOption, PostOptionsViewModel>(tagData);
 
             return tagDataVm;
@@ -75,7 +77,9 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task<PostOptionsViewModel> GetAllCategories()
         {
-            var categoriesData = await _unitOfWork.Repository<PostOption>().FindBy(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase)).SingleOrDefaultAsync(); ;
+            var categoriesData = await _unitOfWork.Repository<PostOption>()
+                    .FindBy(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase))
+                    .SingleOrDefaultAsync();
             var tagDataVm = _mapper.Map<PostOption, PostOptionsViewModel>(categoriesData);
 
             return tagDataVm;
