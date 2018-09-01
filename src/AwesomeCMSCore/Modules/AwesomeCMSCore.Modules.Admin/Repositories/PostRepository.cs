@@ -57,18 +57,18 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         public async Task<PostViewModel> GetPost(int postId)
         {
             var post = await GetPostById(postId);
-            var tag = await _unitOfWork.Repository<Tag>().FindAsync(x => x.PostId == post.Id);
-            var postViewModel = _mapper.Map<Post, PostViewModel>(post,
-                options =>
-                {
-                    options.AfterMap((src, dest) =>
-                    {
-                        dest.TagData = tag?.TagData;
-                        dest.TagOptions = tag?.TagOptions;
-                    });
-                });
+            //var tag = await _unitOfWork.Repository<Tag>().FindAsync(x => x.PostId == post.Id);
+            //var postViewModel = _mapper.Map<Post, PostViewModel>(post,
+            //    options =>
+            //    {
+            //        options.AfterMap((src, dest) =>
+            //        {
+            //            dest.TagData = tag?.TagData;
+            //            dest.TagOptions = tag?.TagOptions;
+            //        });
+            //    });
 
-            return postViewModel;
+            return null;
         }
 
         public async Task EditPost(PostViewModel postViewModel)
@@ -82,17 +82,17 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
             await _unitOfWork.Repository<Post>().UpdateAsync(postData);
 
-            var tagToDelete = await _unitOfWork.Repository<Tag>().FindAsync(t => t.PostId == postViewModel.Id);
-            await _unitOfWork.Repository<Tag>().DeleteAsync(tagToDelete);
+            //var tagToDelete = await _unitOfWork.Repository<Tag>().FindAsync(t => t.PostId == postViewModel.Id);
+            //await _unitOfWork.Repository<Tag>().DeleteAsync(tagToDelete);
 
-            var tag = new Tag
-            {
-                PostId = postViewModel.Id,
-                TagData = postViewModel.TagData,
-                TagOptions = postViewModel.TagOptions,
-                UserId = _currentUserId
-            };
-            await _unitOfWork.Repository<Tag>().AddAsync(tag);
+            //var tag = new Tag
+            //{
+            //    PostId = postViewModel.Id,
+            //    TagData = postViewModel.TagData,
+            //    TagOptions = postViewModel.TagOptions,
+            //    UserId = _currentUserId
+            //};
+            //await _unitOfWork.Repository<Tag>().AddAsync(tag);
         }
 
         public async Task SavePost(PostViewModel postViewModel)
@@ -106,14 +106,14 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
             var post = await _unitOfWork.Repository<Post>().AddAsync(postData);
 
-            var tag = new Tag
-            {
-                PostId = post.Id,
-                TagData = postViewModel.TagData,
-                TagOptions = postViewModel.TagOptions,
-                UserId = _currentUserId
-            };
-            await _unitOfWork.Repository<Tag>().AddAsync(tag);
+            //var tag = new Tag
+            //{
+            //    PostId = post.Id,
+            //    TagData = postViewModel.TagData,
+            //    TagOptions = postViewModel.TagOptions,
+            //    UserId = _currentUserId
+            //};
+            //await _unitOfWork.Repository<Tag>().AddAsync(tag);
         }
 
         public async Task RestorePost(int postId)

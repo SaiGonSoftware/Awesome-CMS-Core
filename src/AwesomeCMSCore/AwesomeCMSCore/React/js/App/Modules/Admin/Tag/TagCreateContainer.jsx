@@ -32,11 +32,11 @@ class TagCreateContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const data = JSON.stringify(this.state.value.map(x => x.value));
+    const key = JSON.stringify(this.state.value.map(x => x.value));
     const value = JSON.stringify(this.state.value);
 
     const tagVm = {
-      data,
+      key,
       value
     };
 

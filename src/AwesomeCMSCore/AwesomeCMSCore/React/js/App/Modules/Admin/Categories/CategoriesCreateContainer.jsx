@@ -24,8 +24,8 @@ class CategoriesCreateContainer extends Component {
   componentDidMount() {
     Get(CATEGORIES_API).then(res => {
       this.setState({
-        value: res.data.categoriesOptions
-          ? JSON.parse(res.data.categoriesOptions)
+        value: res.data.value
+          ? JSON.parse(res.data.value)
           : []
       });
     });
@@ -34,12 +34,12 @@ class CategoriesCreateContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const categoriesData = JSON.stringify(this.state.value.map(x => x.value));
-    const categoriesOptions = JSON.stringify(this.state.value);
+    const key = JSON.stringify(this.state.value.map(x => x.value));
+    const value = JSON.stringify(this.state.value);
 
     const categoriesVm = {
-      categoriesData,
-      categoriesOptions
+      key,
+      value
     };
 
     PostWithSpinner.call(this, CATEGORIES_API, categoriesVm)

@@ -75,7 +75,11 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
             var tagToUpdate = _mapper.Map(tagDataVm, tag, options =>
             {
-                options.AfterMap((src, dest) => dest.User = currentUser);
+                options.AfterMap((src, dest) =>
+                {
+                    dest.User = currentUser;
+                    dest.OptionType = PostOptionType.TagOptions.ToString();
+                });
             });
 
             await _unitOfWork.Repository<PostOption>().UpdateAsync(tagToUpdate);
@@ -98,7 +102,11 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
             var categoriesData = _mapper.Map<PostOptionsViewModel, PostOption>(categoriesVm, options =>
             {
-                options.AfterMap((src, dest) => dest.User = currentUser);
+                options.AfterMap((src, dest) =>
+                {
+                    dest.User = currentUser;
+                    dest.OptionType = PostOptionType.CategorieOptions.ToString();
+                });
             });
 
             await _unitOfWork.Repository<PostOption>().AddAsync(categoriesData);
@@ -113,7 +121,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
             var categoriesToUpdate = _mapper.Map(categoriesVm, categories, options =>
             {
-                options.AfterMap((src, dest) => dest.User = currentUser);
+                options.AfterMap((src, dest) =>
+                {
+                    dest.User = currentUser;
+                    dest.OptionType = PostOptionType.CategorieOptions.ToString();
+                });
+
             });
 
             await _unitOfWork.Repository<PostOption>().UpdateAsync(categoriesToUpdate);

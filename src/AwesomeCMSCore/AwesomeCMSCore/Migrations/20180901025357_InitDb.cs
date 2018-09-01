@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AwesomeCMSCore.Migrations
 {
-    public partial class InitDB_20183108_172628 : Migration
+    public partial class InitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,24 +63,6 @@ namespace AwesomeCMSCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AutoHistory", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UniqeId = table.Column<Guid>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
-                    CategoriesData = table.Column<string>(nullable: true),
-                    CategoriesOptions = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -287,6 +269,8 @@ namespace AwesomeCMSCore.Migrations
                     Title = table.Column<string>(nullable: true),
                     ShortDescription = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
+                    Tags = table.Column<string>(nullable: true),
+                    Categories = table.Column<string>(nullable: true),
                     PostStatus = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
@@ -389,7 +373,7 @@ namespace AwesomeCMSCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tags",
+                name: "PostOptions",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -397,18 +381,25 @@ namespace AwesomeCMSCore.Migrations
                     UniqeId = table.Column<Guid>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
-                    TagData = table.Column<string>(nullable: true),
-                    TagOptions = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
+                    Key = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true),
+                    OptionType = table.Column<string>(nullable: true),
                     PostId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.PrimaryKey("PK_PostOptions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tags_Posts_PostId",
+                        name: "FK_PostOptions_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PostOptions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -541,16 +532,19 @@ namespace AwesomeCMSCore.Migrations
                 filter: "[ReferenceId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_UserId",
-                table: "Posts",
+                name: "IX_PostOptions_PostId",
+                table: "PostOptions",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostOptions_UserId",
+                table: "PostOptions",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tags_PostId",
-                table: "Tags",
-                column: "PostId",
-                unique: true,
-                filter: "[PostId] IS NOT NULL");
+                name: "IX_Posts_UserId",
+                table: "Posts",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -574,9 +568,6 @@ namespace AwesomeCMSCore.Migrations
                 name: "AutoHistory");
 
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
@@ -592,7 +583,7 @@ namespace AwesomeCMSCore.Migrations
                 name: "PasswordRequests");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "PostOptions");
 
             migrationBuilder.DropTable(
                 name: "Themes");
