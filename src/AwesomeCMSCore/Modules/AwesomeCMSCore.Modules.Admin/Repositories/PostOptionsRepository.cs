@@ -126,7 +126,6 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
                     dest.User = currentUser;
                     dest.OptionType = PostOptionType.CategorieOptions.ToString();
                 });
-
             });
 
             await _unitOfWork.Repository<PostOption>().UpdateAsync(categoriesToUpdate);
