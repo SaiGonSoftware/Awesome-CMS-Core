@@ -8,7 +8,7 @@ import { isDomExist } from "Helper/Util";
 import {STATUS_CODE} from "Helper/AppEnum";
 import { TAG_API } from 'Helper/API_Endpoint/PostOptionEndpoint';
 
-import ACCReactSelect from "Common/ACCSelect/ACCReactSelect.jsx";
+import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect.jsx";
 import Spinner from "Common/ACCAnimation/Spinner.jsx";
 
 class TagCreateContainer extends Component {
@@ -24,7 +24,7 @@ class TagCreateContainer extends Component {
   componentDidMount() {
     Get(TAG_API).then(res => {
       this.setState({
-        value: res.data.tagOptions ? JSON.parse(res.data.tagOptions) : []
+        value: res.data.value ? JSON.parse(res.data.value) : []
       });
     });
   }
@@ -32,12 +32,12 @@ class TagCreateContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const tagData = JSON.stringify(this.state.value.map(x => x.value));
-    const tagOptions = JSON.stringify(this.state.value);
+    const key = JSON.stringify(this.state.value.map(x => x.value));
+    const value = JSON.stringify(this.state.value);
 
     const tagVm = {
-      tagData,
-      tagOptions
+      key,
+      value
     };
 
     PostWithSpinner.call(this, TAG_API, tagVm)
@@ -80,7 +80,7 @@ class TagCreateContainer extends Component {
                 Create tag for your post
               </div>
               <div className="card-body">
-                <ACCReactSelect
+                <ACCReactCreateSelect
                   {...options}
                   value={value}
                   handleOnChange={value => handleOnChange.call(this, value)}

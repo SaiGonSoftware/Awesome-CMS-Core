@@ -19,29 +19,6 @@ namespace AwesomeCMSCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Categories", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CategoriesData");
-
-                    b.Property<string>("CategoriesOptions");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<Guid>("UniqeId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-                });
-
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -131,6 +108,8 @@ namespace AwesomeCMSCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Categories");
+
                     b.Property<string>("Content");
 
                     b.Property<DateTime>("DateCreated");
@@ -140,6 +119,8 @@ namespace AwesomeCMSCore.Migrations
                     b.Property<int>("PostStatus");
 
                     b.Property<string>("ShortDescription");
+
+                    b.Property<string>("Tags");
 
                     b.Property<string>("Title");
 
@@ -154,7 +135,7 @@ namespace AwesomeCMSCore.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Tag", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.PostOption", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -164,23 +145,25 @@ namespace AwesomeCMSCore.Migrations
 
                     b.Property<DateTime>("DateModified");
 
+                    b.Property<string>("Key");
+
+                    b.Property<string>("OptionType");
+
                     b.Property<int?>("PostId");
-
-                    b.Property<string>("TagData");
-
-                    b.Property<string>("TagOptions");
 
                     b.Property<Guid>("UniqeId");
 
                     b.Property<string>("UserId");
 
+                    b.Property<string>("Value");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("PostId")
-                        .IsUnique()
-                        .HasFilter("[PostId] IS NOT NULL");
+                    b.HasIndex("PostId");
 
-                    b.ToTable("Tags");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PostOptions");
                 });
 
             modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Theme", b =>
@@ -577,11 +560,16 @@ namespace AwesomeCMSCore.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.Tag", b =>
+            modelBuilder.Entity("AwesomeCMSCore.Modules.Entities.Entities.PostOption", b =>
                 {
-                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post")
-                        .WithOne("Tags")
-                        .HasForeignKey("AwesomeCMSCore.Modules.Entities.Entities.Tag", "PostId")
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("AwesomeCMSCore.Modules.Entities.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

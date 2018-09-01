@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -57,15 +58,13 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         public async Task<PostViewModel> GetPost(int postId)
         {
             var post = await GetPostById(postId);
-            var tag = await _unitOfWork.Repository<Tag>().FindAsync(x => x.PostId == post.Id);
+
+            var postOptions = await _postOptionsRepository.GetAllOptionsByPostId(postId);
+
             var postViewModel = _mapper.Map<Post, PostViewModel>(post,
                 options =>
                 {
-                    options.AfterMap((src, dest) =>
-                    {
-                        dest.TagData = tag?.TagData;
-                        dest.TagOptions = tag?.TagOptions;
-                    });
+                    options.AfterMap((src, dest) => { dest.PostOptionsDefaultViewModel = postOptions; });
                 });
 
             return postViewModel;
@@ -73,26 +72,37 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task EditPost(PostViewModel postViewModel)
         {
-            var user = await _userService.GetCurrentUserAsync();
+            var currentUser = await _userService.GetCurrentUserAsync();
 
             var postData = _mapper.Map<PostViewModel, Post>(postViewModel, options =>
             {
-                options.AfterMap((src, dest) => dest.User = user);
+                options.AfterMap((src, dest) => dest.User = currentUser);
             });
 
             await _unitOfWork.Repository<Post>().UpdateAsync(postData);
 
-            var tagToDelete = await _unitOfWork.Repository<Tag>().FindAsync(t => t.PostId == postViewModel.Id);
-            await _unitOfWork.Repository<Tag>().DeleteAsync(tagToDelete);
-
-            var tag = new Tag
+            var tagToUpdate = _mapper.Map<PostOptionsViewModel, PostOption>(postViewModel.PostOptionsDefaultViewModel.TagViewModel, options =>
             {
-                PostId = postViewModel.Id,
-                TagData = postViewModel.TagData,
-                TagOptions = postViewModel.TagOptions,
-                UserId = _currentUserId
-            };
-            await _unitOfWork.Repository<Tag>().AddAsync(tag);
+                options.AfterMap((src, dest) =>
+                {
+                    dest.Id = postViewModel.PostOptionsDefaultViewModel.TagViewModel.Id;
+                    dest.User = currentUser;
+                    dest.OptionType = PostOptionType.PostTags.ToString();
+                });
+            });
+
+            var categoriesToUpdate = _mapper.Map<PostOptionsViewModel, PostOption>(postViewModel.PostOptionsDefaultViewModel.CategoriesViewModel, options =>
+            {
+                options.AfterMap((src, dest) =>
+                {
+                    dest.Id = postViewModel.PostOptionsDefaultViewModel.CategoriesViewModel.Id;
+                    dest.User = currentUser;
+                    dest.OptionType = PostOptionType.PostCategories.ToString();
+                });
+            });
+
+            await _unitOfWork.Repository<PostOption>().UpdateAsync(tagToUpdate);
+            await _unitOfWork.Repository<PostOption>().UpdateAsync(categoriesToUpdate);
         }
 
         public async Task SavePost(PostViewModel postViewModel)
@@ -106,14 +116,26 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
             var post = await _unitOfWork.Repository<Post>().AddAsync(postData);
 
-            var tag = new Tag
+            var tag = new PostOption
             {
-                PostId = post.Id,
-                TagData = postViewModel.TagData,
-                TagOptions = postViewModel.TagOptions,
-                UserId = _currentUserId
+                Key = postViewModel.PostOptionsDefaultViewModel.TagViewModel.Key,
+                Value = postViewModel.PostOptionsDefaultViewModel.TagViewModel.Value,
+                OptionType = PostOptionType.PostTags.ToString(),
+                User = await _userService.GetCurrentUserAsync(),
+                Post = post
             };
-            await _unitOfWork.Repository<Tag>().AddAsync(tag);
+
+            var categories = new PostOption
+            {
+                Key = postViewModel.PostOptionsDefaultViewModel.CategoriesViewModel.Key,
+                Value = postViewModel.PostOptionsDefaultViewModel.CategoriesViewModel.Value,
+                OptionType = PostOptionType.PostCategories.ToString(),
+                User = await _userService.GetCurrentUserAsync(),
+                Post = post
+            };
+
+            await _unitOfWork.Repository<PostOption>().AddAsync(tag);
+            await _unitOfWork.Repository<PostOption>().AddAsync(categories);
         }
 
         public async Task RestorePost(int postId)

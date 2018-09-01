@@ -26,6 +26,12 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
             _userService = userService;
         }
 
+        [HttpGet("Options")]
+        public async Task<IActionResult> GetAllOptions()
+        {
+            return Ok(await _postOptionsRepository.GetAllOptions());
+        }
+
         [HttpGet("Tag")]
         public async Task<IActionResult> Tag()
         {
@@ -33,7 +39,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
         }
 
         [HttpPost("Tag"), ValidModel]
-        public async Task<IActionResult> CreateTag([FromBody]TagViewModel tagDataVm)
+        public async Task<IActionResult> CreateTag([FromBody]PostOptionsViewModel tagDataVm)
         {
             if (_postOptionsRepository.IsTagExist())
             {
@@ -53,7 +59,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
         }
 
         [HttpPost("Categories"), ValidModel]
-        public async Task<IActionResult> CreateCategories([FromBody]CategoriesViewModel categoriesVm)
+        public async Task<IActionResult> CreateCategories([FromBody]PostOptionsViewModel categoriesVm)
         {
             if (_postOptionsRepository.IsCategoriesExist())
             {

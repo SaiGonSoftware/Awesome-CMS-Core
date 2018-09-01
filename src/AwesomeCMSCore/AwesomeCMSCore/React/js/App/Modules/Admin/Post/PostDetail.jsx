@@ -12,8 +12,9 @@ import PropTypes from "prop-types";
 import {STATUS_CODE} from "Helper/AppEnum";
 import {SAVE_POST_API} from 'Helper/API_Endpoint/PostEndpoint';
 import {PostWithSpinner} from 'Helper/Http';
-import {onChange, onBlur, handleOnChange} from 'Helper/StateHelper';
+import {onChange, onBlur} from 'Helper/StateHelper';
 import {POST_API} from 'Helper/API_Endpoint/PostEndpoint';
+import {POST_OPTIONS_API} from 'Helper/API_Endpoint/PostOptionEndpoint';
 import {Get} from 'Helper/Http';
 
 import ACCEditor from 'Common/ACCInput/ACCEditor.jsx';
@@ -28,22 +29,42 @@ class PostDetail extends Component {
             postContent: "",
             title: "",
             shortDescription: "",
-            value: [],
+            tagValue: [],
             tagOptions: [],
+            categoriesOptions: [],
+            categoriesValue: [],
             loading: false,
             postId: "",
+            categoryId: null,
+            tagId: null,
             post: null
         }
     }
 
     componentDidMount() {
+        Get(`${POST_OPTIONS_API}/Options`).then(res => {
+            this.setState({
+                tagOptions: res.data.tagViewModel.value
+                    ? JSON.parse(res.data.tagViewModel.value)
+                    : [],
+                categoriesOptions: res.data.categoriesViewModel.value
+                    ? JSON.parse(res.data.categoriesViewModel.value)
+                    : []
+            });
+        });
+
         const url = `${POST_API}/${this.props.postId}`;
         Get(url).then(res => {
             this.setState({
                 post: res.data,
-                value: res.data.tagOptions
-                    ? JSON.parse(res.data.tagOptions)
+                tagValue: res.data.postOptionsDefaultViewModel.tagViewModel.key
+                    ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.key)
                     : [],
+                tagId: res.data.postOptionsDefaultViewModel.tagViewModel.id,
+                categoriesValue: res.data.postOptionsDefaultViewModel.categoriesViewModel.key
+                    ? JSON.parse(res.data.postOptionsDefaultViewModel.categoriesViewModel.key)
+                    : [],
+                categoryId: res.data.postOptionsDefaultViewModel.categoriesViewModel.id,
                 title: res.data.title,
                 shortDescription: res.data.shortDescription,
                 postContent: res.data.content
@@ -57,9 +78,14 @@ class PostDetail extends Component {
             Get(url).then(res => {
                 this.setState({
                     post: res.data,
-                    value: res.data.tagOptions
-                        ? JSON.parse(res.data.tagOptions)
+                    tagOptions: res.data.postOptionsDefaultViewModel.tagViewModel.value
+                        ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.value)
                         : [],
+                    tagId: res.data.postOptionsDefaultViewModel.tagViewModel.id,
+                    categoriesOptions: res.data.postOptionsDefaultViewModel.categoriesViewModel.value
+                        ? JSON.parse(res.data.postOptionsDefaultViewModel.categoriesViewModel.value)
+                        : [],
+                    categoryId: res.data.postOptionsDefaultViewModel.categoriesViewModel.id,
                     title: res.data.title,
                     shortDescription: res.data.shortDescription,
                     postContent: res.data.content
@@ -71,19 +97,33 @@ class PostDetail extends Component {
     editPost = e => {
         e.preventDefault();
 
-        PostWithSpinner.call(this, SAVE_POST_API, {
+        const postOptionsDefaultViewModel = {
+            tagViewModel: {
+                id: this.state.tagId,
+                key: JSON.stringify(this.state.tagValue.map(x => x.value)),
+                value: JSON.stringify(this.state.tagValue)
+            },
+            categoriesViewModel: {
+                id: this.state.categoryId,
+                key: JSON.stringify(this.state.categoriesValue.map(x => x.value)),
+                value: JSON.stringify(this.state.categoriesValue)
+            }
+        }
+
+        PostWithSpinner
+            .call(this, SAVE_POST_API, {
             Id: this.state.post.id,
             Title: this.state.title,
             ShortDescription: this.state.shortDescription,
             Content: this.state.postContent,
-            TagData: JSON.stringify(this.state.value.map(x => x.value)),
-            TagOptions: JSON.stringify(this.state.value),
+            PostOptionsDefaultViewModel: postOptionsDefaultViewModel,
             PostStatus: this.state.post.postStatus
-        }).then(res => {
-            if (res.status === STATUS_CODE.Success) 
-                return toastr.success("Edit post success");
-            }
-        )
+        })
+            .then(res => {
+                if (res.status === STATUS_CODE.Success) 
+                    return toastr.success("Edit post success");
+                }
+            )
     }
 
     handleEditorChange = (e) => {
@@ -92,6 +132,14 @@ class PostDetail extends Component {
                 .target
                 .getContent()
         });
+    }
+
+    handleOnTagChange = (tagValue) => {
+        this.setState({tagValue});
+    }
+
+    handleOnCatChange = (categoriesValue) => {
+        this.setState({categoriesValue});
     }
 
     onNavigateBack = () => {
@@ -105,8 +153,10 @@ class PostDetail extends Component {
             shortDescription,
             title,
             loading,
-            value,
+            tagValue,
             tagOptions,
+            categoriesOptions,
+            categoriesValue,
             postContent,
             post
         } = this.state;
@@ -153,10 +203,7 @@ class PostDetail extends Component {
                                     </Row>
                                     <Row className="postFooter">
                                         <Col md="12">
-                                            <ACCButton
-                                                loading={loading}
-                                                btnBlocked="btn-block"
-                                                label="Save Post"/>
+                                            <ACCButton loading={loading} btnBlocked="btn-block" label="Save Post"/>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -164,10 +211,16 @@ class PostDetail extends Component {
                                     <Card body>
                                         <CardTitle>Post Options</CardTitle>
                                         <ACCReactSelect
-                                            {...tagOptions}
-                                            value={value}
-                                            placeholder="Post tag"
-                                            handleOnChange={value => handleOnChange.call(this, value)}/>
+                                            options={tagOptions}
+                                            value={tagValue}
+                                            placeholder="Tags"
+                                            handleOnChange={value => this.handleOnTagChange(value)}/>
+                                        <br/>
+                                        <ACCReactSelect
+                                            options={categoriesOptions}
+                                            value={categoriesValue}
+                                            placeholder="Categories"
+                                            handleOnChange={value => this.handleOnCatChange(value)}/>
                                         <br/>
                                         <Button onClick={this.onNavigateBack}>
                                             Back</Button>

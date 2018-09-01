@@ -10,11 +10,13 @@ import {
 } from 'reactstrap';
 import toastr from "toastr";
 import PropTypes from "prop-types";
+
+import {Get, PostWithSpinner} from "Helper/Http";
 import {STATUS_CODE, POST_STATUS} from "Helper/AppEnum";
 import {SAVE_POST_API} from 'Helper/API_Endpoint/PostEndpoint';
-import {PostWithSpinner} from 'Helper/Http';
 import {isDomExist} from "Helper/Util";
-import {onChange, onBlur, handleOnChange} from 'Helper/StateHelper';
+import {onChange, onBlur} from 'Helper/StateHelper';
+import {POST_OPTIONS_API} from 'Helper/API_Endpoint/PostOptionEndpoint';
 
 import ACCEditor from 'Common/ACCInput/ACCEditor.jsx';
 import ACCButton from "Common/ACCButton/ACCButton.jsx";
@@ -29,24 +31,49 @@ class NewPost extends Component {
             postContent: "",
             title: "",
             shortDescription: "",
-            value: [],
+            tagValue: [],
             tagOptions: [],
+            categoriesOptions: [],
+            categoriesValue: [],
             loading: false
         }
+    }
+
+    componentDidMount() {
+        Get(`${POST_OPTIONS_API}/Options`).then(res => {
+            this.setState({
+                tagOptions: res.data.tagViewModel.value
+                    ? JSON.parse(res.data.tagViewModel.value)
+                    : [],
+                categoriesOptions: res.data.categoriesViewModel.value
+                    ? JSON.parse(res.data.categoriesViewModel.value)
+                    : []
+            });
+        });
     }
 
     newPost = (e, postStatus) => {
         e.preventDefault();
 
+        const postOptionsDefaultViewModel = {
+            tagViewModel: {
+                key: JSON.stringify(this.state.tagValue.map(x => x.value)),
+                value: JSON.stringify(this.state.tagValue)
+            },
+            categoriesViewModel: {
+                key: JSON.stringify(this.state.categoriesValue.map(x => x.value)),
+                value: JSON.stringify(this.state.categoriesValue)
+            }
+        }
+
         PostWithSpinner.call(this, SAVE_POST_API, {
             Title: this.state.title,
             ShortDescription: this.state.shortDescription,
             Content: this.state.postContent,
-            TagData: JSON.stringify(this.state.value.map(x => x.value)),
-            TagOptions: JSON.stringify(this.state.value),
+            PostOptionsDefaultViewModel: postOptionsDefaultViewModel,
             PostStatus: postStatus
         }).then(res => {
-            if (res.status === STATUS_CODE.Success) 
+            if (res.status === STATUS_CODE.Success)
                 return toastr.success("Create new post success");
             }
         );
@@ -60,14 +87,24 @@ class NewPost extends Component {
         });
     }
 
+    handleOnTagChange = (tagValue) => {
+        this.setState({tagValue});
+    }
+
+    handleOnCatChange = (categoriesValue) => {
+        this.setState({categoriesValue});
+    }
+
     render() {
         const {
             shortDescription,
             title,
             disabled,
             loading,
-            value,
-            tagOptions
+            tagValue,
+            tagOptions,
+            categoriesOptions,
+            categoriesValue
         } = this.state;
 
         return (
@@ -113,10 +150,16 @@ class NewPost extends Component {
                                 <Card body>
                                     <CardTitle>Post Options</CardTitle>
                                     <ACCReactSelect
-                                        {...tagOptions}
-                                        value={value}
-                                        placeholder="Post tag"
-                                        handleOnChange={value => handleOnChange.call(this, value)}/>
+                                        options={tagOptions}
+                                        value={tagValue}
+                                        placeholder="Tags"
+                                        handleOnChange={value => this.handleOnTagChange(value)}/>
+                                    <br/>
+                                    <ACCReactSelect
+                                        options={categoriesOptions}
+                                        value={categoriesValue}
+                                        placeholder="Categories"
+                                        handleOnChange={value => this.handleOnCatChange(value)}/>
                                     <br/>
                                     <Button onClick={() => window.history.go(-1)}>
                                         Back</Button>
@@ -125,13 +168,13 @@ class NewPost extends Component {
                                                 <ACCButton
                                                     disabled={disabled}
                                                     label="Save as Drafted"
-                                                    btnBlocked
+                                                    btnBlocked="btn-block"
                                                     onClick={e => this.newPost(e, POST_STATUS.Draft)}/>
                                                 <br/>
                                                 <ACCButton
                                                     disabled={disabled}
                                                     label="Published Post"
-                                                    btnBlocked
+                                                    btnBlocked="btn-block"
                                                     onClick={e => this.newPost(e, POST_STATUS.Published)}/>
                                             </div>
                                         : <Spinner/>}

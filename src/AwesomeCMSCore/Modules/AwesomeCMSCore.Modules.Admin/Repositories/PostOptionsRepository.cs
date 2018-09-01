@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Entities.Enums;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -26,72 +28,143 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             _currentUserId = _userService.GetCurrentUserGuid();
         }
 
-        public async Task<TagViewModel> GetAllTag()
+        public async Task<PostOptionsDefaultViewModel> GetAllOptions()
         {
-            var tagData = await _unitOfWork.Repository<Tag>().FindBy(x => x.UserId == _currentUserId && x.PostId == null).SingleOrDefaultAsync();
-            var tagDataVm = _mapper.Map<Tag, TagViewModel>(tagData);
+            var vm = new PostOptionsDefaultViewModel
+            {
+                TagViewModel = await GetAllTag().ConfigureAwait(false),
+                CategoriesViewModel = await GetAllCategories().ConfigureAwait(false)
+            };
+
+            return vm;
+        }
+
+        public async Task<PostOptionsDefaultViewModel> GetAllOptionsByPostId(int postId)
+        {
+            var tag = await _unitOfWork.Repository<PostOption>()
+                .FindBy(po => po.OptionType.Equals(PostOptionType.PostTags.ToString(), StringComparison.OrdinalIgnoreCase)
+                              && po.Post.Id == postId)
+                .SingleOrDefaultAsync();
+
+            var categories = await _unitOfWork.Repository<PostOption>()
+                .FindBy(po => po.OptionType.Equals(PostOptionType.PostCategories.ToString(), StringComparison.OrdinalIgnoreCase)
+                              && po.Post.Id == postId)
+                .SingleOrDefaultAsync();
+
+            var vm = new PostOptionsDefaultViewModel
+            {
+                TagViewModel = _mapper.Map<PostOption, PostOptionsViewModel>(tag),
+                CategoriesViewModel = _mapper.Map<PostOption, PostOptionsViewModel>(categories)
+            };
+
+            return vm;
+        }
+
+        public async Task<PostOptionsViewModel> GetAllTag()
+        {
+            var tagData = await _unitOfWork.Repository<PostOption>()
+                    .FindBy(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase))
+                    .SingleOrDefaultAsync();
+
+            var tagDataVm = _mapper.Map<PostOption, PostOptionsViewModel>(tagData);
 
             return tagDataVm;
         }
 
-        public async Task CreateTag(TagViewModel tagDataVm)
+        public async Task CreateTag(PostOptionsViewModel tagDataVm)
         {
-            var tagData = _mapper.Map<TagViewModel, Tag>(tagDataVm, options =>
+            var currentUser = await GetCurrentUser().ConfigureAwait(false);
+
+            var tagData = _mapper.Map<PostOptionsViewModel, PostOption>(tagDataVm, options =>
             {
-                options.AfterMap((src, dest) => dest.UserId = _currentUserId);
+                options.AfterMap((src, dest) =>
+                {
+                    dest.User = currentUser;
+                    dest.OptionType = PostOptionType.TagOptions.ToString();
+                });
             });
 
-            await _unitOfWork.Repository<Tag>().AddAsync(tagData);
+            await _unitOfWork.Repository<PostOption>().AddAsync(tagData);
         }
 
-        public async Task UpdateTag(TagViewModel tagDataVm)
+        public async Task UpdateTag(PostOptionsViewModel tagDataVm)
         {
-            var tag = await _unitOfWork.Repository<Tag>().FindAsync(x => x.UserId == _currentUserId);
+            var currentUser = await GetCurrentUser().ConfigureAwait(false);
+
+            var tag = await _unitOfWork.Repository<PostOption>()
+                        .FindAsync(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+
             var tagToUpdate = _mapper.Map(tagDataVm, tag, options =>
             {
-                options.AfterMap((src, dest) => dest.UserId = _currentUserId);
+                options.AfterMap((src, dest) =>
+                {
+                    dest.User = currentUser;
+                    dest.OptionType = PostOptionType.TagOptions.ToString();
+                });
             });
 
-            await _unitOfWork.Repository<Tag>().UpdateAsync(tagToUpdate);
+            await _unitOfWork.Repository<PostOption>().UpdateAsync(tagToUpdate);
         }
 
-        public bool IsTagExist()
+        public async Task<PostOptionsViewModel> GetAllCategories()
         {
-            return _unitOfWork.Repository<Tag>().Exist(x => x.UserId == _currentUserId);
-        }
+            var categoriesData = await _unitOfWork.Repository<PostOption>()
+                    .FindBy(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase))
+                    .SingleOrDefaultAsync();
 
-        public async Task<CategoriesViewModel> GetAllCategories()
-        {
-            var categoriesData = await _unitOfWork.Repository<Categories>().FindBy(x => x.UserId == _currentUserId).SingleOrDefaultAsync();
-            var tagDataVm = _mapper.Map<Categories, CategoriesViewModel>(categoriesData);
+            var tagDataVm = _mapper.Map<PostOption, PostOptionsViewModel>(categoriesData);
 
             return tagDataVm;
         }
 
-        public async Task CreateCategories(CategoriesViewModel categoriesVm)
+        public async Task CreateCategories(PostOptionsViewModel categoriesVm)
         {
-            var categoriesData = _mapper.Map<CategoriesViewModel, Categories>(categoriesVm, options =>
+            var currentUser = await GetCurrentUser().ConfigureAwait(false);
+
+            var categoriesData = _mapper.Map<PostOptionsViewModel, PostOption>(categoriesVm, options =>
             {
-                options.AfterMap((src, dest) => dest.UserId = _currentUserId);
+                options.AfterMap((src, dest) =>
+                {
+                    dest.User = currentUser;
+                    dest.OptionType = PostOptionType.CategorieOptions.ToString();
+                });
             });
 
-            await _unitOfWork.Repository<Categories>().AddAsync(categoriesData);
+            await _unitOfWork.Repository<PostOption>().AddAsync(categoriesData);
         }
 
-        public async Task UpdateCategories(CategoriesViewModel categoriesVm)
+        public async Task UpdateCategories(PostOptionsViewModel categoriesVm)
         {
-            var categories = await _unitOfWork.Repository<Categories>().FindAsync(x => x.UserId == _currentUserId);
+            var currentUser = await GetCurrentUser();
+
+            var categories = await _unitOfWork.Repository<PostOption>()
+                    .FindAsync(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+
             var categoriesToUpdate = _mapper.Map(categoriesVm, categories, options =>
             {
-                options.AfterMap((src, dest) => dest.UserId = _currentUserId);
+                options.AfterMap((src, dest) =>
+                {
+                    dest.User = currentUser;
+                    dest.OptionType = PostOptionType.CategorieOptions.ToString();
+                });
             });
 
-            await _unitOfWork.Repository<Categories>().UpdateAsync(categoriesToUpdate);
+            await _unitOfWork.Repository<PostOption>().UpdateAsync(categoriesToUpdate);
         }
 
         public bool IsCategoriesExist()
         {
-            return _unitOfWork.Repository<Categories>().Exist(x => x.UserId == _currentUserId);
+            return _unitOfWork.Repository<PostOption>().Exist(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+        }
+
+        public bool IsTagExist()
+        {
+            return _unitOfWork.Repository<PostOption>().Exist(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+        }
+
+        private async Task<User> GetCurrentUser()
+        {
+            return await _userService.GetCurrentUserAsync();
         }
     }
 }

@@ -4,11 +4,11 @@ using AwesomeCMSCore.Modules.Entities.Entities;
 
 namespace AwesomeCMSCore.Modules.Mapper
 {
-    public class CategoriesProfile : Profile
+    public class PostOptionsProfile : Profile
     {
-        public CategoriesProfile()
+        public PostOptionsProfile()
         {
-            CreateMap<Categories, CategoriesViewModel>().ReverseMap();
+            CreateMap<PostOption, PostOptionsViewModel>().ReverseMap();
         }
     }
 }
