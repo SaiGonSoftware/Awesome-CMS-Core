@@ -6,6 +6,7 @@ using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.Enums;
+using AwesomeCMSCore.Modules.Entities.ViewModel;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +33,16 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task<CommentDefaultViewModel> GetAllComments()
         {
-            var comments = await _unitOfWork.Repository<Comment>().Query().Include(x => x.User).Include(c => c.Post).ToListAsync();
+            var comments = await _unitOfWork.Repository<Comment>().Query()
+                .Include(x => x.User)
+                .Include(c => c.Post)
+                .Select(x => new CommentViewModel
+                {
+                    User = _mapper.Map<User, UserViewModel>(x.User),
+                    Post = x.Post,
+                    Comment = _mapper.Map<Comment, CommentDto>(x),
+                })
+                .ToListAsync();
 
             var viewModel = new CommentDefaultViewModel
             {
@@ -51,14 +61,14 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             return viewModel;
         }
 
-        private static int CountComment(IEnumerable<Comment> comments, CommentStatus commentStatus)
+        private static int CountComment(IEnumerable<CommentViewModel> comments, CommentStatus commentStatus)
         {
-            return comments.Count(cm => cm.CommentStatus.Equals(commentStatus));
+            return comments.Count(cm => cm.Comment.CommentStatus.Equals(commentStatus));
         }
 
-        private static IEnumerable<Comment> GetCommentsByStatus(IEnumerable<Comment> comments, CommentStatus commentStatus)
+        private static IEnumerable<CommentViewModel> GetCommentsByStatus(IEnumerable<CommentViewModel> comments, CommentStatus commentStatus)
         {
-            return comments.Where(cm => cm.CommentStatus == commentStatus);
+            return comments.Where(cm => cm.Comment.CommentStatus == commentStatus);
         }
     }
 }

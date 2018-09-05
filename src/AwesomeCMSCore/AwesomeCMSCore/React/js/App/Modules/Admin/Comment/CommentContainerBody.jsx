@@ -21,7 +21,7 @@ const CommentContainerBody = (props) => {
                                                     &nbsp;- {moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
                                                 <h3>{comment.post.title}</h3>
                                                 <blockquote className="blockquote">
-                                                    <small className="text-muted">{comment.content}</small>
+                                                    <small className="text-muted">{comment.comment.content}</small>
                                                 </blockquote>
                                             </ListGroupItem>
                                         </div>
@@ -46,7 +46,7 @@ const CommentContainerBody = (props) => {
                                                     &nbsp;- {moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
                                                 <h3>{comment.post.title}</h3>
                                                 <blockquote className="blockquote">
-                                                    <small className="text-muted">{comment.content}</small>
+                                                    <small className="text-muted">{comment.comment.content}</small>
                                                 </blockquote>
                                             </ListGroupItem>
                                         </div>
@@ -71,7 +71,7 @@ const CommentContainerBody = (props) => {
                                                     &nbsp;-{moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
                                                 <h3>{comment.post.title}</h3>
                                                 <blockquote className="blockquote">
-                                                    <small className="text-muted">{comment.content}</small>
+                                                    <small className="text-muted">{comment.comment.content}</small>
                                                 </blockquote>
                                             </ListGroupItem>
                                         </div>
@@ -96,7 +96,7 @@ const CommentContainerBody = (props) => {
                                                     &nbsp;-{moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
                                                 <h3>{comment.post.title}</h3>
                                                 <blockquote className="blockquote">
-                                                    <small className="text-muted">{comment.content}</small>
+                                                    <small className="text-muted">{comment.comment.content}</small>
                                                 </blockquote>
                                             </ListGroupItem>
                                         </div>
@@ -121,7 +121,7 @@ const CommentContainerBody = (props) => {
                                                     &nbsp;- {moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
                                                 <h3>{comment.post.title}</h3>
                                                 <blockquote className="blockquote">
-                                                    <small className="text-muted">{comment.content}</small>
+                                                    <small className="text-muted">{comment.comment.content}</small>
                                                 </blockquote>
                                             </ListGroupItem>
                                         </div>
