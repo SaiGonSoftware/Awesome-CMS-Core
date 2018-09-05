@@ -39,12 +39,8 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
                 .Select(x => new CommentViewModel
                 {
                     User = _mapper.Map<User, UserViewModel>(x.User),
-                    CommentStatus = x.CommentStatus,
-                    Content = x.Content,
                     Post = x.Post,
-                    UniqeId = x.UniqeId,
-                    Id = x.Id,
-                    DateCreated = x.DateCreated
+                    Comment = _mapper.Map<Comment, CommentDto>(x),
                 })
                 .ToListAsync();
 
@@ -67,12 +63,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         private static int CountComment(IEnumerable<CommentViewModel> comments, CommentStatus commentStatus)
         {
-            return comments.Count(cm => cm.CommentStatus.Equals(commentStatus));
+            return comments.Count(cm => cm.Comment.CommentStatus.Equals(commentStatus));
         }
 
         private static IEnumerable<CommentViewModel> GetCommentsByStatus(IEnumerable<CommentViewModel> comments, CommentStatus commentStatus)
         {
-            return comments.Where(cm => cm.CommentStatus == commentStatus);
+            return comments.Where(cm => cm.Comment.CommentStatus == commentStatus);
         }
     }
 }
