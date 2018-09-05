@@ -46,7 +46,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<UserViewModel>> GetUserList()
+        public async Task<IEnumerable<AccountViewModel>> GetUserList()
         {
             var userList = await (from user in _context.Users
                                   select new
@@ -62,7 +62,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                                                    select role.Name).ToList()
                                   }).ToListAsync();
 
-            var userListVm = userList.Select(p => new UserViewModel
+            var userListVm = userList.Select(p => new AccountViewModel
             {
                 UserId = p.UserId,
                 UserName = p.Username,

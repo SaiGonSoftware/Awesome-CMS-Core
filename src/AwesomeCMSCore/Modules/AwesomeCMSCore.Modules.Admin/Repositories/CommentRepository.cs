@@ -6,6 +6,7 @@ using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.Enums;
+using AwesomeCMSCore.Modules.Entities.ViewModel;
 using AwesomeCMSCore.Modules.Helper.Services;
 using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +33,20 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public async Task<CommentDefaultViewModel> GetAllComments()
         {
-            var comments = await _unitOfWork.Repository<Comment>().Query().Include(x => x.User).Include(c => c.Post).ToListAsync();
+            var comments = await _unitOfWork.Repository<Comment>().Query()
+                .Include(x => x.User)
+                .Include(c => c.Post)
+                .Select(x => new Comment
+                {
+                    User = _mapper.Map<User, UserViewModel>(x.User),
+                    CommentStatus = x.CommentStatus,
+                    Content = x.Content,
+                    Post = x.Post,
+                    UniqeId = x.UniqeId,
+                    Id = x.Id,
+                    DateCreated = x.DateCreated
+                })
+                .ToListAsync();
 
             var viewModel = new CommentDefaultViewModel
             {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Entities.ViewModel;
 
 namespace AwesomeCMSCore.Modules.Mapper
 {
@@ -8,6 +9,7 @@ namespace AwesomeCMSCore.Modules.Mapper
     {
         public UserProfile()
         {
+            CreateMap<User, AccountViewModel>().ReverseMap();
             CreateMap<User, UserViewModel>().ReverseMap();
         }
     }

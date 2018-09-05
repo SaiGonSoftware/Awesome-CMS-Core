@@ -1,6 +1,6 @@
 ﻿namespace AwesomeCMSCore.Modules.Account.ViewModels
 {
-    public class UserViewModel
+    public class AccountViewModel
     {
         public string UserId { get; set; }
         public string UserName { get; set; }
