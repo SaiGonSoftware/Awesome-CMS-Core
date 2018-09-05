@@ -150,8 +150,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 
                 var roles4 = new[]
                     {"Owner", "Administrator"};
-
-
+                
                 if (!context.Roles.Any())
                 {
                     foreach (var role in roles)
