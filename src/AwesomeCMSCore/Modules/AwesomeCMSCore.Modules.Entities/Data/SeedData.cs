@@ -137,8 +137,6 @@ namespace AwesomeCMSCore.Modules.Entities.Data
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                //context.Database.Migrate();
-
                 var roles = new[]
                     {"Owner", "Administrator", "Editor", "ContentWriter"};
 
