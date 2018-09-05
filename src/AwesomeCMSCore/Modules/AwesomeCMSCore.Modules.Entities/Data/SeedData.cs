@@ -137,6 +137,8 @@ namespace AwesomeCMSCore.Modules.Entities.Data
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
+                context.Database.Migrate();
+
                 var roles = new[]
                     {"Owner", "Administrator", "Editor", "ContentWriter"};
 
@@ -149,12 +151,13 @@ namespace AwesomeCMSCore.Modules.Entities.Data
                 var roles4 = new[]
                     {"Owner", "Administrator"};
 
-                foreach (var role in roles)
-                {
-                    var roleStore = new RoleStore<ApplicationRole>(context);
 
-                    if (!context.Roles.Any(r => r.Name == role))
+                if (!context.Roles.Any())
+                {
+                    foreach (var role in roles)
                     {
+                        var roleStore = new RoleStore<ApplicationRole>(context);
+
                         await roleStore.CreateAsync(new ApplicationRole
                         {
                             Name = role,
@@ -163,7 +166,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
                     }
                 }
 
-                if (!context.Users.Any(u => u.UserName == tony.UserName))
+                if (!context.Users.Any())
                 {
                     await SeedUser(tony, context, serviceProvider, roles4);
                     await SeedUser(tony1, context, serviceProvider, roles1);
@@ -222,7 +225,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
             {
                 User = tony,
                 Key = "[\"Web\",\"Mobile\"]",
-                Value = 
+                Value =
                     "[{\"value\":\"Web\",\"label\":\"Web\",\"className\":\"Select-create-option-placeholder\"},{\"value\":\"Mobile\",\"label\":\"Mobile\",\"className\":\"Select-create-option-placeholder\"}]",
                 OptionType = PostOptionType.CategorieOptions.ToString()
             };
