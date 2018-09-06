@@ -67,8 +67,10 @@ Please read
 <img src="img/post management.png"/>
 
 <img src="img/post detail.png"/>
+
 ---
 
 ### Manage comments (Developing)
 <img src="img/Manage comments.png"/>
+
 ---
