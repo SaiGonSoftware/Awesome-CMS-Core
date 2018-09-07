@@ -6,7 +6,8 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
   entry: {
-    main: "./React/js/main.js"
+    main: "./React/js/main.js",
+    login: "./React/js/EntryPoint/login.js"
   },
   output: {
     path: path.resolve(__dirname, "wwwroot/dist"),
