@@ -66,17 +66,21 @@ class NewPost extends Component {
             }
         }
 
-        PostWithSpinner.call(this, SAVE_POST_API, {
+        const viewModel = {
             Title: this.state.title,
             ShortDescription: this.state.shortDescription,
             Content: this.state.postContent,
             PostOptionsDefaultViewModel: postOptionsDefaultViewModel,
             PostStatus: postStatus
-        }).then(res => {
-            if (res.status === STATUS_CODE.Success)
-                return toastr.success("Create new post success");
-            }
-        );
+        };
+
+        PostWithSpinner
+            .call(this, SAVE_POST_API, viewModel)
+            .then(res => {
+                if (res.status === STATUS_CODE.Success) 
+                    return toastr.success("Create new post success");
+                }
+            );
     }
 
     handleEditorChange = (e) => {

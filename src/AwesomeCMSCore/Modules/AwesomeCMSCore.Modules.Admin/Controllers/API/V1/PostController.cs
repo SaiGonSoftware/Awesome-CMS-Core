@@ -38,6 +38,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
         }
 
         [HttpPost("SavePost")]
+        [AllowAnonymous]
         public async Task<IActionResult> SavePost([FromBody] PostViewModel viewModel)
         {
             if (viewModel.Id.HasValue)

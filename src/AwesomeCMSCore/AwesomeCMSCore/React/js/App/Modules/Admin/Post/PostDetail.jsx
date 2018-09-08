@@ -57,14 +57,18 @@ class PostDetail extends Component {
         Get(url).then(res => {
             this.setState({
                 post: res.data,
-                tagValue: res.data.postOptionsDefaultViewModel.tagViewModel.key
-                    ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.key)
+                tagValue: res.data.postOptionsDefaultViewModel.tagViewModel
+                    ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.value)
                     : [],
-                tagId: res.data.postOptionsDefaultViewModel.tagViewModel.id,
-                categoriesValue: res.data.postOptionsDefaultViewModel.categoriesViewModel.key
-                    ? JSON.parse(res.data.postOptionsDefaultViewModel.categoriesViewModel.key)
+                tagId: res.data.postOptionsDefaultViewModel.tagViewModel
+                    ? res.data.postOptionsDefaultViewModel.tagViewModel.id
+                    : null,
+                categoriesValue: res.data.postOptionsDefaultViewModel.categoriesViewModel
+                    ? JSON.parse(res.data.postOptionsDefaultViewModel.categoriesViewModel.value)
                     : [],
-                categoryId: res.data.postOptionsDefaultViewModel.categoriesViewModel.id,
+                categoryId: res.data.postOptionsDefaultViewModel.categoriesViewModel
+                    ? res.data.postOptionsDefaultViewModel.categoriesViewModel.id
+                    : null,
                 title: res.data.title,
                 shortDescription: res.data.shortDescription,
                 postContent: res.data.content
@@ -78,14 +82,18 @@ class PostDetail extends Component {
             Get(url).then(res => {
                 this.setState({
                     post: res.data,
-                    tagOptions: res.data.postOptionsDefaultViewModel.tagViewModel.value
+                    tagOptions: res.data.postOptionsDefaultViewModel.tagViewModel
                         ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.value)
                         : [],
-                    tagId: res.data.postOptionsDefaultViewModel.tagViewModel.id,
-                    categoriesOptions: res.data.postOptionsDefaultViewModel.categoriesViewModel.value
+                    tagId: res.data.postOptionsDefaultViewModel.tagViewModel
+                        ? res.data.postOptionsDefaultViewModel.tagViewModel.id
+                        : null,
+                    categoriesOptions: res.data.postOptionsDefaultViewModel.categoriesViewModel
                         ? JSON.parse(res.data.postOptionsDefaultViewModel.categoriesViewModel.value)
                         : [],
-                    categoryId: res.data.postOptionsDefaultViewModel.categoriesViewModel.id,
+                    categoryId: res.data.postOptionsDefaultViewModel.categoriesViewModel
+                        ? res.data.postOptionsDefaultViewModel.categoriesViewModel.id
+                        : null,
                     title: res.data.title,
                     shortDescription: res.data.shortDescription,
                     postContent: res.data.content
@@ -110,15 +118,17 @@ class PostDetail extends Component {
             }
         }
 
-        PostWithSpinner
-            .call(this, SAVE_POST_API, {
+        const viewModel = {
             Id: this.state.post.id,
             Title: this.state.title,
             ShortDescription: this.state.shortDescription,
             Content: this.state.postContent,
             PostOptionsDefaultViewModel: postOptionsDefaultViewModel,
             PostStatus: this.state.post.postStatus
-        })
+        }
+
+        PostWithSpinner
+            .call(this, SAVE_POST_API, viewModel)
             .then(res => {
                 if (res.status === STATUS_CODE.Success) 
                     return toastr.success("Edit post success");

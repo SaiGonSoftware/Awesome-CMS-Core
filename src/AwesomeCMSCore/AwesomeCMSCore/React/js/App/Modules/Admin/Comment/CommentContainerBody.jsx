@@ -13,15 +13,15 @@ const CommentContainerBody = (props) => {
                             ? props
                                 .comments
                                 .allComments
-                                .map(comment => {
+                                .map(cm => {
                                     return (
-                                        <div id="allComments" key={comment.id}>
+                                        <div id="allComments" key={cm.comment.id}>
                                             <ListGroupItem className="commentItem">
-                                                <h3>{comment.user.email}
-                                                    &nbsp;- {moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
-                                                <h3>{comment.post.title}</h3>
+                                                <h3>{cm.user.email}
+                                                    &nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                <h3>{cm.post.title}</h3>
                                                 <blockquote className="blockquote">
-                                                    <small className="text-muted">{comment.comment.content}</small>
+                                                    <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
                                             </ListGroupItem>
                                         </div>
@@ -38,15 +38,15 @@ const CommentContainerBody = (props) => {
                             ? props
                                 .comments
                                 .pendingComments
-                                .map(comment => {
+                                .map(cm => {
                                     return (
-                                        <div id="pendingComments" key={comment.id}>
+                                        <div id="pendingComments" key={cm.comment.id}>
                                             <ListGroupItem className="commentItem">
-                                                <h3>{comment.user.email}
-                                                    &nbsp;- {moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
-                                                <h3>{comment.post.title}</h3>
+                                                <h3>{cm.user.email}
+                                                    &nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                <h3>{cm.post.title}</h3>
                                                 <blockquote className="blockquote">
-                                                    <small className="text-muted">{comment.comment.content}</small>
+                                                    <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
                                             </ListGroupItem>
                                         </div>
@@ -63,15 +63,15 @@ const CommentContainerBody = (props) => {
                             ? props
                                 .comments
                                 .approvedComments
-                                .map(comment => {
+                                .map(cm => {
                                     return (
-                                        <div id="approvedComments" key={comment.id}>
-                                            <ListGroupItem key={comment.id} className="commentItem">
-                                                <h3>{comment.user.email}
-                                                    &nbsp;-{moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
-                                                <h3>{comment.post.title}</h3>
+                                        <div id="approvedComments" key={cm.comment.id}>
+                                            <ListGroupItem className="commentItem">
+                                                <h3>{cm.user.email}
+                                                    &nbsp;-{moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                <h3>{cm.post.title}</h3>
                                                 <blockquote className="blockquote">
-                                                    <small className="text-muted">{comment.comment.content}</small>
+                                                    <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
                                             </ListGroupItem>
                                         </div>
@@ -88,15 +88,15 @@ const CommentContainerBody = (props) => {
                             ? props
                                 .comments
                                 .spamComments
-                                .map(comment => {
+                                .map(cm => {
                                     return (
-                                        <div id="spamComments" key={comment.id}>
-                                            <ListGroupItem key={comment.id} className="commentItem">
-                                                <h3>{comment.user.email}
-                                                    &nbsp;-{moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
-                                                <h3>{comment.post.title}</h3>
+                                        <div id="spamComments" key={cm.comment.id}>
+                                            <ListGroupItem className="commentItem">
+                                                <h3>{cm.user.email}
+                                                    &nbsp;-{moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                <h3>{cm.post.title}</h3>
                                                 <blockquote className="blockquote">
-                                                    <small className="text-muted">{comment.comment.content}</small>
+                                                    <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
                                             </ListGroupItem>
                                         </div>
@@ -109,10 +109,10 @@ const CommentContainerBody = (props) => {
             <TabPane tabId="Trash" className="commentsTabWrapper">
                 <Row>
                     <Col sm="12">
-                        {props.comments.commentsDeleted
+                        {props.comments.deletedComments
                             ? props
                                 .comments
-                                .commentsDeleted
+                                .deletedComments
                                 .map(comment => {
                                     return (
                                         <div id="commentsDeleted" key={comment.id}>

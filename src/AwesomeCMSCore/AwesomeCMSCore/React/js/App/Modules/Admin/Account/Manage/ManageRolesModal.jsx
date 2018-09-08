@@ -22,6 +22,7 @@ class ManageRolesModal extends Component {
 
     componentDidMount() {
         let value = [];
+        this.mounted = true;
         Get(ROLE_API).then(res => {
             res
                 .data
@@ -29,8 +30,15 @@ class ManageRolesModal extends Component {
                     if (item.name !== "Administrator") 
                         value.push({"value": item.id, "label": item.name})
                 });
-            this.setState({value});
+
+            if (this.mounted) {
+                this.setState({value});
+            }
         });
+    }
+
+    componentWillUnmount() {
+        this.mounted = false;
     }
 
     handleSubmit = e => {

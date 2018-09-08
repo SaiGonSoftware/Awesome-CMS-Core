@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
+import React, {Component} from "react";
+import {render} from "react-dom";
 import toastr from "toastr";
 
-import { handleOnChange } from "Helper/StateHelper";
-import { Get, PostWithSpinner } from "Helper/Http";
-import { isDomExist } from "Helper/Util";
+import {handleOnChange} from "Helper/StateHelper";
+import {Get, PostWithSpinner} from "Helper/Http";
+import {isDomExist} from "Helper/Util";
 import {STATUS_CODE} from "Helper/AppEnum";
-import { CATEGORIES_API } from 'Helper/API_Endpoint/PostOptionEndpoint';
+import {CATEGORIES_API} from 'Helper/API_Endpoint/PostOptionEndpoint';
 
 import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect.jsx";
 import Spinner from "Common/ACCAnimation/Spinner.jsx";
@@ -17,13 +17,15 @@ class CategoriesCreateContainer extends Component {
     this.state = {
       loading: false,
       options: [],
-      value: []
+      value: [],
+      id: null
     };
   }
 
   componentDidMount() {
     Get(CATEGORIES_API).then(res => {
       this.setState({
+        id: res.data.id,
         value: res.data.value
           ? JSON.parse(res.data.value)
           : []
@@ -38,14 +40,18 @@ class CategoriesCreateContainer extends Component {
     const value = JSON.stringify(this.state.value);
 
     const categoriesVm = {
+      id: this.state.id,
       key,
       value
     };
 
-    PostWithSpinner.call(this, CATEGORIES_API, categoriesVm)
+    PostWithSpinner
+      .call(this, CATEGORIES_API, categoriesVm)
       .then(res => {
-        if (res.status === STATUS_CODE.Success) toastr.success("Create success");
-      })
+        if (res.status === STATUS_CODE.Success) 
+          toastr.success("Create success");
+        }
+      )
       .catch(() => {
         toastr.error("Something went wrong.Please try again");
       });
@@ -55,15 +61,14 @@ class CategoriesCreateContainer extends Component {
     const isDataNotValid = this.state.value.length === 0;
 
     if (this.state.loading) {
-      return <Spinner />;
+      return <Spinner/>;
     } else {
       return (
         <button
           type="submit"
           className="btn btn-primary"
           onClick={this.handleSubmit}
-          disabled={isDataNotValid}
-        >
+          disabled={isDataNotValid}>
           Save
         </button>
       );
@@ -71,7 +76,7 @@ class CategoriesCreateContainer extends Component {
   }
 
   render() {
-    const { options, value } = this.state;
+    const {options, value} = this.state;
 
     return (
       <div className="container">
@@ -85,10 +90,8 @@ class CategoriesCreateContainer extends Component {
                 <ACCReactCreateSelect
                   {...options}
                   value={value}
-                  handleOnChange={value => handleOnChange.call(this, value)}
-                />
-                <br />
-                {this.renderButton()}
+                  handleOnChange={value => handleOnChange.call(this, value)}/>
+                <br/> {this.renderButton()}
               </div>
             </div>
           </div>
@@ -100,7 +103,5 @@ class CategoriesCreateContainer extends Component {
 
 if (isDomExist("categoriesCreationSelect")) {
   render(
-    <CategoriesCreateContainer />, document.getElementById("categoriesCreationSelect")
-  );
+    <CategoriesCreateContainer/>, document.getElementById("categoriesCreationSelect"));
 }
-

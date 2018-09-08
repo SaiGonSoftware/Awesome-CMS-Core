@@ -37,11 +37,18 @@ class AddUserModal extends Component {
   };
 
   componentDidMount() {
+    this.mounted = true;
     Get(ROLE_API).then(res => {
-      this.setState({roleList: res.data});
+      if (this.mounted) {
+        this.setState({roleList: res.data});
+      }
     });
   }
 
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+  
   onSelectRoles = role => {
     if (this.selectedRoles.has(role)) {
       this
