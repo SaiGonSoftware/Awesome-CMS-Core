@@ -9,7 +9,8 @@ module.exports = {
     main: "./React/js/main.js",
     common: "./React/js/App/Vendor/common.js",
     login: "./React/js/EntryPoint/Modules/Admin/Account/Login/login.js",
-    password: "./React/js/EntryPoint/Modules/Admin/Account/Password/password.js"
+    password: "./React/js/EntryPoint/Modules/Admin/Account/Password/password.js",
+    manageaccount: "./React/js/EntryPoint/Modules/Admin/Account/index.js"
   },
   output: {
     path: path.resolve(__dirname, "wwwroot/dist"),

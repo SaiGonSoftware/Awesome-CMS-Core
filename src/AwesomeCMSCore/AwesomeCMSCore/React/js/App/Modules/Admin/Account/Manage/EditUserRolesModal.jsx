@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import toastr from "toastr";
 
 import {Get, PutWithSpinner} from "Helper/Http";
-import { ROLE_API, USER_ROLES_EDIT_API } from 'Helper/API_Endpoint/RoleEndpoint';
+import {ROLE_API, USER_ROLES_EDIT_API} from 'Helper/API_Endpoint/RoleEndpoint';
 import {STATUS_CODE} from 'Helper/AppEnum';
 
 import Spinner from "Common/ACCAnimation/Spinner.jsx";
@@ -21,9 +21,12 @@ class EditUserRolesModal extends Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     const url = `${ROLE_API}/${this.props.userId}`;
     Get(url).then(res => {
-      this.setState({rolesName: res.data.rolesName, currentUserRoles: res.data.currentUserRoles, userId: res.data.userId});
+      if (this.mounted) {
+        this.setState({rolesName: res.data.rolesName, currentUserRoles: res.data.currentUserRoles, userId: res.data.userId});
+      }
     });
   }
 
@@ -34,6 +37,10 @@ class EditUserRolesModal extends Component {
         this.setState({rolesName: res.data.rolesName, currentUserRoles: res.data.currentUserRoles, userId: res.data.userId});
       });
     }
+  }
+  
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   renderButton() {
@@ -60,7 +67,7 @@ class EditUserRolesModal extends Component {
         CurrentUserRoles: this.state.currentUserRoles
       })
         .then(res => {
-          if (res.status === STATUS_CODE.Success)
+          if (res.status === STATUS_CODE.Success) 
             toastr.info("Edit user roles success");
           }
         )

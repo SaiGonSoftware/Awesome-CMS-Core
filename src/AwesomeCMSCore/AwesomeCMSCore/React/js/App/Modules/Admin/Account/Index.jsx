@@ -54,9 +54,16 @@ class AccountTable extends Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     Get(USER_API).then(res => {
-      this.setState({userList: res.data});
+      if (this.mounted) {
+        this.setState({userList: res.data});
+      }
     });
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   toggleAccountStatus = () => {
