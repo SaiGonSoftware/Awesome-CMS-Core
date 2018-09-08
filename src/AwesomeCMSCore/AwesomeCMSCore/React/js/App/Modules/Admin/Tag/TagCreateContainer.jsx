@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
+import React, {Component} from "react";
+import {render} from "react-dom";
 import toastr from "toastr";
 
-import { handleOnChange } from "Helper/StateHelper";
-import { Get, PostWithSpinner } from "Helper/Http";
-import { isDomExist } from "Helper/Util";
+import {handleOnChange} from "Helper/StateHelper";
+import {Get, PostWithSpinner} from "Helper/Http";
+import {isDomExist} from "Helper/Util";
 import {STATUS_CODE} from "Helper/AppEnum";
-import { TAG_API } from 'Helper/API_Endpoint/PostOptionEndpoint';
+import {TAG_API} from 'Helper/API_Endpoint/PostOptionEndpoint';
 
 import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect.jsx";
 import Spinner from "Common/ACCAnimation/Spinner.jsx";
@@ -17,14 +17,18 @@ class TagCreateContainer extends Component {
     this.state = {
       loading: false,
       options: [],
-      value: []
+      value: [],
+      id: null
     };
   }
 
   componentDidMount() {
     Get(TAG_API).then(res => {
       this.setState({
-        value: res.data.value ? JSON.parse(res.data.value) : []
+        id: res.data.id,
+        value: res.data.value
+          ? JSON.parse(res.data.value)
+          : []
       });
     });
   }
@@ -36,14 +40,18 @@ class TagCreateContainer extends Component {
     const value = JSON.stringify(this.state.value);
 
     const tagVm = {
+      id: this.state.id,
       key,
       value
     };
 
-    PostWithSpinner.call(this, TAG_API, tagVm)
+    PostWithSpinner
+      .call(this, TAG_API, tagVm)
       .then(res => {
-        if (res.status === STATUS_CODE.Success) toastr.success("Create success");
-      })
+        if (res.status === STATUS_CODE.Success) 
+          toastr.success("Create success");
+        }
+      )
       .catch(() => {
         toastr.error("Something went wrong.Please try again");
       });
@@ -53,15 +61,14 @@ class TagCreateContainer extends Component {
     const isDataNotValid = this.state.value.length === 0;
 
     if (this.state.loading) {
-      return <Spinner />;
+      return <Spinner/>;
     } else {
       return (
         <button
           type="submit"
           className="btn btn-primary"
           onClick={this.handleSubmit}
-          disabled={isDataNotValid}
-        >
+          disabled={isDataNotValid}>
           Save
         </button>
       );
@@ -69,7 +76,7 @@ class TagCreateContainer extends Component {
   }
 
   render() {
-    const { options, value } = this.state;
+    const {options, value} = this.state;
 
     return (
       <div className="container">
@@ -83,10 +90,8 @@ class TagCreateContainer extends Component {
                 <ACCReactCreateSelect
                   {...options}
                   value={value}
-                  handleOnChange={value => handleOnChange.call(this, value)}
-                />
-                <br />
-                {this.renderButton()}
+                  handleOnChange={value => handleOnChange.call(this, value)}/>
+                <br/> {this.renderButton()}
               </div>
             </div>
           </div>
@@ -97,5 +102,6 @@ class TagCreateContainer extends Component {
 }
 
 if (isDomExist("tagCreationSelect")) {
-  render(<TagCreateContainer />, document.getElementById("tagCreationSelect"));
+  render(
+    <TagCreateContainer/>, document.getElementById("tagCreationSelect"));
 }
