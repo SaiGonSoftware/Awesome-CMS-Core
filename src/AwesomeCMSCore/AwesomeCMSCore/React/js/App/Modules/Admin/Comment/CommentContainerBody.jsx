@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Row, Col, ListGroupItem, TabContent, TabPane} from 'reactstrap';
 import moment from 'moment/src/moment';
+import CommentActions from './CommentActions.jsx';
 
 const CommentContainerBody = (props) => {
     return (
@@ -23,6 +24,7 @@ const CommentContainerBody = (props) => {
                                                 <blockquote className="blockquote">
                                                     <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
+                                                <CommentActions comment={cm.comment}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -48,6 +50,7 @@ const CommentContainerBody = (props) => {
                                                 <blockquote className="blockquote">
                                                     <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
+                                                <CommentActions comment={cm.comment}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -73,6 +76,7 @@ const CommentContainerBody = (props) => {
                                                 <blockquote className="blockquote">
                                                     <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
+                                                <CommentActions comment={cm.comment}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -98,6 +102,7 @@ const CommentContainerBody = (props) => {
                                                 <blockquote className="blockquote">
                                                     <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
+                                                <CommentActions comment={cm.comment}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -113,16 +118,17 @@ const CommentContainerBody = (props) => {
                             ? props
                                 .comments
                                 .deletedComments
-                                .map(comment => {
+                                .map(cm => {
                                     return (
-                                        <div id="commentsDeleted" key={comment.id}>
-                                            <ListGroupItem key={comment.id} className="commentItem">
-                                                <h3>{comment.user.email}
-                                                    &nbsp;- {moment(comment.dateCreated).format('DD MMMM YYYY')}</h3>
-                                                <h3>{comment.post.title}</h3>
+                                        <div id="commentsDeleted" key={cm.id}>
+                                            <ListGroupItem key={cm.id} className="commentItem">
+                                                <h3>{cm.user.email}
+                                                    &nbsp;- {moment(cm.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                <h3>{cm.post.title}</h3>
                                                 <blockquote className="blockquote">
-                                                    <small className="text-muted">{comment.comment.content}</small>
+                                                    <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
+                                                <CommentActions comment={cm.comment}/>
                                             </ListGroupItem>
                                         </div>
                                     )

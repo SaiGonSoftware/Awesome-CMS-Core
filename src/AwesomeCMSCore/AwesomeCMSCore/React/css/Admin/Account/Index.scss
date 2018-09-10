@@ -1,17 +1,17 @@
 #accountTable {
-  margin: 5%;
+    margin: 5%;
 
-  #userListOptions {
-    button {
-      margin-right: 10px;
+    #userListOptions {
+        button {
+            margin-right: 10px;
+        }
+
+        #addUserModal {
+            button {
+                margin-right: 0;
+            }
+        }
+
+        margin-bottom: 20px;
     }
-
-    #addUserModal {
-      button {
-        margin-right: 0;
-      }
-    }
-
-    margin-bottom: 20px;
-  }
 }
