@@ -48,9 +48,9 @@ Please read
 ### Manage Account
 
 <img src="img/forgot-pass.png"/>
-
+<img src="img/add new user.png">
+<img src="img/add-user-roles.png">
 <img src="img/manage-account.png"/>
-
 <img src="img/edit-role.png"/>
 
 ---
