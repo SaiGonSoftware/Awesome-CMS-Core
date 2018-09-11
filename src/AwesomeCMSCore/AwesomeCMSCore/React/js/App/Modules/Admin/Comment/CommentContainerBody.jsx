@@ -16,7 +16,7 @@ const CommentContainerBody = (props) => {
                                 .allComments
                                 .map(cm => {
                                     return (
-                                        <div id="allComments" key={cm.comment.id}>
+                                        <div className="allComments" key={cm.comment.id}>
                                             <ListGroupItem className="commentItem">
                                                 <h3>{cm.user.email}
                                                     &nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
@@ -24,7 +24,10 @@ const CommentContainerBody = (props) => {
                                                 <blockquote className="blockquote">
                                                     <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
-                                                <CommentActions comment={cm.comment}/>
+                                                <CommentActions
+                                                    comment={cm.comment}
+                                                    markCommentAsApproved={() => props.markCommentAsApproved(cm.comment.commentStatus, cm.comment.id)}
+                                                    id={`allComments-${cm.comment.id}`}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -42,7 +45,7 @@ const CommentContainerBody = (props) => {
                                 .pendingComments
                                 .map(cm => {
                                     return (
-                                        <div id="pendingComments" key={cm.comment.id}>
+                                        <div className="pendingComments" key={cm.comment.id}>
                                             <ListGroupItem className="commentItem">
                                                 <h3>{cm.user.email}
                                                     &nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
@@ -50,7 +53,10 @@ const CommentContainerBody = (props) => {
                                                 <blockquote className="blockquote">
                                                     <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
-                                                <CommentActions comment={cm.comment}/>
+                                                <CommentActions
+                                                    comment={cm.comment}
+                                                    markCommentAsApproved={() => props.markCommentAsApproved(cm.comment.commentStatus, cm.comment.id)}
+                                                    id={`pendingComments-${cm.comment.id}`}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -68,15 +74,18 @@ const CommentContainerBody = (props) => {
                                 .approvedComments
                                 .map(cm => {
                                     return (
-                                        <div id="approvedComments" key={cm.comment.id}>
+                                        <div className="approvedComments" key={cm.comment.id}>
                                             <ListGroupItem className="commentItem">
                                                 <h3>{cm.user.email}
-                                                    &nbsp;-{moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                    &nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
                                                 <h3>{cm.post.title}</h3>
                                                 <blockquote className="blockquote">
                                                     <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
-                                                <CommentActions comment={cm.comment}/>
+                                                <CommentActions
+                                                    comment={cm.comment}
+                                                    markCommentAsApproved={() => props.markCommentAsApproved(cm.comment.commentStatus, cm.comment.id)}
+                                                    id={`approvedComments-${cm.comment.id}`}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -94,15 +103,18 @@ const CommentContainerBody = (props) => {
                                 .spamComments
                                 .map(cm => {
                                     return (
-                                        <div id="spamComments" key={cm.comment.id}>
+                                        <div className="spamComments" key={cm.comment.id}>
                                             <ListGroupItem className="commentItem">
                                                 <h3>{cm.user.email}
-                                                    &nbsp;-{moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
+                                                    &nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
                                                 <h3>{cm.post.title}</h3>
                                                 <blockquote className="blockquote">
                                                     <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
-                                                <CommentActions comment={cm.comment}/>
+                                                <CommentActions
+                                                    comment={cm.comment}
+                                                    markCommentAsApproved={() => props.markCommentAsApproved(cm.comment.commentStatus, cm.comment.id)}
+                                                    id={`spamComments-${cm.comment.id}`}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -120,7 +132,7 @@ const CommentContainerBody = (props) => {
                                 .deletedComments
                                 .map(cm => {
                                     return (
-                                        <div id="commentsDeleted" key={cm.id}>
+                                        <div className="commentsDeleted" key={cm.id}>
                                             <ListGroupItem key={cm.id} className="commentItem">
                                                 <h3>{cm.user.email}
                                                     &nbsp;- {moment(cm.dateCreated).format('DD MMMM YYYY')}</h3>
@@ -128,7 +140,10 @@ const CommentContainerBody = (props) => {
                                                 <blockquote className="blockquote">
                                                     <small className="text-muted">{cm.comment.content}</small>
                                                 </blockquote>
-                                                <CommentActions comment={cm.comment}/>
+                                                <CommentActions
+                                                    comment={cm.comment}
+                                                    markCommentAsApproved={() => props.markCommentAsApproved(cm.comment.commentStatus, cm.comment.id)}
+                                                    id={`commentsDeleted-${cm.comment.id}`}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -143,7 +158,8 @@ const CommentContainerBody = (props) => {
 
 CommentContainerBody.propTypes = {
     comments: PropTypes.object.isRequired,
-    activeTab: PropTypes.string.isRequired
+    activeTab: PropTypes.string.isRequired,
+    markCommentAsApproved: PropTypes.func.isRequired
 }
 
 export default CommentContainerBody

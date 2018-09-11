@@ -109,8 +109,6 @@ class PostContainer extends Component {
                 toastr.error('Something went wrong. Please try again later');
             }
         });
-
-        this.forceUpdate();
     }
 
     restorePost = (postId) => {

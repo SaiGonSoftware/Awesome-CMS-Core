@@ -10,14 +10,17 @@ const CommentActions = (props) => {
                 <Button
                     outline
                     color="success"
+                    id={props.id}
                     className={props.comment.commentStatus == CommentStatus.Approved
                     ? 'btn-outline-success-active'
-                    : ''}>
+                    : ''}
+                    onClick={props.markCommentAsApproved}>
                     <i className="fa fa-check"></i>
                     &nbsp;Approved</Button>
                 <Button
                     outline
                     color="warning"
+                    id={props.id}
                     className={props.comment.commentStatus == CommentStatus.Spam
                     ? 'btn-outline-warning-active'
                     : ''}>
@@ -26,6 +29,7 @@ const CommentActions = (props) => {
                 <Button
                     outline
                     color="danger"
+                    id={props.id}
                     className={props.comment.commentStatus == CommentStatus.Trash
                     ? 'btn-outline-danger-active'
                     : ''}>
@@ -43,7 +47,10 @@ const CommentActions = (props) => {
 }
 
 CommentActions.propTypes = {
-    comment: PropTypes.object
+    comment: PropTypes.object,
+    id: PropTypes.string.isRequired,
+    toggleClass: PropTypes.bool,
+    markCommentAsApproved: PropTypes.func.isRequired
 }
 
 export default CommentActions
