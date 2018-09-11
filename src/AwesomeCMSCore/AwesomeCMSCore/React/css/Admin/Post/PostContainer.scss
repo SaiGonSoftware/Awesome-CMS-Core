@@ -1,36 +1,36 @@
 #postList {
-  padding: 20px 10% 0 10%;
+    padding: 20px 10% 0 10%;
 
-  #postHeaderSection {
-    margin-bottom: 20px;
-  }
-
-  .postHeaderBtn {
-    margin-right: 30px;
-    width: 120px;
-  }
-
-  .postItem {
-    height: 80px;
-    cursor: pointer;
-  }
-
-  .postsTabWrapper {
-    margin-top: 20px;
-
-    .postManage {
-      float: right;
-      margin-top: -60px;
-      z-index: 1;
-      position: relative;
-
-      button {
-        margin-right: 10px;
-      }
+    #postHeaderSection {
+        margin-bottom: 20px;
     }
-  }
+
+    .postHeaderBtn {
+        margin-right: 30px;
+        width: 120px;
+    }
+
+    .postItem {
+        height: 80px;
+        cursor: pointer;
+    }
+
+    .postsTabWrapper {
+        margin-top: 20px;
+
+        .postManage {
+            float: right;
+            margin-top: -60px;
+            z-index: 1;
+            position: relative;
+
+            button {
+                margin-right: 10px;
+            }
+        }
+    }
 }
 
 .postFooter {
-  margin-top: 30px;
+    margin-top: 30px;
 }

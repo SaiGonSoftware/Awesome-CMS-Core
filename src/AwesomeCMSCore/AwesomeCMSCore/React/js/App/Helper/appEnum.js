@@ -23,3 +23,10 @@ export const STATUS_CODE = {
   EmailNotConfirmed: 900,
   ResetPassTokenExpire: 901
 }
+
+export const CommentStatus = {
+  Pending: 1,
+  Approved: 2,
+  Spam: 3,
+  Trash: 4
+}

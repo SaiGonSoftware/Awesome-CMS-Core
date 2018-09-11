@@ -3,5 +3,9 @@
     "stylelint-config-standard",
     "stylelint-config-recommended",
     "stylelint-config-recommended-scss"
-  ]
+  ],
+  "rules": {
+    "indentation": 4,
+    "no-missing-end-of-source-newline":  null
+  }
 }
