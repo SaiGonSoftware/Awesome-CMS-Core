@@ -1,7 +1,7 @@
 # Awesome CMS Core [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/thangchung/awesome-dotnet-core#cms)
 
 Awesome CMS Core is an open source CMS built using ASP.Net Core & ReactJS with module seperation concern in mind.
-Awesome CMS Core provide lastest trend of technology like .Net Core, React, Webpack, SASS, Background Job, Queue. 
+Awesome CMS Core provide lastest trend of technology like .Net Core, React, Webpack, SASS, Background Job, Queue.
 
 <img src="img/icon.png" width="150px"/>
 
@@ -16,7 +16,6 @@ Awesome CMS Core provide lastest trend of technology like .Net Core, React, Webp
 
 | Platform   | Status                                                                                                                                                                                                                                                                     |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| codebeat   | [![codebeat badge](https://codebeat.co/badges/eaee1cdf-48da-40dc-96ac-0c2df204a39d)](https://codebeat.co/projects/github-com-awesome-cms-core-awesome-cms-core-master)                                                                                                     |
 | codefactor | [![CodeFactor](https://www.codefactor.io/repository/github/awesome-cms-core/awesome-cms-core/badge)](https://www.codefactor.io/repository/github/awesome-cms-core/awesome-cms-core)                                                                                        |
 | codacy     | [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5781d47d0e8f499b8a7fbd167105e4f7)](https://www.codacy.com/app/ngohungphuc95/Awesome-CMS-Core?utm_source=github.com&utm_medium=referral&utm_content=Awesome-CMS-Core/Awesome-CMS-Core&utm_campaign=Badge_Grade) |
 
@@ -62,7 +61,7 @@ Please read
 
 ---
 
-### Post Manage 
+### Post Manage
 
 <img src="img/post management.png"/>
 
@@ -71,6 +70,7 @@ Please read
 ---
 
 ### Manage comments (Developing)
+
 <img src="img/Manage comments.png"/>
 
 ---
