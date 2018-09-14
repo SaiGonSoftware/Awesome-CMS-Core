@@ -76,7 +76,6 @@ class PostDetail extends Component {
     if (this.props.postId !== nextProps.postId) {
       const url = `${POST_API}/${nextProps.postId}`;
       Get(url).then(res => {
-        console.log(res.data);
         this.setState({
           post: res.data,
           tagValue: res.data.postOptionsDefaultViewModel.tagViewModel
