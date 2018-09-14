@@ -32,12 +32,10 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
             var result = await _commentRepository.UpdateCommentStatus(commentId, commentStatus);
             if (result)
             {
-
                 return Ok();
             }
 
             return BadRequest();
         }
-
     }
 }
