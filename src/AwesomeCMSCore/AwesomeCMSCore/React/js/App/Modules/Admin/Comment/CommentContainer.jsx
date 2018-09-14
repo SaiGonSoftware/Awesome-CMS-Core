@@ -125,17 +125,14 @@ class CommentContainer extends Component {
           updatedComments
             .pendingComments
             .push(commentToRemove);
-          window.setTimeout(() => {
-            selectorToRemove = document.getElementById(`pendingComments-${commentId}`);
-            selectorToRemove
-              .classList
-              .remove("btn-outline-success-active");
-          }, 100);
-
           Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Pending}`).then(res => {
             if (res.status === STATUS_CODE.Success) {
               toastr.info("Edit comment status success");
               this.setState({comments: updatedComments});
+              selectorToRemove = document.getElementById(`pendingComments-${commentId}`);
+              selectorToRemove
+                .classList
+                .remove("btn-outline-success-active");
             }
           });
         }
