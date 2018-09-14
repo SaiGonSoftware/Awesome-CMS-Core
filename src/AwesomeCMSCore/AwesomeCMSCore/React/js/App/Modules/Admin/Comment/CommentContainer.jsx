@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import { Row, Col, ListGroup, ListGroupItem } from "reactstrap";
-import { Get } from "Helper/Http";
+import { Get, Put } from "Helper/Http";
 import { isDomExist } from "Helper/Util";
 import { COMMENTS_ENDPOINT } from "Helper/API_Endpoint/CommentEndpoint";
-import { CommentStatus } from "Helper/AppEnum";
+import { CommentStatus, STATUS_CODE } from "Helper/AppEnum";
+import toastr from "toastr";
 
 import CommentContainerHeader from "./CommentContainerHeader.jsx";
 import CommentContainerBody from "./CommentContainerBody.jsx";
@@ -58,6 +59,12 @@ class CommentContainer extends Component {
             `allComments-${commentId}`
           );
           selectorToRemove.classList.add("btn-outline-success-active");
+          Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Approved}`).then(res => {
+            if (res.status === STATUS_CODE.Success)  {
+              toastr.info("Edit comment status success");
+              this.setState({ comments: updatedComments });
+            }
+          });
         } else {
           commentToRemove = this.state.comments.approvedComments.find(
             cm => cm.comment.id == commentId
@@ -85,9 +92,13 @@ class CommentContainer extends Component {
             );
             selectorToRemove.classList.remove("btn-outline-success-active");
           }, 100);
+          Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Pending}`).then(res => {
+            if (res.status === STATUS_CODE.Success)  {
+              toastr.info("Edit comment status success");
+              this.setState({ comments: updatedComments });
+            }
+          });
         }
-
-        this.setState({ comments: updatedComments });
         break;
       default:
         break;
