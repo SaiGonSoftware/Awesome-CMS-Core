@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
@@ -59,6 +60,26 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             };
 
             return viewModel;
+        }
+
+        public async Task<bool> UpdateCommentStatus(int commentId, CommentStatus commentStatus)
+        {
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                try
+                {
+                    var commentToUpdate = await _unitOfWork.Repository<Comment>().Query().Where(cm => cm.Id == commentId).SingleOrDefaultAsync();
+                    commentToUpdate.CommentStatus = commentStatus;
+                    await _unitOfWork.Repository<Comment>().UpdateAsync(commentToUpdate);
+                    transaction.Complete();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    _unitOfWork.Rollback();
+                    return false;
+                }
+            }
         }
 
         private static int CountComment(IEnumerable<CommentViewModel> comments, CommentStatus commentStatus)
