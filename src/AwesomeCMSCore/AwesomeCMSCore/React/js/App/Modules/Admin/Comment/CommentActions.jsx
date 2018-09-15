@@ -22,8 +22,10 @@ const CommentActions = (props) => {
                     color="warning"
                     id={props.id}
                     className={props.comment.commentStatus == CommentStatus.Spam
-                    ? 'btn-outline-warning-active'
-                    : ''}>
+                    ? 'spam-actions-hidden'
+                    : '' || props.comment.commentStatus == CommentStatus.Trash
+                        ? 'trash-actions-hidden'
+                        : ''}>
                     <i className="fa fa-ban" aria-hidden="true"></i>
                     &nbsp;Spam</Button>
                 <Button
@@ -31,14 +33,28 @@ const CommentActions = (props) => {
                     color="danger"
                     id={props.id}
                     className={props.comment.commentStatus == CommentStatus.Trash
-                    ? 'btn-outline-danger-active'
+                    ? 'trash-actions-hidden'
                     : ''}>
                     <i className="fa fa-trash-o" aria-hidden="true"></i>
                     &nbsp;Trash</Button>
-                <Button outline color="primary">
+                <Button
+                    outline
+                    color="primary"
+                    className={props.comment.commentStatus == CommentStatus.Spam
+                    ? 'spam-actions-hidden'
+                    : '' || props.comment.commentStatus == CommentStatus.Trash
+                        ? 'trash-actions-hidden'
+                        : ''}>
                     <i className="fa fa-pencil" aria-hidden="true"></i>
                     &nbsp;Edit</Button>
-                <Button outline color="info">
+                <Button
+                    outline
+                    color="info"
+                    className={props.comment.commentStatus == CommentStatus.Spam
+                    ? 'spam-actions-hidden'
+                    : '' || props.comment.commentStatus == CommentStatus.Trash
+                        ? 'trash-actions-hidden'
+                        : ''}>
                     <i className="fa fa-reply" aria-hidden="true"></i>
                     &nbsp;Reply</Button>
             </blockquote>

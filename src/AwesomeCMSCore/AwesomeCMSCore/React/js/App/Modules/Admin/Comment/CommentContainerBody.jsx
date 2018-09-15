@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Row, Col, ListGroupItem, TabContent, TabPane} from 'reactstrap';
 import moment from 'moment/src/moment';
+import {CommentStatus} from "Helper/AppEnum";
 import CommentActions from './CommentActions.jsx';
 
 const CommentContainerBody = (props) => {
@@ -14,6 +15,7 @@ const CommentContainerBody = (props) => {
                             ? props
                                 .comments
                                 .allComments
+                                .filter(cm => cm.comment.commentStatus !== CommentStatus.Spam && cm.comment.commentStatus !== CommentStatus.Trash)
                                 .map(cm => {
                                     return (
                                         <div className="allComments" key={cm.comment.id}>
