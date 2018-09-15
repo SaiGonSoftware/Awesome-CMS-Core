@@ -134,7 +134,7 @@ const CommentContainerBody = (props) => {
                                 .deletedComments
                                 .map(cm => {
                                     return (
-                                        <div className="commentsDeleted" key={cm.id}>
+                                        <div className="commentsDeleted" key={cm.comment.id}>
                                             <ListGroupItem key={cm.id} className="commentItem">
                                                 <h3>{cm.user.email}
                                                     &nbsp;- {moment(cm.dateCreated).format('DD MMMM YYYY')}</h3>
