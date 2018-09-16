@@ -36,7 +36,7 @@ class CommentContainer extends Component {
     let filteredComments;
     let commentToRemove;
     let updatedComments;
-    let selectorToRemove;
+    let btnSelector;
 
     updatedComments = {
       ...this.state.comments
@@ -59,8 +59,8 @@ class CommentContainer extends Component {
             .push(commentToRemove);
           updatedComments.numberOfApprovedComments += 1;
           updatedComments.numberOfPendingComments -= 1;
-          selectorToRemove = document.getElementById(`allComments-${commentId}`);
-          selectorToRemove
+          btnSelector = document.getElementById(`allComments-${commentId}`);
+          btnSelector
             .classList
             .add("btn-outline-success-active");
 
@@ -88,10 +88,11 @@ class CommentContainer extends Component {
             .push(commentToRemove);
           updatedComments.numberOfApprovedComments += 1;
           updatedComments.numberOfPendingComments -= 1;
-          selectorToRemove = document.getElementById(`allComments-${commentId}`);
-          selectorToRemove
+          btnSelector = document.getElementById(`allComments-${commentId}`);
+          btnSelector
             .classList
             .add("btn-outline-success-active");
+
           Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Approved}`).then(res => {
             if (res.status === STATUS_CODE.Success) {
               toastr.info("Edit comment status success");
@@ -110,12 +111,12 @@ class CommentContainer extends Component {
             .approvedComments
             .filter(cm => cm.comment.id != commentId);
 
-          selectorToRemove = document.getElementById(`allComments-${commentId}`);
-          selectorToRemove
+          btnSelector = document.getElementById(`allComments-${commentId}`);
+          btnSelector
             .classList
             .remove("btn-outline-success-active");
-          selectorToRemove = document.getElementById(`approvedComments-${commentId}`);
-          selectorToRemove
+          btnSelector = document.getElementById(`approvedComments-${commentId}`);
+          btnSelector
             .classList
             .remove("btn-outline-success-active");
 
@@ -125,14 +126,103 @@ class CommentContainer extends Component {
           updatedComments
             .pendingComments
             .push(commentToRemove);
+
           Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Pending}`).then(res => {
             if (res.status === STATUS_CODE.Success) {
               toastr.info("Edit comment status success");
               this.setState({comments: updatedComments});
-              selectorToRemove = document.getElementById(`pendingComments-${commentId}`);
-              selectorToRemove
+              btnSelector = document.getElementById(`pendingComments-${commentId}`);
+              btnSelector
                 .classList
                 .remove("btn-outline-success-active");
+            }
+          });
+        }
+        break;
+      case CommentStatus.Spam:
+        commentToRemove = this
+          .state
+          .comments
+          .spamComments
+          .find(cm => cm.comment.id == commentId);
+        if (this.state.comments.spamComments.includes(commentToRemove)) {
+          updatedComments
+            .spamComments
+            .splice(this.state.comments.spamComments.indexOf(commentToRemove), 1);
+          updatedComments
+            .approvedComments
+            .push(commentToRemove);
+
+          commentToRemove.commentStatus = CommentStatus.Approved;
+          updatedComments
+            .allComments
+            .push(commentToRemove);
+          updatedComments.numberOfSpamComments -= 1;
+          updatedComments.numberOfApprovedComments += 1;
+
+          Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Approved}`).then(res => {
+            if (res.status === STATUS_CODE.Success) {
+              toastr.info("Edit comment status success");
+              this.setState({comments: updatedComments});
+
+              btnSelector = document.getElementById(`approvedComments-${commentId}`);
+              btnSelector
+                .classList
+                .add("btn-outline-success-active");
+
+              btnSelector = document
+                .getElementById(`approvedComments-actions-${commentId}`)
+                .getElementsByTagName('button');
+
+              for (let item of btnSelector) {
+                item
+                  .classList
+                  .remove("spam-actions-hidden");
+              }
+            }
+          });
+        }
+        break;
+      case CommentStatus.Trash:
+        commentToRemove = this
+          .state
+          .comments
+          .deletedComments
+          .find(cm => cm.comment.id == commentId);
+        if (this.state.comments.deletedComments.includes(commentToRemove)) {
+          updatedComments
+            .deletedComments
+            .splice(this.state.comments.deletedComments.indexOf(commentToRemove), 1);
+          updatedComments
+            .approvedComments
+            .push(commentToRemove);
+
+          commentToRemove.commentStatus = CommentStatus.Approved;
+          updatedComments
+            .allComments
+            .push(commentToRemove);
+          updatedComments.numberOfDeletedComments -= 1;
+          updatedComments.numberOfApprovedComments += 1;
+
+          Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Approved}`).then(res => {
+            if (res.status === STATUS_CODE.Success) {
+              toastr.info("Edit comment status success");
+              this.setState({comments: updatedComments});
+
+              btnSelector = document.getElementById(`approvedComments-${commentId}`);
+              btnSelector
+                .classList
+                .add("btn-outline-success-active");
+
+              btnSelector = document
+                .getElementById(`approvedComments-actions-${commentId}`)
+                .getElementsByTagName('button');
+
+              for (let item of btnSelector) {
+                item
+                  .classList
+                  .remove("trash-actions-hidden");
+              }
             }
           });
         }

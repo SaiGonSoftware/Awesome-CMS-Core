@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Row, Col, ListGroupItem, TabContent, TabPane} from 'reactstrap';
 import moment from 'moment/src/moment';
+import {CommentStatus} from "Helper/AppEnum";
 import CommentActions from './CommentActions.jsx';
 
 const CommentContainerBody = (props) => {
@@ -14,6 +15,7 @@ const CommentContainerBody = (props) => {
                             ? props
                                 .comments
                                 .allComments
+                                .filter(cm => cm.comment.commentStatus !== CommentStatus.Spam && cm.comment.commentStatus !== CommentStatus.Trash)
                                 .map(cm => {
                                     return (
                                         <div className="allComments" key={cm.comment.id}>
@@ -27,7 +29,8 @@ const CommentContainerBody = (props) => {
                                                 <CommentActions
                                                     comment={cm.comment}
                                                     markCommentAsApproved={() => props.markCommentAsApproved(cm.comment.commentStatus, cm.comment.id)}
-                                                    id={`allComments-${cm.comment.id}`}/>
+                                                    id={`allComments-${cm.comment.id}`}
+                                                    selector={`allComments-actions-${cm.comment.id}`}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -56,7 +59,8 @@ const CommentContainerBody = (props) => {
                                                 <CommentActions
                                                     comment={cm.comment}
                                                     markCommentAsApproved={() => props.markCommentAsApproved(cm.comment.commentStatus, cm.comment.id)}
-                                                    id={`pendingComments-${cm.comment.id}`}/>
+                                                    id={`pendingComments-${cm.comment.id}`}
+                                                    selector={`pendingComments-actions-${cm.comment.id}`}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -85,7 +89,8 @@ const CommentContainerBody = (props) => {
                                                 <CommentActions
                                                     comment={cm.comment}
                                                     markCommentAsApproved={() => props.markCommentAsApproved(cm.comment.commentStatus, cm.comment.id)}
-                                                    id={`approvedComments-${cm.comment.id}`}/>
+                                                    id={`approvedComments-${cm.comment.id}`}
+                                                    selector={`approvedComments-actions-${cm.comment.id}`}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -114,7 +119,8 @@ const CommentContainerBody = (props) => {
                                                 <CommentActions
                                                     comment={cm.comment}
                                                     markCommentAsApproved={() => props.markCommentAsApproved(cm.comment.commentStatus, cm.comment.id)}
-                                                    id={`spamComments-${cm.comment.id}`}/>
+                                                    id={`spamComments-${cm.comment.id}`}
+                                                    selector={`spamComments-actions-${cm.comment.id}`}/>
                                             </ListGroupItem>
                                         </div>
                                     )
@@ -132,7 +138,7 @@ const CommentContainerBody = (props) => {
                                 .deletedComments
                                 .map(cm => {
                                     return (
-                                        <div className="commentsDeleted" key={cm.id}>
+                                        <div className="commentsDeleted" key={cm.comment.id}>
                                             <ListGroupItem key={cm.id} className="commentItem">
                                                 <h3>{cm.user.email}
                                                     &nbsp;- {moment(cm.dateCreated).format('DD MMMM YYYY')}</h3>
@@ -143,7 +149,8 @@ const CommentContainerBody = (props) => {
                                                 <CommentActions
                                                     comment={cm.comment}
                                                     markCommentAsApproved={() => props.markCommentAsApproved(cm.comment.commentStatus, cm.comment.id)}
-                                                    id={`commentsDeleted-${cm.comment.id}`}/>
+                                                    id={`commentsDeleted-${cm.comment.id}`}
+                                                    selector={`commentsDeleted-actions-${cm.comment.id}`}/>
                                             </ListGroupItem>
                                         </div>
                                     )
