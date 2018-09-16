@@ -41,7 +41,7 @@ class CommentContainer extends Component {
     updatedComments = {
       ...this.state.comments
     };
-    debugger
+
     switch (commentStatus) {
       case CommentStatus.Pending:
         commentToRemove = this
@@ -169,11 +169,14 @@ class CommentContainer extends Component {
               btnSelector
                 .classList
                 .add("btn-outline-success-active");
-              btnSelector = document.getElementsByClassName("spam-actions-hidden");
-              while (btnSelector.length) 
-                btnSelector[0].classList.remove("spam-actions-hidden");
-              }
-            });
+
+              btnSelector = document.querySelector('.approvedComments');
+              console.log(btnSelector.classList)
+              btnSelector
+                .classList
+                .remove("spam-actions-hidden");
+            }
+          });
         }
         break;
       case CommentStatus.Trash:
@@ -201,16 +204,23 @@ class CommentContainer extends Component {
             if (res.status === STATUS_CODE.Success) {
               toastr.info("Edit comment status success");
               this.setState({comments: updatedComments});
+
               btnSelector = document.getElementById(`approvedComments-${commentId}`);
               btnSelector
                 .classList
                 .add("btn-outline-success-active");
+            }
+          });
 
-              btnSelector = document.getElementsByClassName("trash-actions-hidden");
-              while (btnSelector.length) 
-                btnSelector[0].classList.remove("trash-actions-hidden");
-              }
-            });
+          window.setTimeout(() => {
+            btnSelector = document.querySelector(".approvedComments .comment-actions");
+            let selectorMatches = btnSelector.getElementsByClassName("trash-actions-hidden");
+            for (let i = 0; i < selectorMatches.length; i++) {
+              selectorMatches[i]
+                .classList
+                .remove("trash-actions-hidden");
+            }
+          }, 500);
         }
         break;
       default:

@@ -6,7 +6,7 @@ import {CommentStatus} from "Helper/AppEnum";
 const CommentActions = (props) => {
     return (
         <div>
-            <blockquote>
+            <blockquote className="comment-actions">
                 <Button
                     outline
                     color="success"
