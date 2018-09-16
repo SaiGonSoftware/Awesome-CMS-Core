@@ -164,12 +164,16 @@ class CommentContainer extends Component {
             if (res.status === STATUS_CODE.Success) {
               toastr.info("Edit comment status success");
               this.setState({comments: updatedComments});
+
               btnSelector = document.getElementById(`approvedComments-${commentId}`);
               btnSelector
                 .classList
                 .add("btn-outline-success-active");
-            }
-          });
+              btnSelector = document.getElementsByClassName("spam-actions-hidden");
+              while (btnSelector.length) 
+                btnSelector[0].classList.remove("spam-actions-hidden");
+              }
+            });
         }
         break;
       case CommentStatus.Trash:
@@ -201,8 +205,12 @@ class CommentContainer extends Component {
               btnSelector
                 .classList
                 .add("btn-outline-success-active");
-            }
-          });
+
+              btnSelector = document.getElementsByClassName("trash-actions-hidden");
+              while (btnSelector.length) 
+                btnSelector[0].classList.remove("trash-actions-hidden");
+              }
+            });
         }
         break;
       default:
