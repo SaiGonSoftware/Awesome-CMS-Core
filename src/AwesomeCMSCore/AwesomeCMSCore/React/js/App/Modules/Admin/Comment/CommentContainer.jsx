@@ -170,11 +170,15 @@ class CommentContainer extends Component {
                 .classList
                 .add("btn-outline-success-active");
 
-              btnSelector = document.querySelector('.approvedComments');
-              console.log(btnSelector.classList)
-              btnSelector
-                .classList
-                .remove("spam-actions-hidden");
+              btnSelector = document
+                .getElementById(`approvedComments-actions-${commentId}`)
+                .getElementsByTagName('button');
+
+              for (let item of btnSelector) {
+                item
+                  .classList
+                  .remove("spam-actions-hidden");
+              }
             }
           });
         }
@@ -209,18 +213,18 @@ class CommentContainer extends Component {
               btnSelector
                 .classList
                 .add("btn-outline-success-active");
+
+              btnSelector = document
+                .getElementById(`approvedComments-actions-${commentId}`)
+                .getElementsByTagName('button');
+
+              for (let item of btnSelector) {
+                item
+                  .classList
+                  .remove("trash-actions-hidden");
+              }
             }
           });
-
-          window.setTimeout(() => {
-            btnSelector = document.querySelector(".approvedComments .comment-actions");
-            let selectorMatches = btnSelector.getElementsByClassName("trash-actions-hidden");
-            for (let i = 0; i < selectorMatches.length; i++) {
-              selectorMatches[i]
-                .classList
-                .remove("trash-actions-hidden");
-            }
-          }, 500);
         }
         break;
       default:

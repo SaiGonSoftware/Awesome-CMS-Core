@@ -6,7 +6,7 @@ import {CommentStatus} from "Helper/AppEnum";
 const CommentActions = (props) => {
     return (
         <div>
-            <blockquote className="comment-actions">
+            <blockquote className="comment-actions" id={props.selector}>
                 <Button
                     outline
                     color="success"
@@ -66,6 +66,7 @@ CommentActions.propTypes = {
     comment: PropTypes.object,
     id: PropTypes.string.isRequired,
     toggleClass: PropTypes.bool,
+    selector: PropTypes.string.isRequired,
     markCommentAsApproved: PropTypes.func.isRequired
 }
 
