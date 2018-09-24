@@ -259,17 +259,16 @@ class CommentContainer extends Component {
 
 												btnSelector = document
 														.getElementById(`spamComments-actions-${commentId}`)
-														.getElementsByTagName('button')
-														.entries();
+														.getElementsByTagName('button');
 
-														console.log(btnSelector)
-												/* 	for (let [index, value] of btnSelector.entries()) {
-													console.log(index);
-													console.log(value);
-													item
+												console.log(btnSelector)
+												for (let [index, value] of btnSelector.entries()) {
+														console.log(index);
+														console.log(value);
+														/* 	item
 																.classList
-																.add("spam-actions-hidden"); 
-												}*/
+																.add("spam-actions-hidden");  */
+												}
 										}
 								});
 								break;
