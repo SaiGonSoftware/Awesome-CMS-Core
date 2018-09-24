@@ -29,6 +29,7 @@ const CommentContainerBody = (props) => {
 																								<CommentActions
 																										comment={cm.comment}
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
+																										toggleSpamComment={() => props.toggleSpamComment(cm.comment.commentStatus, cm.comment.id)}
 																										id={`allComments-${cm.comment.id}`}
 																										selector={`allComments-actions-${cm.comment.id}`}/>
 																						</ListGroupItem>
@@ -59,6 +60,7 @@ const CommentContainerBody = (props) => {
 																								<CommentActions
 																										comment={cm.comment}
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
+																										toggleSpamComment={() => props.toggleSpamComment(cm.comment.commentStatus, cm.comment.id)}
 																										id={`pendingComments-${cm.comment.id}`}
 																										selector={`pendingComments-actions-${cm.comment.id}`}/>
 																						</ListGroupItem>
@@ -89,6 +91,7 @@ const CommentContainerBody = (props) => {
 																								<CommentActions
 																										comment={cm.comment}
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
+																										toggleSpamComment={() => props.toggleSpamComment(cm.comment.commentStatus, cm.comment.id)}
 																										id={`approvedComments-${cm.comment.id}`}
 																										selector={`approvedComments-actions-${cm.comment.id}`}/>
 																						</ListGroupItem>
@@ -166,7 +169,8 @@ const CommentContainerBody = (props) => {
 CommentContainerBody.propTypes = {
 		comments: PropTypes.object.isRequired,
 		activeTab: PropTypes.string.isRequired,
-		toggleApprovedComment: PropTypes.func.isRequired
+		toggleApprovedComment: PropTypes.func.isRequired,
+		toggleSpamComment: PropTypes.func.isRequired
 }
 
 export default CommentContainerBody

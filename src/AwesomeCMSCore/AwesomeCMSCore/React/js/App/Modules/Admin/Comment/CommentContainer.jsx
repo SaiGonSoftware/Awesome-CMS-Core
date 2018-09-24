@@ -119,7 +119,6 @@ class CommentContainer extends Component {
 										updatedComments
 												.pendingComments
 												.push(commentToRemove);
-
 										btnSelector = document.getElementById(`allComments-${commentId}`);
 										btnSelector
 												.classList
@@ -155,10 +154,6 @@ class CommentContainer extends Component {
 												.approvedComments
 												.push(commentToRemove);
 
-										commentToRemove.commentStatus = CommentStatus.Approved;
-										updatedComments
-												.allComments
-												.push(commentToRemove);
 										updatedComments.numberOfSpamComments -= 1;
 										updatedComments.numberOfApprovedComments += 1;
 
@@ -199,10 +194,6 @@ class CommentContainer extends Component {
 												.approvedComments
 												.push(commentToRemove);
 
-										commentToRemove.commentStatus = CommentStatus.Approved;
-										updatedComments
-												.allComments
-												.push(commentToRemove);
 										updatedComments.numberOfDeletedComments -= 1;
 										updatedComments.numberOfApprovedComments += 1;
 
@@ -234,6 +225,9 @@ class CommentContainer extends Component {
 				}
 		};
 
+		toggleSpamComment = (commentStatus, commentId) => { 
+
+		}
 		render() {
 				const {comments, activeTab} = this.state;
 
@@ -251,7 +245,8 @@ class CommentContainer extends Component {
 																		<CommentContainerBody
 																				comments={comments}
 																				activeTab={activeTab}
-																				toggleApprovedComment={this.toggleApprovedComment}/>
+																				toggleApprovedComment={this.toggleApprovedComment}
+																				toggleSpamComment={this.toggleSpamComment}/>
 																</div>
 														</ListGroupItem>
 												</ListGroup>
