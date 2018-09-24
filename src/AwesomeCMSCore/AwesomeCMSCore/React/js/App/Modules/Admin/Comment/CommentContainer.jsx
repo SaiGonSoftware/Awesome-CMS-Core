@@ -225,9 +225,59 @@ class CommentContainer extends Component {
 				}
 		};
 
-		toggleSpamComment = (commentStatus, commentId) => { 
+		toggleSpamComment = (commentStatus, commentId) => {
+				//let filteredComments;
+				let commentToRemove;
+				let updatedComments;
+				let btnSelector;
 
+				updatedComments = {
+						...this.state.comments
+				};
+
+				switch (commentStatus) {
+						case CommentStatus.Approved:
+								commentToRemove = this
+										.state
+										.comments
+										.allComments
+										.find(cm => cm.comment.id == commentId);
+
+								updatedComments
+										.allComments
+										.splice(this.state.comments.allComments.indexOf(commentToRemove), 1);
+
+								updatedComments
+										.spamComments
+										.push(commentToRemove);
+
+								updatedComments.numberOfSpamComments += 1;
+								Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Spam}`).then(res => {
+										if (res.status === STATUS_CODE.Success) {
+												toastr.info("Edit comment status success");
+												this.setState({comments: updatedComments});
+
+												btnSelector = document
+														.getElementById(`spamComments-actions-${commentId}`)
+														.getElementsByTagName('button')
+														.entries();
+
+														console.log(btnSelector)
+												/* 	for (let [index, value] of btnSelector.entries()) {
+													console.log(index);
+													console.log(value);
+													item
+																.classList
+																.add("spam-actions-hidden"); 
+												}*/
+										}
+								});
+								break;
+						default:
+								break;
+				}
 		}
+
 		render() {
 				const {comments, activeTab} = this.state;
 
