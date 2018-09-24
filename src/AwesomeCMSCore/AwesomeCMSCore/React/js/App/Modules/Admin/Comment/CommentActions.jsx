@@ -14,7 +14,7 @@ const CommentActions = (props) => {
 										className={props.comment.commentStatus == CommentStatus.Approved
 										? 'btn-outline-success-active'
 										: ''}
-										onClick={props.markCommentAsApproved}>
+										onClick={props.toggleApprovedComment}>
 										<i className="fa fa-check"></i>
 										&nbsp;Approved</Button>
 								<Button
@@ -67,7 +67,7 @@ CommentActions.propTypes = {
 		id: PropTypes.string.isRequired,
 		toggleClass: PropTypes.bool,
 		selector: PropTypes.string.isRequired,
-		markCommentAsApproved: PropTypes.func.isRequired
+		toggleApprovedComment: PropTypes.func.isRequired
 }
 
 export default CommentActions

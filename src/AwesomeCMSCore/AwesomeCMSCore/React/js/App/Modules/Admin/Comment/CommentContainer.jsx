@@ -32,7 +32,7 @@ class CommentContainer extends Component {
 				}
 		};
 
-		markCommentAsApproved = (commentStatus, commentId) => {
+		toggleApprovedComment = (commentStatus, commentId) => {
 				let filteredComments;
 				let commentToRemove;
 				let updatedComments;
@@ -59,6 +59,7 @@ class CommentContainer extends Component {
 												.push(commentToRemove);
 										updatedComments.numberOfApprovedComments += 1;
 										updatedComments.numberOfPendingComments -= 1;
+
 										btnSelector = document.getElementById(`allComments-${commentId}`);
 										btnSelector
 												.classList
@@ -88,6 +89,7 @@ class CommentContainer extends Component {
 												.push(commentToRemove);
 										updatedComments.numberOfApprovedComments += 1;
 										updatedComments.numberOfPendingComments -= 1;
+
 										btnSelector = document.getElementById(`allComments-${commentId}`);
 										btnSelector
 												.classList
@@ -111,6 +113,13 @@ class CommentContainer extends Component {
 												.approvedComments
 												.filter(cm => cm.comment.id != commentId);
 
+										updatedComments.numberOfApprovedComments -= 1;
+										updatedComments.numberOfPendingComments += 1;
+										updatedComments.approvedComments = filteredComments;
+										updatedComments
+												.pendingComments
+												.push(commentToRemove);
+
 										btnSelector = document.getElementById(`allComments-${commentId}`);
 										btnSelector
 												.classList
@@ -119,13 +128,6 @@ class CommentContainer extends Component {
 										btnSelector
 												.classList
 												.remove("btn-outline-success-active");
-
-										updatedComments.numberOfApprovedComments -= 1;
-										updatedComments.numberOfPendingComments += 1;
-										updatedComments.approvedComments = filteredComments;
-										updatedComments
-												.pendingComments
-												.push(commentToRemove);
 
 										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Pending}`).then(res => {
 												if (res.status === STATUS_CODE.Success) {
@@ -249,7 +251,7 @@ class CommentContainer extends Component {
 																		<CommentContainerBody
 																				comments={comments}
 																				activeTab={activeTab}
-																				markCommentAsApproved={this.markCommentAsApproved}/>
+																				toggleApprovedComment={this.toggleApprovedComment}/>
 																</div>
 														</ListGroupItem>
 												</ListGroup>
