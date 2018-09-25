@@ -248,10 +248,16 @@ class CommentContainer extends Component {
 										.splice(this.state.comments.allComments.indexOf(commentToRemove), 1);
 
 								updatedComments
+										.approvedComments
+										.splice(this.state.comments.approvedComments.indexOf(commentToRemove), 1);
+
+								updatedComments
 										.spamComments
 										.push(commentToRemove);
 
+								updatedComments.numberOfApprovedComments -= 1;
 								updatedComments.numberOfSpamComments += 1;
+
 								Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Spam}`).then(res => {
 										if (res.status === STATUS_CODE.Success) {
 												toastr.info("Edit comment status success");
@@ -261,14 +267,18 @@ class CommentContainer extends Component {
 														.getElementById(`spamComments-actions-${commentId}`)
 														.getElementsByTagName('button');
 
-												console.log(btnSelector)
-												for (let [index, value] of btnSelector.entries()) {
-														console.log(index);
-														console.log(value);
-														/* 	item
-																.classList
-																.add("spam-actions-hidden");  */
+												for (let i = 0; i < btnSelector.length; i++) {
+														if (i != 0 && i != 2) {
+																btnSelector[i]
+																		.classList
+																		.add("spam-actions-hidden");
+														}
 												}
+
+												btnSelector = document.getElementById(`spamComments-${commentId}`);
+												btnSelector
+														.classList
+														.remove("btn-outline-success-active");
 										}
 								});
 								break;
