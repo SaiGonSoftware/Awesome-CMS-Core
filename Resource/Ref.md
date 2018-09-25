@@ -9,6 +9,7 @@ Autofac
 
 Project setup
 * https://codeburst.io/how-to-use-webpack-in-asp-net-core-projects-a-basic-react-template-sample-25a3681a5fc2
+* https://hackernoon.com/react-with-typescript-and-webpack-654f93f34db6
 
 Webpack
 * https://medium.com/javascript-training/beginner-s-guide-to-webpack-b1f1a3638460
