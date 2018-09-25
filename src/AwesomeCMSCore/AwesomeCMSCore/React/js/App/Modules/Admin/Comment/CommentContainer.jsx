@@ -32,7 +32,7 @@ class CommentContainer extends Component {
 				}
 		};
 
-		markCommentAsApproved = (commentStatus, commentId) => {
+		toggleApprovedComment = (commentStatus, commentId) => {
 				let filteredComments;
 				let commentToRemove;
 				let updatedComments;
@@ -59,6 +59,7 @@ class CommentContainer extends Component {
 												.push(commentToRemove);
 										updatedComments.numberOfApprovedComments += 1;
 										updatedComments.numberOfPendingComments -= 1;
+
 										btnSelector = document.getElementById(`allComments-${commentId}`);
 										btnSelector
 												.classList
@@ -88,6 +89,7 @@ class CommentContainer extends Component {
 												.push(commentToRemove);
 										updatedComments.numberOfApprovedComments += 1;
 										updatedComments.numberOfPendingComments -= 1;
+
 										btnSelector = document.getElementById(`allComments-${commentId}`);
 										btnSelector
 												.classList
@@ -111,6 +113,12 @@ class CommentContainer extends Component {
 												.approvedComments
 												.filter(cm => cm.comment.id != commentId);
 
+										updatedComments.numberOfApprovedComments -= 1;
+										updatedComments.numberOfPendingComments += 1;
+										updatedComments.approvedComments = filteredComments;
+										updatedComments
+												.pendingComments
+												.push(commentToRemove);
 										btnSelector = document.getElementById(`allComments-${commentId}`);
 										btnSelector
 												.classList
@@ -119,13 +127,6 @@ class CommentContainer extends Component {
 										btnSelector
 												.classList
 												.remove("btn-outline-success-active");
-
-										updatedComments.numberOfApprovedComments -= 1;
-										updatedComments.numberOfPendingComments += 1;
-										updatedComments.approvedComments = filteredComments;
-										updatedComments
-												.pendingComments
-												.push(commentToRemove);
 
 										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Pending}`).then(res => {
 												if (res.status === STATUS_CODE.Success) {
@@ -153,10 +154,6 @@ class CommentContainer extends Component {
 												.approvedComments
 												.push(commentToRemove);
 
-										commentToRemove.commentStatus = CommentStatus.Approved;
-										updatedComments
-												.allComments
-												.push(commentToRemove);
 										updatedComments.numberOfSpamComments -= 1;
 										updatedComments.numberOfApprovedComments += 1;
 
@@ -197,10 +194,6 @@ class CommentContainer extends Component {
 												.approvedComments
 												.push(commentToRemove);
 
-										commentToRemove.commentStatus = CommentStatus.Approved;
-										updatedComments
-												.allComments
-												.push(commentToRemove);
 										updatedComments.numberOfDeletedComments -= 1;
 										updatedComments.numberOfApprovedComments += 1;
 
@@ -232,6 +225,68 @@ class CommentContainer extends Component {
 				}
 		};
 
+		toggleSpamComment = (commentStatus, commentId) => {
+				//let filteredComments;
+				let commentToRemove;
+				let updatedComments;
+				let btnSelector;
+
+				updatedComments = {
+						...this.state.comments
+				};
+
+				switch (commentStatus) {
+						case CommentStatus.Approved:
+								commentToRemove = this
+										.state
+										.comments
+										.allComments
+										.find(cm => cm.comment.id == commentId);
+
+								updatedComments
+										.allComments
+										.splice(this.state.comments.allComments.indexOf(commentToRemove), 1);
+
+								updatedComments
+										.approvedComments
+										.splice(this.state.comments.approvedComments.indexOf(commentToRemove), 1);
+
+								updatedComments
+										.spamComments
+										.push(commentToRemove);
+
+								updatedComments.numberOfApprovedComments -= 1;
+								updatedComments.numberOfSpamComments += 1;
+
+								Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Spam}`).then(res => {
+										if (res.status === STATUS_CODE.Success) {
+												toastr.info("Edit comment status success");
+												this.setState({comments: updatedComments});
+
+												btnSelector = document
+														.getElementById(`spamComments-actions-${commentId}`)
+														.getElementsByTagName('button');
+
+												for (let i = 0; i < btnSelector.length; i++) {
+														if (i != 0 && i != 2) {
+																btnSelector[i]
+																		.classList
+																		.add("spam-actions-hidden");
+														}
+												}
+
+												btnSelector = document.getElementById(`spamComments-${commentId}`);
+												btnSelector
+														.classList
+														.remove("btn-outline-success-active");
+										}
+								});
+								break;
+						default:
+								break;
+				}
+		}
+
 		render() {
 				const {comments, activeTab} = this.state;
 
@@ -249,7 +304,8 @@ class CommentContainer extends Component {
 																		<CommentContainerBody
 																				comments={comments}
 																				activeTab={activeTab}
-																				markCommentAsApproved={this.markCommentAsApproved}/>
+																				toggleApprovedComment={this.toggleApprovedComment}
+																				toggleSpamComment={this.toggleSpamComment}/>
 																</div>
 														</ListGroupItem>
 												</ListGroup>

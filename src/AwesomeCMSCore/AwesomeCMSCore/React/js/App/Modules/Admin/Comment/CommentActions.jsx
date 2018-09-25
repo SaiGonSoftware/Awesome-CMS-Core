@@ -14,7 +14,7 @@ const CommentActions = (props) => {
 										className={props.comment.commentStatus == CommentStatus.Approved
 										? 'btn-outline-success-active'
 										: ''}
-										onClick={props.markCommentAsApproved}>
+										onClick={props.toggleApprovedComment}>
 										<i className="fa fa-check"></i>
 										&nbsp;Approved</Button>
 								<Button
@@ -25,7 +25,8 @@ const CommentActions = (props) => {
 										? 'spam-actions-hidden'
 										: '' || props.comment.commentStatus == CommentStatus.Trash
 												? 'trash-actions-hidden'
-												: ''}>
+												: ''}
+										onClick={props.toggleSpamComment}>
 										<i className="fa fa-ban" aria-hidden="true"></i>
 										&nbsp;Spam</Button>
 								<Button
@@ -67,7 +68,8 @@ CommentActions.propTypes = {
 		id: PropTypes.string.isRequired,
 		toggleClass: PropTypes.bool,
 		selector: PropTypes.string.isRequired,
-		markCommentAsApproved: PropTypes.func.isRequired
+		toggleApprovedComment: PropTypes.func.isRequired,
+		toggleSpamComment: PropTypes.func
 }
 
 export default CommentActions
