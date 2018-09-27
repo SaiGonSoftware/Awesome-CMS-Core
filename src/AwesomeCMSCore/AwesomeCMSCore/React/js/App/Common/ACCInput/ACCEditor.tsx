@@ -9,7 +9,7 @@ interface Props {
 	onChange(): void;
 }
 
-const ACCEditor = (props: Props) => {
+const ACCEditor: React.SFC<Props> = props => {
 	return (
 		<Editor
 			apiKey={APP_CONFIG.EDITOR_API_KEY}

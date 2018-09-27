@@ -6,7 +6,7 @@ interface Props {
 	label: string;
 }
 
-const ACCSpan = (props: Props) => {
+const ACCSpan: React.SFC<Props> = props => {
 	return (
 		<span className={`badge ${props.className}`} id={props.id}>
 			{props.label}

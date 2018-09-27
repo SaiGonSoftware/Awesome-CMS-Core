@@ -1,12 +1,12 @@
-export function navigateToUrl(url) {
+export function navigateToUrl(url: Location) {
     window.location = url;
 }
 
-export function isDomExist(domName) {
+export function isDomExist(domName: string) {
     return document.getElementById(domName) !== null;
 }
 
-export function findObjectByKey(array, key, value) {
+export function findObjectByKey(array: any, key: any, value: any): [] {
     for (let i = 0; i < array.length; i++) {
         if (array[i][key] === value) {
             return array[i];

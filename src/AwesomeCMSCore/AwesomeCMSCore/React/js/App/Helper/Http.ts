@@ -116,7 +116,7 @@ export function Delete(url) {
 }
 
 function initAuthHeaders() {
-  const token = getStorage(APP_ENUM.AUTH_TOKEN);
+  const token = getStorage(APP_ENUM.AuthToken);
   if (token != null) {
     return token.access_token;
   }
@@ -127,7 +127,7 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
   const originalRequest = error.config;
   if (error.response.status === STATUS_CODE.NotAuthorize) {
-    const token = getStorage(APP_ENUM.AUTH_TOKEN);
+    const token = getStorage(APP_ENUM.AuthToken);
     const refreshToken = token.refresh_token;
 
     Post(
@@ -145,7 +145,7 @@ axios.interceptors.response.use(function (response) {
         expires_in: res.data.expires_in
       };
 
-      setStorage(APP_ENUM.AUTH_TOKEN, token);
+      setStorage(APP_ENUM.AuthToken, token);
       window.location.reload();
       return axios(originalRequest);
 

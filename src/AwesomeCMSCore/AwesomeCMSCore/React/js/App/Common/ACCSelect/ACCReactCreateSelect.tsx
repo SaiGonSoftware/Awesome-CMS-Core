@@ -1,26 +1,25 @@
 import React from "react";
 import { Creatable } from "react-select";
-import PropTypes from "prop-types";
 
-const ACCReactCreateSelect = props => {
-  const { selectedOptions, value, handleOnChange } = props;
+interface Props {
+	selectedOptions: [];
+	value: [];
+	placeholder: string;
+	handleOnChange(): void;
+}
 
-  return (
-    <Creatable
-      {...selectedOptions}
-      value={value}
-      multi={true}
-      placeholder={props.placeholder}
-      onChange={handleOnChange}
-    />
-  );
-};
+const ACCReactCreateSelect: React.SFC<Props> = props => {
+	const { selectedOptions, value, handleOnChange } = props;
 
-ACCReactCreateSelect.propTypes = {
-  handleOnChange: PropTypes.func.isRequired,
-  selectedOptions: PropTypes.arrayOf(PropTypes.object),
-  value: PropTypes.arrayOf(PropTypes.object),
-  placeholder: PropTypes.string
+	return (
+		<Creatable
+			{...selectedOptions}
+			value={value}
+			multi={true}
+			placeholder={props.placeholder}
+			onChange={handleOnChange}
+		/>
+	);
 };
 
 export default ACCReactCreateSelect;

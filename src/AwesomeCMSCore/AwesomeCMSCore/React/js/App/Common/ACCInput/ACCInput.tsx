@@ -14,7 +14,7 @@ interface Props {
 	onBlur(): void;
 }
 
-const ACCInput = (props: Props) => {
+const ACCInput: React.SFC<Props> = props => {
 	const className = "form-control";
 	const classNameError = "form-control is-invalid";
 

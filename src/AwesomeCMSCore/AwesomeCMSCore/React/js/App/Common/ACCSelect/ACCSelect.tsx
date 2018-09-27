@@ -1,20 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const ACCSelect = props => {
-  return (
-    <select className="custom-select">
-      {props.value.map(option => {
-        <option value={option} key={option}>
-          {option}
-        </option>;
-      })}
-    </select>
-  );
-};
+interface Props {
+	value: [];
+}
 
-ACCSelect.propTypes = {
-  value: PropTypes.array.isRequired
+const ACCSelect: React.SFC<Props> = props => {
+	return (
+		<select className="custom-select">
+			{props.value.map(option => {
+				<option value={option} key={option}>
+					{option}
+				</option>;
+			})}
+		</select>
+	);
 };
 
 export default ACCSelect;

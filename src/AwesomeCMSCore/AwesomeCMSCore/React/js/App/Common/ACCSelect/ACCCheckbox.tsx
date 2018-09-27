@@ -6,7 +6,7 @@ interface Props {
 	label: string;
 	onChange(): void;
 }
-const ACCCheckbox = (props: Props) => {
+const ACCCheckbox: React.SFC<Props> = props => {
 	return (
 		<div className="form-group custom-checkbox">
 			<div className="custom-control custom-checkbox">

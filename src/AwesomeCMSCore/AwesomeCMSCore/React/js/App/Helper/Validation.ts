@@ -1,8 +1,8 @@
-export function shouldMarkError(field, errors) {
+export function shouldMarkError(field: any, errors: any) {
   return errors[field] && this.state.touched[field];
 }
 
-export function validateInput(validationArr) {
+export function validateInput(validationArr: []) {
   let validateData = [];
   // true means invalid, so our conditions got reversed
   for (let i = 0; i < validationArr.length; i++) {
@@ -16,17 +16,17 @@ export function validateInput(validationArr) {
   return validateObject;
 }
 
-export function isFormValid(validationArr) {
+export function isFormValid(validationArr: []) {
   const errors = validateInput(validationArr);
   const isFormValid = Object.keys(errors).some(x => errors[x]);
 
   return !isFormValid;
 }
 
-export function isEmptyArray(array) {
+export function isEmptyArray(array: []) {
   return typeof array !== 'undefined' && array.length > 0;
 }
 
-export function isEmptyString(value) {
+export function isEmptyString(value: string) {
   return (value == null || value === '');
 }

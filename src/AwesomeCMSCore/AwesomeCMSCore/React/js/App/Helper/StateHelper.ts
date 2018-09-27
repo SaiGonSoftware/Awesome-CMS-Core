@@ -1,21 +1,21 @@
-export function onChange(e) {
-  this.setState({
-    [e.target.name]: e.target.value
-  });
+export function onChange(e: { target: { name: any; value: any; }; }) {
+	this.setState({
+		[e.target.name]: e.target.value
+	});
 }
 
-export function handleOnChange(value) {
-  this.setState({ value });
+export function handleOnChange(value: any) {
+	this.setState({ value });
 }
 
-export function onBlur(e) {
-  this.setState({
-    touched: { ...this.state.touched, [e.target.name]: true }
-  });
+export function onBlur(e: any) {
+	this.setState({
+		touched: { ...this.state.touched, [e.target.name]: true }
+	});
 }
 
-export function onCheck(e) {
-  this.setState({
-    [e.target.name]: e.target.checked
-  });
+export function onCheck(e: any) {
+	this.setState({
+		[e.target.name]: e.target.checked
+	});
 }

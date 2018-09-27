@@ -13,7 +13,7 @@ interface Props {
 	onClick(): void;
 }
 
-const ACCButton = (props: Props) => {
+const ACCButton: React.SFC<Props> = props => {
 	let isDisabled;
 	if (props.validationArr) {
 		const errors = validateInput(props.validationArr);

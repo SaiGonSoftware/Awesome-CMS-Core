@@ -7,7 +7,7 @@ interface Props {
 	selectedOptions: [];
 	onChange(): void;
 }
-const ACCCheckboxOrRadioGroup = (props: Props) => {
+const ACCCheckboxOrRadioGroup: React.SFC<Props> = props => {
 	return (
 		<div>
 			<div className="checkbox-group">
