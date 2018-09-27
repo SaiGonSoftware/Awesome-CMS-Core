@@ -1,16 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const ACCSpan = props => {
-  return (
-    <span className={`badge ${props.className}`} id={props.id}>{props.label}</span>
-  );
-};
+interface Props {
+	className: string;
+	id: string;
+	label: string;
+}
 
-ACCSpan.propTypes = {
-  className: PropTypes.string,
-  id: PropTypes.string,
-  label: PropTypes.string
+const ACCSpan = (props: Props) => {
+	return (
+		<span className={`badge ${props.className}`} id={props.id}>
+			{props.label}
+		</span>
+	);
 };
 
 export default ACCSpan;

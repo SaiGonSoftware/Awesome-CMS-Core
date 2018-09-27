@@ -1,47 +1,45 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-import {validateInput} from "../../Helper/Validation";
+import { validateInput } from "../../Helper/Validation";
 
 import Spinner from "../ACCAnimation/Spinner";
 
-const ACCButton = props => {
-  let isDisabled;
-  if (props.validationArr) {
-    const errors = validateInput(props.validationArr);
-    isDisabled = props.disabled
-      ? true
-      : Object
-        .keys(errors)
-        .some(x => errors[x]);
-  }
+interface Props {
+	validationArr: [];
+	disabled: boolean;
+	btnBlocked: string;
+	loading: boolean;
+	label: string;
+	onClick(): void;
+}
 
-  const className = props.btnBlocked
-    ? "btn btn-primary btn-block"
-    : "btn btn-primary";
+const ACCButton = (props: Props) => {
+	let isDisabled;
+	if (props.validationArr) {
+		const errors = validateInput(props.validationArr);
+		isDisabled = props.disabled
+			? true
+			: Object.keys(errors).some(x => errors[x]);
+	}
 
-  if (props.loading) {
-    return <Spinner/>;
-  } else {
-    return (
-      <button
-        className={className}
-        type="submit"
-        disabled={isDisabled || props.disabled}
-        onClick={props.onClick}>
-        {props.label}
-      </button>
-    );
-  }
-};
+	const className = props.btnBlocked
+		? "btn btn-primary btn-block"
+		: "btn btn-primary";
 
-ACCButton.propTypes = {
-  loading: PropTypes.bool,
-  label: PropTypes.string,
-  validationArr: PropTypes.array,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func,
-  btnBlocked: PropTypes.string
+	if (props.loading) {
+		return <Spinner />;
+	} else {
+		return (
+			<button
+				className={className}
+				type="submit"
+				disabled={isDisabled || props.disabled}
+				onClick={props.onClick}
+			>
+				{props.label}
+			</button>
+		);
+	}
 };
 
 export default ACCButton;
