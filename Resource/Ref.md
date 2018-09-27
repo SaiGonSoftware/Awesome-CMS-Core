@@ -55,6 +55,7 @@ React
 * https://lorenstewart.me/2016/10/31/react-js-forms-controlled-components/
 * https://www.sitepoint.com/get-url-parameters-with-javascript/
 * https://medium.com/@ethan_ikt/react-stateless-functional-component-with-typescript-ce5043466011
+* https://levelup.gitconnected.com/ultimate-react-component-patterns-with-typescript-2-8-82990c516935
 
 ASP.Net
 * https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?tabs=aspnetcore2x
