@@ -82,7 +82,7 @@ class LoginForm extends Component {
       };
 
       setStorage(APP_ENUM.AUTH_TOKEN, token);
-      navigateToUrl(PORTAL_ENDPOINT);
+      window.location.href = PORTAL_ENDPOINT;
     });
   }
 
