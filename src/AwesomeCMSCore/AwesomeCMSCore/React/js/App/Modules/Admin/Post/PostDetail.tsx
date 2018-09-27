@@ -1,23 +1,21 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 import { Container, Row, Col, Button, Card, CardTitle } from "reactstrap";
 import toastr from "toastr";
 import PropTypes from "prop-types";
-
-import { Get, PostWithSpinner } from "Helper/Http";
-import { STATUS_CODE, POST_STATUS } from "Helper/AppEnum";
+import { STATUS_CODE } from "Helper/AppEnum";
 import { SAVE_POST_API } from "Helper/API_Endpoint/PostEndpoint";
-import { isDomExist } from "Helper/Util";
+import { PostWithSpinner } from "Helper/Http";
 import { onChange, onBlur } from "Helper/StateHelper";
+import { POST_API } from "Helper/API_Endpoint/PostEndpoint";
 import { POST_OPTIONS_API } from "Helper/API_Endpoint/PostOptionEndpoint";
+import { Get } from "Helper/Http";
 
-import ACCEditor from "Common/ACCInput/ACCEditor.jsx";
-import ACCButton from "Common/ACCButton/ACCButton.jsx";
-import ACCInput from "Common/ACCInput/ACCInput.jsx";
-import ACCReactSelect from "Common/ACCSelect/ACCReactSelect.jsx";
-import Spinner from "Common/ACCAnimation/Spinner.jsx";
+import ACCEditor from "Common/ACCInput/ACCEditor.tsx";
+import ACCButton from "Common/ACCButton/ACCButton.tsx";
+import ACCInput from "Common/ACCInput/ACCInput.tsx";
+import ACCReactSelect from "Common/ACCSelect/ACCReactSelect.tsx";
 
-class NewPost extends Component {
+class PostDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +26,11 @@ class NewPost extends Component {
       tagOptions: [],
       categoriesOptions: [],
       categoriesValue: [],
-      loading: false
+      loading: false,
+      postId: "",
+      categoryId: null,
+      tagId: null,
+      post: null
     };
   }
 
@@ -43,33 +45,92 @@ class NewPost extends Component {
           : []
       });
     });
+
+    const url = `${POST_API}/${this.props.postId}`;
+    Get(url).then(res => {
+      this.setState({
+        post: res.data,
+        tagValue: res.data.postOptionsDefaultViewModel.tagViewModel
+          ? JSON.parse(res.data.postOptionsDefaultViewModel.tagViewModel.value)
+          : [],
+        tagId: res.data.postOptionsDefaultViewModel.tagViewModel
+          ? res.data.postOptionsDefaultViewModel.tagViewModel.id
+          : null,
+        categoriesValue: res.data.postOptionsDefaultViewModel
+          .categoriesViewModel
+          ? JSON.parse(
+              res.data.postOptionsDefaultViewModel.categoriesViewModel.value
+            )
+          : [],
+        categoryId: res.data.postOptionsDefaultViewModel.categoriesViewModel
+          ? res.data.postOptionsDefaultViewModel.categoriesViewModel.id
+          : null,
+        title: res.data.title,
+        shortDescription: res.data.shortDescription,
+        postContent: res.data.content
+      });
+    });
   }
 
-  newPost = (e, postStatus) => {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.postId !== nextProps.postId) {
+      const url = `${POST_API}/${nextProps.postId}`;
+      Get(url).then(res => {
+        this.setState({
+          post: res.data,
+          tagValue: res.data.postOptionsDefaultViewModel.tagViewModel
+            ? JSON.parse(
+                res.data.postOptionsDefaultViewModel.tagViewModel.value
+              )
+            : null,
+          tagId: res.data.postOptionsDefaultViewModel.tagViewModel
+            ? res.data.postOptionsDefaultViewModel.tagViewModel.id
+            : null,
+          categoriesValue: res.data.postOptionsDefaultViewModel
+            .categoriesViewModel
+            ? JSON.parse(
+                res.data.postOptionsDefaultViewModel.categoriesViewModel.value
+              )
+            : null,
+          categoryId: res.data.postOptionsDefaultViewModel.categoriesViewModel
+            ? res.data.postOptionsDefaultViewModel.categoriesViewModel.id
+            : null,
+          title: res.data.title,
+          shortDescription: res.data.shortDescription,
+          postContent: res.data.content
+        });
+      });
+    }
+  }
+
+  editPost = e => {
     e.preventDefault();
 
     const postOptionsDefaultViewModel = {
       tagViewModel: {
+        id: this.state.tagId,
         key: JSON.stringify(this.state.tagValue.map(x => x.value)),
         value: JSON.stringify(this.state.tagValue)
       },
       categoriesViewModel: {
+        id: this.state.categoryId,
         key: JSON.stringify(this.state.categoriesValue.map(x => x.value)),
         value: JSON.stringify(this.state.categoriesValue)
       }
     };
 
     const viewModel = {
+      Id: this.state.post.id,
       Title: this.state.title,
       ShortDescription: this.state.shortDescription,
       Content: this.state.postContent,
       PostOptionsDefaultViewModel: postOptionsDefaultViewModel,
-      PostStatus: postStatus
+      PostStatus: this.state.post.postStatus
     };
 
     PostWithSpinner.call(this, SAVE_POST_API, viewModel).then(res => {
       if (res.status === STATUS_CODE.Success)
-        return toastr.success("Create new post success");
+        return toastr.success("Edit post success");
     });
   };
 
@@ -87,22 +148,27 @@ class NewPost extends Component {
     this.setState({ categoriesValue });
   };
 
+  onNavigateBack = () => {
+    this.props.onNavigateBack();
+  };
+
   render() {
     const {
       shortDescription,
       title,
-      disabled,
       loading,
       tagValue,
       tagOptions,
       categoriesOptions,
-      categoriesValue
+      categoriesValue,
+      postContent,
+      post
     } = this.state;
 
-    return (
-      <Container>
+    return post && postContent ? (
+      <Container className={this.props.visible ? "visiblity" : "hidden"}>
         <div id="postContainer">
-          <form>
+          <form onSubmit={this.editPost}>
             <Row>
               <Col md="9">
                 <Row>
@@ -139,10 +205,21 @@ class NewPost extends Component {
                 </Row>
                 <Row>
                   <Col md="12">
-                    <ACCEditor onChange={this.handleEditorChange} />
+                    <ACCEditor
+                      onChange={this.handleEditorChange}
+                      value={postContent}
+                    />
                   </Col>
                 </Row>
-                <Row className="postFooter" />
+                <Row className="postFooter">
+                  <Col md="12">
+                    <ACCButton
+                      loading={loading}
+                      btnBlocked="btn-block"
+                      label="Save Post"
+                    />
+                  </Col>
+                </Row>
               </Col>
               <Col md="3">
                 <Card body>
@@ -161,41 +238,21 @@ class NewPost extends Component {
                     handleOnChange={value => this.handleOnCatChange(value)}
                   />
                   <br />
-                  <Button onClick={() => window.history.go(-1)}>Back</Button>
-                  <br />{" "}
-                  {!loading ? (
-                    <div>
-                      <ACCButton
-                        disabled={disabled}
-                        label="Save as Drafted"
-                        btnBlocked="btn-block"
-                        onClick={e => this.newPost(e, POST_STATUS.Draft)}
-                      />
-                      <br />
-                      <ACCButton
-                        disabled={disabled}
-                        label="Published Post"
-                        btnBlocked="btn-block"
-                        onClick={e => this.newPost(e, POST_STATUS.Published)}
-                      />
-                    </div>
-                  ) : (
-                    <Spinner />
-                  )}
+                  <Button onClick={this.onNavigateBack}>Back</Button>
                 </Card>
               </Col>
             </Row>
           </form>
         </div>
       </Container>
-    );
+    ) : null;
   }
 }
 
-NewPost.propTypes = {
-  visible: PropTypes.bool
+PostDetail.propTypes = {
+  visible: PropTypes.bool.isRequired,
+  onNavigateBack: PropTypes.func.isRequired,
+  postId: PropTypes.number.isRequired
 };
 
-if (isDomExist("newPostContent")) {
-  render(<NewPost />, document.getElementById("newPostContent"));
-}
+export default PostDetail;

@@ -6,8 +6,8 @@ import {Get, PutWithSpinner} from "Helper/Http";
 import {ROLE_API, USER_ROLES_EDIT_API} from 'Helper/API_Endpoint/RoleEndpoint';
 import {STATUS_CODE} from 'Helper/AppEnum';
 
-import Spinner from "Common/ACCAnimation/Spinner.jsx";
-import ACCCheckboxOrRadioGroup from 'Common/ACCSelect/ACCCheckboxOrRadioGroup.jsx';
+import Spinner from "Common/ACCAnimation/Spinner.tsx";
+import ACCCheckboxOrRadioGroup from 'Common/ACCSelect/ACCCheckboxOrRadioGroup.tsx';
 
 class EditUserRolesModal extends Component {
 		constructor(props) {

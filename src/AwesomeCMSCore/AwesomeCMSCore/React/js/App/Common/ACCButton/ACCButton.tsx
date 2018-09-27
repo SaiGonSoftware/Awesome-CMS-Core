@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import {validateInput} from "../../Helper/Validation";
 
-import Spinner from "../ACCAnimation/Spinner.jsx";
+import Spinner from "../ACCAnimation/Spinner";
 
 const ACCButton = props => {
   let isDisabled;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Row, Col, ListGroupItem, TabContent, TabPane} from 'reactstrap';
 import moment from 'moment/src/moment';
 import {CommentStatus} from "Helper/AppEnum";
-import CommentActions from './CommentActions.jsx';
+import CommentActions from './CommentActions';
 
 const CommentContainerBody = (props) => {
 		return (

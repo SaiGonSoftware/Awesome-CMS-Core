@@ -12,9 +12,9 @@ import {shouldMarkError, validateInput, isFormValid} from "Helper/Validation";
 import {TOKEN_ENDPOINT, ACCOUNT_LOGIN_API} from 'Helper/API_Endpoint/AccountEndpoint';
 import {PORTAL_ENDPOINT} from 'Helper/API_Endpoint/PortalEndpoint';
 
-import ACCInput from "Common/ACCInput/ACCInput.jsx";
-import ACCCheckbox from "Common/ACCSelect/ACCCheckbox.jsx";
-import ACCButton from "Common/ACCButton/ACCButton.jsx";
+import ACCInput from "Common/ACCInput/ACCInput.tsx";
+import ACCCheckbox from "Common/ACCSelect/ACCCheckbox.tsx";
+import ACCButton from "Common/ACCButton/ACCButton.tsx";
 
 class LoginForm extends Component {
   constructor(props) {

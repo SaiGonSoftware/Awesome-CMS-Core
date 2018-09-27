@@ -10,8 +10,8 @@ import {PostWithSpinner} from "Helper/Http";
 import {STATUS_CODE} from "Helper/AppEnum";
 import {LOGIN_ENDPOINT, RESET_PASSWORD_API} from "Helper/API_Endpoint/AccountEndpoint";
 
-import ACCInput from "Common/ACCInput/ACCInput.jsx";
-import ACCButton from "Common/ACCButton/ACCButton.jsx";
+import ACCInput from "Common/ACCInput/ACCInput.tsx";
+import ACCButton from "Common/ACCButton/ACCButton.tsx";
 
 class ResetPassword extends Component {
 		constructor(props) {

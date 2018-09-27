@@ -8,9 +8,9 @@ import {Get, Post} from "Helper/Http";
 import {USER_API, TOGGLE_ACCOUNT_STATUS_API} from "Helper/API_Endpoint/AccountEndpoint";
 import {findObjectByKey} from 'Helper/Util';
 
-import AddUserModal from "./Manage/AddUserModal.jsx";
-import EditUserRolesModal from "./Manage/EditUserRolesModal.jsx";
-import ManageRolesModal from './Manage/ManageRolesModal.jsx';
+import AddUserModal from "./Manage/AddUserModal";
+import EditUserRolesModal from "./Manage/EditUserRolesModal";
+import ManageRolesModal from './Manage/ManageRolesModal';
 
 class AccountTable extends Component {
 		constructor(props) {

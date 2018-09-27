@@ -18,9 +18,9 @@ import {isDomExist, navigateToUrl} from "Helper/Util";
 import {isEmptyString} from 'Helper/Validation';
 import {POST_API} from 'Helper/API_Endpoint/PostEndpoint';
 
-import PostDetail from 'Modules/Admin/Post/PostDetail.jsx';
-import PostContainerHeader from './PostContainerHeader.jsx';
-import PostContainerDetail from './PostContainerDetail.jsx';
+import PostDetail from 'Modules/Admin/Post/PostDetail.tsx';
+import PostContainerHeader from './PostContainerHeader';
+import PostContainerDetail from './PostContainerDetail';
 
 class PostContainer extends Component {
 		constructor(props) {

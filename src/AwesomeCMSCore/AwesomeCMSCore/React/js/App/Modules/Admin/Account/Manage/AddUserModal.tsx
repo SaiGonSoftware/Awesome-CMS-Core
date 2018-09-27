@@ -10,9 +10,9 @@ import {ACCOUNT_DUPLICATE_API, USER_API} from 'Helper/API_Endpoint/AccountEndpoi
 import {isFormValid} from "Helper/Validation";
 import {STATUS_CODE} from 'Helper/AppEnum';
 
-import ACCInput from "Common/ACCInput/ACCInput.jsx";
-import ACCMultiCheckbox from "Common/ACCSelect/ACCMultiCheckbox.jsx";
-import Spinner from "Common/ACCAnimation/Spinner.jsx";
+import ACCInput from "Common/ACCInput/ACCInput.tsx";
+import ACCMultiCheckbox from "Common/ACCSelect/ACCMultiCheckbox.tsx";
+import Spinner from "Common/ACCAnimation/Spinner.tsx";
 
 class AddUserModal extends Component {
   constructor(props) {

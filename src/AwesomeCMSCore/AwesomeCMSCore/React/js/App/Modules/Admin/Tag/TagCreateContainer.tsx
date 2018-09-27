@@ -8,8 +8,8 @@ import {isDomExist} from "Helper/Util";
 import {STATUS_CODE} from "Helper/AppEnum";
 import {TAG_API} from 'Helper/API_Endpoint/PostOptionEndpoint';
 
-import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect.jsx";
-import Spinner from "Common/ACCAnimation/Spinner.jsx";
+import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect.tsx";
+import Spinner from "Common/ACCAnimation/Spinner.tsx";
 
 class TagCreateContainer extends Component {
 		constructor(props) {

@@ -7,8 +7,8 @@ import {COMMENTS_ENDPOINT} from "Helper/API_Endpoint/CommentEndpoint";
 import {CommentStatus, STATUS_CODE} from "Helper/AppEnum";
 import toastr from "toastr";
 
-import CommentContainerHeader from "./CommentContainerHeader.jsx";
-import CommentContainerBody from "./CommentContainerBody.jsx";
+import CommentContainerHeader from "./CommentContainerHeader";
+import CommentContainerBody from "./CommentContainerBody";
 
 class CommentContainer extends Component {
 		constructor(props) {
