@@ -1,18 +1,19 @@
 import React from "react";
 
-interface Props {
+interface IProps {
 	type: string;
 	name: string;
 	options: [];
 	selectedOptions: [];
 	onChange(): void;
 }
-const ACCCheckboxOrRadioGroup: React.SFC<Props> = props => {
+
+const ACCCheckboxOrRadioGroup: React.SFC<IProps> = props => {
 	return (
 		<div>
 			<div className="checkbox-group">
 				{props.options.map((option, index) => {
-					const styleClass =
+					const styleClass: string =
 						index % 2 === 0
 							? `form-group custom-${props.type} card-split alignleft`
 							: `form-group custom--${props.type} card-split alignright`;

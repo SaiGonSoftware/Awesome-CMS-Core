@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-interface Props {
+interface IProps {
 	id: string;
 	name: string;
 	handleCheckboxChange(input: string): boolean;
@@ -9,15 +9,15 @@ interface Props {
 	checked: boolean;
 }
 
-interface StateType {
+interface IStateType {
 	isChecked: boolean;
 }
 
-interface State {
+interface IState {
 	isChecked: false;
 }
 
-class ACCMultiCheckbox extends Component<Props, StateType, State> {
+class ACCMultiCheckbox extends Component<IProps, IStateType, IState> {
 	toggleCheckboxChange = () => {
 		const { handleCheckboxChange, label } = this.props;
 
@@ -26,13 +26,13 @@ class ACCMultiCheckbox extends Component<Props, StateType, State> {
 		}));
 
 		handleCheckboxChange(label);
-	};
+	}
 
-	render() {
+	render(): JSX.Element {
 		const { isChecked } = this.state;
 		const { label, id, name, checked } = this.props;
-		const checkedVal = checked ? checked : isChecked;
-		const styleClass =
+		const checkedVal: boolean = checked ? checked : isChecked;
+		const styleClass: string =
 			this.props.index % 2 === 0
 				? "form-group custom-checkbox card-split alignleft"
 				: "form-group custom-checkbox card-split alignright";

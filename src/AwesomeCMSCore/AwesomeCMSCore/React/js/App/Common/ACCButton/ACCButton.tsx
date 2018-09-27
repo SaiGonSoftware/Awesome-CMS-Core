@@ -4,7 +4,7 @@ import { validateInput } from "../../Helper/Validation";
 
 import Spinner from "../ACCAnimation/Spinner";
 
-interface Props {
+interface IProps {
 	validationArr: [];
 	disabled: boolean;
 	btnBlocked: string;
@@ -13,16 +13,16 @@ interface Props {
 	onClick(): void;
 }
 
-const ACCButton: React.SFC<Props> = props => {
-	let isDisabled;
+const ACCButton: React.SFC<IProps> = props => {
+	let isDisabled: boolean;
 	if (props.validationArr) {
-		const errors = validateInput(props.validationArr);
+		const errors: [] = validateInput(props.validationArr);
 		isDisabled = props.disabled
 			? true
 			: Object.keys(errors).some(x => errors[x]);
 	}
 
-	const className = props.btnBlocked
+	const className: string = props.btnBlocked
 		? "btn btn-primary btn-block"
 		: "btn btn-primary";
 

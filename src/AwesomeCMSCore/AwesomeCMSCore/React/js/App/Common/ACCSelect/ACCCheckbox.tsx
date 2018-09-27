@@ -1,12 +1,13 @@
 import React from "react";
 
-interface Props {
+interface IProps {
 	id: string;
 	name: string;
 	label: string;
 	onChange(): void;
 }
-const ACCCheckbox: React.SFC<Props> = props => {
+
+const ACCCheckbox: React.SFC<IProps> = props => {
 	return (
 		<div className="form-group custom-checkbox">
 			<div className="custom-control custom-checkbox">

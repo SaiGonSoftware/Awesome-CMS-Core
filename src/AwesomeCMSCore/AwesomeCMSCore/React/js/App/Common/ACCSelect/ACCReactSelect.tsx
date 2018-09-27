@@ -1,14 +1,14 @@
 import React from "react";
 import Select from "react-select";
 
-interface Props {
+interface IProps {
 	handleOnChange(): void;
 	options: [];
 	value: [];
 	placeholder: string;
 }
 
-const ACCReactSelect: React.SFC<Props> = props => {
+const ACCReactSelect: React.SFC<IProps> = props => {
 	const { options, value, handleOnChange } = props;
 
 	return (

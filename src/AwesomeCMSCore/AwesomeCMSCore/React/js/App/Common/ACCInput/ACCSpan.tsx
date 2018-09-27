@@ -1,12 +1,12 @@
 import React from "react";
 
-interface Props {
+interface IProps {
 	className: string;
 	id: string;
 	label: string;
 }
 
-const ACCSpan: React.SFC<Props> = props => {
+const ACCSpan: React.SFC<IProps> = props => {
 	return (
 		<span className={`badge ${props.className}`} id={props.id}>
 			{props.label}

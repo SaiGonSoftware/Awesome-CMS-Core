@@ -2,14 +2,14 @@ import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { APP_CONFIG } from "../../Helper/Config";
 
-interface Props {
+interface IProps {
 	value: string;
 	loading: boolean;
 	label: string;
 	onChange(): void;
 }
 
-const ACCEditor: React.SFC<Props> = props => {
+const ACCEditor: React.SFC<IProps> = props => {
 	return (
 		<Editor
 			apiKey={APP_CONFIG.EDITOR_API_KEY}

@@ -1,6 +1,6 @@
 import React from "react";
 
-interface Props {
+interface IProps {
 	name: string;
 	className: string;
 	id: string;
@@ -14,9 +14,9 @@ interface Props {
 	onBlur(): void;
 }
 
-const ACCInput: React.SFC<Props> = props => {
-	const className = "form-control";
-	const classNameError = "form-control is-invalid";
+const ACCInput: React.SFC<IProps> = props => {
+	const className: string = "form-control";
+	const classNameError: string = "form-control is-invalid";
 
 	return (
 		<div className="form-group">
