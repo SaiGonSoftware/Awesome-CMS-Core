@@ -4,7 +4,7 @@ import {Row, Col, ListGroup, ListGroupItem} from "reactstrap";
 import {Get, Put} from "Helper/Http";
 import {isDomExist} from "Helper/Util";
 import {COMMENTS_ENDPOINT} from "Helper/API_Endpoint/CommentEndpoint";
-import {CommentStatus, STATUS_CODE} from "Helper/AppEnum";
+import {CommentStatus, StatusCode} from "Helper/AppEnum";
 import toastr from "toastr";
 
 import CommentContainerHeader from "./CommentContainerHeader";
@@ -66,7 +66,7 @@ class CommentContainer extends Component {
 												.add("btn-outline-success-active");
 
 										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Approved}`).then(res => {
-												if (res.status === STATUS_CODE.Success) {
+												if (res.status === StatusCode.Success) {
 														toastr.info("Edit comment status success");
 														this.setState({comments: updatedComments});
 												}
@@ -96,7 +96,7 @@ class CommentContainer extends Component {
 												.add("btn-outline-success-active");
 
 										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Approved}`).then(res => {
-												if (res.status === STATUS_CODE.Success) {
+												if (res.status === StatusCode.Success) {
 														toastr.info("Edit comment status success");
 														this.setState({comments: updatedComments});
 												}
@@ -129,7 +129,7 @@ class CommentContainer extends Component {
 												.remove("btn-outline-success-active");
 
 										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Pending}`).then(res => {
-												if (res.status === STATUS_CODE.Success) {
+												if (res.status === StatusCode.Success) {
 														toastr.info("Edit comment status success");
 														this.setState({comments: updatedComments});
 														btnSelector = document.getElementById(`pendingComments-${commentId}`);
@@ -158,7 +158,7 @@ class CommentContainer extends Component {
 										updatedComments.numberOfApprovedComments += 1;
 
 										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Approved}`).then(res => {
-												if (res.status === STATUS_CODE.Success) {
+												if (res.status === StatusCode.Success) {
 														toastr.info("Edit comment status success");
 														this.setState({comments: updatedComments});
 
@@ -198,7 +198,7 @@ class CommentContainer extends Component {
 										updatedComments.numberOfApprovedComments += 1;
 
 										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Approved}`).then(res => {
-												if (res.status === STATUS_CODE.Success) {
+												if (res.status === StatusCode.Success) {
 														toastr.info("Edit comment status success");
 														this.setState({comments: updatedComments});
 
@@ -259,7 +259,7 @@ class CommentContainer extends Component {
 								updatedComments.numberOfSpamComments += 1;
 
 								Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${CommentStatus.Spam}`).then(res => {
-										if (res.status === STATUS_CODE.Success) {
+										if (res.status === StatusCode.Success) {
 												toastr.info("Edit comment status success");
 												this.setState({comments: updatedComments});
 

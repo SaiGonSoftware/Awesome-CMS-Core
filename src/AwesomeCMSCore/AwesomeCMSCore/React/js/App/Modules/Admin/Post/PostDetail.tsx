@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Button, Card, CardTitle } from "reactstrap";
 import toastr from "toastr";
 import PropTypes from "prop-types";
-import { STATUS_CODE } from "Helper/AppEnum";
+import { StatusCode } from "Helper/AppEnum";
 import { SAVE_POST_API } from "Helper/API_Endpoint/PostEndpoint";
 import { PostWithSpinner } from "Helper/Http";
 import { onChange, onBlur } from "Helper/StateHelper";
@@ -129,7 +129,7 @@ class PostDetail extends Component {
     };
 
     PostWithSpinner.call(this, SAVE_POST_API, viewModel).then(res => {
-      if (res.status === STATUS_CODE.Success)
+      if (res.status === StatusCode.Success)
         return toastr.success("Edit post success");
     });
   };

@@ -1,17 +1,17 @@
-import axios from "axios";
-import qs from 'qs';
+import axios, { AxiosPromise } from "axios";
+import qs from "qs";
 
 import {
   APP_ENUM,
-  STATUS_CODE
+  StatusCode
 } from "./AppEnum";
 import {
   getStorage,
   setStorage
 } from "./StorageHelper";
-import { TOKEN_ENDPOINT } from './API_Endpoint/AccountEndpoint';
+import { TOKEN_ENDPOINT } from "./API_Endpoint/AccountEndpoint";
 
-export function Get(url) {
+export function Get(url: string): AxiosPromise<any> {
   const authHeader = initAuthHeaders();
   const config = {
     headers: {
@@ -115,18 +115,20 @@ export function Delete(url) {
   return axios.delete(url, config);
 }
 
-function initAuthHeaders() {
+function initAuthHeaders(): string {
   const token = getStorage(APP_ENUM.AuthToken);
   if (token != null) {
     return token.access_token;
-  }
+	}
+	
+	return 
 }
 
 axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
   const originalRequest = error.config;
-  if (error.response.status === STATUS_CODE.NotAuthorize) {
+  if (error.response.status === StatusCode.NotAuthorize) {
     const token = getStorage(APP_ENUM.AuthToken);
     const refreshToken = token.refresh_token;
 

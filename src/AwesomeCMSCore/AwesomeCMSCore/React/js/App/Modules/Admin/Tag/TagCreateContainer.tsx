@@ -5,7 +5,7 @@ import toastr from "toastr";
 import {handleOnChange} from "Helper/StateHelper";
 import {Get, PostWithSpinner} from "Helper/Http";
 import {isDomExist} from "Helper/Util";
-import {STATUS_CODE} from "Helper/AppEnum";
+import {StatusCode} from "Helper/AppEnum";
 import {TAG_API} from 'Helper/API_Endpoint/PostOptionEndpoint';
 
 import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect.tsx";
@@ -48,7 +48,7 @@ class TagCreateContainer extends Component {
 				PostWithSpinner
 						.call(this, TAG_API, tagVm)
 						.then(res => {
-								if (res.status === STATUS_CODE.Success) 
+								if (res.status === StatusCode.Success) 
 										toastr.success("Create success");
 								}
 						)

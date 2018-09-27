@@ -13,7 +13,7 @@ import {
 import toastr from "toastr";
 
 import {Get, Delete, Put} from 'Helper/Http';
-import {STATUS_CODE, POST_STATUS} from "Helper/AppEnum";
+import {StatusCode, PostStatus} from "Helper/AppEnum";
 import {isDomExist, navigateToUrl} from "Helper/Util";
 import {isEmptyString} from 'Helper/Validation';
 import {POST_API} from 'Helper/API_Endpoint/PostEndpoint';
@@ -57,7 +57,7 @@ class PostContainer extends Component {
 		}
 
 		deletePost = (postStatus, postId) => {
-				if (postStatus === POST_STATUS.Published) {
+				if (postStatus === PostStatus.Published) {
 						const post = this
 								.state
 								.posts
@@ -107,7 +107,7 @@ class PostContainer extends Component {
 				const url = `${POST_API}/${postId}`;
 
 				Delete(url).then(res => {
-						if (res.status === STATUS_CODE.Success) {
+						if (res.status === StatusCode.Success) {
 								toastr.success('Delete post success');
 						} else {
 								toastr.error('Something went wrong. Please try again later');

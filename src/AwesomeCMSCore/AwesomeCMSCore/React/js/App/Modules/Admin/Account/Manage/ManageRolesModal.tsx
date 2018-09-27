@@ -4,7 +4,7 @@ import toastr from "toastr";
 
 import {handleOnChange} from "Helper/StateHelper";
 import {Get, PostWithSpinner} from "Helper/Http";
-import {STATUS_CODE} from 'Helper/AppEnum';
+import {StatusCode} from 'Helper/AppEnum';
 
 import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect.tsx";
 import Spinner from "Common/ACCAnimation/Spinner.tsx";
@@ -47,7 +47,7 @@ class ManageRolesModal extends Component {
 				PostWithSpinner
 						.call(this, ROLE_MANAGE_API, {selectOptionViewModels: this.state.value})
 						.then(res => {
-								if (res.status === STATUS_CODE.Success) 
+								if (res.status === StatusCode.Success) 
 										toastr.success("Remove role success");
 								}
 						)

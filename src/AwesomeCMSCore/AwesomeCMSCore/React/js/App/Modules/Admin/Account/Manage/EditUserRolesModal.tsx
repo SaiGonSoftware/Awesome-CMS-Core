@@ -4,7 +4,7 @@ import toastr from "toastr";
 
 import {Get, PutWithSpinner} from "Helper/Http";
 import {ROLE_API, USER_ROLES_EDIT_API} from 'Helper/API_Endpoint/RoleEndpoint';
-import {STATUS_CODE} from 'Helper/AppEnum';
+import {StatusCode} from 'Helper/AppEnum';
 
 import Spinner from "Common/ACCAnimation/Spinner.tsx";
 import ACCCheckboxOrRadioGroup from 'Common/ACCSelect/ACCCheckboxOrRadioGroup.tsx';
@@ -67,7 +67,7 @@ class EditUserRolesModal extends Component {
 								CurrentUserRoles: this.state.currentUserRoles
 						})
 								.then(res => {
-										if (res.status === STATUS_CODE.Success) 
+										if (res.status === StatusCode.Success) 
 												toastr.info("Edit user roles success");
 										}
 								)

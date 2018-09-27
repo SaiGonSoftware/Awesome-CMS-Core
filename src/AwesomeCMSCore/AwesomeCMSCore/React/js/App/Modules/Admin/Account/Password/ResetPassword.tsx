@@ -7,7 +7,7 @@ import {onChange, onBlur} from "Helper/StateHelper";
 import {navigateToUrl, isDomExist} from "Helper/Util";
 import {shouldMarkError, validateInput, isFormValid} from "Helper/Validation";
 import {PostWithSpinner} from "Helper/Http";
-import {STATUS_CODE} from "Helper/AppEnum";
+import {StatusCode} from "Helper/AppEnum";
 import {LOGIN_ENDPOINT, RESET_PASSWORD_API} from "Helper/API_Endpoint/AccountEndpoint";
 
 import ACCInput from "Common/ACCInput/ACCInput.tsx";
@@ -50,14 +50,14 @@ class ResetPassword extends Component {
 						Password: this.state.password
 				})
 						.then((res) => {
-								if (res.status === STATUS_CODE.Success) {
+								if (res.status === StatusCode.Success) {
 										this.setState({showSuccessMessage: true})
 										window.setTimeout(navigateToUrl(LOGIN_ENDPOINT), 5000);
 								}
 						})
 						.catch((err) => {
 								switch (err.response.status) {
-										case STATUS_CODE.ResetPassTokenExpire:
+										case StatusCode.ResetPassTokenExpire:
 												return toastr.warning("Your reset password token is invalid. Please check email again");
 								}
 						});

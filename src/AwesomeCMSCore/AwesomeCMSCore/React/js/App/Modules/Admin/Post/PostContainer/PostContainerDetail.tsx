@@ -9,7 +9,7 @@ import {
 		TabPane
 } from 'reactstrap';
 import moment from 'moment/src/moment';
-import {POST_STATUS} from "Helper/AppEnum";
+import {PostStatus} from "Helper/AppEnum";
 
 const PostContainerDetail = (props) => {
 		return (
@@ -34,7 +34,7 @@ const PostContainerDetail = (props) => {
 																								</Button>
 																								<Button
 																										color="danger"
-																										onClick={() => props.deletePost(POST_STATUS.Published, post.id)}>
+																										onClick={() => props.deletePost(PostStatus.Published, post.id)}>
 																										<i className="fa fa-trash"></i>
 																								</Button>
 																						</div>
@@ -65,7 +65,7 @@ const PostContainerDetail = (props) => {
 																								</Button>
 																								<Button
 																										color="danger"
-																										onClick={() => props.deletePost(POST_STATUS.Draft, post.id)}>
+																										onClick={() => props.deletePost(PostStatus.Draft, post.id)}>
 																										<i className="fa fa-trash"></i>
 																								</Button>
 																						</div>

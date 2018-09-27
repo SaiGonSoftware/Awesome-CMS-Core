@@ -6,7 +6,7 @@ import qs from "qs";
 import { onChange, onBlur, onCheck } from "Helper/StateHelper";
 import { navigateToUrl, isDomExist } from "Helper/Util";
 import { setStorage } from "Helper/StorageHelper";
-import { APP_ENUM, STATUS_CODE } from "Helper/AppEnum";
+import { APP_ENUM, StatusCode } from "Helper/AppEnum";
 import { Post, PostWithSpinner } from "Helper/Http";
 import { shouldMarkError, validateInput, isFormValid } from "Helper/Validation";
 import {
@@ -48,15 +48,15 @@ class LoginForm extends Component {
 			RememberMe: this.state.rememberMe ? true : false
 		})
 			.then(res => {
-				if (res.status === STATUS_CODE.Success) this.tokenRequest();
+				if (res.status === StatusCode.Success) this.tokenRequest();
 			})
 			.catch(err => {
 				switch (err.response.status) {
-					case STATUS_CODE.EmailNotConfirmed:
+					case StatusCode.EmailNotConfirmed:
 						return toastr.warning("Please confirm email");
-					case STATUS_CODE.Forbid:
+					case StatusCode.Forbid:
 						return toastr.warning("Account is lockout");
-					case STATUS_CODE.BadRequest:
+					case StatusCode.BadRequest:
 						return toastr.error("Invalid credentials");
 				}
 			});

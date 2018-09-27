@@ -2,13 +2,13 @@ export enum APP_ENUM {
 	AuthToken = "authToken"
 }
 
-export enum POST_STATUS {
+export enum PostStatus {
 	Published = 1,
 	Draft = 2,
 	Deleted = 3
 }
 
-export enum STATUS_CODE {
+export enum StatusCode {
 	Success = 200,
 	BadRequest = 400,
 	NotAuthorize = 401,

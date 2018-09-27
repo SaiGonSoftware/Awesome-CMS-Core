@@ -5,7 +5,7 @@ import toastr from "toastr";
 import PropTypes from "prop-types";
 
 import { Get, PostWithSpinner } from "Helper/Http";
-import { STATUS_CODE, POST_STATUS } from "Helper/AppEnum";
+import { StatusCode, PostStatus } from "Helper/AppEnum";
 import { SAVE_POST_API } from "Helper/API_Endpoint/PostEndpoint";
 import { isDomExist } from "Helper/Util";
 import { onChange, onBlur } from "Helper/StateHelper";
@@ -68,7 +68,7 @@ class NewPost extends Component {
     };
 
     PostWithSpinner.call(this, SAVE_POST_API, viewModel).then(res => {
-      if (res.status === STATUS_CODE.Success)
+      if (res.status === StatusCode.Success)
         return toastr.success("Create new post success");
     });
   };
@@ -169,14 +169,14 @@ class NewPost extends Component {
                         disabled={disabled}
                         label="Save as Drafted"
                         btnBlocked="btn-block"
-                        onClick={e => this.newPost(e, POST_STATUS.Draft)}
+                        onClick={e => this.newPost(e, PostStatus.Draft)}
                       />
                       <br />
                       <ACCButton
                         disabled={disabled}
                         label="Published Post"
                         btnBlocked="btn-block"
-                        onClick={e => this.newPost(e, POST_STATUS.Published)}
+                        onClick={e => this.newPost(e, PostStatus.Published)}
                       />
                     </div>
                   ) : (
