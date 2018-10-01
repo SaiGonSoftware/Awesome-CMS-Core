@@ -1,8 +1,8 @@
-import axios, { AxiosPromise } from "axios";
+import axios, { AxiosPromise, AxiosResponse } from "axios";
 import qs from "qs";
 
 import {
-  APP_ENUM,
+  AppEnum,
   StatusCode
 } from "./AppEnum";
 import {
@@ -10,10 +10,11 @@ import {
   setStorage
 } from "./StorageHelper";
 import { TOKEN_ENDPOINT } from "./API_Endpoint/AccountEndpoint";
+import { ITokenProp } from "@app/Helper/Models/Token";
 
 export function Get(url: string): AxiosPromise<any> {
-  const authHeader = initAuthHeaders();
-  const config = {
+  const authHeader: ITokenProp = initAuthHeaders();
+  const config: object = {
     headers: {
       Authorization: "Bearer " + authHeader
     }
@@ -22,9 +23,9 @@ export function Get(url: string): AxiosPromise<any> {
   return axios.get(url, config);
 }
 
-export function Post(url, data) {
-  const authHeader = initAuthHeaders();
-  const config = {
+export function Post(url: string, data: any): AxiosPromise<any> {
+  const authHeader: ITokenProp = initAuthHeaders();
+  const config: any = {
     headers: {
       Authorization: "Bearer " + authHeader
     }
@@ -33,10 +34,10 @@ export function Post(url, data) {
   return axios.post(url, data, config);
 }
 
-export function PostWithSpinner(url, data) {
-  return new Promise((resolve, reject) => {
-    const authHeader = initAuthHeaders();
-    const config = {
+export function PostWithSpinner(url: string, data: any): AxiosPromise<any> {
+  return new Promise((resolve: any, reject: any) => {
+    const authHeader: ITokenProp = initAuthHeaders();
+    const config: object = {
       headers: {
         Authorization: "Bearer " + authHeader
       }
@@ -63,10 +64,10 @@ export function PostWithSpinner(url, data) {
   });
 }
 
-export function PutWithSpinner(url, data) {
+export function PutWithSpinner(url: string, data: any): AxiosPromise<any> {
   return new Promise((resolve, reject) => {
-    const authHeader = initAuthHeaders();
-    const config = {
+    const authHeader: ITokenProp = initAuthHeaders();
+    const config: object = {
       headers: {
         Authorization: "Bearer " + authHeader
       }
@@ -93,9 +94,9 @@ export function PutWithSpinner(url, data) {
   });
 }
 
-export function Put(url, data) {
-  const authHeader = initAuthHeaders();
-  const config = {
+export function Put(url: string, data: any): AxiosPromise<any> {
+  const authHeader: ITokenProp = initAuthHeaders();
+  const config: object = {
     headers: {
       Authorization: "Bearer " + authHeader
     }
@@ -104,9 +105,9 @@ export function Put(url, data) {
   return axios.put(url, data, config);
 }
 
-export function Delete(url) {
-  const authHeader = initAuthHeaders();
-  const config = {
+export function Delete(url: string): AxiosPromise<any> {
+  const authHeader: ITokenProp = initAuthHeaders();
+  const config: object = {
     headers: {
       Authorization: "Bearer " + authHeader
     }
@@ -115,22 +116,20 @@ export function Delete(url) {
   return axios.delete(url, config);
 }
 
-function initAuthHeaders(): string {
-  const token = getStorage(APP_ENUM.AuthToken);
+function initAuthHeaders(): ITokenProp {
+  const token: ITokenProp = getStorage(AppEnum.AuthToken);
   if (token != null) {
     return token.access_token;
-	}
-	
-	return 
+  }
 }
 
-axios.interceptors.response.use(function (response) {
+axios.interceptors.response.use(function (response: any): AxiosResponse<any>  {
   return response;
-}, function (error) {
-  const originalRequest = error.config;
+}, function (error: any): Promise<never> {
+  const originalRequest: any = error.config;
   if (error.response.status === StatusCode.NotAuthorize) {
-    const token = getStorage(APP_ENUM.AuthToken);
-    const refreshToken = token.refresh_token;
+    const token: ITokenProp = getStorage(AppEnum.AuthToken);
+    const refreshToken: string = token.refresh_token;
 
     Post(
       TOKEN_ENDPOINT,
@@ -139,22 +138,22 @@ axios.interceptors.response.use(function (response) {
         grant_type: "refresh_token",
         scope: "offline_access"
       })
-    ).then(function (res) {
-      let token = {
+    ).then(function (res: any): AxiosPromise<any> {
+      let token: ITokenProp = {
         access_token: res.data.access_token,
         refresh_token: refreshToken,
         token_type: res.data.token_type,
         expires_in: res.data.expires_in
       };
 
-      setStorage(APP_ENUM.AuthToken, token);
+      setStorage(AppEnum.AuthToken, token);
       window.location.reload();
       return axios(originalRequest);
 
-    }).catch(function (error) {
+    }).catch(function (error: any): void {
       console.log(error);
     });
   }
 
   return Promise.reject(error);
-})
+});

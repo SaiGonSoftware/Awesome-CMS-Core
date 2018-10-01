@@ -1,73 +1,71 @@
-export function getUrlParams(parameter, defaultvalue) {
-    let urlparameter = defaultvalue;
+export function getUrlParams(parameter: any, defaultvalue: any): any {
+    let urlparameter: any = defaultvalue;
     if (window.location.href.indexOf(parameter) > -1) {
         urlparameter = getUrlVars()[parameter];
     }
     return urlparameter;
 }
 
-function getUrlVars() {
-    let vars = {};
-    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+function getUrlVars(): any {
+    let vars: any = {};
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m: any, key: any, value: any): any {
         vars[key] = value;
     });
     return vars;
 }
 
-export function getAllUrlParams(url) {
+export function getAllUrlParams(url: string): object {
 
     // get query string from url (optional) or window
-    let queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+    let queryString: string = url ? url.split("?")[1] : window.location.search.slice(1);
 
     // we'll store the parameters here
-    let obj = {};
+    let obj: object = {};
 
     // if query string exists
     if (queryString) {
 
         // stuff after # is not part of query string, so get rid of it
-        queryString = queryString.split('#')[0];
+        queryString = queryString.split("#")[0];
 
         // split our query string into its component parts
-        let arr = queryString.split('&');
+        let arr : Array<string> = queryString.split("&");
 
+        // tslint:disable-next-line:typedef
         for (let i = 0; i < arr.length; i++) {
             // separate the keys and the values
-            let a = arr[i].split('=');
+            let a: Array<string> = arr[i].split("=");
 
             // in case params look like: list[]=thing1&list[]=thing2
-            let paramNum = undefined;
-            let paramName = a[0].replace(/\[\d*\]/, function (v) {
+            let paramNum: string = undefined;
+            let paramName: string = a[0].replace(/\[\d*\]/, function (v) {
                 paramNum = v.slice(1, -1);
-                return '';
+                return "";
             });
 
             // set parameter value (use 'true' if empty)
-            let paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+            let paramValue: any = typeof (a[1]) === "undefined" ? true : a[1];
 
             // (optional) keep case consistent
             /* paramName = paramName.toLowerCase();
-            paramValue = paramValue.toLowerCase(); */
+						paramValue = paramValue.toLowerCase(); */
 
-            // if parameter name already exists
+						// if parameter name already exists
+
             if (obj[paramName]) {
                 // convert value to array (if still string)
-                if (typeof obj[paramName] === 'string') {
+                if (typeof obj[paramName] === "string") {
                     obj[paramName] = [obj[paramName]];
                 }
                 // if no array index number specified...
-                if (typeof paramNum === 'undefined') {
+                if (typeof paramNum === "undefined") {
                     // put the value on the end of the array
                     obj[paramName].push(paramValue);
-                }
-                // if array index number specified...
-                else {
+                } else {
                     // put the value at that index number
                     obj[paramName][paramNum] = paramValue;
                 }
-            }
-            // if param name doesn't exist yet, set it
-            else {
+            } else {
                 obj[paramName] = paramValue;
             }
         }

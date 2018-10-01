@@ -6,7 +6,7 @@ import qs from "qs";
 import { onChange, onBlur, onCheck } from "Helper/StateHelper";
 import { navigateToUrl, isDomExist } from "Helper/Util";
 import { setStorage } from "Helper/StorageHelper";
-import { APP_ENUM, StatusCode } from "Helper/AppEnum";
+import { AppEnum, StatusCode } from "Helper/AppEnum";
 import { Post, PostWithSpinner } from "Helper/Http";
 import { shouldMarkError, validateInput, isFormValid } from "Helper/Validation";
 import {
@@ -79,7 +79,7 @@ class LoginForm extends Component {
 				expires_in: res.data.expires_in
 			};
 
-			setStorage(APP_ENUM.AUTH_TOKEN, token);
+			setStorage(AppEnum.AUTH_TOKEN, token);
 			navigateToUrl(PORTAL_ENDPOINT);
 		});
 	};

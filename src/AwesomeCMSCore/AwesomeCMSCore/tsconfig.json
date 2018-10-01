@@ -3,12 +3,16 @@
 		"allowSyntheticDefaultImports": true,
 		"jsx": "react",
 		"module": "commonjs",
-		"noImplicitAny": true,
+		"noImplicitAny": false,
 		"outDir": "./wwwroot/dist",
 		"preserveConstEnums": true,
 		"removeComments": true,
 		"sourceMap": true,
-		"target": "es5"
+		"target": "es2015",
+		"paths": {
+			"~/*": [ "*" ],
+			"@app/*": ["./React/js/App/*"]
+		}
 	},
 	"include": [
 		"./React/js/**/*"

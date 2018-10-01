@@ -7,6 +7,7 @@ export function isDomExist(domName: string): boolean {
 }
 
 export function findObjectByKey(array: any, key: any, value: any): [] {
+    // tslint:disable-next-line:typedef
     for (let i = 0; i < array.length; i++) {
         if (array[i][key] === value) {
             return array[i];
@@ -15,6 +16,6 @@ export function findObjectByKey(array: any, key: any, value: any): [] {
     return null;
 }
 
-String.prototype.capitalize = function() {
+String.prototype.capitalize = function(): string {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };

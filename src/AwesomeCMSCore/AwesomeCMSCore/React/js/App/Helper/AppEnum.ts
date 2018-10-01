@@ -1,4 +1,4 @@
-export enum APP_ENUM {
+export enum AppEnum {
 	AuthToken = "authToken"
 }
 
