@@ -30,6 +30,7 @@ const CommentContainerBody = (props) => {
 																										comment={cm.comment}
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
 																										toggleSpamComment={() => props.toggleSpamComment(cm.comment.commentStatus, cm.comment.id)}
+																										toggleDeleteComment={() => props.toggleDeleteComment(cm.comment.commentStatus, cm.comment.id)}
 																										id={`allComments-${cm.comment.id}`}
 																										selector={`allComments-actions-${cm.comment.id}`}/>
 																						</ListGroupItem>
@@ -61,6 +62,7 @@ const CommentContainerBody = (props) => {
 																										comment={cm.comment}
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
 																										toggleSpamComment={() => props.toggleSpamComment(cm.comment.commentStatus, cm.comment.id)}
+																										toggleDeleteComment={() => props.toggleDeleteComment(cm.comment.commentStatus, cm.comment.id)}
 																										id={`pendingComments-${cm.comment.id}`}
 																										selector={`pendingComments-actions-${cm.comment.id}`}/>
 																						</ListGroupItem>
@@ -92,6 +94,7 @@ const CommentContainerBody = (props) => {
 																										comment={cm.comment}
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
 																										toggleSpamComment={() => props.toggleSpamComment(cm.comment.commentStatus, cm.comment.id)}
+																										toggleDeleteComment={() => props.toggleDeleteComment(cm.comment.commentStatus, cm.comment.id)}
 																										id={`approvedComments-${cm.comment.id}`}
 																										selector={`approvedComments-actions-${cm.comment.id}`}/>
 																						</ListGroupItem>
@@ -122,6 +125,7 @@ const CommentContainerBody = (props) => {
 																								<CommentActions
 																										comment={cm.comment}
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
+																										toggleDeleteComment={() => props.toggleDeleteComment(cm.comment.commentStatus, cm.comment.id)}
 																										id={`spamComments-${cm.comment.id}`}
 																										selector={`spamComments-actions-${cm.comment.id}`}/>
 																						</ListGroupItem>
@@ -152,6 +156,7 @@ const CommentContainerBody = (props) => {
 																								<CommentActions
 																										comment={cm.comment}
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
+																										toggleDeleteComment={() => props.toggleDeleteComment(cm.comment.commentStatus, cm.comment.id)}
 																										id={`commentsDeleted-${cm.comment.id}`}
 																										selector={`commentsDeleted-actions-${cm.comment.id}`}/>
 																						</ListGroupItem>
@@ -170,7 +175,8 @@ CommentContainerBody.propTypes = {
 		comments: PropTypes.object.isRequired,
 		activeTab: PropTypes.string.isRequired,
 		toggleApprovedComment: PropTypes.func.isRequired,
-		toggleSpamComment: PropTypes.func.isRequired
+		toggleSpamComment: PropTypes.func.isRequired,
+		toggleDeleteComment: PropTypes.func.isRequired
 }
 
 export default CommentContainerBody
