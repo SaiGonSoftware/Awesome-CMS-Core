@@ -35,7 +35,8 @@ const CommentActions = (props) => {
 										id={props.id}
 										className={props.comment.commentStatus == CommentStatus.Trash
 										? 'trash-actions-hidden'
-										: ''}>
+										: ''}
+										onClick={props.toggleDeleteComment}>
 										<i className="fa fa-trash-o" aria-hidden="true"></i>
 										&nbsp;Trash</Button>
 								<Button
@@ -69,7 +70,8 @@ CommentActions.propTypes = {
 		toggleClass: PropTypes.bool,
 		selector: PropTypes.string.isRequired,
 		toggleApprovedComment: PropTypes.func.isRequired,
-		toggleSpamComment: PropTypes.func
+		toggleSpamComment: PropTypes.func,
+		toggleDeleteComment: PropTypes.func
 }
 
 export default CommentActions
