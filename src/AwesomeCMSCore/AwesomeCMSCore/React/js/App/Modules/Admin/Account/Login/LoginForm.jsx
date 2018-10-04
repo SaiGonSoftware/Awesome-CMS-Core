@@ -4,7 +4,7 @@ import toastr from "toastr";
 import qs from "qs";
 
 import {onChange, onBlur, onCheck} from "Helper/StateHelper";
-import {navigateToUrl, isDomExist} from "Helper/Util";
+import {isDomExist} from "Helper/Util";
 import {setStorage} from "Helper/StorageHelper";
 import {APP_ENUM, STATUS_CODE} from "Helper/AppEnum";
 import {Post, PostWithSpinner} from "Helper/Http";
