@@ -41,22 +41,14 @@ const CommentActions = (props) => {
 										&nbsp;Trash</Button>
 								<Button
 										outline
-										color="primary"
-										className={props.comment.commentStatus == CommentStatus.Spam
-										? 'spam-actions-hidden'
-										: '' || props.comment.commentStatus == CommentStatus.Trash
-												? 'trash-actions-hidden'
-												: ''}>
-										<i className="fa fa-pencil" aria-hidden="true"></i>
-										&nbsp;Edit</Button>
-								<Button
-										outline
 										color="info"
+										data-id={props.id}
 										className={props.comment.commentStatus == CommentStatus.Spam
 										? 'spam-actions-hidden'
 										: '' || props.comment.commentStatus == CommentStatus.Trash
 												? 'trash-actions-hidden'
-												: ''}>
+												: ''}
+										onClick={props.toggleReplyBox}>
 										<i className="fa fa-reply" aria-hidden="true"></i>
 										&nbsp;Reply</Button>
 						</blockquote>
@@ -66,12 +58,13 @@ const CommentActions = (props) => {
 
 CommentActions.propTypes = {
 		comment: PropTypes.object,
-		id: PropTypes.string.isRequired,
+		id: PropTypes.string,
 		toggleClass: PropTypes.bool,
-		selector: PropTypes.string.isRequired,
-		toggleApprovedComment: PropTypes.func.isRequired,
+		selector: PropTypes.string,
+		toggleApprovedComment: PropTypes.func,
 		toggleSpamComment: PropTypes.func,
-		toggleDeleteComment: PropTypes.func
+		toggleDeleteComment: PropTypes.func,
+		toggleReplyBox: PropTypes.func
 }
 
 export default CommentActions
