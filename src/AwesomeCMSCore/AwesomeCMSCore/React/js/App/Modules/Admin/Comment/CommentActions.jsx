@@ -42,6 +42,7 @@ const CommentActions = (props) => {
 								<Button
 										outline
 										color="info"
+										data-id={props.id}
 										className={props.comment.commentStatus == CommentStatus.Spam
 										? 'spam-actions-hidden'
 										: '' || props.comment.commentStatus == CommentStatus.Trash

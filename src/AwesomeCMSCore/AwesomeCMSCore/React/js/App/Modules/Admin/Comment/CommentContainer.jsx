@@ -17,6 +17,7 @@ class CommentContainer extends Component {
 				this.state = {
 						comments: null,
 						activeTab: "All",
+						opened: [],
 						expandReplyBox: false
 				};
 		}
@@ -454,13 +455,20 @@ class CommentContainer extends Component {
 				}
 		}
 
-		toggleReplyBox = () => {
-				this.setState({expandReplyBox: !this.state.expandReplyBox});
-		}
+		toggleReplyBox = e => {
+			const id = e.currentTarget.dataset.id;
+				if (this.state.opened.indexOf(id) != -1){
+					// remove from array
+					this.setState({opened: this.state.opened.filter(o => o !== id)})
+			} else {
+					this.setState({opened: [...this.state.opened, id]})
+			}
+				//this.setState({expandReplyBox: !this.state.expandReplyBox});
+			}
 
 		render() {
-				const {comments, activeTab, expandReplyBox} = this.state;
-				
+				const {comments, activeTab, opened} = this.state;
+
 				return comments
 						? (
 								<Row>
@@ -479,7 +487,7 @@ class CommentContainer extends Component {
 																				toggleSpamComment={this.toggleSpamComment}
 																				toggleDeleteComment={this.toggleDeleteComment}
 																				toggleReplyBox={this.toggleReplyBox}
-																				expandReplyBox={expandReplyBox}/>
+																				opened={opened}/>
 																</div>
 														</ListGroupItem>
 												</ListGroup>
