@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Admin.Repositories;
+using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Enums;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +31,18 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
         public async Task<IActionResult> UpdateCommentStatus(int commentId, CommentStatus commentStatus)
         {
             var result = await _commentRepository.UpdateCommentStatus(commentId, commentStatus);
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost("comment/{commentId}/reply")]
+        public async Task<IActionResult> ReplyComment([FromBody]CommentReplyViewModel replyViewModel)
+        {
+            var result = await _commentRepository.ReplyComment(replyViewModel);
             if (result)
             {
                 return Ok();

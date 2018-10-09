@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -71,6 +71,34 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
                     var commentToUpdate = await _unitOfWork.Repository<Comment>().Query().Where(cm => cm.Id == commentId).SingleOrDefaultAsync();
                     commentToUpdate.CommentStatus = commentStatus;
                     await _unitOfWork.Repository<Comment>().UpdateAsync(commentToUpdate);
+                    transaction.Complete();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    _unitOfWork.Rollback();
+                    return false;
+                }
+            }
+        }
+
+        public async Task<bool> ReplyComment(CommentReplyViewModel replyViewModel)
+        {
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                try
+                {
+                    var post = await _unitOfWork.Repository<Post>().Query().Where(cm => cm.Id == replyViewModel.PostId).SingleOrDefaultAsync();
+                    var comment = new Comment
+                    {
+                        ParentId = replyViewModel.ParentId,
+                        Post = post,
+                        CommentStatus = CommentStatus.Pending,
+                        Content = replyViewModel.CommentBody,
+                        User = await _userService.GetCurrentUserAsync()
+                    };
+
+                    await _unitOfWork.Repository<Comment>().AddAsync(comment);
                     transaction.Complete();
                     return true;
                 }
