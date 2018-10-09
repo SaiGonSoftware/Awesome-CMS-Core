@@ -16,7 +16,8 @@ class CommentContainer extends Component {
 
 				this.state = {
 						comments: null,
-						activeTab: "All"
+						activeTab: "All",
+						expandReplyBox: false
 				};
 		}
 
@@ -453,9 +454,13 @@ class CommentContainer extends Component {
 				}
 		}
 
-		render() {
-				const {comments, activeTab} = this.state;
+		toggleReplyBox = () => {
+				this.setState({expandReplyBox: !this.state.expandReplyBox});
+		}
 
+		render() {
+				const {comments, activeTab, expandReplyBox} = this.state;
+				
 				return comments
 						? (
 								<Row>
@@ -472,7 +477,9 @@ class CommentContainer extends Component {
 																				activeTab={activeTab}
 																				toggleApprovedComment={this.toggleApprovedComment}
 																				toggleSpamComment={this.toggleSpamComment}
-																				toggleDeleteComment={this.toggleDeleteComment}/>
+																				toggleDeleteComment={this.toggleDeleteComment}
+																				toggleReplyBox={this.toggleReplyBox}
+																				expandReplyBox={expandReplyBox}/>
 																</div>
 														</ListGroupItem>
 												</ListGroup>

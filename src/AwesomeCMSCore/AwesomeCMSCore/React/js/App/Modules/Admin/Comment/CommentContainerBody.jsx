@@ -1,6 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Row, Col, ListGroupItem, TabContent, TabPane} from 'reactstrap';
+import {
+		Row,
+		Col,
+		ListGroupItem,
+		TabContent,
+		TabPane,
+		Input
+} from 'reactstrap';
 import moment from 'moment/src/moment';
 import {CommentStatus} from "Helper/AppEnum";
 import CommentActions from './CommentActions.jsx';
@@ -31,8 +38,13 @@ const CommentContainerBody = (props) => {
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
 																										toggleSpamComment={() => props.toggleSpamComment(cm.comment.commentStatus, cm.comment.id)}
 																										toggleDeleteComment={() => props.toggleDeleteComment(cm.comment.commentStatus, cm.comment.id)}
+																										toggleReplyBox={() => props.toggleReplyBox()}
 																										id={`allComments-${cm.comment.id}`}
 																										selector={`allComments-actions-${cm.comment.id}`}/>
+																								<Input
+																										className={props.expandReplyBox
+																										? "visiblity"
+																										: "hidden"}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
@@ -63,8 +75,13 @@ const CommentContainerBody = (props) => {
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
 																										toggleSpamComment={() => props.toggleSpamComment(cm.comment.commentStatus, cm.comment.id)}
 																										toggleDeleteComment={() => props.toggleDeleteComment(cm.comment.commentStatus, cm.comment.id)}
+																										toggleReplyBox={() => props.toggleReplyBox()}
 																										id={`pendingComments-${cm.comment.id}`}
 																										selector={`pendingComments-actions-${cm.comment.id}`}/>
+																								<Input
+																										className={props.expandReplyBox
+																										? "visiblity"
+																										: "hidden"}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
@@ -95,8 +112,13 @@ const CommentContainerBody = (props) => {
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
 																										toggleSpamComment={() => props.toggleSpamComment(cm.comment.commentStatus, cm.comment.id)}
 																										toggleDeleteComment={() => props.toggleDeleteComment(cm.comment.commentStatus, cm.comment.id)}
+																										toggleReplyBox={() => props.toggleReplyBox()}
 																										id={`approvedComments-${cm.comment.id}`}
 																										selector={`approvedComments-actions-${cm.comment.id}`}/>
+																								<Input
+																										className={props.expandReplyBox
+																										? "visiblity"
+																										: "hidden"}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
@@ -176,7 +198,8 @@ CommentContainerBody.propTypes = {
 		activeTab: PropTypes.string.isRequired,
 		toggleApprovedComment: PropTypes.func.isRequired,
 		toggleSpamComment: PropTypes.func.isRequired,
-		toggleDeleteComment: PropTypes.func.isRequired
+		toggleDeleteComment: PropTypes.func.isRequired,
+		expandReplyBox: PropTypes.bool
 }
 
 export default CommentContainerBody
