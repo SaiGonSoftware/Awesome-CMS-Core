@@ -17,8 +17,7 @@ class CommentContainer extends Component {
 				this.state = {
 						comments: null,
 						activeTab: "All",
-						opened: [],
-						expandReplyBox: false
+						opened: []
 				};
 		}
 
@@ -456,15 +455,24 @@ class CommentContainer extends Component {
 		}
 
 		toggleReplyBox = e => {
-			const id = e.currentTarget.dataset.id;
-				if (this.state.opened.indexOf(id) != -1){
-					// remove from array
-					this.setState({opened: this.state.opened.filter(o => o !== id)})
-			} else {
-					this.setState({opened: [...this.state.opened, id]})
-			}
-				//this.setState({expandReplyBox: !this.state.expandReplyBox});
-			}
+				const id = e.currentTarget.dataset.id;
+				if (this.state.opened.indexOf(id) != -1) {
+						// remove from array
+						this.setState({
+								opened: this
+										.state
+										.opened
+										.filter(o => o !== id)
+						})
+				} else {
+						this.setState({
+								opened: [
+										...this.state.opened,
+										id
+								]
+						})
+				}
+		}
 
 		render() {
 				const {comments, activeTab, opened} = this.state;
