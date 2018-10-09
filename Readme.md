@@ -74,4 +74,5 @@ Please read
 <img src="img/Manage comments.png"/>
 
 <img src="img/Reply comment.png">
+
 ---
