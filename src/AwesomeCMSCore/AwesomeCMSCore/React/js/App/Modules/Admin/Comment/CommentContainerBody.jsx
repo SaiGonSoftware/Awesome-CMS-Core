@@ -46,7 +46,8 @@ const CommentContainerBody = (props) => {
 																										.opened
 																										.indexOf(`allComments-${cm.comment.id}`) !== -1
 																										? "visiblity"
-																										: "hidden"}></Input>
+																										: "hidden"}
+																										onChange={(e) => props.onReply(cm.comment.id, e.target.value)}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
@@ -85,7 +86,8 @@ const CommentContainerBody = (props) => {
 																										.opened
 																										.indexOf(`pendingComments-${cm.comment.id}`) !== -1
 																										? "visiblity"
-																										: "hidden"}></Input>
+																										: "hidden"}
+																										onChange={(e) => props.onReply(cm.comment.id, e.target.value)}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
@@ -124,7 +126,8 @@ const CommentContainerBody = (props) => {
 																										.opened
 																										.indexOf(`approvedComments-${cm.comment.id}`) !== -1
 																										? "visiblity"
-																										: "hidden"}></Input>
+																										: "hidden"}
+																										onChange={(e) => props.onReply(cm.comment.id, e.target.value)}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
@@ -205,7 +208,8 @@ CommentContainerBody.propTypes = {
 		toggleApprovedComment: PropTypes.func.isRequired,
 		toggleSpamComment: PropTypes.func.isRequired,
 		toggleDeleteComment: PropTypes.func.isRequired,
-		opened: PropTypes.array
+		opened: PropTypes.array,
+		onReply: PropTypes.func.isRequired
 }
 
 export default CommentContainerBody

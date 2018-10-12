@@ -474,6 +474,11 @@ class CommentContainer extends Component {
 				}
 		}
 
+		onReply = (commentId, value) => {
+			console.log(commentId)
+			console.log(value)
+		}
+
 		render() {
 				const {comments, activeTab, opened} = this.state;
 
