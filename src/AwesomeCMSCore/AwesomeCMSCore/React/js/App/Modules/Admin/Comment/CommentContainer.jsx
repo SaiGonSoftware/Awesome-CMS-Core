@@ -474,9 +474,11 @@ class CommentContainer extends Component {
 				}
 		}
 
-		onReply = (commentId, value) => {
-			console.log(commentId)
-			console.log(value)
+		onReply = (comment, e) => {
+				if (e.charCode  === 13) {
+						console.log(comment)
+						console.log(e.target.value)
+				}
 		}
 
 		render() {
@@ -500,6 +502,7 @@ class CommentContainer extends Component {
 																				toggleSpamComment={this.toggleSpamComment}
 																				toggleDeleteComment={this.toggleDeleteComment}
 																				toggleReplyBox={this.toggleReplyBox}
+																				onReply={this.onReply}
 																				opened={opened}/>
 																</div>
 														</ListGroupItem>

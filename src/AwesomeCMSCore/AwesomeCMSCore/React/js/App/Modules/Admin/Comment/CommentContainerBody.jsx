@@ -30,9 +30,16 @@ const CommentContainerBody = (props) => {
 																								<h3>{cm.user.email}
 																										&nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
 																								<h3>{cm.post.title}</h3>
-																								<blockquote className="blockquote">
-																										<small className="text-muted">{cm.comment.content}</small>
-																								</blockquote>
+																								{cm.comment.parentComment
+																										? <blockquote className="blockquote">
+																														<p className="mb-0">{cm.comment.content}</p>
+																														<footer className="blockquote-footer">In Reply to: &nbsp;
+																																<cite title={cm.comment.parentComment.content}>{cm.comment.parentComment.content}</cite>
+																														</footer>
+																												</blockquote>
+																										: <blockquote className="blockquote">
+																												<small className="text-muted">{cm.comment.content}</small>
+																										</blockquote>}
 																								<CommentActions
 																										comment={cm.comment}
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
@@ -47,7 +54,7 @@ const CommentContainerBody = (props) => {
 																										.indexOf(`allComments-${cm.comment.id}`) !== -1
 																										? "visiblity"
 																										: "hidden"}
-																										onChange={(e) => props.onReply(cm.comment.id, e.target.value)}></Input>
+																										onKeyPress={(e) => props.onReply(cm.comment, e)}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
@@ -70,9 +77,16 @@ const CommentContainerBody = (props) => {
 																								<h3>{cm.user.email}
 																										&nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
 																								<h3>{cm.post.title}</h3>
-																								<blockquote className="blockquote">
-																										<small className="text-muted">{cm.comment.content}</small>
-																								</blockquote>
+																								{cm.comment.parentComment
+																										? <blockquote className="blockquote">
+																														<p className="mb-0">{cm.comment.content}</p>
+																														<footer className="blockquote-footer">In Reply to: &nbsp;
+																																<cite title={cm.comment.parentComment.content}>{cm.comment.parentComment.content}</cite>
+																														</footer>
+																												</blockquote>
+																										: <blockquote className="blockquote">
+																												<small className="text-muted">{cm.comment.content}</small>
+																										</blockquote>}
 																								<CommentActions
 																										comment={cm.comment}
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
@@ -87,7 +101,7 @@ const CommentContainerBody = (props) => {
 																										.indexOf(`pendingComments-${cm.comment.id}`) !== -1
 																										? "visiblity"
 																										: "hidden"}
-																										onChange={(e) => props.onReply(cm.comment.id, e.target.value)}></Input>
+																										onKeyPress={(e) => props.onReply(cm.comment, e)}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
@@ -110,9 +124,16 @@ const CommentContainerBody = (props) => {
 																								<h3>{cm.user.email}
 																										&nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
 																								<h3>{cm.post.title}</h3>
-																								<blockquote className="blockquote">
-																										<small className="text-muted">{cm.comment.content}</small>
-																								</blockquote>
+																								{cm.comment.parentComment
+																										? <blockquote className="blockquote">
+																														<p className="mb-0">{cm.comment.content}</p>
+																														<footer className="blockquote-footer">In Reply to: &nbsp;
+																																<cite title={cm.comment.parentComment.content}>{cm.comment.parentComment.content}</cite>
+																														</footer>
+																												</blockquote>
+																										: <blockquote className="blockquote">
+																												<small className="text-muted">{cm.comment.content}</small>
+																										</blockquote>}
 																								<CommentActions
 																										comment={cm.comment}
 																										toggleApprovedComment={() => props.toggleApprovedComment(cm.comment.commentStatus, cm.comment.id)}
@@ -127,7 +148,7 @@ const CommentContainerBody = (props) => {
 																										.indexOf(`approvedComments-${cm.comment.id}`) !== -1
 																										? "visiblity"
 																										: "hidden"}
-																										onChange={(e) => props.onReply(cm.comment.id, e.target.value)}></Input>
+																										onKeyPress={(e) => props.onReply(cm.comment, e)}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
@@ -209,7 +230,7 @@ CommentContainerBody.propTypes = {
 		toggleSpamComment: PropTypes.func.isRequired,
 		toggleDeleteComment: PropTypes.func.isRequired,
 		opened: PropTypes.array,
-		onReply: PropTypes.func.isRequired
+		onReply: PropTypes.func
 }
 
 export default CommentContainerBody
