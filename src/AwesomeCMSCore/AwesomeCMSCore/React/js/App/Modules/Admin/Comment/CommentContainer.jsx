@@ -1,11 +1,13 @@
 import React, {Component} from "react";
 import {render} from "react-dom";
 import {Row, Col, ListGroup, ListGroupItem} from "reactstrap";
+import toastr from "toastr";
+
 import {Get, Put} from "Helper/Http";
 import {isDomExist} from "Helper/Util";
+import {PostWithSpinner} from "Helper/Http";
 import {COMMENTS_ENDPOINT} from "Helper/API_Endpoint/CommentEndpoint";
 import {CommentStatus, STATUS_CODE} from "Helper/AppEnum";
-import toastr from "toastr";
 
 import CommentContainerHeader from "./CommentContainerHeader.jsx";
 import CommentContainerBody from "./CommentContainerBody.jsx";
@@ -474,10 +476,26 @@ class CommentContainer extends Component {
 				}
 		}
 
-		onReply = (comment, e) => {
-				if (e.charCode  === 13) {
+		onReply = (comment, postId, e) => {
+				if (e.charCode === 13) {
 						console.log(comment)
 						console.log(e.target.value)
+
+						const replyViewModel = {
+							ParentComment: comment,
+							PostId: postId,
+							CommentBody: e.target.value
+						};
+
+						const url = `${COMMENTS_ENDPOINT}/${comment.id}/reply`;
+						PostWithSpinner.call(this, url, replyViewModel).then(res => {
+							if (res.status === STATUS_CODE.Success) 
+								toastr.info("Reply comment success");
+							}
+						)
+						.catch(() => {
+							toastr.error("Something went wrong. Please try again");
+						});
 				}
 		}
 

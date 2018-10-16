@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
+using AwesomeCMSCore.Modules.Entities.Data;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.Enums;
 using AwesomeCMSCore.Modules.Entities.ViewModel;
@@ -19,16 +20,19 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 		private readonly IUserService _userService;
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IMapper _mapper;
+		private readonly ApplicationDbContext _dbContext;
 		private readonly string _currentUserId;
 
 		public CommentRepository(
 			IUserService userService,
 			IUnitOfWork unitOfWork,
-			IMapper mapper)
+			IMapper mapper,
+			ApplicationDbContext dbContext)
 		{
 			_userService = userService;
 			_unitOfWork = unitOfWork;
 			_mapper = mapper;
+			_dbContext = dbContext;
 			_currentUserId = _userService.GetCurrentUserGuid();
 		}
 
@@ -89,20 +93,23 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 				try
 				{
 					var post = await _unitOfWork.Repository<Post>().Query().Where(cm => cm.Id == replyViewModel.PostId).SingleOrDefaultAsync();
+
 					var comment = new Comment
 					{
-						ParentComment = replyViewModel.ParentComment,
-						Post = post,
 						CommentStatus = CommentStatus.Pending,
 						Content = replyViewModel.CommentBody,
-						User = await _userService.GetCurrentUserAsync()
+						User = await _userService.GetCurrentUserAsync(),
+						Post = post,
+						ParentComment = replyViewModel.ParentComment
 					};
 
+					_dbContext.Set<Comment>().Attach(comment);
 					await _unitOfWork.Repository<Comment>().AddAsync(comment);
 					transaction.Complete();
+
 					return true;
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
 					_unitOfWork.Rollback();
 					return false;

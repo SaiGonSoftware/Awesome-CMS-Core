@@ -39,7 +39,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
             return BadRequest();
         }
 
-        [HttpPost("comment/{commentId}/reply")]
+        [HttpPost("{commentId}/reply")]
         public async Task<IActionResult> ReplyComment([FromBody]CommentReplyViewModel replyViewModel)
         {
             var result = await _commentRepository.ReplyComment(replyViewModel);
