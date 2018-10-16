@@ -56,7 +56,7 @@ const CommentContainerBody = (props) => {
 																										.indexOf(`allComments-${cm.comment.id}`) !== -1
 																										? "visiblity"
 																										: "hidden"}
-																										onKeyPress={(e) => props.onReply(cm.comment, e)}></Input>
+																										onKeyPress={(e) => props.onReply(cm.comment, cm.post.id, e)}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
@@ -105,7 +105,7 @@ const CommentContainerBody = (props) => {
 																										.indexOf(`pendingComments-${cm.comment.id}`) !== -1
 																										? "visiblity"
 																										: "hidden"}
-																										onKeyPress={(e) => props.onReply(cm.comment, e)}></Input>
+																										onKeyPress={(e) => props.onReply(cm.comment, cm.post.id, e)}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
@@ -154,7 +154,7 @@ const CommentContainerBody = (props) => {
 																										.indexOf(`approvedComments-${cm.comment.id}`) !== -1
 																										? "visiblity"
 																										: "hidden"}
-																										onKeyPress={(e) => props.onReply(cm.comment, e)}></Input>
+																										onKeyPress={(e) => props.onReply(cm.comment, cm.post.id, e)}></Input>
 																						</ListGroupItem>
 																				</div>
 																		)
