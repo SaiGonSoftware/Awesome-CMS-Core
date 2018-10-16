@@ -31,12 +31,14 @@ const CommentContainerBody = (props) => {
 																										&nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
 																								<h3>{cm.post.title}</h3>
 																								{cm.comment.parentComment
-																										? <blockquote className="blockquote">
+																										? <div>
+																														<blockquote className="blockquote">
+																																<footer className="blockquote-footer">In Reply to: &nbsp;
+																																		<cite title={cm.comment.parentComment.content}>{cm.comment.parentComment.content}</cite>
+																																</footer>
+																														</blockquote>
 																														<p className="mb-0">{cm.comment.content}</p>
-																														<footer className="blockquote-footer">In Reply to: &nbsp;
-																																<cite title={cm.comment.parentComment.content}>{cm.comment.parentComment.content}</cite>
-																														</footer>
-																												</blockquote>
+																												</div>
 																										: <blockquote className="blockquote">
 																												<small className="text-muted">{cm.comment.content}</small>
 																										</blockquote>}
@@ -78,12 +80,14 @@ const CommentContainerBody = (props) => {
 																										&nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
 																								<h3>{cm.post.title}</h3>
 																								{cm.comment.parentComment
-																										? <blockquote className="blockquote">
+																										? <div>
+																														<blockquote className="blockquote">
+																																<footer className="blockquote-footer">In Reply to: &nbsp;
+																																		<cite title={cm.comment.parentComment.content}>{cm.comment.parentComment.content}</cite>
+																																</footer>
+																														</blockquote>
 																														<p className="mb-0">{cm.comment.content}</p>
-																														<footer className="blockquote-footer">In Reply to: &nbsp;
-																																<cite title={cm.comment.parentComment.content}>{cm.comment.parentComment.content}</cite>
-																														</footer>
-																												</blockquote>
+																												</div>
 																										: <blockquote className="blockquote">
 																												<small className="text-muted">{cm.comment.content}</small>
 																										</blockquote>}
@@ -125,12 +129,14 @@ const CommentContainerBody = (props) => {
 																										&nbsp;- {moment(cm.comment.dateCreated).format('DD MMMM YYYY')}</h3>
 																								<h3>{cm.post.title}</h3>
 																								{cm.comment.parentComment
-																										? <blockquote className="blockquote">
+																										? <div>
+																														<blockquote className="blockquote">
+																																<footer className="blockquote-footer">In Reply to: &nbsp;
+																																		<cite title={cm.comment.parentComment.content}>{cm.comment.parentComment.content}</cite>
+																																</footer>
+																														</blockquote>
 																														<p className="mb-0">{cm.comment.content}</p>
-																														<footer className="blockquote-footer">In Reply to: &nbsp;
-																																<cite title={cm.comment.parentComment.content}>{cm.comment.parentComment.content}</cite>
-																														</footer>
-																												</blockquote>
+																												</div>
 																										: <blockquote className="blockquote">
 																												<small className="text-muted">{cm.comment.content}</small>
 																										</blockquote>}
