@@ -6,7 +6,7 @@ import toastr from "toastr";
 import {Get, Put} from "Helper/Http";
 import {isDomExist} from "Helper/Util";
 import {PostWithSpinner} from "Helper/Http";
-import {COMMENTS_ENDPOINT, COMMENT_ENDPOINT} from "Helper/API_Endpoint/CommentEndpoint";
+import {COMMENTS_ENDPOINT} from "Helper/API_Endpoint/CommentEndpoint";
 import {CommentStatus, STATUS_CODE} from "Helper/AppEnum";
 
 import CommentContainerHeader from "./CommentContainerHeader.jsx";
