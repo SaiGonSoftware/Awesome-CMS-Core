@@ -1,4 +1,4 @@
-﻿using Autofac;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AwesomeCMSCore.Infrastructure.Module;
 using AwesomeCMSCore.Modules.Entities.Data;
@@ -163,8 +163,8 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddDbContextPool<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+			services.AddDbContextPool<ApplicationDbContext>(options =>
+                options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("AwesomeCMSCore")).UseOpenIddict());
 
             services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("DefaultConnection")));

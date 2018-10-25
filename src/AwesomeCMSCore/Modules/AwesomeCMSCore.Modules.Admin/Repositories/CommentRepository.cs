@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
+using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Data;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.Enums;
@@ -20,6 +21,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 		private readonly IUserService _userService;
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IMapper _mapper;
+		private readonly IEmailSender _emailSender;
 		private readonly ApplicationDbContext _dbContext;
 		private readonly string _currentUserId;
 
@@ -27,11 +29,13 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 			IUserService userService,
 			IUnitOfWork unitOfWork,
 			IMapper mapper,
+			IEmailSender emailSender,
 			ApplicationDbContext dbContext)
 		{
 			_userService = userService;
 			_unitOfWork = unitOfWork;
 			_mapper = mapper;
+			_emailSender = emailSender;
 			_dbContext = dbContext;
 			_currentUserId = _userService.GetCurrentUserGuid();
 		}
@@ -92,19 +96,31 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 			{
 				try
 				{
-					var post = await _unitOfWork.Repository<Post>().Query().Where(cm => cm.Id == replyViewModel.PostId).SingleOrDefaultAsync();
+					var existingComment = await _unitOfWork.Repository<Comment>().Query().Where(cm => cm.Id == replyViewModel.Comment.Id).SingleOrDefaultAsync();
+					var reciever = existingComment.User.Email;
+					var userReply = await _userService.GetCurrentUserAsync();
 
 					var comment = new Comment
 					{
 						CommentStatus = CommentStatus.Pending,
 						Content = replyViewModel.CommentBody,
-						User = await _userService.GetCurrentUserAsync(),
-						Post = post,
-						ParentComment = replyViewModel.ParentComment
+						User = userReply,
+						Post = existingComment.Post,
+						ParentComment = existingComment
 					};
 
 					_dbContext.Set<Comment>().Attach(comment);
 					await _unitOfWork.Repository<Comment>().AddAsync(comment);
+
+					var emailOptions = new EmailOptions
+					{
+						UserComment = reciever,
+						UserReply = userReply.Email,
+						Url = $"Post/{existingComment.Post.Id}"
+					};
+
+					await _emailSender.SendEmailAsync(reciever, null, emailOptions, EmailType.ReplyComment);
+
 					transaction.Complete();
 
 					return true;

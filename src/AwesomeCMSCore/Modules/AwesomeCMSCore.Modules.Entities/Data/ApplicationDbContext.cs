@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +16,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-        }
+		}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

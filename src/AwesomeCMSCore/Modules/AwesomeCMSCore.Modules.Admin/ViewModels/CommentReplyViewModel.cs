@@ -7,8 +7,7 @@ namespace AwesomeCMSCore.Modules.Admin.ViewModels
 {
 	public class CommentReplyViewModel
 	{
-		public Comment ParentComment { get; set; }
-		public int PostId { get; set; }
+		public Comment Comment { get; set; }
 		public string CommentBody { get; set; }
 	}
 }

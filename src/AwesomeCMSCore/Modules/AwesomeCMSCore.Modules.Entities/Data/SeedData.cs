@@ -80,8 +80,8 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 			tony4 = new User
 			{
 				Id = new Guid("4d272cc9-c2ff-42eb-8afc-5509353fdf42").ToString(),
-				Email = "ngohungphuc4@gmail.com",
-				NormalizedEmail = "ngohungphuc4@gmail.com".ToUpper(),
+				Email = "ngohungphuc7695@gmail.com",
+				NormalizedEmail = "ngohungphuc7695@gmail.com".ToUpper(),
 				UserName = "tony4",
 				NormalizedUserName = "tony4".ToUpper(),
 				EmailConfirmed = true,

@@ -1,4 +1,4 @@
-﻿namespace AwesomeCMSCore.Modules.Email
+namespace AwesomeCMSCore.Modules.Email
 {
     public enum EmailType
     {
@@ -7,6 +7,7 @@
         ResetPassword,
         RequestPassword,
         ForgotPassword,
-        SystemLog
+        SystemLog,
+		ReplyComment
     }
 }
