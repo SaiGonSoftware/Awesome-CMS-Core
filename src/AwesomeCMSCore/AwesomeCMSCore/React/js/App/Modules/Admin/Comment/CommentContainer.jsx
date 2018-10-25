@@ -476,24 +476,24 @@ class CommentContainer extends Component {
 				}
 		}
 
-		onReply = (comment, postId, e) => {
+		onReply = (comment, e) => {
 				if (e.charCode === 13) {
 						const replyViewModel = {
-							Id: comment.id,
-							ParentComment: comment,
-							PostId: postId,
-							CommentBody: e.target.value
+								Comment: comment.parentComment !== null ? comment.parentComment : comment,
+								CommentBody: e.target.value
 						};
 
 						const url = `${COMMENTS_ENDPOINT}/${comment.id}/reply`;
-						PostWithSpinner.call(this, url, replyViewModel).then(res => {
-							if (res.status === STATUS_CODE.Success) 
-								toastr.info("Reply comment success");
-							}
-						)
-						.catch(() => {
-							toastr.error("Something went wrong. Please try again");
-						});
+						PostWithSpinner
+								.call(this, url, replyViewModel)
+								.then(res => {
+										if (res.status === STATUS_CODE.Success) 
+												toastr.info("Reply comment success");
+										}
+								)
+								.catch(() => {
+										toastr.error("Something went wrong. Please try again");
+								});
 				}
 		}
 
