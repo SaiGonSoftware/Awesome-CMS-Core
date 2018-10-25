@@ -43,8 +43,8 @@ namespace AwesomeCMSCore.Modules.Email
 					email.Body = builder.ToMessageBody();
 					break;
 				case EmailType.ReplyComment:
-					email.Subject = $"{reciever} just replied your comment";
-					builder.HtmlBody = AccountForgotPassword(options);
+					email.Subject = $"{options.UserReply} just replied your comment";
+					builder.HtmlBody = ReplyCommentEmailTemplate(options);
 					email.Body = builder.ToMessageBody();
 					break;
 				default:
@@ -54,7 +54,6 @@ namespace AwesomeCMSCore.Modules.Email
 			using (var client = new SmtpClient())
 			{
 				client.Connect(_emailSetting.Value.MailServer, _emailSetting.Value.MailPort, false);
-
 				client.Authenticate(_emailSetting.Value.Email, _emailSetting.Value.Password);
 
 				client.Send(email);

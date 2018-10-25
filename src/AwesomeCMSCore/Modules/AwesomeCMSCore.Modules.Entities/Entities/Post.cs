@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using AwesomeCMSCore.Modules.Entities.Enums;
 
 namespace AwesomeCMSCore.Modules.Entities.Entities
@@ -11,8 +11,8 @@ namespace AwesomeCMSCore.Modules.Entities.Entities
         public string Tags { get; set; }
         public string Categories { get; set; }
         public PostStatus PostStatus { get; set; }
-        public User User { get; set; }
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<Media> Medias { get; set; }
+        public virtual User User { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Media> Medias { get; set; }
     }
 }
