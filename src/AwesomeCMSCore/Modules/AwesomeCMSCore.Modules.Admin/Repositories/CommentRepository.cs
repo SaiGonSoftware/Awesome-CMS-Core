@@ -97,6 +97,8 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 				try
 				{
 					var post = await _unitOfWork.Repository<Post>().Query().Where(cm => cm.Id == replyViewModel.PostId).SingleOrDefaultAsync();
+					var existingComment = await _unitOfWork.Repository<Comment>().Query().Where(cm => cm.Id == replyViewModel.Id).SingleOrDefaultAsync();
+
 					var userReply = await _userService.GetCurrentUserAsync();
 					var comment = new Comment
 					{
@@ -107,15 +109,15 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 						ParentComment = replyViewModel.ParentComment
 					};
 
+					_dbContext.Set<Comment>().Attach(comment);
+					await _unitOfWork.Repository<Comment>().AddAsync(comment);
+
 					var emailOptions = new EmailOptions
 					{
-						UserComment = replyViewModel.ParentComment.User.Email,
+						UserComment = replyViewModel.ParentComment != null ? replyViewModel.ParentComment.User.Email : existingComment.User.Email,
 						UserReply = userReply.Email,
 						Url = $"Post/{post.Id}"
 					};
-
-					_dbContext.Set<Comment>().Attach(comment);
-					await _unitOfWork.Repository<Comment>().AddAsync(comment);
 					await _emailSender.SendEmailAsync(replyViewModel.ParentComment.User.Email, null, emailOptions, EmailType.ReplyComment);
 
 					transaction.Complete();

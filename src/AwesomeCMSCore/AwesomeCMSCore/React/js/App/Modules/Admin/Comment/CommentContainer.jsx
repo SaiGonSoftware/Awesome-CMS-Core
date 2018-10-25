@@ -478,10 +478,9 @@ class CommentContainer extends Component {
 
 		onReply = (comment, postId, e) => {
 				if (e.charCode === 13) {
-						console.log(comment)
-						console.log(e.target.value)
-
+					
 						const replyViewModel = {
+							Id: comment.id,
 							ParentComment: comment,
 							PostId: postId,
 							CommentBody: e.target.value
