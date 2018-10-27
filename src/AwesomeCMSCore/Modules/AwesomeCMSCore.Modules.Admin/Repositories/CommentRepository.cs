@@ -48,7 +48,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 				.Select(x => new CommentViewModel
 				{
 					User = _mapper.Map<User, UserViewModel>(x.User),
-					Post = x.Post,
+					Post = _mapper.Map<Post, PostViewModel>(x.Post),
 					Comment = _mapper.Map<Comment, CommentDto>(x),
 				})
 				.ToListAsync();
