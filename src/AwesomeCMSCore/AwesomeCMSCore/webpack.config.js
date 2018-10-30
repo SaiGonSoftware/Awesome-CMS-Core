@@ -6,7 +6,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
   entry: {
-    common: "./React/js/App/Vendor/common.js",
+    admin: "./React/js/App/Modules/Admin/admin.js",
     login: "./React/js/EntryPoint/Modules/Admin/Account/Login/Login.js",
     password: "./React/js/EntryPoint/Modules/Admin/Account/Password/Password.js",
     manageaccount: "./React/js/EntryPoint/Modules/Admin/Account/Index.js",
@@ -27,7 +27,7 @@ module.exports = {
       options: {}
     }),
     new MiniCssExtractPlugin({
-      filename: "cmscore.css"
+      filename: "[name].css"
     }),
     new webpack.ProvidePlugin({
       $: "jquery",
