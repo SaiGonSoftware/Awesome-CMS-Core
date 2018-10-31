@@ -23,23 +23,13 @@ module.exports = {
 		filename: "[name].js",
 		publicPath: "/dist/"
 	},
-	optimization: {
-		minimizer: [
-			new UglifyJsPlugin({
-				parallel: true,
-				sourceMap: true // set to true if you want JS source maps
-			}),
-			new OptimizeCSSAssetsPlugin({})
-		]
-	},
 	plugins: [
 		new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /jsx$/),
 		new webpack.LoaderOptionsPlugin({
 			options: {}
 		}),
 		new MiniCssExtractPlugin({
-			filename: "[name].css",
-			chunkFilename: "[id].css"
+			filename: "[name].css"
 		}),
 		new webpack.ProvidePlugin({
 			$: "jquery",
