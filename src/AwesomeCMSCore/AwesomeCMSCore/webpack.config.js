@@ -39,7 +39,7 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: "[name].css",
-			chunkFilename: "[id].css"
+            chunkFilename: "[id].css"
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
@@ -73,11 +73,11 @@ module.exports = {
                         loader: "sass-loader"
                     }
                 ]
-			},
-			{
-				test: /\.css$/,
-				use: [MiniCssExtractPlugin.loader, "css-loader"]
-			},
+            },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader"]
+            },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
