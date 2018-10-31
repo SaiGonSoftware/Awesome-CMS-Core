@@ -1,2 +1,3 @@
-React/css/style.default.scss
-React/css/font.scss
+React/css/Admin/style.default.scss
+React/css/Admin/font.scss
+React/css/Client/theme.default.scss
