@@ -147,15 +147,15 @@ namespace AwesomeCMSCore.Extension
             services.AddScoped<IQueueService, QueueService>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IUrlHelperExtension, UrlHelperExtension>();
-            services.AddTransient<IPostRepository, PostRepository>();
-            services.AddTransient<IPostOptionsRepository, PostOptionsRepository>();
-            services.AddTransient<ICommentRepository, CommentRepository>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IAccountRepository, AccountRepository>();
-            services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<IExceptionHandler, ExceptionHandler>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUrlHelperExtension, UrlHelperExtension>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IPostOptionsRepository, PostOptionsRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IExceptionHandler, ExceptionHandler>();
 
             return services;
         }
