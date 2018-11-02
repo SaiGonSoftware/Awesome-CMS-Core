@@ -33,6 +33,9 @@ Please read
 
 ## App insider (Continue to Update)
 
+## Client UI
+<img src="img/clientui-index.png">
+
 ### Login page for admin
 
 <img src="img/login.png"/>
@@ -69,7 +72,7 @@ Please read
 
 ---
 
-### Manage comments (Developing)
+### Manage comment
 
 <img src="img/Manage comments.png"/>
 
