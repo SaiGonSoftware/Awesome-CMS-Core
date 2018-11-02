@@ -56,4 +56,13 @@
     <Folder Include="Modules\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Shared\_ClientFooter.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_ClientHeader.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>
