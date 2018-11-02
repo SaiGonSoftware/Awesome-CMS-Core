@@ -34,7 +34,7 @@ Please read
 ## App insider (Continue to Update)
 
 ## Client UI
-<img src="img/clientui-index.png">
+<img src="Resource/Archive/Theme/clientui-index.png">
 
 ### Login page for admin
 
