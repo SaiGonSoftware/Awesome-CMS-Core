@@ -1,4 +1,3 @@
-using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.ViewModel;
 
 namespace AwesomeCMSCore.Modules.Admin.ViewModels

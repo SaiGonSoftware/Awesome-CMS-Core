@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 using AwesomeCMSCore.Modules.Entities.Enums;
 
 namespace AwesomeCMSCore.Modules.Entities.Entities

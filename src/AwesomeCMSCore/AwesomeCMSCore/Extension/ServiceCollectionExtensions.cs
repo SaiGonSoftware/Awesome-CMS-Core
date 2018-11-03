@@ -149,15 +149,17 @@ namespace AwesomeCMSCore.Extension
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUrlHelperExtension, UrlHelperExtension>();
-            services.AddScoped<IPostRepository, PostRepository>();
+	        services.AddScoped<IExceptionHandler, ExceptionHandler>();
+	        services.AddScoped<IEmailSender, EmailSender>();
+
+			services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IPostOptionsRepository, PostOptionsRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAccountRepository, AccountRepository>();
-            services.AddScoped<IEmailSender, EmailSender>();
-            services.AddScoped<IExceptionHandler, ExceptionHandler>();
+	        services.AddScoped<AwesomeCMSCore.Modules.Client.Repositories.IPostRepository, Modules.Client.Repositories.PostRepository>();
 
-            return services;
+			return services;
         }
 
         public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services,
