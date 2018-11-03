@@ -1,9 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using AwesomeCMSCore.Modules.Entities.Entities;
-
 namespace AwesomeCMSCore.Modules.Admin.ViewModels
 {
     public class PostOptionsViewModel

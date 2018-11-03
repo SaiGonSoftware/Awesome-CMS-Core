@@ -11,6 +11,7 @@ namespace AwesomeCMSCore.Modules.Entities.Entities
         public string Tags { get; set; }
         public string Categories { get; set; }
         public PostStatus PostStatus { get; set; }
+		public int Views { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Media> Medias { get; set; }
