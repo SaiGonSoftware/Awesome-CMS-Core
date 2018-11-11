@@ -206,73 +206,7 @@ const PostContainer = props => {
 																</div>
 																<div className="widget-extra-info-holder">
 																		<div className="widget-recent-posts">
-																				<div className="widget-rpag-gallery-container swiper-container-horizontal">
-																						<div className="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
-																								<div className="swiper-slide swiper-slide-active" style="width: 318px;">
-																										<img src="./Optimistic Blog Index_files/post-five.jpeg" alt="..."/>
-																										<div className="mask"></div>
-																										<div className="slide-content">
-																												<div className="post-title">
-																														<h5>
-																																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div className="swiper-slide swiper-slide-next" style="width: 318px;">
-																										<img src="./Optimistic Blog Index_files/post-six.jpeg" alt="..."/>
-																										<div className="mask"></div>
-																										<div className="slide-content ">
-																												<div className="post-title">
-																														<h5>
-																																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div className="swiper-slide" style="width: 318px;">
-																										<img src="./Optimistic Blog Index_files/post-seven.jpeg" alt="..."/>
-																										<div className="mask"></div>
-																										<div className="slide-content ">
-																												<div className="post-title">
-																														<h5>
-																																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div className="swiper-slide" style="width: 318px;">
-																										<img src="./Optimistic Blog Index_files/post-four.jpeg" alt="..."/>
-																										<div className="mask"></div>
-																										<div className="slide-content ">
-																												<div className="post-title">
-																														<h5>
-																																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																								<div className="swiper-slide" style="width: 318px;">
-																										<img src="./Optimistic Blog Index_files/post-three.jpeg" alt="..."/>
-																										<div className="mask"></div>
-																										<div className="slide-content">
-																												<div className="post-title">
-																														<h5>
-																																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
-																														</h5>
-																												</div>
-																										</div>
-																								</div>
-																						</div>
-																						<div
-																								className="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets">
-																								<span className="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
-																								<span className="swiper-pagination-bullet"></span>
-																								<span className="swiper-pagination-bullet"></span>
-																								<span className="swiper-pagination-bullet"></span>
-																								<span className="swiper-pagination-bullet"></span>
-																						</div>
-																				</div>
+	
 																		</div>
 																</div>
 														</div>
@@ -356,7 +290,6 @@ const PostContainer = props => {
 																				src="./Optimistic Blog Index_files/page.html"
 																				width="300"
 																				height="500"
-																				style="border:none;overflow:hidden"
 																				scrolling="no"
 																				frameBorder="0"
 																				allowTransparency="true"></iframe>
