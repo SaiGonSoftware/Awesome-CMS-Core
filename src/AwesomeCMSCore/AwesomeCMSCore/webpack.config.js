@@ -16,7 +16,8 @@ module.exports = {
         tag: "./React/js/EntryPoint/Modules/Admin/Tag/Tag.js",
         post: "./React/js/EntryPoint/Modules/Admin/Post/Post.js",
         comment: "./React/js/EntryPoint/Modules/Admin/Comment/Comment.js",
-        portal: "./React/js/EntryPoint/Modules/Admin/Portal/PortalIndex.js"
+		portal: "./React/js/EntryPoint/Modules/Admin/Portal/PortalIndex.js",
+		ClientIndex: "./React/js/EntryPoint/Modules/Client/Index/ClientIndex.js"
     },
     output: {
         path: path.resolve(__dirname, "wwwroot/dist"),

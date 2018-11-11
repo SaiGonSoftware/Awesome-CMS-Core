@@ -1,0 +1,1 @@
+export const INDEX_ENDPOINT = "api/v1/Index";
