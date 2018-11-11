@@ -17,21 +17,20 @@ class IndexComponent extends Component {
 
 		componentDidMount() {
 				Get(INDEX_ENDPOINT).then(res => {
-						console.log(res.data);
 						this.setState({vm: res.data});
 				})
 		}
 
 		render() {
 				const {vm} = this.state;
-				console.log(vm);
+				
 				return vm
 						? (
-								<template>
+								<container>
 										{vm
 												.posts
 												.map(post => (<PostContainer key={post.id} post={post}/>))}
-								</template>
+								</container>
 						)
 						: null
 		}
