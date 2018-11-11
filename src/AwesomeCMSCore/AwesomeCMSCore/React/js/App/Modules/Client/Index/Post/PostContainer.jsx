@@ -97,6 +97,7 @@ const PostContainer = props => {
 								</div>
 						</div>
 						<div className="col-lg-4 col-md-4 col-sm-12 col-12">
+								<aside className="sidebar"></aside>
 						</div>
 				</div>
 
