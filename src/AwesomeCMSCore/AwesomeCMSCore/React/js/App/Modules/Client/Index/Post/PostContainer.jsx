@@ -97,7 +97,188 @@ const PostContainer = props => {
 								</div>
 						</div>
 						<div className="col-lg-4 col-md-4 col-sm-12 col-12">
-								<aside className="sidebar"></aside>
+								<aside className="sidebar">
+										<div className="sidebar-inner">
+												<div className="widget widget-about-me wow fadeInUp">
+														<div className="widget-content">
+																<div className="widget-about-me-profile">
+																		<img src="./Optimistic Blog Index_files/profile.jpeg" alt="..."/>
+																</div>
+																<div className="widget-extra-info-holder">
+																		<div className="widget-author-name">
+																				<h3>Anuj Subedi</h3>
+																				<span className="author-profession">Ghost Blogger</span>
+																		</div>
+																		<div className="widget-author-bio">
+																				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+																						tempor incididunt.</p>
+																		</div>
+																		<div className="widget-author-social">
+																				<ul className="social-links">
+																						<li>
+																								<a href="https://facebook.com/"></a>
+																						</li>
+																						<li>
+																								<a href="https://twitter.com/"></a>
+																						</li>
+																						<li>
+																								<a href="https://instagram.com/"></a>
+																						</li>
+																						<li>
+																								<a href="https://youtube.com/"></a>
+																						</li>
+																						<li>
+																								<a href="https://snapchat.com/"></a>
+																						</li>
+																				</ul>
+																		</div>
+																		<div className="widget-author-signature">
+																				<img src="./Optimistic Blog Index_files/signature-one.jpg" alt="..."/>
+																		</div>
+																</div>
+														</div>
+												</div>
+												<div className="widget widget-social-links wow fadeInUp">
+														<div className="widget-content">
+																<div className="widget-title">
+																		<h2>I'M social</h2>
+																</div>
+																<div className="widget-extra-info-holder">
+																		<div className="widget-social-links">
+																				<ul className="social-links-list">
+																						<li className="facebook-link">
+																								<a href="http://facebook.com/" className="clearfix" target="_blank">
+																										Facebook
+																										<span className="social-icon">
+																												<i className="fa fa-facebook"></i>
+																										</span>
+																								</a>
+																						</li>
+																						<li className="twitter-link">
+																								<a href="http://twitter.com/" className="clearfix" target="_blank">
+																										Twitter
+																										<span className="social-icon">
+																												<i className="fa fa-twitter"></i>
+																										</span>
+																								</a>
+																						</li>
+																						<li className="googleplus-link">
+																								<a href="http://plus.google.com/" className="clearfix" target="_blank">
+																										Google Plus
+																										<span className="social-icon">
+																												<i className="fa fa-google-plus"></i>
+																										</span>
+																								</a>
+																						</li>
+																						<li className="instagram-link">
+																								<a href="http://instagram.com/" className="clearfix" target="_blank">
+																										Instagram
+																										<span className="social-icon">
+																												<i className="fa fa-instagram"></i>
+																										</span>
+																								</a>
+																						</li>
+																						<li className="linkedin-link">
+																								<a href="http://linkedin.com/" className="clearfix" target="_blank">
+																										Linked In
+																										<span className="social-icon">
+																												<i className="fa fa-linkedin"></i>
+																										</span>
+																								</a>
+																						</li>
+																						<li className="youtube-link">
+																								<a href="http://youtube.com/" className="clearfix" target="_blank">
+																										Youtube
+																										<span className="social-icon">
+																												<i className="fa fa-youtube"></i>
+																										</span>
+																								</a>
+																						</li>
+																				</ul>
+																		</div>
+																</div>
+														</div>
+												</div>
+												<div className="widget widget-recent-posts wow fadeInUp">
+														<div className="widget-content">
+																<div className="widget-title">
+																		<h2>Recent posts</h2>
+																</div>
+																<div className="widget-extra-info-holder">
+																		<div className="widget-recent-posts">
+																				<div className="widget-rpag-gallery-container swiper-container-horizontal">
+																						<div className="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+																								<div className="swiper-slide swiper-slide-active" style="width: 318px;">
+																										<img src="./Optimistic Blog Index_files/post-five.jpeg" alt="..."/>
+																										<div className="mask"></div>
+																										<div className="slide-content">
+																												<div className="post-title">
+																														<h5>
+																																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
+																														</h5>
+																												</div>
+																										</div>
+																								</div>
+																								<div className="swiper-slide swiper-slide-next" style="width: 318px;">
+																										<img src="./Optimistic Blog Index_files/post-six.jpeg" alt="..."/>
+																										<div className="mask"></div>
+																										<div className="slide-content ">
+																												<div className="post-title">
+																														<h5>
+																																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
+																														</h5>
+																												</div>
+																										</div>
+																								</div>
+																								<div className="swiper-slide" style="width: 318px;">
+																										<img src="./Optimistic Blog Index_files/post-seven.jpeg" alt="..."/>
+																										<div className="mask"></div>
+																										<div className="slide-content ">
+																												<div className="post-title">
+																														<h5>
+																																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
+																														</h5>
+																												</div>
+																										</div>
+																								</div>
+																								<div className="swiper-slide" style="width: 318px;">
+																										<img src="./Optimistic Blog Index_files/post-four.jpeg" alt="..."/>
+																										<div className="mask"></div>
+																										<div className="slide-content ">
+																												<div className="post-title">
+																														<h5>
+																																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
+																														</h5>
+																												</div>
+																										</div>
+																								</div>
+																								<div className="swiper-slide" style="width: 318px;">
+																										<img src="./Optimistic Blog Index_files/post-three.jpeg" alt="..."/>
+																										<div className="mask"></div>
+																										<div className="slide-content">
+																												<div className="post-title">
+																														<h5>
+																																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
+																														</h5>
+																												</div>
+																										</div>
+																								</div>
+																						</div>
+																						<div
+																								className="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets">
+																								<span className="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+																								<span className="swiper-pagination-bullet"></span>
+																								<span className="swiper-pagination-bullet"></span>
+																								<span className="swiper-pagination-bullet"></span>
+																								<span className="swiper-pagination-bullet"></span>
+																						</div>
+																				</div>
+																		</div>
+																</div>
+														</div>
+												</div>
+										</div>
+								</aside>
 						</div>
 				</div>
 
