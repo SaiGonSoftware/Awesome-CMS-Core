@@ -346,6 +346,23 @@ const PostContainer = props => {
 																</div>
 														</div>
 												</div>
+												<div className="widget widget-facebook-page-box wow fadeInUp">
+														<div className="widget-content">
+																<div className="widget-title">
+																		<h2>Facebook page</h2>
+																</div>
+																<div className="widget-extra-info-holder">
+																		<iframe
+																				src="./Optimistic Blog Index_files/page.html"
+																				width="300"
+																				height="500"
+																				style="border:none;overflow:hidden"
+																				scrolling="no"
+																				frameBorder="0"
+																				allowTransparency="true"></iframe>
+																</div>
+														</div>
+												</div>
 										</div>
 								</aside>
 						</div>
