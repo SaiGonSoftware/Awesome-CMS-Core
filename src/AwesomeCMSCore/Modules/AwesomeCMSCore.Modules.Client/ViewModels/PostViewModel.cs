@@ -8,5 +8,6 @@ namespace AwesomeCMSCore.Modules.Client.ViewModels
 		public IEnumerable<PostListViewModel> Posts { get; set; }
 		public PostIndexViewModel RecentPost { get; set; }
 		public IEnumerable<PostListViewModel> PopularPosts { get; set; }
+		public object Categories { get; set; }
 	}
 }
