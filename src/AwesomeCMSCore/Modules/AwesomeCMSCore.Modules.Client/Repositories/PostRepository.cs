@@ -41,7 +41,7 @@ namespace AwesomeCMSCore.Modules.Client.Repositories
 			{
 				Posts = _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(posts),
 				PopularPosts = _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(popularPost),
-				RecentPosts = _mapper.Map<Post, PostIndexViewModel>(recentPost),
+				RecentPost = _mapper.Map<Post, PostIndexViewModel>(recentPost),
 			};
 
 			return vm;

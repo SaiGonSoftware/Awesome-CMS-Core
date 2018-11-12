@@ -23,15 +23,9 @@ class IndexComponent extends Component {
 
 		render() {
 				const {vm} = this.state;
-				
+
 				return vm
-						? (
-								<container>
-										{vm
-												.posts
-												.map(post => (<PostContainer key={post.id} post={post}/>))}
-								</container>
-						)
+						? (<PostContainer vm={vm}/>)
 						: null
 		}
 }
