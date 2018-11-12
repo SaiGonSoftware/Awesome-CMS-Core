@@ -26,7 +26,8 @@ const PostContainerDetail = (props) => {
 																				<div id="postPublished" key={post.id}>
 																						<ListGroupItem className="postItem">
 																								<h3>{post.title}</h3>
-																								<h6>{moment(post.dateCreated).format('DD MMMM YYYY')}</h6>
+																								<h5>{moment(post.dateCreated).format('DD MMMM YYYY')}</h5>
+																								<h6>{post.views} Recent Views</h6>
 																						</ListGroupItem>
 																						<div className="postManage">
 																								<Button color="info" onClick={() => props.navigateToPostDetail(post.id)}>
