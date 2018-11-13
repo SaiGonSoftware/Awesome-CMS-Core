@@ -4,6 +4,14 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const WebpackShellPlugin = require('webpack-shell-plugin');
+
+const shellScript = [];
+
+shellScript.push(new WebpackShellPlugin({
+    onBuildStart: ['echo "Starting"'],
+    onBuildEnd: ['postcss --dir wwwroot/dist wwwroot/dist/*.css']
+}));
 
 module.exports = {
     entry: {
@@ -16,8 +24,8 @@ module.exports = {
         tag: "./React/js/EntryPoint/Modules/Admin/Tag/Tag.js",
         post: "./React/js/EntryPoint/Modules/Admin/Post/Post.js",
         comment: "./React/js/EntryPoint/Modules/Admin/Comment/Comment.js",
-		portal: "./React/js/EntryPoint/Modules/Admin/Portal/PortalIndex.js",
-		ClientIndex: "./React/js/EntryPoint/Modules/Client/Index/ClientIndex.js"
+        portal: "./React/js/EntryPoint/Modules/Admin/Portal/PortalIndex.js",
+        ClientIndex: "./React/js/EntryPoint/Modules/Client/Index/ClientIndex.js"
     },
     output: {
         path: path.resolve(__dirname, "wwwroot/dist"),
@@ -27,8 +35,20 @@ module.exports = {
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
-                parallel: true,
-                sourceMap: true
+                uglifyOptions: {
+                    warnings: false,
+                    parse: {},
+                    compress: {},
+                    output: null,
+                    toplevel: false,
+                    nameCache: null,
+                    ie8: false,
+                    parallel: true,
+                    sourceMap: true,
+                    mangle: true,
+                    keep_fnames: true,
+                    extractComments: true
+                }
             }),
             new OptimizeCSSAssetsPlugin({})
         ]
@@ -50,6 +70,10 @@ module.exports = {
         new UglifyJsPlugin(),
         new CompressionPlugin({
             test: /\.(js|css)/
+        }),
+        new WebpackShellPlugin({
+            onBuildStart: ['echo "Starting"'],
+            onBuildEnd: ['postcss --dir wwwroot/dist wwwroot/dist/*.css']
         })
     ],
     resolve: {
@@ -62,6 +86,7 @@ module.exports = {
         rules: [{
                 test: /\.scss$/,
                 use: [
+                    'style-loader',
                     MiniCssExtractPlugin.loader,
                     {
                         loader: "css-loader",
@@ -74,10 +99,6 @@ module.exports = {
                         loader: "sass-loader"
                     }
                 ]
-            },
-            {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader"]
             },
             {
                 test: /\.(js|jsx)$/,
