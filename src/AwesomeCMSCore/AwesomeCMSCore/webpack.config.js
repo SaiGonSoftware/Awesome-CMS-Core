@@ -3,7 +3,6 @@ const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const WebpackShellPlugin = require('webpack-shell-plugin');
 
 const shellScript = [];
@@ -38,19 +37,18 @@ module.exports = {
                 uglifyOptions: {
                     warnings: false,
                     parse: {},
-                    compress: {},
+                    compress: true,
                     output: null,
                     toplevel: false,
                     nameCache: null,
                     ie8: false,
                     parallel: true,
-                    sourceMap: true,
                     mangle: true,
-                    keep_fnames: true,
-                    extractComments: true
-                }
-            }),
-            new OptimizeCSSAssetsPlugin({})
+                    keep_fnames: true
+                },
+                extractComments: true,
+                sourceMap: false
+            })
         ]
     },
     plugins: [
@@ -67,10 +65,10 @@ module.exports = {
             jQuery: "jquery",
             Popper: ['popper.js', 'default']
         }),
-        new UglifyJsPlugin(),
         new CompressionPlugin({
             test: /\.(js|css)/
-        }),
+		}),
+		new UglifyJsPlugin(),
         new WebpackShellPlugin({
             onBuildStart: ['echo "Starting"'],
             onBuildEnd: ['postcss --dir wwwroot/dist wwwroot/dist/*.css']
