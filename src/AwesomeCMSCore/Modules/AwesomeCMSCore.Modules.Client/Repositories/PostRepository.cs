@@ -37,7 +37,7 @@ namespace AwesomeCMSCore.Modules.Client.Repositories
 			var popularPost = await postQuery.OrderByDescending(p => p.Views).Take(5).ToListAsync();
 			var recentPost = await postQuery.OrderByDescending(p => p.DateCreated).FirstOrDefaultAsync();
 
-			var categories = await _unitOfWork.Repository<PostOption>().Query().Where(p => p.OptionType == PostOptionType.CategorieOptions.ToString()).Select(x=> x.Value).FirstOrDefaultAsync();
+			var categories = await _unitOfWork.Repository<PostOption>().Query().Where(p => p.OptionType == PostOptionType.CategorieOptions.ToString()).Select(x=> x.Key).FirstOrDefaultAsync();
 
 			var vm = new IndexViewModel
 			{

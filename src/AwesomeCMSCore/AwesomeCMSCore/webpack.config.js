@@ -80,6 +80,8 @@ module.exports = {
 	resolve: {
 		modules: [
 			path.resolve('./React/js/App'),
+			path.resolve('./React/js/App/Modules/Client'),
+			path.resolve('./React/js/App/Modules/Adnmin'),
 			path.resolve('./node_modules')
 		]
 	},
