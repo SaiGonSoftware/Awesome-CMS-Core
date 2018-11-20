@@ -19,7 +19,7 @@ const PopularPosts = props => {
 														</h5>
 												</div>
 												<div className="post-view-count post-meta">
-														<p>{props.popularPost.shortDescription}
+														<p>{props.popularPost.views} VIEWS
 														</p>
 												</div>
 										</div>

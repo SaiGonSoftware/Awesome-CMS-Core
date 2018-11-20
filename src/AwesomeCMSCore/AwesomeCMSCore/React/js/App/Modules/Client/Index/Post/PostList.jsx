@@ -5,7 +5,7 @@ import moment from 'moment/src/moment';
 import PostShare from './PostShare.jsx';
 
 const PostList = props => {
-	console.log(props);
+		const categories = JSON.parse(props.post.categories);
 		return (
 				<div className="main-post-area-holder">
 						<article
@@ -19,7 +19,15 @@ const PostList = props => {
 										<div className="col-lg-7 col-md-7 col-sm-7 col-xs-12">
 												<div className="post-meta-category">
 														<p>
-																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">{props.post.categories}</a>
+																{categories.map((categorie, index) => {
+																		return (
+																				<a
+																						key={index}
+																						href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">
+																						{categorie}
+																				</a>
+																		)
+																})}
 														</p>
 												</div>
 												<div className="post-title">
