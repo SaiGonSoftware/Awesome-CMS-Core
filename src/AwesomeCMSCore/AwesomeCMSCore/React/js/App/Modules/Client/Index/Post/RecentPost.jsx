@@ -10,12 +10,10 @@ const RecentPost = props => {
 										<h2>Recent posts</h2>
 								</div>
 								<div className="widget-extra-info-holder">
-										<div className="widget-recent-posts">
+										<div className="widget-recent-posts text-right">
 												<h5>
 														{props.recentPost.title}</h5>
-												<br/>		
-												<h6>
-														at {moment(props.recentPost.dateCreated).format('DD MMMM YYYY')}</h6>
+												<div className="blockquote-footer">{moment(props.recentPost.dateCreated).format('DD MMMM YYYY')}</div>
 										</div>
 								</div>
 						</div>
