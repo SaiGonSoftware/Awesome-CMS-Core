@@ -19,15 +19,15 @@ const PostList = props => {
 										<div className="col-lg-7 col-md-7 col-sm-7 col-xs-12">
 												<div className="post-meta-category">
 														<p>
-																{categories.map((categorie, index) => {
-																		return (
-																				<a
-																						key={index}
-																						href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">
-																						{categorie}
-																				</a>
-																		)
-																})}
+																<ul className="tags">
+																		{categories.map((categorie, index) => {
+																				return (
+																						<li key={index}>
+																								<a href="#" className="tag">{categorie}</a>
+																						</li>
+																				)
+																		})}
+																</ul>
 														</p>
 												</div>
 												<div className="post-title">

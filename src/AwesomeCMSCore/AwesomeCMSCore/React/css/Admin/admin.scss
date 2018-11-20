@@ -3,6 +3,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import "./lib";
 @import "./style.default";
 @import "./font";
+@import "../Shared/shared";
 @import "./Account/Login/LoginForm";
 @import "./Account/Password/ForgotPassword";
 @import "./Account/Password/ResetPassword";
