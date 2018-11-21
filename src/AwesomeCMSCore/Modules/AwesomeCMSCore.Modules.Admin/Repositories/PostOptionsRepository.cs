@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
@@ -42,12 +42,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         public async Task<PostOptionsDefaultViewModel> GetAllOptionsByPostId(int postId)
         {
             var tag = await _unitOfWork.Repository<PostOption>()
-                .FindBy(po => po.OptionType.Equals(PostOptionType.PostTags.ToString(), StringComparison.OrdinalIgnoreCase)
+                .FindBy(po => po.OptionType.Equals(PostOptionType.PostTags)
                               && po.Post.Id == postId)
                 .SingleOrDefaultAsync();
 
             var categories = await _unitOfWork.Repository<PostOption>()
-                .FindBy(po => po.OptionType.Equals(PostOptionType.PostCategories.ToString(), StringComparison.OrdinalIgnoreCase)
+                .FindBy(po => po.OptionType.Equals(PostOptionType.PostCategories)
                               && po.Post.Id == postId)
                 .SingleOrDefaultAsync();
 
@@ -63,7 +63,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         public async Task<PostOptionsViewModel> GetAllTag()
         {
             var tagData = await _unitOfWork.Repository<PostOption>()
-                    .FindBy(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase))
+                    .FindBy(po => po.OptionType.Equals(PostOptionType.TagOptions))
                     .SingleOrDefaultAsync();
 
             var tagDataVm = _mapper.Map<PostOption, PostOptionsViewModel>(tagData);
@@ -80,7 +80,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
                 options.AfterMap((src, dest) =>
                 {
                     dest.User = currentUser;
-                    dest.OptionType = PostOptionType.TagOptions.ToString();
+                    dest.OptionType = PostOptionType.TagOptions;
                 });
             });
 
@@ -92,14 +92,14 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             var currentUser = await GetCurrentUser().ConfigureAwait(false);
 
             var tag = await _unitOfWork.Repository<PostOption>()
-                        .FindAsync(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+                        .FindAsync(po => po.OptionType.Equals(PostOptionType.TagOptions));
 
             var tagToUpdate = _mapper.Map(tagDataVm, tag, options =>
             {
                 options.AfterMap((src, dest) =>
                 {
                     dest.User = currentUser;
-                    dest.OptionType = PostOptionType.TagOptions.ToString();
+                    dest.OptionType = PostOptionType.TagOptions;
                 });
             });
 
@@ -109,7 +109,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
         public async Task<PostOptionsViewModel> GetAllCategories()
         {
             var categoriesData = await _unitOfWork.Repository<PostOption>()
-                    .FindBy(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase))
+                    .FindBy(po => po.OptionType.Equals(PostOptionType.CategorieOptions))
                     .SingleOrDefaultAsync();
 
             var tagDataVm = _mapper.Map<PostOption, PostOptionsViewModel>(categoriesData);
@@ -126,7 +126,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
                 options.AfterMap((src, dest) =>
                 {
                     dest.User = currentUser;
-                    dest.OptionType = PostOptionType.CategorieOptions.ToString();
+                    dest.OptionType = PostOptionType.CategorieOptions;
                 });
             });
 
@@ -138,14 +138,14 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             var currentUser = await GetCurrentUser();
 
             var categories = await _unitOfWork.Repository<PostOption>()
-                    .FindAsync(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+                    .FindAsync(po => po.OptionType.Equals(PostOptionType.CategorieOptions));
 
             var categoriesToUpdate = _mapper.Map(categoriesVm, categories, options =>
             {
                 options.AfterMap((src, dest) =>
                 {
                     dest.User = currentUser;
-                    dest.OptionType = PostOptionType.CategorieOptions.ToString();
+                    dest.OptionType = PostOptionType.CategorieOptions;
                 });
             });
 
@@ -154,12 +154,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
         public bool IsCategoriesExist()
         {
-            return _unitOfWork.Repository<PostOption>().Exist(po => po.OptionType.Equals(PostOptionType.CategorieOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+            return _unitOfWork.Repository<PostOption>().Exist(po => po.OptionType.Equals(PostOptionType.CategorieOptions));
         }
 
         public bool IsTagExist()
         {
-            return _unitOfWork.Repository<PostOption>().Exist(po => po.OptionType.Equals(PostOptionType.TagOptions.ToString(), StringComparison.OrdinalIgnoreCase));
+            return _unitOfWork.Repository<PostOption>().Exist(po => po.OptionType.Equals(PostOptionType.TagOptions));
         }
 
         private async Task<User> GetCurrentUser()

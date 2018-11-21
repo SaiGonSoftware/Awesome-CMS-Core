@@ -86,7 +86,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
                 {
                     dest.Id = postViewModel.PostOptionsDefaultViewModel.TagViewModel.Id;
                     dest.User = currentUser;
-                    dest.OptionType = PostOptionType.PostTags.ToString();
+                    dest.OptionType = PostOptionType.PostTags;
                 });
             });
 
@@ -96,7 +96,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
                 {
                     dest.Id = postViewModel.PostOptionsDefaultViewModel.CategoriesViewModel.Id;
                     dest.User = currentUser;
-                    dest.OptionType = PostOptionType.PostCategories.ToString();
+                    dest.OptionType = PostOptionType.PostCategories;
                 });
             });
 
@@ -119,7 +119,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             {
                 Key = postViewModel.PostOptionsDefaultViewModel.TagViewModel.Key,
                 Value = postViewModel.PostOptionsDefaultViewModel.TagViewModel.Value,
-                OptionType = PostOptionType.PostTags.ToString(),
+                OptionType = PostOptionType.PostTags,
                 User = await _userService.GetCurrentUserAsync(),
                 Post = post
             };
@@ -128,7 +128,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
             {
                 Key = postViewModel.PostOptionsDefaultViewModel.CategoriesViewModel.Key,
                 Value = postViewModel.PostOptionsDefaultViewModel.CategoriesViewModel.Value,
-                OptionType = PostOptionType.PostCategories.ToString(),
+                OptionType = PostOptionType.PostCategories,
                 User = await _userService.GetCurrentUserAsync(),
                 Post = post
             };
