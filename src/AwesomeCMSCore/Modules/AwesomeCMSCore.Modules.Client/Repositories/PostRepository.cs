@@ -31,13 +31,15 @@ namespace AwesomeCMSCore.Modules.Client.Repositories
 
 		public async Task<IndexViewModel> GetIndexViewModel()
 		{
-			var postQuery =  _unitOfWork.Repository<Post>().Query().Where(p => p.PostStatus == PostStatus.Published).AsQueryable();
+			var postQuery =  _unitOfWork.Repository<Post>().Query().Where(p => p.PostStatus.Equals(PostStatus.Published)).AsQueryable();
 
 			var posts = await postQuery.ToListAsync();
 			var popularPost = await postQuery.OrderByDescending(p => p.Views).Take(5).ToListAsync();
 			var recentPost = await postQuery.OrderByDescending(p => p.DateCreated).FirstOrDefaultAsync();
 
-			var categories = await _unitOfWork.Repository<PostOption>().Query().Where(p => p.OptionType == PostOptionType.CategorieOptions.ToString()).Select(x=> x.Key).FirstOrDefaultAsync();
+			var categories = await _unitOfWork.Repository<PostOption>().Query()
+				.Where(p => p.OptionType == PostOptionType.CategorieOptions)
+				.Select(x=> x.Key).FirstOrDefaultAsync();
 
 			var vm = new IndexViewModel
 			{

@@ -229,7 +229,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 				Key = "[\"Web\",\"Mobile\"]",
 				Value =
 					"[{\"value\":\"Web\",\"label\":\"Web\",\"className\":\"Select-create-option-placeholder\"},{\"value\":\"Mobile\",\"label\":\"Mobile\",\"className\":\"Select-create-option-placeholder\"}]",
-				OptionType = PostOptionType.CategorieOptions.ToString()
+				OptionType = PostOptionType.CategorieOptions
 			};
 
 			var tag = new PostOption
@@ -238,7 +238,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 				Key = "[\"ASP.Net\",\"React\"]",
 				Value =
 					"[{\"value\":\"ASP.Net\",\"label\":\"ASP.Net\",\"className\":\"Select-create-option-placeholder\"},{\"value\":\"React\",\"label\":\"React\",\"className\":\"Select-create-option-placeholder\"}]",
-				OptionType = PostOptionType.TagOptions.ToString()
+				OptionType = PostOptionType.TagOptions
 			};
 
 			await context.AddAsync(categorie);
