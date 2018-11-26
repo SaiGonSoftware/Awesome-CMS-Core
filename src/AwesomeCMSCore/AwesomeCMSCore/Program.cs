@@ -36,7 +36,6 @@ namespace AwesomeCMSCore
 				// Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
 				NLog.LogManager.Shutdown();
 			}
-
 		}
 
 		public static IWebHost BuildWebHost(string[] args) =>
