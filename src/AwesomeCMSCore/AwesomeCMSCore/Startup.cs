@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using AwesomeCMSCore.Extension;
 using AwesomeCMSCore.Infrastructure.Config;
 using AwesomeCMSCore.Infrastructure.Module.Views;
@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace AwesomeCMSCore
 {
@@ -30,7 +32,8 @@ namespace AwesomeCMSCore
             }
 
             _configuration = builder.Build();
-        }
+			hostingEnvironment.ConfigureNLog("nlog.config");
+		}
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -54,7 +57,7 @@ namespace AwesomeCMSCore
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseResponseCompression();
-            app.UseStaticFiles();
+			app.UseStaticFiles();
             app.UseHangFire();
             app.SetupEnv(env);
             app.ConfigSwagger();
