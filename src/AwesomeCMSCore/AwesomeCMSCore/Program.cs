@@ -16,7 +16,14 @@ namespace AwesomeCMSCore
 			try
 			{
 				logger.Debug("init main");
-				BuildWebHost(args).Run();
+				var host = BuildWebHost(args);
+				using (var scope = host.Services.CreateScope())
+				{
+					var services = scope.ServiceProvider;
+					SeedData.Initialize(services).Wait();
+				}
+
+				host.Run();
 			}
 			catch (Exception ex)
 			{
@@ -30,14 +37,6 @@ namespace AwesomeCMSCore
 				NLog.LogManager.Shutdown();
 			}
 
-			var host = BuildWebHost(args);
-			using (var scope = host.Services.CreateScope())
-			{
-				var services = scope.ServiceProvider;
-				SeedData.Initialize(services).Wait();
-			}
-
-			host.Run();
 		}
 
 		public static IWebHost BuildWebHost(string[] args) =>
