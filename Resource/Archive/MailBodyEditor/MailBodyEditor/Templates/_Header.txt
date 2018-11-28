@@ -1,3 +1,0 @@
-﻿using MailBodyPack;
-using System.Linq;
-
