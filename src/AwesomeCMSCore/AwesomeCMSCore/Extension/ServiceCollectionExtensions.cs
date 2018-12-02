@@ -35,6 +35,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Hangfire;
 using AwesomeCMSCore.Modules.Queue.Services;
 using AwesomeCMSCore.Modules.Queue.Settings;
+using AwesomeCMSCore.Modules.Shared.Repositories;
 using GlobalConfiguration = AwesomeCMSCore.Infrastructure.Config.GlobalConfiguration;
 
 namespace AwesomeCMSCore.Extension
@@ -157,7 +158,8 @@ namespace AwesomeCMSCore.Extension
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAccountRepository, AccountRepository>();
-	        services.AddScoped<AwesomeCMSCore.Modules.Client.Repositories.IPostRepository, Modules.Client.Repositories.PostRepository>();
+	        services.AddScoped<Modules.Client.Repositories.IPostRepository, Modules.Client.Repositories.PostRepository>();
+	        services.AddScoped<INewsLetterRepository, NewsLetterRepository>();
 
 			return services;
         }

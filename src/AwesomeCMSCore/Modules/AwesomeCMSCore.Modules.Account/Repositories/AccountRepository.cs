@@ -138,7 +138,8 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
                     };
 
                     await _emailSender.SendEmailAsync(userInputVm.Email, "", emailOptions, EmailType.AccountConfirm);
-                }
+					transaction.Complete();
+				}
                 catch (Exception)
                 {
                     _unitOfWork.Rollback();

@@ -25,7 +25,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.3" />
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-*" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.4" />
     <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.1.2" />
@@ -53,6 +52,7 @@
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Mapper\AwesomeCMSCore.Modules.Mapper.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Queue\AwesomeCMSCore.Modules.Queue.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Repositories\AwesomeCMSCore.Modules.Repositories.csproj" />
+    <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Shared\AwesomeCMSCore.Modules.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

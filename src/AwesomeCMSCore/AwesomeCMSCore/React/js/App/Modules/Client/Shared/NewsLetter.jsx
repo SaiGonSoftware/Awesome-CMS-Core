@@ -1,6 +1,19 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import toastr from "toastr";
+
+import {onChange} from "Helper/StateHelper";
 
 class NewsLetter extends Component {
+		constructor(props) {
+				super(props);
+				this.state = {
+						email: null
+				}
+		}
+
+		registerEmail() {
+		}
+
 		render() {
 				return (
 						<div className="widget widget-newsletter wow fadeInUp">
@@ -14,13 +27,17 @@ class NewsLetter extends Component {
 														<form>
 																<div className="form-group">
 																		<input
+																				name="email"
 																				type="email"
-																				name="newsletter-email"
 																				placeholder="Email Address ..."
-																				className="form-control"/>
+																				className="form-control"
+																				onChange={email => onChange.call(this, email)}/>
 																</div>
 																<div className="form-group">
-																		<button type="submit" name="submit" className="layout-one-btn">Subscribe</button>
+																		<button
+																				onClick={e => this.registerEmail(e)}
+																				name="submit"
+																				className="layout-one-btn">Subscribe</button>
 																</div>
 														</form>
 												</div>
