@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace AwesomeCMSCore.Modules.Shared.Repositories
 {
-	interface INewsLetterRepository
+	public interface INewsLetterRepository
 	{
 		Task<bool> RegisterSubscriptionEmail(string email);
 		Task SendEmailSubscriptionAsync();

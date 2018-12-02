@@ -1,3 +1,4 @@
+using AwesomeCMSCore.Modules.Shared.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Shared.Controllers.V1
@@ -7,9 +8,10 @@ namespace AwesomeCMSCore.Modules.Shared.Controllers.V1
 	[Route("api/v{version:apiVersion}/NewLetter/")]
 	public class NewsLetterController : Controller
 	{
-		public NewsLetterController()
+		private readonly INewsLetterRepository _newsLetterRepository;
+		public NewsLetterController(INewsLetterRepository newsLetterRepository)
 		{
-
+			_newsLetterRepository = newsLetterRepository;
 		}
 	}
 }

@@ -52,6 +52,7 @@
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Mapper\AwesomeCMSCore.Modules.Mapper.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Queue\AwesomeCMSCore.Modules.Queue.csproj" />
     <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Repositories\AwesomeCMSCore.Modules.Repositories.csproj" />
+    <ProjectReference Include="..\Modules\AwesomeCMSCore.Modules.Shared\AwesomeCMSCore.Modules.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
