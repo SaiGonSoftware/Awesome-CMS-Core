@@ -12,11 +12,11 @@ import {
 } from 'reactstrap';
 import toastr from "toastr";
 
-import {Get, Delete, Put} from '@HelperHttp';
-import {StatusCode, PostStatus} from "@HelperAppEnum";
-import {isDomExist, navigateToUrl} from "@HelperUtil";
-import {isEmptyString} from '@HelperValidation';
-import {POST_API} from '@HelperAPI_Endpoint/PostEndpoint';
+import {Get, Delete, Put} from 'HelperHttp';
+import {StatusCode, PostStatus} from "HelperAppEnum";
+import {isDomExist, navigateToUrl} from "HelperUtil";
+import {isEmptyString} from 'HelperValidation';
+import {POST_API} from 'HelperAPI_Endpoint/PostEndpoint';
 
 import PostDetail from 'Modules/Admin/Post/PostDetail';
 import PostContainerHeader from './PostContainerHeader';

@@ -1,5 +1,5 @@
 import React from "react";
-import { validateInput } from "@Helper/Validation";
+import { validateInput } from "Helper/Validation";
 
 import Spinner from "../ACCAnimation/Spinner";
 

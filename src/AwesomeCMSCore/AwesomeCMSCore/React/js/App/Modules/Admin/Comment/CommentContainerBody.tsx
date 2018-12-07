@@ -8,7 +8,7 @@ import {
   Input
 } from "reactstrap";
 import moment from "moment/src/moment";
-import { CommentStatus } from "@HelperAppEnum";
+import { CommentStatus } from "HelperAppEnum";
 import CommentActions from "./CommentActions.tsx";
 type CommentContainerBodyProps = {
   comments: object,

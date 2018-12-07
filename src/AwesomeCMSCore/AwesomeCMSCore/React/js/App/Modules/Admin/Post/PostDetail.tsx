@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import { Container, Row, Col, Button, Card, CardTitle } from "reactstrap";
 import toastr from "toastr";
 
-import { StatusCode } from "@Helper/AppEnum";
-import { SAVE_POST_API } from "@Helper/API_Endpoint/PostEndpoint";
-import { PostWithSpinner } from "@Helper/Http";
-import { onChange, onBlur } from "@Helper/StateHelper";
-import { POST_API } from "@Helper/API_Endpoint/PostEndpoint";
-import { POST_OPTIONS_API } from "@Helper/API_Endpoint/PostOptionEndpoint";
-import { Get } from "@Helper/Http";
+import { StatusCode } from "Helper/AppEnum";
+import { SAVE_POST_API } from "Helper/API_Endpoint/PostEndpoint";
+import { PostWithSpinner } from "Helper/Http";
+import { onChange, onBlur } from "Helper/StateHelper";
+import { POST_API } from "Helper/API_Endpoint/PostEndpoint";
+import { POST_OPTIONS_API } from "Helper/API_Endpoint/PostOptionEndpoint";
+import { Get } from "Helper/Http";
 
-import ACCEditor from "@Common/ACCInput/ACCEditor";
-import ACCButton from "@Common/ACCButton/ACCButton";
-import ACCInput from "@Common/ACCInput/ACCInput";
-import ACCReactSelect from "@Common/ACCSelect/ACCReactSelect";
+import ACCEditor from "Common/ACCInput/ACCEditor";
+import ACCButton from "Common/ACCButton/ACCButton";
+import ACCInput from "Common/ACCInput/ACCInput";
+import ACCReactSelect from "Common/ACCSelect/ACCReactSelect";
 type PostDetailProps = {
   visible: boolean,
   onNavigateBack: (...args: any[]) => any,

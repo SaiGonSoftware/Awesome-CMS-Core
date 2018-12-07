@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import toastr from "toastr";
 
-import { handleOnChange } from "@Helper/StateHelper";
-import { Get, PostWithSpinner } from "@Helper/Http";
-import { StatusCode } from "@Helper/AppEnum";
-import { ROLE_API, ROLE_MANAGE_API } from "@HelperAPI_Endpoint/RoleEndpoint";
+import { handleOnChange } from "Helper/StateHelper";
+import { Get, PostWithSpinner } from "Helper/Http";
+import { StatusCode } from "Helper/AppEnum";
+import { ROLE_API, ROLE_MANAGE_API } from "HelperAPI_Endpoint/RoleEndpoint";
 
-import ACCReactCreateSelect from "@Common/ACCSelect/ACCReactCreateSelect";
-import Spinner from "@Common/ACCAnimation/Spinner";
+import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect";
+import Spinner from "Common/ACCAnimation/Spinner";
 
 type ManageRolesModalProps = {
   id: string

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import { onChange, onBlur } from "@HelperStateHelper";
-import { isDomExist } from "@HelperUtil";
-import { shouldMarkError, validateInput, isFormValid } from "@HelperValidation";
-import { PostWithSpinner } from "@HelperHttp";
-import { FORGOT_PASSWORD_API } from "@HelperAPI_Endpoint/AccountEndpoint";
-import ACCInput from "@Common/ACCInput/ACCInput.tsx";
-import ACCButton from "@Common/ACCButton/ACCButton.tsx";
+import { onChange, onBlur } from "HelperStateHelper";
+import { isDomExist } from "HelperUtil";
+import { shouldMarkError, validateInput, isFormValid } from "HelperValidation";
+import { PostWithSpinner } from "HelperHttp";
+import { FORGOT_PASSWORD_API } from "HelperAPI_Endpoint/AccountEndpoint";
+import ACCInput from "Common/ACCInput/ACCInput.tsx";
+import ACCButton from "Common/ACCButton/ACCButton.tsx";
 type ForgotPasswordState = {
   email: string,
   loading: boolean,

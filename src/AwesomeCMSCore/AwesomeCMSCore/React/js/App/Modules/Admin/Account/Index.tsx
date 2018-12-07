@@ -3,13 +3,13 @@ import { render } from "react-dom";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import toastr from "toastr";
 
-import { isDomExist } from "@Helper/Util";
-import { Get, Post } from "@Helper/Http";
+import { isDomExist } from "Helper/Util";
+import { Get, Post } from "Helper/Http";
 import {
   USER_API,
   TOGGLE_ACCOUNT_STATUS_API
-} from "@Helper/API_Endpoint/AccountEndpoint";
-import { findObjectByKey } from "@Helper/Util";
+} from "Helper/API_Endpoint/AccountEndpoint";
+import { findObjectByKey } from "Helper/Util";
 import AddUserModal from "./Manage/AddUserModal";
 import EditUserRolesModal from "./Manage/EditUserRolesModal";
 import ManageRolesModal from "./Manage/ManageRolesModal";

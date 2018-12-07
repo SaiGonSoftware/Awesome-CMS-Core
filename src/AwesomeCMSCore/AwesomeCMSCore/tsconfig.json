@@ -13,10 +13,10 @@
 		"baseUrl": "./React",
 		"paths": {
 			"~/*": ["*"],
-			"@App/*": ["./React/js/App/*"],
-			"@Helper/*": ["./React/js/App/Helper/*"],
-			"@Common/*": ["./React/js/App/Common/*"],
-			"@Shared/*": ["./React/js/App/Shared/*"],
+			"App/*": ["./React/js/App/*"],
+			"Helper/*": ["./React/js/App/Helper/*"],
+			"Common/*": ["./React/js/App/Common/*"],
+			"Shared/*": ["./React/js/App/Shared/*"],
 		}
 	},
 	"include": [

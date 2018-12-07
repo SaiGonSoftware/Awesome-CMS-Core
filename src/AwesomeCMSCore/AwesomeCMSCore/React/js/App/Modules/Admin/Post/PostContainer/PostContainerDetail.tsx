@@ -9,7 +9,7 @@ import {
 } from "reactstrap";
 import moment from "moment/src/moment";
 
-import { PostStatus } from "@Helper/AppEnum";
+import { PostStatus } from "Helper/AppEnum";
 
 type PostContainerDetailProps = {
   posts: object,

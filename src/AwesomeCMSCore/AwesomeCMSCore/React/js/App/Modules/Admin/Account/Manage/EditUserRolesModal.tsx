@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import toastr from "toastr";
 
-import { Get, PutWithSpinner } from "@Helper/Http";
+import { Get, PutWithSpinner } from "Helper/Http";
 import {
   ROLE_API,
   USER_ROLES_EDIT_API
-} from "@Helper/API_Endpoint/RoleEndpoint";
-import { StatusCode } from "@Helper/AppEnum";
-import Spinner from "@Common/ACCAnimation/Spinner";
-import ACCCheckboxOrRadioGroup from "@Common/ACCSelect/ACCCheckboxOrRadioGroup";
+} from "Helper/API_Endpoint/RoleEndpoint";
+import { StatusCode } from "Helper/AppEnum";
+import Spinner from "Common/ACCAnimation/Spinner";
+import ACCCheckboxOrRadioGroup from "Common/ACCSelect/ACCCheckboxOrRadioGroup";
 
 type EditUserRolesModalProps = {
   id: string,

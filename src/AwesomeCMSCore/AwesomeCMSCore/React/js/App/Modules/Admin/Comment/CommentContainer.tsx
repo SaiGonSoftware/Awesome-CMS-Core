@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import toastr from "toastr";
-import { Get, Put } from "@HelperHttp";
-import { isDomExist } from "@HelperUtil";
-import { PostWithSpinner } from "@HelperHttp";
-import { COMMENTS_ENDPOINT } from "@HelperAPI_Endpoint/CommentEndpoint";
-import { CommentStatus, StatusCode } from "@HelperAppEnum";
+import { Get, Put } from "HelperHttp";
+import { isDomExist } from "HelperUtil";
+import { PostWithSpinner } from "HelperHttp";
+import { COMMENTS_ENDPOINT } from "HelperAPI_Endpoint/CommentEndpoint";
+import { CommentStatus, StatusCode } from "HelperAppEnum";
 import CommentContainerHeader from "./CommentContainerHeader.tsx";
 import CommentContainerBody from "./CommentContainerBody.tsx";
 type CommentContainerState = {

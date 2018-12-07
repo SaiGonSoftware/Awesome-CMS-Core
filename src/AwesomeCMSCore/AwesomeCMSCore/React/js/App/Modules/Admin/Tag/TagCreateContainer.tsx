@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import toastr from "toastr";
 
-import { handleOnChange } from "@Helper/StateHelper";
-import { Get, PostWithSpinner } from "@Helper/Http";
-import { isDomExist } from "@Helper/Util";
-import { StatusCode } from "@Helper/AppEnum";
-import { TAG_API } from "@Helper/API_Endpoint/PostOptionEndpoint";
+import { handleOnChange } from "Helper/StateHelper";
+import { Get, PostWithSpinner } from "Helper/Http";
+import { isDomExist } from "Helper/Util";
+import { StatusCode } from "Helper/AppEnum";
+import { TAG_API } from "Helper/API_Endpoint/PostOptionEndpoint";
 
-import ACCReactCreateSelect from "@Common/ACCSelect/ACCReactCreateSelect";
-import Spinner from "@Common/ACCAnimation/Spinner";
+import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect";
+import Spinner from "Common/ACCAnimation/Spinner";
 
 type TagCreateContainerState = {
   id: any | null,

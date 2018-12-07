@@ -9,6 +9,10 @@ const TSLintPlugin = require('tslint-webpack-plugin');
 
 const shellScript = [];
 
+function srcPath(subdir) {
+    return path.join(__dirname, "React/js/App", subdir);
+}
+
 shellScript.push(new WebpackShellPlugin({
 	onBuildStart: ['echo "Starting"'],
 	onBuildEnd: ['postcss --dir wwwroot/dist wwwroot/dist/*.css']
@@ -70,8 +74,8 @@ module.exports = {
 		}),
 		new webpack.ProvidePlugin({
 			$: "jquery",
-			jQuery: "jquery"
-			//Popper: ['popper.js', 'default']
+			jQuery: "jquery",
+			Popper: ['popper.js', 'default']
 		}),
 		new CompressionPlugin({
 			test: /\.(js|css)/
@@ -84,13 +88,18 @@ module.exports = {
 	],
 	resolve: {
 		extensions: ['.ts', '.tsx'],
+		alias: {
+            Helper: srcPath('Helper'),
+            Common: srcPath('Common'),
+            Shared: srcPath('Shared')
+        },
 		modules: [
-			path.resolve('./React/js/App'),
+/* 			path.resolve('./React/js/App'),
 			path.resolve('./React/js/App/Modules/Client'),
 			path.resolve('./React/js/App/Modules/Adnmin'),
 			path.resolve('./React/js/App/Helper'),
 			path.resolve('./React/js/App/Common'),
-			path.resolve('./React/js/App/Shared'),
+			path.resolve('./React/js/App/Shared'), */
 			path.resolve('./node_modules')
 		]
 	},

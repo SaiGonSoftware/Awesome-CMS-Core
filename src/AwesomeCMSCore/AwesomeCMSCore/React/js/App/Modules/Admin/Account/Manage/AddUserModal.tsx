@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import toastr from "toastr";
 
-import { shouldMarkError, validateInput } from "@Helper/Validation";
-import { onChange } from "@Helper/StateHelper";
-import { Get, PostWithSpinner, Post } from "@Helper/Http";
-import { ROLE_API } from "@Helper/API_Endpoint/RoleEndpoint";
+import { shouldMarkError, validateInput } from "Helper/Validation";
+import { onChange } from "Helper/StateHelper";
+import { Get, PostWithSpinner, Post } from "Helper/Http";
+import { ROLE_API } from "Helper/API_Endpoint/RoleEndpoint";
 import {
   ACCOUNT_DUPLICATE_API,
   USER_API
-} from "@Helper/API_Endpoint/AccountEndpoint";
-import { isFormValid } from "@Helper/Validation";
-import { StatusCode } from "@Helper/AppEnum";
+} from "Helper/API_Endpoint/AccountEndpoint";
+import { isFormValid } from "Helper/Validation";
+import { StatusCode } from "Helper/AppEnum";
 
-import ACCInput from "@Common/ACCInput/ACCInput";
-import ACCMultiCheckbox from "@Common/ACCSelect/ACCMultiCheckbox";
-import Spinner from "@Common/ACCAnimation/Spinner";
+import ACCInput from "Common/ACCInput/ACCInput";
+import ACCMultiCheckbox from "Common/ACCSelect/ACCMultiCheckbox";
+import Spinner from "Common/ACCAnimation/Spinner";
 
 type AddUserModalProps = {
   id: string

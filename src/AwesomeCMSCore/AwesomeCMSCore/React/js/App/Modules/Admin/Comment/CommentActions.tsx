@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "reactstrap";
-import { CommentStatus } from "@HelperAppEnum";
+import { CommentStatus } from "HelperAppEnum";
 
 type CommentActionsProps = {
   comment?: object,

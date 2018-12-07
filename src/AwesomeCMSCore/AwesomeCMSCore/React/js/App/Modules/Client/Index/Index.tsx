@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 
-import { Get } from "@Helper/Http";
-import { INDEX_ENDPOINT } from "@Helper/API_Endpoint/IndexEndpoint";
-import { isDomExist } from "@Helper/Util";
+import { Get } from "Helper/Http";
+import { INDEX_ENDPOINT } from "Helper/API_Endpoint/IndexEndpoint";
+import { isDomExist } from "Helper/Util";
 
 import PostContainer from "./Post/PostContainer";
 

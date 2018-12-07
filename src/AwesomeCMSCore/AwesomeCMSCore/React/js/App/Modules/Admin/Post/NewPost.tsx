@@ -3,18 +3,18 @@ import { render } from "react-dom";
 import { Container, Row, Col, Button, Card, CardTitle } from "reactstrap";
 import toastr from "toastr";
 
-import { Get, PostWithSpinner } from "@Helper/Http";
-import { StatusCode, PostStatus } from "@Helper/AppEnum";
-import { SAVE_POST_API } from "@Helper/API_Endpoint/PostEndpoint";
-import { isDomExist } from "@Helper/Util";
-import { onChange, onBlur } from "@Helper/StateHelper";
-import { POST_OPTIONS_API } from "@Helper/API_Endpoint/PostOptionEndpoint";
+import { Get, PostWithSpinner } from "Helper/Http";
+import { StatusCode, PostStatus } from "Helper/AppEnum";
+import { SAVE_POST_API } from "Helper/API_Endpoint/PostEndpoint";
+import { isDomExist } from "Helper/Util";
+import { onChange, onBlur } from "Helper/StateHelper";
+import { POST_OPTIONS_API } from "Helper/API_Endpoint/PostOptionEndpoint";
 
-import ACCEditor from "@Common/ACCInput/ACCEditor";
-import ACCButton from "@Common/ACCButton/ACCButton";
-import ACCInput from "@Common/ACCInput/ACCInput";
-import ACCReactSelect from "@Common/ACCSelect/ACCReactSelect";
-import Spinner from "@Common/ACCAnimation/Spinner";
+import ACCEditor from "Common/ACCInput/ACCEditor";
+import ACCButton from "Common/ACCButton/ACCButton";
+import ACCInput from "Common/ACCInput/ACCInput";
+import ACCReactSelect from "Common/ACCSelect/ACCReactSelect";
+import Spinner from "Common/ACCAnimation/Spinner";
 
 type NewPostProps = {
   visible?: boolean

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import toastr from "toastr";
 
-import { onChange } from "@Helper/StateHelper";
+import { onChange } from "Helper/StateHelper";
 
 type NewsLetterState = {
   email: null

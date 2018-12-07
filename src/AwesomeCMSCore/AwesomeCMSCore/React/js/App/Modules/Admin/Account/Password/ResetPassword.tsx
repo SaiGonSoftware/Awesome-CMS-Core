@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import toastr from "toastr";
-import { getAllUrlParams } from "@HelperQueryStringParser";
-import { onChange, onBlur } from "@HelperStateHelper";
-import { navigateToUrl, isDomExist } from "@HelperUtil";
-import { shouldMarkError, validateInput, isFormValid } from "@HelperValidation";
-import { PostWithSpinner } from "@HelperHttp";
-import { StatusCode } from "@HelperAppEnum";
+import { getAllUrlParams } from "HelperQueryStringParser";
+import { onChange, onBlur } from "HelperStateHelper";
+import { navigateToUrl, isDomExist } from "HelperUtil";
+import { shouldMarkError, validateInput, isFormValid } from "HelperValidation";
+import { PostWithSpinner } from "HelperHttp";
+import { StatusCode } from "HelperAppEnum";
 import {
   LOGIN_ENDPOINT,
   RESET_PASSWORD_API
-} from "@HelperAPI_Endpoint/AccountEndpoint";
-import ACCInput from "@Common/ACCInput/ACCInput.tsx";
-import ACCButton from "@Common/ACCButton/ACCButton.tsx";
+} from "HelperAPI_Endpoint/AccountEndpoint";
+import ACCInput from "Common/ACCInput/ACCInput.tsx";
+import ACCButton from "Common/ACCButton/ACCButton.tsx";
 type ResetPasswordState = {
   email: any | string,
   token: string,

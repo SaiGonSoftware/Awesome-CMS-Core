@@ -3,21 +3,21 @@ import { render } from "react-dom";
 import toastr from "toastr";
 import qs from "qs";
 
-import { onChange, onBlur, onCheck } from "@Helper/StateHelper";
-import { isDomExist } from "@Helper/Util";
-import { setStorage } from "@Helper/StorageHelper";
-import { AppEnum, StatusCode } from "@Helper/AppEnum";
-import { Post, PostWithSpinner } from "@Helper/Http";
-import { shouldMarkError, validateInput, isFormValid } from "@Helper/Validation";
+import { onChange, onBlur, onCheck } from "Helper/StateHelper";
+import { isDomExist } from "Helper/Util";
+import { setStorage } from "Helper/StorageHelper";
+import { AppEnum, StatusCode } from "Helper/AppEnum";
+import { Post, PostWithSpinner } from "Helper/Http";
+import { shouldMarkError, validateInput, isFormValid } from "Helper/Validation";
 import {
   TOKEN_ENDPOINT,
   ACCOUNT_LOGIN_API
-} from "@Helper/API_Endpoint/AccountEndpoint";
-import { PORTAL_ENDPOINT } from "@Helper/API_Endpoint/PortalEndpoint";
+} from "Helper/API_Endpoint/AccountEndpoint";
+import { PORTAL_ENDPOINT } from "Helper/API_Endpoint/PortalEndpoint";
 
-import ACCInput from "@Common/ACCInput/ACCInput";
-import ACCCheckbox from "@Common/ACCSelect/ACCCheckbox";
-import ACCButton from "@Common/ACCButton/ACCButton";
+import ACCInput from "Common/ACCInput/ACCInput";
+import ACCCheckbox from "Common/ACCSelect/ACCCheckbox";
+import ACCButton from "Common/ACCButton/ACCButton";
 
 type LoginFormState = {
   username: string,
