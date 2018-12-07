@@ -1,1 +1,1 @@
-import "Modules/Client/Index/Index";
+import "ClientModule/Index/Index";

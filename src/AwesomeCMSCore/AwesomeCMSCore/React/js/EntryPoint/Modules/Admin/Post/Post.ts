@@ -1,4 +1,4 @@
 import "Helper/Enviroment";
-import "Modules/Admin/Post/PostContainer/PostContainer";
-import "Modules/Admin/Post/NewPost";
-import "Modules/Admin/Post/PostDetail";
+import "AdminModule/Post/PostContainer/PostContainer";
+import "AdminModule/Post/NewPost";
+import "AdminModule/Post/PostDetail";

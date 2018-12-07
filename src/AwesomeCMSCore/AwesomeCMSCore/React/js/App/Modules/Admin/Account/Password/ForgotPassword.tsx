@@ -5,7 +5,7 @@ import { onChange, onBlur } from "Helper/StateHelper";
 import { isDomExist } from "Helper/Util";
 import { shouldMarkError, validateInput, isFormValid } from "Helper/Validation";
 import { PostWithSpinner } from "Helper/Http";
-import { FORGOT_PASSWORD_API } from "Helper/PI_Endpoint/AccountEndpoint";
+import { FORGOT_PASSWORD_API } from "Helper/API_Endpoint/AccountEndpoint";
 
 import ACCInput from "Common/ACCInput/ACCInput";
 import ACCButton from "Common/ACCButton/ACCButton";

@@ -17,6 +17,10 @@
 			"Helper/*": ["./React/js/App/Helper/*"],
 			"Common/*": ["./React/js/App/Common/*"],
 			"Shared/*": ["./React/js/App/Shared/*"],
+			"ClientShared/*": ["./React/js/App/Modules/Client/Shared/*"],
+			"AdminModule/*": ["./React/js/App/Modules/Admin/*"],
+			"ClientModule/*": ["./React/js/App/Modules/Client/*"],
+			"Vendor/*": ["./React/js/App/Vendor/*"]
 		}
 	},
 	"include": [

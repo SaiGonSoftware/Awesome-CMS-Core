@@ -1,2 +1,2 @@
 import "Helper/Enviroment";
-import "Modules/Admin/Categories/CategoriesCreateContainer";
+import "AdminModule/Categories/CategoriesCreateContainer";

@@ -92,7 +92,10 @@ module.exports = {
             Helper: srcPath('Helper'),
             Common: srcPath('Common'),
 			Shared: srcPath('Shared'),
-			ClientShared: srcPath('Modules/Client/Shared')
+			ClientShared: srcPath('Modules/Client/Shared'),
+			AdminModule: srcPath("Modules/Admin"),
+			ClientModule: srcPath("Modules/Client"),
+			Vendor: srcPath("Vendor")
         },
 		modules: [
 			path.resolve('./node_modules')

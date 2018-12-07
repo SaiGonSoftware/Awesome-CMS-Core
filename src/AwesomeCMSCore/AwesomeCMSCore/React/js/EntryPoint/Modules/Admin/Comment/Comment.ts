@@ -1,2 +1,2 @@
 import "Helper/Enviroment";
-import "Modules/Admin/Comment/CommentContainer";
+import "AdminModule/Comment/CommentContainer";

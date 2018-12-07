@@ -1,2 +1,2 @@
 import "Helper/Enviroment";
-import "Modules/Admin/Account/Index";
+import "AdminModule/Account/Index";
