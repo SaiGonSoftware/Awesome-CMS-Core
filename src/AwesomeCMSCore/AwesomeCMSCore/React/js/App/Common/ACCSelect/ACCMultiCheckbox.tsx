@@ -6,7 +6,7 @@ type ACCMultiCheckboxProps = {
   handleCheckboxChange: (...args: any[]) => any,
   label: string,
   index?: number,
-  checked?: string
+  checked?: boolean
 };
 
 type ACCMultiCheckboxState = {

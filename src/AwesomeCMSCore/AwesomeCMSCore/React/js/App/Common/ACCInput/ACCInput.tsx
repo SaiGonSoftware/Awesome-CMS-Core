@@ -10,8 +10,8 @@ type ACCInputProps = {
   onChange?: (...args: any[]) => any,
   onBlur?: (...args: any[]) => any,
   onFocus?: (...args: any[]) => any,
-  required?: string,
-  disabled?: string
+  required?: boolean,
+  disabled?: boolean
 };
 
 const ACCInput: React.SFC<ACCInputProps> = props => {
