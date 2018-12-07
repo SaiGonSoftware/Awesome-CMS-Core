@@ -1,2 +1,2 @@
 import "Helper/Enviroment";
-import "Modules/Admin/Comment/CommentContainer.tsx";
+import "Modules/Admin/Comment/CommentContainer";

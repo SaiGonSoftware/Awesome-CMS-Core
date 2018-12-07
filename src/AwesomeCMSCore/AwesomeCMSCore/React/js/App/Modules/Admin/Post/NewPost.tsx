@@ -28,7 +28,8 @@ type NewPostState = {
   shortDescription: string,
   tagValue: undefined[],
   categoriesValue: undefined[],
-  loading: boolean
+	loading: boolean,
+	disabled: boolean
 };
 
 class NewPost extends Component<NewPostProps, NewPostState> {
@@ -42,7 +43,8 @@ class NewPost extends Component<NewPostProps, NewPostState> {
       tagOptions: [],
       categoriesOptions: [],
       categoriesValue: [],
-      loading: false
+			loading: false,
+			disabled: false
     };
 	}
 	

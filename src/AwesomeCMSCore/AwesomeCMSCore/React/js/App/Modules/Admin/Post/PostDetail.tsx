@@ -33,6 +33,7 @@ type PostDetailState = {
   loading: boolean,
   postId: string
 };
+
 class PostDetail extends Component<PostDetailProps, PostDetailState> {
   constructor(props) {
     super(props);
@@ -50,7 +51,8 @@ class PostDetail extends Component<PostDetailProps, PostDetailState> {
       tagId: null,
       post: null
     };
-  }
+	}
+	
   componentDidMount() {
     Get(`${POST_OPTIONS_API}/Options`).then(res => {
       this.setState({
@@ -86,7 +88,8 @@ class PostDetail extends Component<PostDetailProps, PostDetailState> {
         postContent: res.data.content
       });
     });
-  }
+	}
+	
   componentWillReceiveProps(nextProps) {
     if (this.props.postId !== nextProps.postId) {
       const url = `${POST_API}/${nextProps.postId}`;
@@ -116,7 +119,8 @@ class PostDetail extends Component<PostDetailProps, PostDetailState> {
         });
       });
     }
-  }
+	}
+	
   editPost = e => {
     e.preventDefault();
     const postOptionsDefaultViewModel = {
@@ -143,21 +147,26 @@ class PostDetail extends Component<PostDetailProps, PostDetailState> {
       if (res.status === StatusCode.Success)
         return toastr.success("Edit post success");
     });
-  };
+	};
+	
   handleEditorChange = e => {
     this.setState({
       postContent: e.target.getContent()
     });
-  };
+	};
+	
   handleOnTagChange = tagValue => {
     this.setState({ tagValue });
-  };
+	};
+	
   handleOnCatChange = categoriesValue => {
     this.setState({ categoriesValue });
-  };
+	};
+	
   onNavigateBack = () => {
     this.props.onNavigateBack();
-  };
+	};
+	
   render() {
     const {
       shortDescription,

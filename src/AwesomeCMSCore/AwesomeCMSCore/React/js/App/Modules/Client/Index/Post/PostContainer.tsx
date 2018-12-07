@@ -3,16 +3,17 @@ import RecentPost from "./RecentPost";
 import PostList from "./PostList";
 import PopularPosts from "./PopularPosts";
 
-import Social from "Shared/Social";
-import AuthorDetail from "Shared/AuthorDetail";
-import Facebook from "Shared/Facebook";
-import Category from "Shared/Category";
-import NewsLetter from "Shared/NewsLetter";
-import TrendingPosts from "Shared/TrendingPosts";
+import Social from "ClientShared/Social";
+import AuthorDetail from "ClientShared/AuthorDetail";
+import Facebook from "ClientShared/Facebook";
+import Category from "ClientShared/Category";
+import NewsLetter from "ClientShared/NewsLetter";
+import TrendingPosts from "ClientShared/TrendingPosts";
 
 type PostContainerProps = {
   vm?: object
 };
+
 const PostContainer: React.SFC<PostContainerProps> = props => {
   return (
     <div className="row">

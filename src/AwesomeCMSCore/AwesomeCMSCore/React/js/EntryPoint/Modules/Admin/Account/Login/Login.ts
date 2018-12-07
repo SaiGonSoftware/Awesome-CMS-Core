@@ -1,2 +1,2 @@
 import "Helper/Enviroment";
-import "Modules/Admin/Account/Login/LoginForm.tsx";
+import "Modules/Admin/Account/Login/LoginForm";

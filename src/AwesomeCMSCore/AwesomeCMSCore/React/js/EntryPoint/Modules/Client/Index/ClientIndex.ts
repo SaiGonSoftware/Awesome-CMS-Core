@@ -1,1 +1,1 @@
-import "Modules/Client/Index/Index.tsx";
+import "Modules/Client/Index/Index";

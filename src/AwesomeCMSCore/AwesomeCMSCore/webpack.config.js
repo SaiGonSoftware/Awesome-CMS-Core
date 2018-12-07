@@ -91,15 +91,10 @@ module.exports = {
 		alias: {
             Helper: srcPath('Helper'),
             Common: srcPath('Common'),
-            Shared: srcPath('Shared')
+			Shared: srcPath('Shared'),
+			ClientShared: srcPath('Modules/Client/Shared')
         },
 		modules: [
-/* 			path.resolve('./React/js/App'),
-			path.resolve('./React/js/App/Modules/Client'),
-			path.resolve('./React/js/App/Modules/Adnmin'),
-			path.resolve('./React/js/App/Helper'),
-			path.resolve('./React/js/App/Common'),
-			path.resolve('./React/js/App/Shared'), */
 			path.resolve('./node_modules')
 		]
 	},
