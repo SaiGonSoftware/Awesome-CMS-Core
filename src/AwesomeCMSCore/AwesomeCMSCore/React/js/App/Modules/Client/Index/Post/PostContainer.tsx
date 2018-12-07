@@ -2,12 +2,13 @@ import React from "react";
 import RecentPost from "./RecentPost";
 import PostList from "./PostList";
 import PopularPosts from "./PopularPosts";
-import Social from "@Shared/Social";
-import AuthorDetail from "@Shared/AuthorDetail";
-import Facebook from "@Shared/Facebook";
-import Category from "@Shared/Category";
-import NewsLetter from "@Shared/NewsLetter";
-import TrendingPosts from "@Shared/TrendingPosts";
+
+import Social from "Shared/Social";
+import AuthorDetail from "Shared/AuthorDetail";
+import Facebook from "Shared/Facebook";
+import Category from "Shared/Category";
+import NewsLetter from "Shared/NewsLetter";
+import TrendingPosts from "Shared/TrendingPosts";
 
 type PostContainerProps = {
   vm?: object

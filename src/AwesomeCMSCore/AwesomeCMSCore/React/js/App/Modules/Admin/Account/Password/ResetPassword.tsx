@@ -1,18 +1,21 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import toastr from "toastr";
-import { getAllUrlParams } from "HelperQueryStringParser";
-import { onChange, onBlur } from "HelperStateHelper";
-import { navigateToUrl, isDomExist } from "HelperUtil";
-import { shouldMarkError, validateInput, isFormValid } from "HelperValidation";
-import { PostWithSpinner } from "HelperHttp";
-import { StatusCode } from "HelperAppEnum";
+
+import { getAllUrlParams } from "Helper/QueryStringParser";
+import { onChange, onBlur } from "Helper/StateHelper";
+import { navigateToUrl, isDomExist } from "Helper/Util";
+import { shouldMarkError, validateInput, isFormValid } from "Helper/Validation";
+import { PostWithSpinner } from "Helper/Http";
+import { StatusCode } from "Helper/AppEnum";
 import {
   LOGIN_ENDPOINT,
   RESET_PASSWORD_API
-} from "HelperAPI_Endpoint/AccountEndpoint";
-import ACCInput from "Common/ACCInput/ACCInput.tsx";
-import ACCButton from "Common/ACCButton/ACCButton.tsx";
+} from "Helper/API_Endpoint/AccountEndpoint";
+
+import ACCInput from "Common/ACCInput/ACCInput";
+import ACCButton from "Common/ACCButton/ACCButton";
+
 type ResetPasswordState = {
   email: any | string,
   token: string,
@@ -21,6 +24,7 @@ type ResetPasswordState = {
   showSuccessMessage: boolean,
   touched: { password: boolean }
 };
+
 class ResetPassword extends Component<{}, ResetPasswordState> {
   constructor(props) {
     super(props);
@@ -35,7 +39,8 @@ class ResetPassword extends Component<{}, ResetPasswordState> {
       }
     };
     this.validationArr = [];
-  }
+	}
+	
   componentWillMount() {
     const email = getAllUrlParams().email;
     const token = decodeURIComponent(getAllUrlParams().token);
@@ -65,7 +70,8 @@ class ResetPassword extends Component<{}, ResetPasswordState> {
             );
         }
       });
-  };
+	};
+	
   render() {
     const { password, loading, showSuccessMessage } = this.state;
     this.validationArr = [

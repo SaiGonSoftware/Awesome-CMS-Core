@@ -2,18 +2,22 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import toastr from "toastr";
-import { Get, Put } from "HelperHttp";
-import { isDomExist } from "HelperUtil";
-import { PostWithSpinner } from "HelperHttp";
-import { COMMENTS_ENDPOINT } from "HelperAPI_Endpoint/CommentEndpoint";
-import { CommentStatus, StatusCode } from "HelperAppEnum";
-import CommentContainerHeader from "./CommentContainerHeader.tsx";
-import CommentContainerBody from "./CommentContainerBody.tsx";
+
+import { Get, Put } from "Helper/Http";
+import { isDomExist } from "Helper/Util";
+import { PostWithSpinner } from "Helper/Http";
+import { COMMENTS_ENDPOINT } from "Helper/API_Endpoint/CommentEndpoint";
+import { CommentStatus, StatusCode } from "Helper/AppEnum";
+
+import CommentContainerHeader from "./CommentContainerHeader";
+import CommentContainerBody from "./CommentContainerBody";
+
 type CommentContainerState = {
   comments: any | null,
   activeTab: string,
   opened: undefined[]
 };
+
 class CommentContainer extends Component<{}, CommentContainerState> {
   constructor(props) {
     super(props);
@@ -22,17 +26,20 @@ class CommentContainer extends Component<{}, CommentContainerState> {
       activeTab: "All",
       opened: []
     };
-  }
+	}
+	
   componentDidMount() {
     Get(COMMENTS_ENDPOINT).then(res => {
       this.setState({ comments: res.data });
     });
-  }
+	}
+	
   toggle = tab => {
     if (this.state.activeTab !== tab) {
       this.setState({ activeTab: tab });
     }
-  };
+	};
+	
   toggleApprovedComment = (commentStatus, commentId) => {
     let filteredComments;
     let commentToRemove;
@@ -204,7 +211,8 @@ class CommentContainer extends Component<{}, CommentContainerState> {
       default:
         break;
     }
-  };
+	};
+	
   toggleSpamComment = (commentStatus, commentId) => {
     let commentToRemove;
     let updatedComments;
@@ -252,7 +260,8 @@ class CommentContainer extends Component<{}, CommentContainerState> {
       default:
         break;
     }
-  };
+	};
+	
   toggleDeleteComment = (commentStatus, commentId) => {
     let commentToRemove;
     let updatedComments;
@@ -369,7 +378,8 @@ class CommentContainer extends Component<{}, CommentContainerState> {
       default:
         break;
     }
-  };
+	};
+	
   toggleReplyBox = e => {
     const id = e.currentTarget.dataset.id;
     if (this.state.opened.indexOf(id) != -1) {
@@ -382,7 +392,8 @@ class CommentContainer extends Component<{}, CommentContainerState> {
         opened: [...this.state.opened, id]
       });
     }
-  };
+	};
+	
   onReply = (comment, e) => {
     if (e.charCode === 13) {
       const replyViewModel = {
@@ -400,7 +411,8 @@ class CommentContainer extends Component<{}, CommentContainerState> {
           toastr.error("Something went wrong. Please try again");
         });
     }
-  };
+	};
+	
   render() {
     const { comments, activeTab, opened } = this.state;
     return comments ? (
@@ -433,6 +445,7 @@ class CommentContainer extends Component<{}, CommentContainerState> {
   }
 }
 export default CommentContainer;
+
 if (isDomExist("comments")) {
   render(<CommentContainer />, document.getElementById("comments"));
 }

@@ -1,11 +1,13 @@
-export enum AppEnum {
-	AuthToken = "authToken"
+export const AppEnum = {
+	AuthToken: "authToken"
 }
+
 export enum PostStatus {
 	Published = 1,
 	Draft = 2,
 	Deleted = 3
 }
+
 export enum StatusCode {
 	Success = 200,
 	BadRequest = 400,
@@ -16,6 +18,7 @@ export enum StatusCode {
 	EmailNotConfirmed = 900,
 	ResetPassTokenExpire = 901
 }
+
 export enum CommentStatus {
 	Pending = 1,
 	Approved = 2,

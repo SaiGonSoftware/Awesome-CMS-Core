@@ -8,8 +8,11 @@ import {
   Input
 } from "reactstrap";
 import moment from "moment/src/moment";
-import { CommentStatus } from "HelperAppEnum";
-import CommentActions from "./CommentActions.tsx";
+
+import { CommentStatus } from "Helper/AppEnum";
+
+import CommentActions from "./CommentActions";
+
 type CommentContainerBodyProps = {
   comments: object,
   activeTab: string,
@@ -19,6 +22,7 @@ type CommentContainerBodyProps = {
   opened?: any[],
   onReply?: (...args: any[]) => any
 };
+
 const CommentContainerBody: React.SFC<CommentContainerBodyProps> = props => {
   return (
     <TabContent activeTab={props.activeTab}>

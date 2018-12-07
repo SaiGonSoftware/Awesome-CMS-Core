@@ -82,7 +82,7 @@ class LoginForm extends Component<{}, LoginFormState> {
         token_type: res.data.token_type,
         expires_in: res.data.expires_in
       };
-      setStorage(AppEnum.AUTH_TOKEN, token);
+      setStorage(AppEnum.AuthToken, token);
       window.location.href = PORTAL_ENDPOINT;
     });
   };

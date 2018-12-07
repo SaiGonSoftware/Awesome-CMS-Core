@@ -20,8 +20,8 @@ type AccountTableState = {
   showModal: boolean,
   selectedUserId: string,
   userName: string,
-  btnActivate: string,
-  btnDeactivate: string,
+  btnActivate: boolean,
+  btnDeactivate: boolean,
   toogleFlag: boolean,
   selectedRow: null
 };

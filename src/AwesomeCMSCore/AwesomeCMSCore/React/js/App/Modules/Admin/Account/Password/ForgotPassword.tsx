@@ -1,18 +1,22 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import { onChange, onBlur } from "HelperStateHelper";
-import { isDomExist } from "HelperUtil";
-import { shouldMarkError, validateInput, isFormValid } from "HelperValidation";
-import { PostWithSpinner } from "HelperHttp";
-import { FORGOT_PASSWORD_API } from "HelperAPI_Endpoint/AccountEndpoint";
-import ACCInput from "Common/ACCInput/ACCInput.tsx";
-import ACCButton from "Common/ACCButton/ACCButton.tsx";
+
+import { onChange, onBlur } from "Helper/StateHelper";
+import { isDomExist } from "Helper/Util";
+import { shouldMarkError, validateInput, isFormValid } from "Helper/Validation";
+import { PostWithSpinner } from "Helper/Http";
+import { FORGOT_PASSWORD_API } from "HelperA/PI_Endpoint/AccountEndpoint";
+
+import ACCInput from "Common/ACCInput/ACCInput";
+import ACCButton from "Common/ACCButton/ACCButton";
+
 type ForgotPasswordState = {
   email: string,
   loading: boolean,
   showSuccessMessage: boolean,
   touched: { email: boolean }
 };
+
 class ForgotPassword extends Component<{}, ForgotPasswordState> {
   constructor(props) {
     super(props);
@@ -25,7 +29,8 @@ class ForgotPassword extends Component<{}, ForgotPasswordState> {
       }
     };
     this.validationArr = [];
-  }
+	}
+	
   forgotPassword = e => {
     if (!isFormValid(this.validationArr)) {
       return;
@@ -36,7 +41,8 @@ class ForgotPassword extends Component<{}, ForgotPasswordState> {
     }).then(() => {
       this.setState({ showSuccessMessage: true });
     });
-  };
+	};
+	
   render() {
     const { email, loading, showSuccessMessage } = this.state;
     this.validationArr = [
@@ -86,7 +92,9 @@ class ForgotPassword extends Component<{}, ForgotPasswordState> {
     );
   }
 }
+
 if (isDomExist("forgotPassForm")) {
   render(<ForgotPassword />, document.getElementById("forgotPassForm"));
 }
+
 export default ForgotPassword;

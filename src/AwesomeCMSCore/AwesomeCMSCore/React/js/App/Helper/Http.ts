@@ -2,9 +2,9 @@ import axios, { AxiosPromise, AxiosResponse } from "axios";
 import qs from "qs";
 
 import { AppEnum, StatusCode } from "./AppEnum";
-import { getStorage, setStorage } from "@Storage/Helper";
+import { getStorage, setStorage } from "./StorageHelper";
 import { TOKEN_ENDPOINT } from "./API_Endpoint/AccountEndpoint";
-import { ITokenProp } from "@Shared/Models/Token";
+import { ITokenProp } from "Shared/Models/Token";
 
 export function Get(url: string): AxiosPromise<any> {
 	const authHeader: ITokenProp = initAuthHeaders();

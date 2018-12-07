@@ -1,19 +1,23 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import toastr from "toastr";
-import { handleOnChange } from "HelperStateHelper";
-import { Get, PostWithSpinner } from "HelperHttp";
-import { isDomExist } from "HelperUtil";
-import { StatusCode } from "HelperAppEnum";
-import { CATEGORIES_API } from "HelperAPI_Endpoint/PostOptionEndpoint";
-import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect.tsx";
-import Spinner from "Common/ACCAnimation/Spinner.tsx";
+
+import { handleOnChange } from "Helper/StateHelper";
+import { Get, PostWithSpinner } from "Helper/Http";
+import { isDomExist } from "Helper/Util";
+import { StatusCode } from "Helper/AppEnum";
+import { CATEGORIES_API } from "Helper/API_Endpoint/PostOptionEndpoint";
+
+import ACCReactCreateSelect from "Common/ACCSelect/ACCReactCreateSelect";
+import Spinner from "Common/ACCAnimation/Spinner";
+
 type CategoriesCreateContainerState = {
   id: any | null,
   value: any | undefined[],
   loading: boolean,
   options: undefined[]
 };
+
 class CategoriesCreateContainer extends Component<
   {},
   CategoriesCreateContainerState
@@ -26,7 +30,8 @@ class CategoriesCreateContainer extends Component<
       value: [],
       id: null
     };
-  }
+	}
+	
   componentDidMount() {
     Get(CATEGORIES_API).then(res => {
       this.setState({
@@ -34,7 +39,8 @@ class CategoriesCreateContainer extends Component<
         value: res.data.value ? JSON.parse(res.data.value) : []
       });
     });
-  }
+	}
+	
   handleSubmit = e => {
     e.preventDefault();
     const key = JSON.stringify(this.state.value.map(x => x.value));
@@ -51,7 +57,8 @@ class CategoriesCreateContainer extends Component<
       .catch(() => {
         toastr.error("Something went wrong.Please try again");
       });
-  };
+	};
+	
   renderButton() {
     const isDataNotValid = this.state.value.length === 0;
     if (this.state.loading) {
@@ -68,7 +75,8 @@ class CategoriesCreateContainer extends Component<
         </button>
       );
     }
-  }
+	}
+	
   render() {
     const { options, value } = this.state;
     return (
