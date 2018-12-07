@@ -4,9 +4,12 @@ import toastr from "toastr";
 import { onChange } from "Helper/StateHelper";
 
 type NewsLetterState = {
-  email: null
+  email: string;
 };
+
 class NewsLetter extends Component<{}, NewsLetterState> {
+	public state: NewsLetterState;
+	
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +17,7 @@ class NewsLetter extends Component<{}, NewsLetterState> {
     };
 	}
 	
-	registerEmail() {}
+	registerEmail(e) {}
 	
   render() {
     return (

@@ -29,7 +29,7 @@ type NewPostState = {
   tagValue: undefined[],
   categoriesValue: undefined[],
 	loading: boolean,
-	disabled: boolean
+	disabled: any
 };
 
 class NewPost extends Component<NewPostProps, NewPostState> {
@@ -44,7 +44,7 @@ class NewPost extends Component<NewPostProps, NewPostState> {
       categoriesOptions: [],
       categoriesValue: [],
 			loading: false,
-			disabled: false
+			disabled: ""
     };
 	}
 	
@@ -124,7 +124,7 @@ class NewPost extends Component<NewPostProps, NewPostState> {
                       name="title"
                       id="title"
                       placeholder="Title"
-                      required="required"
+                      required="true"
                       value={title}
                       onChange={title => onChange.call(this, title)}
                       onBlur={title => onBlur.call(this, title)}
@@ -138,7 +138,7 @@ class NewPost extends Component<NewPostProps, NewPostState> {
                       name="shortDescription"
                       id="shortDescription"
                       placeholder="Short Description"
-                      required="required"
+                      required="true"
                       value={shortDescription}
                       onChange={shortDescription =>
                         onChange.call(this, shortDescription)

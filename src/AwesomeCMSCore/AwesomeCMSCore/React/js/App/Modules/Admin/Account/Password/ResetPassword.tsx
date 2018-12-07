@@ -26,6 +26,8 @@ type ResetPasswordState = {
 };
 
 class ResetPassword extends Component<{}, ResetPasswordState> {
+	public validationArr: any;
+	
   constructor(props) {
     super(props);
     this.state = {

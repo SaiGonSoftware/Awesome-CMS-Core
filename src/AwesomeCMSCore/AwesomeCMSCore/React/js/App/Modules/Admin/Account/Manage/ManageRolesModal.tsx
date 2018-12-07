@@ -23,6 +23,8 @@ class ManageRolesModal extends Component<
   ManageRolesModalProps,
   ManageRolesModalState
 > {
+	public mounted: boolean;
+	
   constructor(props) {
     super(props);
     this.state = {

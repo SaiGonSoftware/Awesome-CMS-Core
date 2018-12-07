@@ -28,6 +28,7 @@ type LoginFormState = {
 };
 
 class LoginForm extends Component<{}, LoginFormState> {
+	public validationArr: any;
   constructor(props) {
     super(props);
     this.state = {
@@ -108,7 +109,7 @@ class LoginForm extends Component<{}, LoginFormState> {
                   name="username"
                   id="username"
                   placeholder="Username"
-                  required="required"
+                  required="true"
                   value={username}
                   onChange={username => onChange.call(this, username)}
                   onBlur={username => onBlur.call(this, username)}
@@ -119,7 +120,7 @@ class LoginForm extends Component<{}, LoginFormState> {
                   name="password"
                   id="password"
                   placeholder="Password"
-                  required="required"
+                  required="true"
                   value={password}
                   onChange={password => onChange.call(this, password)}
                   onBlur={password => onBlur.call(this, password)}

@@ -31,6 +31,10 @@ type AddUserModalState = {
 };
 
 class AddUserModal extends Component<AddUserModalProps, AddUserModalState> {
+	public validationArr: any;
+	public selectedRoles: any;
+	public mounted: boolean;
+	
   constructor(props) {
     super(props);
     this.state = {

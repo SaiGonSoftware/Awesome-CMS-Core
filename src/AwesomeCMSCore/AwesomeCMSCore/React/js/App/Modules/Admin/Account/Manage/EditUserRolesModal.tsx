@@ -27,6 +27,8 @@ class EditUserRolesModal extends Component<
   EditUserRolesModalProps,
   EditUserRolesModalState
 > {
+	public mounted: boolean;
+	
   constructor(props) {
     super(props);
     this.state = {

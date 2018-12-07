@@ -18,6 +18,8 @@ type ForgotPasswordState = {
 };
 
 class ForgotPassword extends Component<{}, ForgotPasswordState> {
+	public validationArr: any;
+
   constructor(props) {
     super(props);
     this.state = {

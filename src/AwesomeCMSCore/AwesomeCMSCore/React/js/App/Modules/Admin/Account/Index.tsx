@@ -10,6 +10,7 @@ import {
   TOGGLE_ACCOUNT_STATUS_API
 } from "Helper/API_Endpoint/AccountEndpoint";
 import { findObjectByKey } from "Helper/Util";
+
 import AddUserModal from "./Manage/AddUserModal";
 import EditUserRolesModal from "./Manage/EditUserRolesModal";
 import ManageRolesModal from "./Manage/ManageRolesModal";
@@ -20,13 +21,20 @@ type AccountTableState = {
   showModal: boolean,
   selectedUserId: string,
   userName: string,
-  btnActivate: boolean,
-  btnDeactivate: boolean,
+  btnActivate: any,
+  btnDeactivate: any,
   toogleFlag: boolean,
-  selectedRow: null
+	selectedRow: null,
 };
 
 class AccountTable extends Component<{}, AccountTableState> {
+	public state: AccountTableState;
+	public validationArr: [];
+	public selectRow: object;
+	public accountStatus: object;
+	public tableOptions: object;
+	public mounted: boolean;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -39,17 +47,21 @@ class AccountTable extends Component<{}, AccountTableState> {
       btnDeactivate: "",
       toogleFlag: false,
       selectedRow: null
-    };
-    this.validationArr = [];
+		};
+		
+		this.validationArr = [];
+		
     this.selectRow = {
       mode: "radio",
       clickToSelect: true,
       onSelect: this.onSelectAccount
-    };
+		};
+		
     this.accountStatus = {
       True: "True",
       False: "False"
-    };
+		};
+		
     this.tableOptions = {
       noDataText: "List is empty",
       page: 1,
