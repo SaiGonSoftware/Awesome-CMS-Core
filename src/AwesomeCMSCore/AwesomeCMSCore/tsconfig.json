@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"module": "commonjs",
+		"noImplicitAny": false,
+		"outDir": "./wwwroot/dist",
+		"preserveConstEnums": true,
+		"removeComments": true,
+		"sourceMap": true,
+		"target": "es2015",
+		"moduleResolution": "node",
+        "jsx": "react",
+		"baseUrl": "./React",
+		"paths": {
+			"~/*": ["*"],
+			"@App/*": ["./React/js/App/*"],
+			"@Helper/*": ["./React/js/App/Helper/*"],
+			"@Common/*": ["./React/js/App/Common/*"],
+			"@Shared/*": ["./React/js/App/Shared/*"],
+		}
+	},
+	"include": [
+		"./React/js/**/*"
+	]
+}
