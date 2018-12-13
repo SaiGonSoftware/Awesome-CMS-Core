@@ -35,6 +35,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Hangfire;
 using AwesomeCMSCore.Modules.Queue.Services;
 using AwesomeCMSCore.Modules.Queue.Settings;
+using AwesomeCMSCore.Modules.Scheduled;
 using AwesomeCMSCore.Modules.Shared.Repositories;
 using GlobalConfiguration = AwesomeCMSCore.Infrastructure.Config.GlobalConfiguration;
 
@@ -386,5 +387,13 @@ namespace AwesomeCMSCore.Extension
 
             return services;
         }
+
+	    public static IServiceCollection RegisterBackgroundService(this IServiceCollection services)
+	    {
+		    services.AddHostedService<TimedHostedService>();
+		    services.AddHostedService<ConsumeScopedServiceHostedService>();
+		    services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
+			return services;
+	    }
     }
 }
