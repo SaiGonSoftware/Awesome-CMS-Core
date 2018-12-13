@@ -1,9 +1,11 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 using AutoMapper;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace AwesomeCMSCore.Modules.Shared.Repositories
@@ -22,6 +24,12 @@ namespace AwesomeCMSCore.Modules.Shared.Repositories
 			_unitOfWork = unitOfWork;
 			_mapper = mapper;
 			_logger = logger;
+		}
+
+		public bool IsEmailRegistered(string email)
+		{
+			var isEmailExists = _unitOfWork.Repository<NewsLetter>().Exist(em => em.Email == email);
+			return !isEmailExists;
 		}
 
 		public async Task<bool> RegisterSubscriptionEmail(string email)
@@ -54,5 +62,6 @@ namespace AwesomeCMSCore.Modules.Shared.Repositories
 		{
 			throw new NotImplementedException();
 		}
+
 	}
 }

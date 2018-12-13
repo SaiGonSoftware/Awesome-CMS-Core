@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'reactstrap';
-import {CommentStatus} from "Helper/AppEnum";
+import {COMMENT_STATUS} from "Helper/AppEnum";
 
 const CommentActions = (props) => {
 		return (
@@ -11,7 +11,7 @@ const CommentActions = (props) => {
 										outline
 										color="success"
 										id={props.id}
-										className={props.comment.commentStatus == CommentStatus.Approved
+										className={props.comment.commentStatus == COMMENT_STATUS.Approved
 										? 'btn-outline-success-active'
 										: ''}
 										onClick={props.toggleApprovedComment}>
@@ -21,9 +21,9 @@ const CommentActions = (props) => {
 										outline
 										color="warning"
 										id={props.id}
-										className={props.comment.commentStatus == CommentStatus.Spam
+										className={props.comment.commentStatus == COMMENT_STATUS.Spam
 										? 'spam-actions-hidden'
-										: '' || props.comment.commentStatus == CommentStatus.Trash
+										: '' || props.comment.commentStatus == COMMENT_STATUS.Trash
 												? 'trash-actions-hidden'
 												: ''}
 										onClick={props.toggleSpamComment}>
@@ -33,7 +33,7 @@ const CommentActions = (props) => {
 										outline
 										color="danger"
 										id={props.id}
-										className={props.comment.commentStatus == CommentStatus.Trash
+										className={props.comment.commentStatus == COMMENT_STATUS.Trash
 										? 'trash-actions-hidden'
 										: ''}
 										onClick={props.toggleDeleteComment}>
@@ -43,9 +43,9 @@ const CommentActions = (props) => {
 										outline
 										color="info"
 										data-id={props.id}
-										className={props.comment.commentStatus == CommentStatus.Spam
+										className={props.comment.commentStatus == COMMENT_STATUS.Spam
 										? 'spam-actions-hidden'
-										: '' || props.comment.commentStatus == CommentStatus.Trash
+										: '' || props.comment.commentStatus == COMMENT_STATUS.Trash
 												? 'trash-actions-hidden'
 												: ''}
 										onClick={props.toggleReplyBox}>

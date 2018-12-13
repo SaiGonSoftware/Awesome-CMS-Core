@@ -1,0 +1,1 @@
+export const NEWLETTER_ENDPOINT = "api/v1/NewLetter";

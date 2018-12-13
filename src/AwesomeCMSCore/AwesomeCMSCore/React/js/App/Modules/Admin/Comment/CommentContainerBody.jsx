@@ -9,7 +9,7 @@ import {
 		Input
 } from 'reactstrap';
 import moment from 'moment/src/moment';
-import {CommentStatus} from "Helper/AppEnum";
+import {COMMENT_STATUS} from "Helper/AppEnum";
 import CommentActions from './CommentActions.jsx';
 
 const CommentContainerBody = (props) => {
@@ -22,7 +22,7 @@ const CommentContainerBody = (props) => {
 														? props
 																.comments
 																.allComments
-																.filter(cm => cm.comment.commentStatus !== CommentStatus.Spam && cm.comment.commentStatus !== CommentStatus.Trash)
+																.filter(cm => cm.comment.commentStatus !== COMMENT_STATUS.Spam && cm.comment.commentStatus !== COMMENT_STATUS.Trash)
 																.map(cm => {
 																		return (
 																				<div className="allComments" key={cm.comment.id}>
