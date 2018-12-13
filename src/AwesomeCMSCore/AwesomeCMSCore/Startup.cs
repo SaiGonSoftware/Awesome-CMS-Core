@@ -41,7 +41,8 @@ namespace AwesomeCMSCore
             services.LoadInstalledModules(_hostingEnvironment.ContentRootPath);
             services.InjectAppConfig(_configuration);
             services.AddCustomizedDataStore(_configuration);
-            services.AddCustomAuthentication();
+	        services.RegisterBackgroundService();
+			services.AddCustomAuthentication();
             services.InjectApplicationServices();
             services.AddAutoMapper();
             //ModuleViewLocationExpander is used to help the view engine lookup up the right module folder the views
