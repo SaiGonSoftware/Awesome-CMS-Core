@@ -7,5 +7,6 @@ namespace AwesomeCMSCore.Modules.Helper.Enum
         public static readonly int NotFound = 404;
         public static readonly int EmailNotConfirmed = 900;
         public static readonly int ResetPassTokenExpire = 901;
+	    public static readonly int EmailRegistered = 902;
     }
 }

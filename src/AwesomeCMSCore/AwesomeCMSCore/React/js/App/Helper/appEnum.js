@@ -21,10 +21,11 @@ export const STATUS_CODE = {
   NotFound: 404,
   InternalError: 500,
   EmailNotConfirmed: 900,
-  ResetPassTokenExpire: 901
+	ResetPassTokenExpire: 901,
+	EmailRegistered: 902
 }
 
-export const CommentStatus = {
+export const COMMENT_STATUS = {
   Pending: 1,
   Approved: 2,
   Spam: 3,
