@@ -94,20 +94,12 @@ namespace AwesomeCMSCore.Extension
         public static IServiceCollection AddCustomizedMvc(this IServiceCollection services, IList<ModuleInfo> modules,
             IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
-            var mvcBuilder = services
-                .AddMvc()
-                .AddJsonOptions(
-                    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                )
-		        .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddRazorOptions(o =>
-                {
-                    foreach (var module in modules)
-                    {
-                        o.AdditionalCompilationReferences.Add(
-                            MetadataReference.CreateFromFile(module.Assembly.Location));
-                    }
-                });
+			var mvcBuilder = services
+		        .AddMvc()
+		        .AddJsonOptions(
+			        options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+		        )
+		        .SetCompatibilityVersion(CompatibilityVersion.Version_2_2); ;
 
             foreach (var module in modules)
             {
