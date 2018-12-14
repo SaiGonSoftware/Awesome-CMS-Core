@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Queue.Settings;
 using AwesomeCMSCore.Modules.WebJob.Settings;
@@ -33,8 +33,8 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
                 .AddJsonFile("appsettings.json", false)
                 .Build();
             serviceCollection.AddOptions();
-            serviceCollection.Configure<WebJobSettings>(configuration.GetSection("WebJobSettings"));
-            serviceCollection.Configure<QueueSettings>(configuration.GetSection("QueueSettings"));
+            serviceCollection.Configure<WebJobSettings>(settings => configuration.GetSection("WebJobSettings"));
+            serviceCollection.Configure<QueueSettings>(settings => configuration.GetSection("QueueSettings"));
             // add app
             serviceCollection.AddTransient<WebJob>();
         }
