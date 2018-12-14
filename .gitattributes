@@ -1,1 +1,3 @@
-src/AwesomeCMSCore/AwesomeCMSCore/React/css/* linguist-vendored=false
+--$ cat .gitattributes
+--special-vendored-path/* linguist-vendored
+--*.scss linguist-vendored=false
