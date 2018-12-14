@@ -1,7 +1,3 @@
 --$ cat .gitattributes
 --special-vendored-path/* linguist-vendored
 --*.scss linguist-vendored=false
-$ cat .gitattributes
-*.scss linguist-language=C#
-$ linguist --breakdown
-100.00% C#
