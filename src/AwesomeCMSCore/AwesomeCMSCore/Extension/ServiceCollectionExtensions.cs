@@ -382,9 +382,9 @@ namespace AwesomeCMSCore.Extension
 
 	    public static IServiceCollection RegisterBackgroundService(this IServiceCollection services)
 	    {
-		    services.AddHostedService<TimedHostedService>();
-		    services.AddHostedService<ConsumeScopedServiceHostedService>();
-		    services.AddScoped<IScopedProcessingService, ScopedProcessingService>();
+		   // services.AddHostedService<TimedHostedService>();
+		   // services.AddHostedService<ConsumeScopedServiceHostedService>();
+		    services.AddScoped<IScheduledEmailService, ScheduledEmailService>();
 			return services;
 	    }
     }
