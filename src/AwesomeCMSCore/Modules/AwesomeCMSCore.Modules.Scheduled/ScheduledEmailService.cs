@@ -6,6 +6,7 @@ using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Repositories;
 using Hangfire;
+using Microsoft.EntityFrameworkCore;
 
 namespace AwesomeCMSCore.Modules.Scheduled
 {
@@ -13,22 +14,28 @@ namespace AwesomeCMSCore.Modules.Scheduled
 	{
 		private readonly IEmailSender _emailSender;
 		private readonly IUnitOfWork _unitOfWork;
-		public ScheduledEmailService(IEmailSender emailSender)
+		public ScheduledEmailService(IEmailSender emailSender, IUnitOfWork unitOfWork)
 		{
 			_emailSender = emailSender;
+			_unitOfWork = unitOfWork;
 		}
 
-		public void SendEmail()
+		public async Task SendEmailBackground()
 		{
-			RecurringJob.AddOrUpdate(() => SendEmailBackground(), Cron.Minutely);
-		}
-
-		private async Task SendEmailBackground()
-		{
-			var emailList = await _unitOfWork.Repository<NewsLetter>().GetAllAsync();
-			foreach (var email in emailList)
+			try
 			{
-				await _emailSender.SendEmailAsync(email.Email, "", null, EmailType.SubscriptionEmail);
+				var emailList = await _unitOfWork.Repository<NewsLetter>().GetAllAsync();
+				if (emailList.Count > 0)
+				{
+					foreach (var email in emailList)
+					{
+						await _emailSender.SendEmailAsync(email.Email, "", null, EmailType.SubscriptionEmail);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				throw;
 			}
 		}
 	}
