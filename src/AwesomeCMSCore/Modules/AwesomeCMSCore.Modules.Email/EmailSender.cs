@@ -47,6 +47,11 @@ namespace AwesomeCMSCore.Modules.Email
 					builder.HtmlBody = ReplyCommentEmailTemplate(options);
 					email.Body = builder.ToMessageBody();
 					break;
+				case EmailType.SubscriptionEmail:
+					email.Subject = $"Hi {reciever}, Here is our weekly post";
+					builder.HtmlBody = EmailSubscriptionTemplate(reciever);
+					email.Body = builder.ToMessageBody();
+					break;
 				default:
 					break;
 			}
@@ -133,6 +138,41 @@ namespace AwesomeCMSCore.Modules.Email
 				.Paragraph("— Awesome CMS Core support team")
 				.ToString();
 
+			return body;
+		}
+
+		/// <summary>
+		/// will add list of blog post later
+		/// </summary>
+		/// <param name="email"></param>
+		/// <returns></returns>
+		private string EmailSubscriptionTemplate(string email)
+		{
+			var productName = "ABC";
+			var productStatus = "available";
+			var productDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis nisl ut tellus egestas facilisis. Nulla eget erat dictum, facilisis libero sit amet, sollicitudin tortor. Morbi iaculis, urna eu tincidunt dapibus, sapien ex dictum nibh, non congue urna tellus vitae risus.";
+			var components = new string[] {
+				"Part A",
+				"Part B"
+			};
+
+			// Format product display.
+			var items = components.Select(item => MailBody.CreateBlock().Text(item));
+
+			var body = MailBody
+				.CreateBody()
+				.Paragraph("Hello,")
+				.Paragraph("The product " + productName + " is now " + productStatus + ".")
+				.SubTitle("Here is the product summary:")
+				.Paragraph(MailBody.CreateBlock()
+					.StrongText("Product name: ").Text(productName))
+				.Paragraph(MailBody.CreateBlock()
+					.StrongText("Description: ").Text(productDescription))
+				.Paragraph(MailBody.CreateBlock()
+					.StrongText("Components:"))
+				.UnorderedList(items)
+				.Paragraph("— [Insert company name here]")
+				.ToString();
 			return body;
 		}
 		#endregion

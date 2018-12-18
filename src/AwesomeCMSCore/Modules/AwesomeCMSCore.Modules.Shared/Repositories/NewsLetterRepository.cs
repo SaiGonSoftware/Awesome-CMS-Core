@@ -28,8 +28,7 @@ namespace AwesomeCMSCore.Modules.Shared.Repositories
 
 		public bool IsEmailRegistered(string email)
 		{
-			var isEmailExists = _unitOfWork.Repository<NewsLetter>().Exist(em => em.Email == email);
-			return !isEmailExists;
+			return _unitOfWork.Repository<NewsLetter>().Exist(em => em.Email == email);
 		}
 
 		public async Task<bool> RegisterSubscriptionEmail(string email)

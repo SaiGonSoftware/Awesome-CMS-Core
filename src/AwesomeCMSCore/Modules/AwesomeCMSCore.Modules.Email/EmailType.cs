@@ -8,6 +8,7 @@ namespace AwesomeCMSCore.Modules.Email
         RequestPassword,
         ForgotPassword,
         SystemLog,
-		ReplyComment
+		ReplyComment,
+		SubscriptionEmail
     }
 }
