@@ -4,6 +4,6 @@ namespace AwesomeCMSCore.Modules.Scheduled
 {
 	public interface IScheduledEmailService
 	{
-		void SendEmail();
+		Task SendEmailBackground();
 	}
 }

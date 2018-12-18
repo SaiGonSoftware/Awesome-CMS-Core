@@ -18,17 +18,22 @@ namespace AwesomeCMSCore.Modules.Scheduled
 			_emailSender = emailSender;
 		}
 
-		public void SendEmail()
+		public async Task SendEmailBackground()
 		{
-			RecurringJob.AddOrUpdate(() => SendEmailBackground(), Cron.Minutely);
-		}
-
-		private async Task SendEmailBackground()
-		{
-			var emailList = await _unitOfWork.Repository<NewsLetter>().GetAllAsync();
-			foreach (var email in emailList)
+			try
 			{
-				await _emailSender.SendEmailAsync(email.Email, "", null, EmailType.SubscriptionEmail);
+				var emailList = await _unitOfWork.Repository<NewsLetter>().GetAllAsync();
+				if (emailList.Count > 0)
+				{
+					foreach (var email in emailList)
+					{
+						await _emailSender.SendEmailAsync(email.Email, "", null, EmailType.SubscriptionEmail);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				throw;
 			}
 		}
 	}

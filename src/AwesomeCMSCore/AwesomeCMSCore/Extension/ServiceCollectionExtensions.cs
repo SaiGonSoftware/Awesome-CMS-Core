@@ -37,6 +37,7 @@ using AwesomeCMSCore.Modules.Queue.Services;
 using AwesomeCMSCore.Modules.Queue.Settings;
 using AwesomeCMSCore.Modules.Scheduled;
 using AwesomeCMSCore.Modules.Shared.Repositories;
+using Hangfire.SqlServer;
 using GlobalConfiguration = AwesomeCMSCore.Infrastructure.Config.GlobalConfiguration;
 
 namespace AwesomeCMSCore.Extension
@@ -153,7 +154,7 @@ namespace AwesomeCMSCore.Extension
             services.AddScoped<IAccountRepository, AccountRepository>();
 	        services.AddScoped<Modules.Client.Repositories.IPostRepository, Modules.Client.Repositories.PostRepository>();
 	        services.AddScoped<INewsLetterRepository, NewsLetterRepository>();
-
+	        services.AddScoped<IScheduledEmailService, ScheduledEmailService>();
 			return services;
         }
 
@@ -166,7 +167,7 @@ namespace AwesomeCMSCore.Extension
 
             services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("DefaultConnection")));
 
-            return services;
+			return services;
         }
 
         public static IServiceCollection AddCustomAuthentication(this IServiceCollection services)
@@ -380,11 +381,12 @@ namespace AwesomeCMSCore.Extension
             return services;
         }
 
-	    public static IServiceCollection RegisterBackgroundService(this IServiceCollection services)
+	    public static IServiceCollection RegisterBackgroundService(this IServiceCollection services, IConfiguration configuration)
 	    {
-		   // services.AddHostedService<TimedHostedService>();
-		   // services.AddHostedService<ConsumeScopedServiceHostedService>();
-		    services.AddScoped<IScheduledEmailService, ScheduledEmailService>();
+		    JobStorage.Current = new SqlServerStorage(configuration.GetConnectionString("DefaultConnection"));
+		    var sp = services.BuildServiceProvider();
+		    var scheduledEmailService = sp.GetService<IScheduledEmailService>();
+		    RecurringJob.AddOrUpdate("SendSubscriptionEmail", () => scheduledEmailService.SendEmailBackground(), Cron.Minutely);
 			return services;
 	    }
     }
