@@ -6,6 +6,7 @@ using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Repositories;
 using Hangfire;
+using Microsoft.EntityFrameworkCore;
 
 namespace AwesomeCMSCore.Modules.Scheduled
 {
@@ -13,9 +14,10 @@ namespace AwesomeCMSCore.Modules.Scheduled
 	{
 		private readonly IEmailSender _emailSender;
 		private readonly IUnitOfWork _unitOfWork;
-		public ScheduledEmailService(IEmailSender emailSender)
+		public ScheduledEmailService(IEmailSender emailSender, IUnitOfWork unitOfWork)
 		{
 			_emailSender = emailSender;
+			_unitOfWork = unitOfWork;
 		}
 
 		public async Task SendEmailBackground()
