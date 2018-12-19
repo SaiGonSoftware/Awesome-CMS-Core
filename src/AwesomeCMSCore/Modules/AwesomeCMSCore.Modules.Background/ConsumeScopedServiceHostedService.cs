@@ -1,13 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace AwesomeCMSCore.Modules.Scheduled
+namespace AwesomeCMSCore.Modules.Background
 {
 	public class ConsumeScopedServiceHostedService : IHostedService
 	{
