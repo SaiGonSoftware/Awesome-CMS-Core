@@ -14,6 +14,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
         public DbSet<PasswordRequest> PasswordRequests { get; set; }
         public DbSet<PostOption> PostOptions { get; set; }
 	    public DbSet<NewsLetter> NewsLetters { get; set; }
+		public DbSet<Settings> Settings { get; set; }
 
 		public ApplicationDbContext(DbContextOptions options) : base(options)
         {
