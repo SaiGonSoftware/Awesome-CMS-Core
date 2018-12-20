@@ -16,7 +16,7 @@ matrix:
 
     - language: csharp
       mono: none
-      dotnet: 2.2.100
+      dotnet: 2.2
       script:
         - dotnet restore src/AwesomeCMSCore
         - dotnet build src/AwesomeCMSCore
