@@ -8,20 +8,20 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AwesomeCMSCore.Modules.Scheduled.EmailService
 {
-	public class ScheduledEmailService: ScheduledProcessor
+	public class ScheduledEmailService : ScheduledProcessor
 	{
 		private readonly IEmailSender _emailSender;
 		private readonly IUnitOfWork _unitOfWork;
 
 		private string _cronValue;
 		public ScheduledEmailService(
-			IServiceScopeFactory serviceScopeFactory,
-			IEmailSender emailSender, 
-			IUnitOfWork unitOfWork) : base(serviceScopeFactory)
+			IServiceScopeFactory serviceScopeFactory) : base(serviceScopeFactory)
 		{
-			_emailSender = emailSender;
-			_unitOfWork = unitOfWork;
+			var serviceProvider = serviceScopeFactory.CreateScope().ServiceProvider;
+			_unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
+			_emailSender = serviceProvider.GetRequiredService<IEmailSender>();
 		}
+
 		/// <summary>
 		/// Get cron setting from db
 		/// </summary>
@@ -45,4 +45,28 @@ namespace AwesomeCMSCore.Modules.Scheduled.EmailService
 			return Task.CompletedTask;
 		}
 	}
+
+	//public class ScheduledEmailService : BackgroundService
+	//{
+	//	private readonly IServiceScopeFactory _serviceScopeFactory;
+	//	private readonly IEmailSender _emailSender;
+	//	private readonly IUnitOfWork _unitOfWork;
+
+	//	public ScheduledEmailService(IServiceScopeFactory serviceScopeFactory)
+	//	{
+	//		_serviceScopeFactory = serviceScopeFactory;
+	//		var serviceProvider = serviceScopeFactory.CreateScope().ServiceProvider;
+	//		_unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
+	//		_emailSender = serviceProvider.GetRequiredService<IEmailSender>();
+	//	}
+
+	//	protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+	//	{
+	//		do
+	//		{
+	//			var a = await _unitOfWork.Repository<User>().GetAllAsync();
+	//			await Task.Delay(10 * 1000, stoppingToken);
+	//		} while (!stoppingToken.IsCancellationRequested);
+	//	}
+	//}
 }
