@@ -2,7 +2,6 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AwesomeCMSCore.Infrastructure.Module;
 using AwesomeCMSCore.Modules.Entities.Data;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -36,9 +35,12 @@ using Hangfire;
 using AwesomeCMSCore.Modules.Queue.Services;
 using AwesomeCMSCore.Modules.Queue.Settings;
 using AwesomeCMSCore.Modules.Scheduled;
+using AwesomeCMSCore.Modules.Scheduled.EmailService;
 using AwesomeCMSCore.Modules.Shared.Repositories;
 using Hangfire.SqlServer;
+using Microsoft.Extensions.Hosting;
 using GlobalConfiguration = AwesomeCMSCore.Infrastructure.Config.GlobalConfiguration;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -154,7 +156,7 @@ namespace AwesomeCMSCore.Extension
             services.AddScoped<IAccountRepository, AccountRepository>();
 	        services.AddScoped<Modules.Client.Repositories.IPostRepository, Modules.Client.Repositories.PostRepository>();
 	        services.AddScoped<INewsLetterRepository, NewsLetterRepository>();
-	        services.AddScoped<IScheduledEmailService, ScheduledEmailService>();
+
 			return services;
         }
 
@@ -383,10 +385,12 @@ namespace AwesomeCMSCore.Extension
 
 	    public static IServiceCollection RegisterBackgroundService(this IServiceCollection services, IConfiguration configuration)
 	    {
-		    JobStorage.Current = new SqlServerStorage(configuration.GetConnectionString("DefaultConnection"));
-		    var sp = services.BuildServiceProvider();
-		    var scheduledEmailService = sp.GetService<IScheduledEmailService>();
-		    RecurringJob.AddOrUpdate("SendSubscriptionEmail", () => scheduledEmailService.SendEmailBackground(), Cron.Minutely);
+		    //JobStorage.Current = new SqlServerStorage(configuration.GetConnectionString("DefaultConnection"));
+		    //var sp = services.BuildServiceProvider();
+		    //var scheduledEmailService = sp.GetService<IScheduledEmailService>();
+		    //RecurringJob.AddOrUpdate("SendSubscriptionEmail", () => scheduledEmailService.SendEmailBackground(), Cron.Minutely);
+		    services.AddSingleton<IHostedService, ScheduledEmailService>();
+
 			return services;
 	    }
     }
