@@ -1,4 +1,4 @@
-﻿using AwesomeCMSCore.Modules.Admin.Repositories;
+using AwesomeCMSCore.Modules.Admin.Repositories;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +18,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers
             _postOptionsRepository = postOptionsRepository;
             _userService = userService;
         }
-
-        [HttpGet]
+		
         public IActionResult Index()
         {
             return View();
