@@ -14,16 +14,18 @@ namespace AwesomeCMSCore.Modules.Scheduled.EmailService
 		private readonly IUnitOfWork _unitOfWork;
 
 		private string _cronValue;
-		protected override string Schedule => "*/1 * * * *";
 		public ScheduledEmailService(
-		    IServiceScopeFactory serviceScopeFactory,
+			IServiceScopeFactory serviceScopeFactory,
 			IEmailSender emailSender, 
 			IUnitOfWork unitOfWork) : base(serviceScopeFactory)
 		{
 			_emailSender = emailSender;
 			_unitOfWork = unitOfWork;
 		}
-
+		/// <summary>
+		/// Get cron setting from db
+		/// </summary>
+		/// <returns></returns>
 		protected override string GetCronExpression()
 		{
 			_cronValue = "*/1 * * * *";

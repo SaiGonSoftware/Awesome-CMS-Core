@@ -13,11 +13,10 @@ namespace AwesomeCMSCore.Modules.Scheduled.BaseScheduled
 	{
 		private readonly CrontabSchedule _schedule;
 		private DateTime _nextRun;
-		protected abstract string Schedule { get; }
 
 		protected ScheduledProcessor(IServiceScopeFactory serviceScopeFactory) : base(serviceScopeFactory)
 		{
-			_schedule = CrontabSchedule.Parse(Schedule);
+			_schedule = CrontabSchedule.Parse(GetCronExpression());
 			_nextRun = _schedule.GetNextOccurrence(DateTime.Now);
 		}
 
