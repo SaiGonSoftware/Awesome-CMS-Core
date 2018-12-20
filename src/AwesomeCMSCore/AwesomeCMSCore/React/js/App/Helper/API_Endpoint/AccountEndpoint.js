@@ -1,5 +1,5 @@
 export const ACCOUNT_API =  "api/v1/Account";
-export const ACCOUNT_LOGIN_API = "api/v1/Account/Login";
+export const ACCOUNT_LOGIN_API = "api/v1/Account/Authenticate";
 export const FORGOT_PASSWORD_API = "api/v1/Account/ForgotPassword";
 export const RESET_PASSWORD_API = "api/v1/Account/ResetPassword";
 export const USER_API = "api/v1/Account/Users";

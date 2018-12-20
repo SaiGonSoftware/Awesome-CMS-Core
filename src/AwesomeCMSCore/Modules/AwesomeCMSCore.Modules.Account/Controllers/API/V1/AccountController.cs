@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Account.Repositories;
 using AwesomeCMSCore.Modules.Account.ViewModels;
 using AwesomeCMSCore.Modules.Email;
@@ -37,7 +37,7 @@ namespace AwesomeCMSCore.Modules.Account.Controllers.API.V1
         }
 
         #region Login, Register, Password
-        [HttpPost("Login")]
+        [HttpPost("Authenticate")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
