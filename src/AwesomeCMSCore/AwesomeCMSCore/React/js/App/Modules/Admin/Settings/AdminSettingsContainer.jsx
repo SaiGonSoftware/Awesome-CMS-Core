@@ -43,14 +43,6 @@ class AdminSettingsContainer extends Component {
 														role="tab"
 														aria-controls="v-pills-messages"
 														aria-selected="false">Security</a>
-												<a
-														className="nav-link"
-														id="v-pills-settings-tab"
-														data-toggle="pill"
-														href="#v-pills-settings"
-														role="tab"
-														aria-controls="v-pills-settings"
-														aria-selected="false">Settings</a>
 										</div>
 								</div>
 								<div className="col-9">
@@ -72,11 +64,6 @@ class AdminSettingsContainer extends Component {
 														id="v-pills-messages"
 														role="tabpanel"
 														aria-labelledby="v-pills-messages-tab">...</div>
-												<div
-														className="tab-pane fade"
-														id="v-pills-settings"
-														role="tabpanel"
-														aria-labelledby="v-pills-settings-tab">...</div>
 										</div>
 								</div>
 						</div>
