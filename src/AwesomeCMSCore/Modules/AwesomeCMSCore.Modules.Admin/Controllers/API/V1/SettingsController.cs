@@ -29,8 +29,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 			var result = await _settingsRepository.GetCronSetting();
 			return Ok(result);
 		}
-
-
+		
 		[HttpPost("Cron"), ValidModel]
 		public async Task<IActionResult> SaveCronSetting([FromBody]CronSetting cronSetting)
 		{
