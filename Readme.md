@@ -33,8 +33,7 @@ Please read
 
 ## App insider (Continue to Update)
 
-## Client UI
-<img src="Resource/Archive/Theme/clientui-index.png">
+## Client UI (work in progress)
 
 ### Login page for admin
 
@@ -47,6 +46,12 @@ Please read
 <img src="img/portal.png"/>
 
 ---
+
+### Settings
+
+Allow admin to input cron setting
+
+<img src="img/cron-setting.png">
 
 ### Manage Account
 
