@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
 import {render} from "react-dom";
+
 import {isDomExist} from "Helper/Util";
 
+import CronSetting from "./General/CronSetting.jsx";
+
 class AdminSettingsContainer extends Component {
+		constructor(props) {
+				super(props);
+		}
+
 		render() {
 				return (
 						<div className="row" id="admin-setting-wrapper">
@@ -14,12 +21,12 @@ class AdminSettingsContainer extends Component {
 												aria-orientation="vertical">
 												<a
 														className="nav-link active"
-														id="v-pills-home-tab"
-														data-toggle="pill"
-														href="#v-pills-home"
+														id="v-pills-general-tab"
+														data-toggle="general"
+														href="#v-pills-general"
 														role="tab"
-														aria-controls="v-pills-home"
-														aria-selected="true">Home</a>
+														aria-controls="v-pills-general"
+														aria-selected="true">General</a>
 												<a
 														className="nav-link"
 														id="v-pills-profile-tab"
@@ -35,7 +42,7 @@ class AdminSettingsContainer extends Component {
 														href="#v-pills-messages"
 														role="tab"
 														aria-controls="v-pills-messages"
-														aria-selected="false">Messages</a>
+														aria-selected="false">Security</a>
 												<a
 														className="nav-link"
 														id="v-pills-settings-tab"
@@ -50,16 +57,10 @@ class AdminSettingsContainer extends Component {
 										<div className="tab-content" id="v-pills-tabContent">
 												<div
 														className="tab-pane fade show active"
-														id="v-pills-home"
+														id="v-pills-general"
 														role="tabpanel"
-														aria-labelledby="v-pills-home-tab">
-														<div className="card">
-																<div className="card-body">
-																		<h5 className="card-title">Special title treatment</h5>
-																		<p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-																		<a href="#" className="btn btn-primary">Go somewhere</a>
-																</div>
-														</div>
+														aria-labelledby="v-pills-general-tab">
+														<CronSetting/>
 												</div>
 												<div
 														className="tab-pane fade"
@@ -84,6 +85,6 @@ class AdminSettingsContainer extends Component {
 }
 
 if (isDomExist("admin-setting-container")) {
-  render(
-    <AdminSettingsContainer/>, document.getElementById("admin-setting-container"));
+		render(
+				<AdminSettingsContainer/>, document.getElementById("admin-setting-container"));
 }
