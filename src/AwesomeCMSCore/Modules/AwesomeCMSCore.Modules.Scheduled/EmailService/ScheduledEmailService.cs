@@ -11,14 +11,9 @@ namespace AwesomeCMSCore.Modules.Scheduled.EmailService
 {
     public class ScheduledEmailService : ScheduledProcessor
     {
-        private readonly IEmailSender _emailSender;
-        private readonly IUnitOfWork _unitOfWork;
         public ScheduledEmailService(
             IServiceScopeFactory serviceScopeFactory) : base(serviceScopeFactory)
         {
-            var serviceProvider = serviceScopeFactory.CreateScope().ServiceProvider;
-            _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
-            _emailSender = serviceProvider.GetRequiredService<IEmailSender>();
         }
 
         /// <summary>
@@ -36,12 +31,14 @@ namespace AwesomeCMSCore.Modules.Scheduled.EmailService
 
         public override Task ProcessInScope(IServiceProvider serviceProvider)
         {
-            var emailList = _unitOfWork.Repository<NewsLetter>().GetAll();
+            var unitOfWork = serviceProvider.GetService<IUnitOfWork>();
+            var emailList = unitOfWork.Repository<NewsLetter>().GetAll();
             if (emailList.Count <= 0) return Task.CompletedTask;
 
+            var emailSender = serviceProvider.GetService<IEmailSender>(); 
             foreach (var email in emailList)
             {
-                _emailSender.SendEmailAsync(email.Email, "", null, EmailType.SubscriptionEmail);
+                emailSender.SendEmailAsync(email.Email, "", null, EmailType.SubscriptionEmail);
             }
 
             return Task.CompletedTask;
