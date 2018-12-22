@@ -156,6 +156,7 @@ namespace AwesomeCMSCore.Extension
 			services.AddScoped<IAccountRepository, AccountRepository>();
 			services.AddScoped<Modules.Client.Repositories.IPostRepository, Modules.Client.Repositories.PostRepository>();
 			services.AddScoped<INewsLetterRepository, NewsLetterRepository>();
+			services.AddScoped<ISettingsRepository, SettingsRepository>();
 
 			return services;
 		}

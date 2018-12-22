@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Entities.Enums;
 using AwesomeCMSCore.Modules.Repositories;
 using AwesomeCMSCore.Modules.Scheduled.BaseScheduled;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,8 +11,8 @@ namespace AwesomeCMSCore.Modules.Scheduled.EmailService
 {
 	public class ScheduledEmailService : ScheduledProcessor
 	{
-		private readonly IEmailSender _emailSender;
-		private readonly IUnitOfWork _unitOfWork;
+		private IEmailSender _emailSender;
+		private IUnitOfWork _unitOfWork;
 
 		private string _cronValue;
 		public ScheduledEmailService(
@@ -28,7 +29,8 @@ namespace AwesomeCMSCore.Modules.Scheduled.EmailService
 		/// <returns></returns>
 		protected override string GetCronExpression()
 		{
-			_cronValue = "*/1 * * * *";
+			var cronValue = _unitOfWork.Repository<Settings>().Find(s => s.SettingKey == SettingKey.EmailSubscription).Value ;
+			_cronValue = cronValue;
 			return _cronValue;
 		}
 
@@ -43,6 +45,13 @@ namespace AwesomeCMSCore.Modules.Scheduled.EmailService
 			}
 
 			return Task.CompletedTask;
+		}
+
+		private void InitDependency(IServiceScopeFactory serviceScopeFactory)
+		{
+			var serviceProvider = serviceScopeFactory.CreateScope().ServiceProvider;
+			_unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
+			_emailSender = serviceProvider.GetRequiredService<IEmailSender>();
 		}
 	}
 

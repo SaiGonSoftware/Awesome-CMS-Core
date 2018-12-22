@@ -26,7 +26,7 @@ export function Post(url, data) {
   const authHeader = initAuthHeaders();
   const config = {
     headers: {
-      Authorization: "Bearer " + authHeader
+			Authorization: "Bearer " + authHeader
     }
   };
 
