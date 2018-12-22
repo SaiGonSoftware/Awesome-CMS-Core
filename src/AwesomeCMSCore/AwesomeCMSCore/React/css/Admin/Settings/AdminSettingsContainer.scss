@@ -1,0 +1,12 @@
+#admin-setting-wrapper {
+    padding: 5%;
+
+    .nav-link {
+        background: #2f333e;
+        border-radius: 0;
+
+        &:hover {
+            color: white;
+        }
+    }
+}
