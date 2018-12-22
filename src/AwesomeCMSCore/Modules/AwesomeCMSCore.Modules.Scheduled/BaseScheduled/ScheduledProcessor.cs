@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Background.BaseBackground;
+using AwesomeCMSCore.Modules.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using NCrontab;
 
@@ -16,7 +15,7 @@ namespace AwesomeCMSCore.Modules.Scheduled.BaseScheduled
 
 		protected ScheduledProcessor(IServiceScopeFactory serviceScopeFactory) : base(serviceScopeFactory)
 		{
-			_schedule = CrontabSchedule.Parse(GetCronExpression());
+			_schedule = CrontabSchedule.Parse(GetCronExpression(serviceScopeFactory));
 			_nextRun = _schedule.GetNextOccurrence(DateTime.Now);
 		}
 
@@ -38,6 +37,6 @@ namespace AwesomeCMSCore.Modules.Scheduled.BaseScheduled
 			while (!stoppingToken.IsCancellationRequested);
 		}
 
-		protected abstract string GetCronExpression();
+		protected abstract string GetCronExpression(IServiceScopeFactory serviceScopeFactory);
 	}
 }

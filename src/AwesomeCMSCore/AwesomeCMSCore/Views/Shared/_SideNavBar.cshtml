@@ -1,4 +1,4 @@
-﻿@using AwesomeCMSCore.Modules.Entities.Entities
+@using AwesomeCMSCore.Modules.Entities.Entities
 @using Microsoft.AspNetCore.Identity
 
 @inject SignInManager<User> SignInManager
@@ -23,7 +23,7 @@
         <li><a> <i class="icon-interface-windows"></i>Theme </a></li>
         <li><a asp-action="Index" asp-controller="PostOptions"> <i class="fa fa-tags"></i>Tag & Categories</a></li>
         <li><a asp-action="Index" asp-controller="Account"> <i class="fa fa-user-plus"></i>Account </a></li>
-        <li><a> <i class="fa fa-cogs"></i>Setting </a></li>
+        <li><a asp-action="Index" asp-controller="Settings"> <i class="fa fa-cogs"></i>Setting </a></li>
         <li>
             <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
             <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
