@@ -10,7 +10,7 @@ Awesome CMS Core provide lastest trend of technology like .Net Core, React, Webp
 | Build server | Platform      | Status                                                                                                                                                 |
 | ------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | AppVeyor     | Windows       | [![Build status](https://ci.appveyor.com/api/projects/status/brpoki3qovv7pkab?svg=true)](https://ci.appveyor.com/project/ngohungphuc/awesome-cms-core) |
-| Travis       | Linux / MacOS | [![Build Status](https://travis-ci.org/Awesome-CMS-Core/Awesome-CMS-Core.svg?branch=master)](https://travis-ci.org/Awesome-CMS-Core/Awesome-CMS-Core)  |
+| Travis       | Linux / MacOS | [![Build Status](https://travis-ci.org/SaiGonSoftware/Awesome-CMS-Core.svg?branch=master)](https://travis-ci.org/SaiGonSoftware/Awesome-CMS-Core)  |
 
 ## Code quality
 
