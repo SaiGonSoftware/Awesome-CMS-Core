@@ -31,6 +31,10 @@ Please read
 | -------------------------------------------------------------- | ------------------------------------------------------------------- |
 | <img src="img/contributors/tony.jpg"  alt="tony" width="150"/> | <img src="img/contributors/davidpine.png" alt="tony" width="150" /> |
 
+
+## Progress
+I'm currently working hard on PR [#324](https://github.com/SaiGonSoftware/Awesome-CMS-Core/pull/324)
+
 ## App insider (Continue to Update)
 
 ## Client UI (work in progress)
@@ -84,6 +88,3 @@ Allow admin to input cron setting
 <img src="img/Reply comment.png">
 
 ---
-
-### Progress
-I'm currently working hard on PR [#324](https://github.com/SaiGonSoftware/Awesome-CMS-Core/pull/324)
