@@ -1,5 +1,6 @@
 using AutoMapper;
 using AwesomeCMSCore.Extension;
+using AwesomeCMSCore.Hubs;
 using AwesomeCMSCore.Infrastructure.Config;
 using AwesomeCMSCore.Infrastructure.Module.Views;
 using Microsoft.AspNetCore.Builder;
@@ -52,7 +53,8 @@ namespace AwesomeCMSCore
             services.IntegrateSwagger();
             services.RegisterGzip();
             services.IntegrateRedis(_configuration);
-        }
+			services.AddSignalR();
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -64,7 +66,11 @@ namespace AwesomeCMSCore
             app.ConfigSwagger();
             app.ServeStaticModuleFile(GlobalConfiguration.Modules);
             app.UseAuthentication();
-            app.UseCustomizeMvc();
+			app.UseSignalR(routes =>
+			{
+				routes.MapHub<CmsCoreHub>("/cmscore");
+			});
+			app.UseCustomizeMvc();
         }
     }
 }
