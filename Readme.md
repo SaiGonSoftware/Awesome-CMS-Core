@@ -84,3 +84,6 @@ Allow admin to input cron setting
 <img src="img/Reply comment.png">
 
 ---
+
+### Progress
+I'm currently working hard on PR [#324](https://github.com/SaiGonSoftware/Awesome-CMS-Core/pull/324)
