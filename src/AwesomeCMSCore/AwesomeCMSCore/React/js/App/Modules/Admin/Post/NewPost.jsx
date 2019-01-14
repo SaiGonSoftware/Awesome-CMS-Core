@@ -36,7 +36,7 @@ class NewPost extends Component {
 						categoriesOptions: [],
 						categoriesValue: [],
 						loading: false,
-						thumbnail: null
+						media: null
 				};
 		}
 
@@ -72,9 +72,10 @@ class NewPost extends Component {
 						ShortDescription: this.state.shortDescription,
 						Content: this.state.postContent,
 						PostOptionsDefaultViewModel: postOptionsDefaultViewModel,
-						PostStatus: postStatus
+						PostStatus: postStatus,
+						Media: this.state.media
 				};
-
+				console.log(viewModel);
 				PostWithSpinner
 						.call(this, SAVE_POST_API, viewModel)
 						.then(res => {
@@ -100,7 +101,8 @@ class NewPost extends Component {
 				this.setState({categoriesValue});
 		};
 
-		handleImagePreview = imageValue => {
+		handleImagePreview = media => {
+				console.log(media);
 				this.clearImageState();
 				// eslint-disable-next-line no-undef
 				let reader = new FileReader();
@@ -110,8 +112,8 @@ class NewPost extends Component {
 						$('#thumbnail-preview').attr('src', e.target.result);
 				}
 
-				this.setState({thumbnail: imageValue});
-				reader.readAsDataURL(imageValue);
+				this.setState({media});
+				reader.readAsDataURL(media);
 		}
 
 		removeImage = () => {
@@ -119,7 +121,7 @@ class NewPost extends Component {
 		}
 
 		clearImageState = () => {
-				this.setState({thumbnail: null});
+				this.setState({media: null});
 		}
 		render() {
 				const {
@@ -131,7 +133,7 @@ class NewPost extends Component {
 						tagOptions,
 						categoriesOptions,
 						categoriesValue,
-						thumbnail
+						media
 				} = this.state;
 
 				return (
@@ -176,8 +178,8 @@ class NewPost extends Component {
 																								<input
 																										type="file"
 																										className="custom-file-input"
-																										name="thumbnail"
-																										onChange={thumbnail => this.handleImagePreview(thumbnail.target.files[0])}/>
+																										name="media"
+																										onChange={media => this.handleImagePreview(media.target.files[0])}/>
 																								<label className="custom-file-label">Choose file</label>
 																						</div>
 																				</div>
@@ -186,7 +188,7 @@ class NewPost extends Component {
 																<Row>
 																		<Col
 																				md="12"
-																				className={thumbnail
+																				className={media
 																				? "visiblity"
 																				: "hidden"}>
 																				<div className="card">

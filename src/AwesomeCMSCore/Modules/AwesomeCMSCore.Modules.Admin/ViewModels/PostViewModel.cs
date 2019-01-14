@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.Enums;
@@ -13,7 +13,7 @@ namespace AwesomeCMSCore.Modules.Admin.ViewModels
         public string Content { get; set; }
         public PostOptionsDefaultViewModel PostOptionsDefaultViewModel { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
-        public ICollection<Media> Media { get; set; }
+        public Media Media { get; set; }
         public PostStatus PostStatus { get; set; }
     }
 }

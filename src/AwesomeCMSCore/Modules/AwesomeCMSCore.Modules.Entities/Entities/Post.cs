@@ -14,6 +14,6 @@ namespace AwesomeCMSCore.Modules.Entities.Entities
 		public int Views { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<Media> Medias { get; set; }
+        public virtual Media Medias { get; set; }
     }
 }
