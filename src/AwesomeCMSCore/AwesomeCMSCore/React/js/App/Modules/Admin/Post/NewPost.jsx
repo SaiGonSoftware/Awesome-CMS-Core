@@ -75,7 +75,7 @@ class NewPost extends Component {
 						PostStatus: postStatus,
 						Media: this.state.media
 				};
-				console.log(viewModel);
+
 				PostWithSpinner
 						.call(this, SAVE_POST_API, viewModel)
 						.then(res => {
@@ -102,7 +102,6 @@ class NewPost extends Component {
 		};
 
 		handleImagePreview = media => {
-				console.log(media);
 				this.clearImageState();
 				// eslint-disable-next-line no-undef
 				let reader = new FileReader();
@@ -112,7 +111,13 @@ class NewPost extends Component {
 						$('#thumbnail-preview').attr('src', e.target.result);
 				}
 
-				this.setState({media});
+				const mediaData = {
+						name: media.name,
+						size: media.size,
+						type: media.type
+				};
+
+				this.setState({media: mediaData});
 				reader.readAsDataURL(media);
 		}
 
