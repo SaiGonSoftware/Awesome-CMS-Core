@@ -73,7 +73,7 @@ class NewPost extends Component {
 						Content: this.state.postContent,
 						PostOptionsDefaultViewModel: postOptionsDefaultViewModel,
 						PostStatus: postStatus,
-						Media: this.state.media
+						Thumbnail: this.state.media
 				};
 
 				PostWithSpinner
@@ -113,8 +113,9 @@ class NewPost extends Component {
 
 				const mediaData = {
 						name: media.name,
-						size: media.size,
-						type: media.type
+						fileName: media.name,
+						length: media.size,
+						contentType: media.type
 				};
 
 				this.setState({media: mediaData});
