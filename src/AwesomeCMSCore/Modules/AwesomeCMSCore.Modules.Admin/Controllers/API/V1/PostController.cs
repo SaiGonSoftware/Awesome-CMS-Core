@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using AwesomeCMSCore.Modules.Admin.Repositories;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
+using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Helper.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 {
@@ -18,12 +20,14 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 	public class PostController : Controller
 	{
 		private readonly IPostRepository _postRepository;
-
+		private readonly IJsonParseService<PostOptionsDefaultViewModel> _jsonParsePostOptionDefaultVm;
 		public PostController(
 			IPostRepository postRepository,
-			IUserService userService)
+			IUserService userService,
+			IJsonParseService<PostOptionsDefaultViewModel> jsonParsePostOptionDefaultVm)
 		{
 			_postRepository = postRepository;
+			_jsonParsePostOptionDefaultVm = jsonParsePostOptionDefaultVm;
 		}
 
 		[HttpGet("")]
@@ -41,24 +45,26 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 		}
 
 		[HttpPost("SavePost")]
-		[AllowAnonymous]
-		public async Task<IActionResult> SavePost(PostViewModel viewModel)
+		public async Task<IActionResult> SavePost([FromForm]PostViewModel viewModel)
 		{
-			//if (viewModel.Id.HasValue)
-			//{
-			//	await _postRepository.EditPost(viewModel);
-			//}
-			//else
-			//{
-			//	var path = Path.Combine(
-			//	  Directory.GetCurrentDirectory(), "wwwroot/assets/",
-			//	  thumbnail.Name);
-			//	using (var stream = new FileStream(path, FileMode.Create))
-			//	{
-			//		await thumbnail.CopyToAsync(stream);
-			//	}
-			//	await _postRepository.SavePost(viewModel);
-			//}
+			var postOptionsViewModel = _jsonParsePostOptionDefaultVm.ToObject(viewModel.PostOptionsViewModel);
+			viewModel.PostOptionsDefaultViewModel = postOptionsViewModel;
+
+			if (viewModel.Id.HasValue)
+			{
+				await _postRepository.EditPost(viewModel);
+			}
+			else
+			{
+				var path = Path.Combine(
+				  Directory.GetCurrentDirectory(), "wwwroot\\assets",
+				  viewModel.Thumbnail.GetFilename());
+				using (var stream = new FileStream(path, FileMode.Create))
+				{
+					await viewModel.Thumbnail.CopyToAsync(stream);
+				}
+				await _postRepository.SavePost(viewModel);
+			}
 
 			return Ok();
 		}

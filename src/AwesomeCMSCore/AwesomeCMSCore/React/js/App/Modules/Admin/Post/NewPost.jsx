@@ -70,19 +70,15 @@ class NewPost extends Component {
 
 				// eslint-disable-next-line no-undef
 				const formdata = new FormData();
-				formdata.append("thumbnail", this.state.thumbnail);
-
-				const viewModel = {
-						Title: this.state.title,
-						ShortDescription: this.state.shortDescription,
-						Content: this.state.postContent,
-						PostOptionsDefaultViewModel: postOptionsDefaultViewModel,
-						PostStatus: postStatus,
-						Media: formdata
-				};
+				formdata.append("Title", this.state.title);
+				formdata.append("ShortDescription", this.state.shortDescription);
+				formdata.append("Content", this.state.postContent);
+				formdata.append("PostOptionsViewModel", JSON.stringify(postOptionsDefaultViewModel));
+				formdata.append("PostStatus", postStatus);
+				formdata.append("Thumbnail", this.state.thumbnail);
 
 				PostWithSpinner
-						.call(this, SAVE_POST_API, viewModel)
+						.call(this, SAVE_POST_API, formdata, 'multipart/form-data')
 						.then(res => {
 								if (res.status === STATUS_CODE.Success) 
 										return toastr.success("Create new post success");
