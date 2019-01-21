@@ -36,6 +36,11 @@ namespace AwesomeCMSCore.Modules.Entities.Data
             modelBuilder.Entity<ApplicationRole>().HasMany(r => r.Users).WithOne().HasForeignKey(r => r.RoleId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.EnableAutoHistory(null);
-        }
+
+	        modelBuilder.Entity<Post>()
+		        .HasOne(p => p.Medias)
+		        .WithOne(m => m.Post)
+		        .HasForeignKey<Media>(p => p.PostId);
+		}
     }
 }

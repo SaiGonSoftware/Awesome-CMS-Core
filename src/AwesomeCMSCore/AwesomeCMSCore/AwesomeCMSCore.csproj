@@ -3,6 +3,7 @@
   <PropertyGroup>
 	<TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>69ce3cf7-0978-46d5-8702-8ccc4ce831d0</UserSecretsId>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>

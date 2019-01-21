@@ -3,5 +3,15 @@
 
     #postContainer {
         margin: 20px 0 20px 0;
+
+        #thumbnail-preview {
+            margin-top: 15px;
+            width: 295px;
+            height: 205px;
+        }
+
+        #remove-icon {
+            position: absolute;
+        }
     }
 }

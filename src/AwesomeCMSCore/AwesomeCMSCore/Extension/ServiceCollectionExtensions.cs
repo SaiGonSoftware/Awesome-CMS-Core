@@ -143,6 +143,7 @@ namespace AwesomeCMSCore.Extension
 
 			services.AddScoped<IQueueService, QueueService>();
 			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+			services.AddScoped(typeof(IJsonParseService<>), typeof(JsonParseService<>));
 
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<IUrlHelperExtension, UrlHelperExtension>();

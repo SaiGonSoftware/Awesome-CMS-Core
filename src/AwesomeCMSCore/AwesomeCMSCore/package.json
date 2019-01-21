@@ -54,6 +54,7 @@
         "optimize-css-assets-webpack-plugin": "^5.0.1"
     },
     "dependencies": {
+        "@aspnet/signalr": "^1.1.0",
         "@tinymce/tinymce-react": "^2.2.5",
         "axios": "^0.18.0",
         "bootstrap": "^4.1.1",
