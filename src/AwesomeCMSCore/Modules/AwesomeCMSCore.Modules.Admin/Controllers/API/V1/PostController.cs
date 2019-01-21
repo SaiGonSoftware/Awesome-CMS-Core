@@ -42,23 +42,23 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 
 		[HttpPost("SavePost")]
 		[AllowAnonymous]
-		public async Task<IActionResult> SavePost([FromBody] PostViewModel viewModel, [FromBody] IFormFile Thumbnail)
+		public async Task<IActionResult> SavePost(PostViewModel viewModel)
 		{
-			if (viewModel.Id.HasValue)
-			{
-				await _postRepository.EditPost(viewModel);
-			}
-			else
-			{
-				var path = Path.Combine(
-				  Directory.GetCurrentDirectory(), "wwwroot/assets/",
-				  viewModel.Media.Name);
-				using (var stream = new FileStream(path, FileMode.Create))
-				{
-					await Thumbnail.CopyToAsync(stream);
-				}
-				//await _postRepository.SavePost(viewModel);
-			}
+			//if (viewModel.Id.HasValue)
+			//{
+			//	await _postRepository.EditPost(viewModel);
+			//}
+			//else
+			//{
+			//	var path = Path.Combine(
+			//	  Directory.GetCurrentDirectory(), "wwwroot/assets/",
+			//	  thumbnail.Name);
+			//	using (var stream = new FileStream(path, FileMode.Create))
+			//	{
+			//		await thumbnail.CopyToAsync(stream);
+			//	}
+			//	await _postRepository.SavePost(viewModel);
+			//}
 
 			return Ok();
 		}
