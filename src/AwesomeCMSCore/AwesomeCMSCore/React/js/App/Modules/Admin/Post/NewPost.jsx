@@ -36,7 +36,8 @@ class NewPost extends Component {
 						categoriesOptions: [],
 						categoriesValue: [],
 						loading: false,
-						thumbnail: null
+						thumbnail: null,
+						resetting: false
 				};
 		}
 
@@ -123,8 +124,18 @@ class NewPost extends Component {
 				this.clearImageState();
 		};
 
+		/**
+		 *
+		 * Work around when upload same image
+		 * @memberof NewPost
+		 */
 		clearImageState = () => {
 				this.setState({thumbnail: null});
+				this.setState({
+						resetting: true
+				}, () => {
+						this.setState({resetting: false});
+				});
 		};
 
 		render() {
@@ -137,7 +148,8 @@ class NewPost extends Component {
 						tagOptions,
 						categoriesOptions,
 						categoriesValue,
-						thumbnail
+						thumbnail,
+						resetting
 				} = this.state;
 
 				return (
@@ -172,54 +184,58 @@ class NewPost extends Component {
 																						onBlur={shortDescription => onBlur.call(this, shortDescription)}/>
 																		</Col>
 																</Row>
-																<Row>
-																		<Col md="12">
-																				<div className="input-group mb-3">
-																						<div className="input-group-prepend">
-																								<span className="input-group-text" id="thumbnailFileAddon">
-																										Upload
-																								</span>
-																						</div>
-																						<div className="custom-file">
-																								<input
-																										type="file"
-																										className="custom-file-input"
-																										name="thumbnail"
-																										id="thumbnailFileAddon"
-																										aria-describedby="thumbnailFileAddon"
-																										onChange={thumbnail => this.handleImagePreview(thumbnail.target.files[0])}/>
-																								<label className="custom-file-label" htmlFor="thumbnailFileAddon">
-																										{thumbnail && thumbnail.name
-																												? thumbnail.name
-																												: "Chose file"}
-																								</label>
-																						</div>
-																				</div>
-																		</Col>
-																</Row>
-																<Row>
-																		<Col
-																				md="12"
-																				className={thumbnail
-																				? "visiblity"
-																				: "hidden"}>
-																				<div className="card">
-																						<div className="card-header">Preview</div>
-																						<div className="card-body">
-																								<i
-																										className="fa fa-minus-square fa-2x"
-																										id="remove-icon"
-																										onClick={this.removeImage}/>
-																								<img id="thumbnail-preview" src=""/>
-																								<div className="card-body">
-																										<p className="card-text">
-																												Please note that image will be resize when upload
-																										</p>
+																{!resetting && (
+																		<div>
+																				<Row>
+																						<Col md="12">
+																								<div className="input-group mb-3">
+																										<div className="input-group-prepend">
+																												<span className="input-group-text" id="thumbnailFileAddon">
+																														Upload
+																												</span>
+																										</div>
+																										<div className="custom-file">
+																												<input
+																														type="file"
+																														className="custom-file-input"
+																														name="thumbnail"
+																														id="thumbnailFileAddon"
+																														aria-describedby="thumbnailFileAddon"
+																														onChange={thumbnail => this.handleImagePreview(thumbnail.target.files[0])}/>
+																												<label className="custom-file-label" htmlFor="thumbnailFileAddon">
+																														{thumbnail && thumbnail.name
+																																? thumbnail.name
+																																: "Choose file"}
+																												</label>
+																										</div>
 																								</div>
-																						</div>
-																				</div>
-																		</Col>
-																</Row>
+																						</Col>
+																				</Row>
+																				<Row>
+																						<Col
+																								md="12"
+																								className={thumbnail
+																								? "visiblity"
+																								: "hidden"}>
+																								<div className="card">
+																										<div className="card-header">Preview</div>
+																										<div className="card-body">
+																												<i
+																														className="fa fa-minus-square fa-2x"
+																														id="remove-icon"
+																														onClick={this.removeImage}/>
+																												<img id="thumbnail-preview" src=""/>
+																												<div className="card-body">
+																														<p className="card-text">
+																																Please note that image will be resize when upload
+																														</p>
+																												</div>
+																										</div>
+																								</div>
+																						</Col>
+																				</Row>
+																		</div>
+																)}
 																<Row>
 																		<Col md="12">
 																				<ACCEditor onChange={this.handleEditorChange}/>
