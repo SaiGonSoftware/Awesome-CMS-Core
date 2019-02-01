@@ -41,6 +41,9 @@ using Hangfire.SqlServer;
 using Microsoft.Extensions.Hosting;
 using GlobalConfiguration = AwesomeCMSCore.Infrastructure.Config.GlobalConfiguration;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using AwesomeCMSCore.Modules.Admin.Services;
+using AwesomeCMSCore.Modules.Shared;
+using AwesomeCMSCore.Modules.Shared.Settings;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -140,16 +143,19 @@ namespace AwesomeCMSCore.Extension
 			services.AddUrlHelper();
 
 			services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
+			//infrastructure
 			services.AddScoped<IQueueService, QueueService>();
 			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 			services.AddScoped(typeof(IJsonParseService<>), typeof(JsonParseService<>));
 
+			//helper service
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<IUrlHelperExtension, UrlHelperExtension>();
 			services.AddScoped<IExceptionHandler, ExceptionHandler>();
 			services.AddScoped<IEmailSender, EmailSender>();
+			services.AddScoped<IAssetService, AssetService>();
 
+			//repository, service
 			services.AddScoped<IPostRepository, PostRepository>();
 			services.AddScoped<IPostOptionsRepository, PostOptionsRepository>();
 			services.AddScoped<ICommentRepository, CommentRepository>();
@@ -302,7 +308,7 @@ namespace AwesomeCMSCore.Extension
 		{
 			services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
 			services.Configure<QueueSettings>(configuration.GetSection("QueueSettings"));
-
+			services.Configure<AssetSettings>(configuration.GetSection("AssetSettings"));
 			return services;
 		}
 

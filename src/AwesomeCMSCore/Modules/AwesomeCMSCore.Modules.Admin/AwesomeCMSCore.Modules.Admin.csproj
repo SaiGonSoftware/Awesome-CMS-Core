@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\**" />
-    <Compile Remove="Services\**" />
-    <EmbeddedResource Remove="Models\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Models\**" />
-    <None Remove="Services\**" />
     <Compile Update="Repositories\ICommentRepository.cs">
       <DependentUpon>Repositories\CommentRepository.cs</DependentUpon>
     </Compile>
