@@ -56,13 +56,6 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 			}
 			else
 			{
-				var path = Path.Combine(
-				  Directory.GetCurrentDirectory(), "wwwroot\\assets",
-				  viewModel.Thumbnail.GetFilename());
-				using (var stream = new FileStream(path, FileMode.Create))
-				{
-					await viewModel.Thumbnail.CopyToAsync(stream);
-				}
 				await _postRepository.SavePost(viewModel);
 			}
 

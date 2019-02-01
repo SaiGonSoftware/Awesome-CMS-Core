@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using AwesomeCMSCore.Modules.Email;
 using AwesomeCMSCore.Modules.Entities.ViewModel;
 using AwesomeCMSCore.Modules.Helper.Services;
+using AwesomeCMSCore.Modules.Helper.Enum;
 
 namespace AwesomeCMSCore.Modules.Account.Repositories
 {
@@ -113,7 +114,7 @@ namespace AwesomeCMSCore.Modules.Account.Repositories
         public async Task<bool> AddNewUser(UserInputViewModel userInputVm)
         {
             var user = new User { UserName = userInputVm.Username, Email = userInputVm.Email };
-            var randomPassword = RandomString.GenerateRandomString();
+            var randomPassword = RandomString.GenerateRandomString(AppEnum.MinPasswordChar);
             var result = await _userService.CreateAsync(user, randomPassword);
 
             if (!result.Succeeded)

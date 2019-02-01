@@ -4,7 +4,8 @@ namespace AwesomeCMSCore.Modules.Helper.Enum
     {
         public static readonly int MaxFailedAccessAttempts = 2;
         public static readonly int MinPasswordChar = 8;
-    }
+		public static readonly int MinGeneratedAssetName = 8;
+	}
 
     public static class UserClaimsKey
     {
