@@ -7,5 +7,6 @@ namespace AwesomeCMSCore.Modules.Shared.Settings
 	public class AssetSettings
 	{
 		public string StorePath { get; set; } = "wwwroot\\assets";
+		public string AssetPath { get; set; } = "assets";
 	}
 }

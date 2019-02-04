@@ -15,7 +15,7 @@ namespace AwesomeCMSCore.Modules.Admin.ViewModels
 		public string Content { get; set; }
 		public PostOptionsDefaultViewModel PostOptionsDefaultViewModel { get; set; }
 		public DateTime DateCreated { get; set; } = DateTime.Now;
-		public ICollection<Media> Media { get; set; }
+		public MediaViewModel MediaViewModel { get; set; }
 		public PostStatus PostStatus { get; set; }
 		/// <summary>
 		/// These 2 only use to map with submit data using FormData since we submit JsonStringify

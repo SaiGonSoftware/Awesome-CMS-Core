@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -73,6 +74,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 					options.AfterMap((src, dest) => { dest.PostOptionsDefaultViewModel = postOptions; });
 				});
 
+			postViewModel.MediaViewModel = new MediaViewModel
+			{
+				Name = post.Medias.Name,
+				Path = post.Medias.Path
+			};
+
 			return postViewModel;
 		}
 
@@ -115,6 +122,9 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
 		public async Task EditPost(PostViewModel postViewModel)
 		{
+			var post = await GetPostById(postViewModel.Id.Value);
+			await UpdateAssetForPost(postViewModel, post);
+
 			var currentUser = await _userService.GetCurrentUserAsync();
 
 			var postData = _mapper.Map<PostViewModel, Post>(postViewModel, options =>
@@ -122,7 +132,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 				options.AfterMap((src, dest) => dest.User = currentUser);
 			});
 
-			var post = await _unitOfWork.Repository<Post>().UpdateAsync(postData);
+			await _unitOfWork.Repository<Post>().UpdateAsync(postData);
 
 			var tagToUpdate = _mapper.Map<PostOptionsViewModel, PostOption>(postViewModel.PostOptionsDefaultViewModel.TagViewModel, options =>
 			{
@@ -146,7 +156,6 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
 			await _unitOfWork.Repository<PostOption>().UpdateAsync(tagToUpdate);
 			await _unitOfWork.Repository<PostOption>().UpdateAsync(categoriesToUpdate);
-			await UploadAssetForPost(postViewModel, post);
 		}
 
 		public async Task RestorePost(int postId)
@@ -180,24 +189,66 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
 		private async Task UploadAssetForPost(PostViewModel postViewModel, Post post)
 		{
-			if (postViewModel.Thumbnail.Length > 0)
+			try
 			{
-				var mediaFileName = RandomString.GenerateRandomString(AppEnum.MinGeneratedAssetName);
-				var assetPath = await _assetService.UploadAssets(postViewModel.Thumbnail, mediaFileName);
-				var media = new Media
+				if (postViewModel.Thumbnail.Length > 0)
 				{
-					IsDeleted = false,
-					Name = mediaFileName,
-					Size = postViewModel.Thumbnail.Length,
-					Post = post,
-					PostId = post.Id,
-					Path = assetPath,
-					Type = postViewModel.Thumbnail.ContentType,
-					User = await _userService.GetCurrentUserAsync()
-				};
+					var mediaFileName = RandomString.GenerateRandomString(AppEnum.MinGeneratedAssetName);
+					var assetPath = await _assetService.UploadAssets(postViewModel.Thumbnail, mediaFileName);
+					var media = new Media
+					{
+						IsDeleted = false,
+						Name = mediaFileName,
+						Size = postViewModel.Thumbnail.Length,
+						Post = post,
+						PostId = post.Id,
+						Path = assetPath,
+						Type = postViewModel.Thumbnail.ContentType,
+						User = await _userService.GetCurrentUserAsync()
+					};
 
-				post.Medias = media;
-				await _unitOfWork.Repository<Post>().UpdateAsync(post);
+					post.Medias = media;
+					await _unitOfWork.Repository<Post>().UpdateAsync(post);
+				}
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		private async Task UpdateAssetForPost(PostViewModel postViewModel, Post post)
+		{
+			try
+			{
+				if (postViewModel.Thumbnail.Length > 0)
+				{
+					var existingMedia = await _unitOfWork.Repository<Media>().FindAsync(m => m.Id == post.Medias.Id);
+					if(existingMedia != null)
+					{
+						await _unitOfWork.Repository<Media>().DeleteAsync(existingMedia);
+					}
+					var mediaFileName = RandomString.GenerateRandomString(AppEnum.MinGeneratedAssetName);
+					var assetPath = await _assetService.UploadAssets(postViewModel.Thumbnail, mediaFileName);
+					var media = new Media
+					{
+						IsDeleted = false,
+						Name = mediaFileName,
+						Size = postViewModel.Thumbnail.Length,
+						Post = post,
+						PostId = post.Id,
+						Path = assetPath,
+						Type = postViewModel.Thumbnail.ContentType,
+						User = await _userService.GetCurrentUserAsync()
+					};
+
+					post.Medias = media;
+					await _unitOfWork.Repository<Post>().UpdateAsync(post);
+				}
+			}
+			catch (Exception ex)
+			{
+				throw ex;
 			}
 		}
 	}
