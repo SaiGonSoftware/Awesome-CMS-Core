@@ -22,7 +22,7 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 		{
 			try
 			{
-				var path = Path.Combine(Directory.GetCurrentDirectory(), _assetSettings.Value.StorePath, fileName);
+				var path = Path.Combine(_assetSettings.Value.StorePath, $"{fileName}.{file.ContentType.Split("/")[1]}");
 				using (var stream = new FileStream(path, FileMode.Create))
 				{
 					await file.CopyToAsync(stream);
