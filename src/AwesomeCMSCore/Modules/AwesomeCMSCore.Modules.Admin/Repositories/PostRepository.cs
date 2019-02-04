@@ -73,6 +73,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 					options.AfterMap((src, dest) => { dest.PostOptionsDefaultViewModel = postOptions; });
 				});
 
+			postViewModel.MediaViewModel = new MediaViewModel
+			{
+				Name = post.Medias.Name,
+				Path = post.Medias.Path
+			};
+
 			return postViewModel;
 		}
 

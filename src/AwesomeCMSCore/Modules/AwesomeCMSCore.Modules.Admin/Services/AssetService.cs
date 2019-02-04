@@ -22,12 +22,14 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 		{
 			try
 			{
-				var path = Path.Combine(_assetSettings.Value.StorePath, $"{fileName}.{file.ContentType.Split("/")[1]}");
-				using (var stream = new FileStream(path, FileMode.Create))
+				var storePath = Path.Combine(_assetSettings.Value.StorePath, $"{fileName}.{file.ContentType.Split("/")[1]}");
+				using (var stream = new FileStream(storePath, FileMode.Create))
 				{
 					await file.CopyToAsync(stream);
 				}
-				return path;
+
+				var assetPath = Path.Combine(_assetSettings.Value.AssetPath, $"{fileName}.{file.ContentType.Split("/")[1]}");
+				return assetPath;
 			}
 			catch (Exception)
 			{
