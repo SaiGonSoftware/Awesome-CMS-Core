@@ -33,7 +33,7 @@ Please read
 
 
 ## Progress
-I'm currently working hard on PR [#324](https://github.com/SaiGonSoftware/Awesome-CMS-Core/pull/324)
+I'm currently working hard on this backlog item [#340](https://github.com/SaiGonSoftware/Awesome-CMS-Core/issues/340)
 
 ## App insider (Continue to Update)
 
