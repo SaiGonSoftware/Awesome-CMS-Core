@@ -10,7 +10,7 @@ Awesome CMS Core provide lastest trend of technology like .Net Core, React, Webp
 | Build server | Platform      | Status                                                                                                                                                 |
 | ------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | AppVeyor     | Windows       | [![Build status](https://ci.appveyor.com/api/projects/status/brpoki3qovv7pkab?svg=true)](https://ci.appveyor.com/project/ngohungphuc/awesome-cms-core) |
-| Travis       | Linux / MacOS | [![Build Status](https://travis-ci.org/SaiGonSoftware/Awesome-CMS-Core.svg?branch=master)](https://travis-ci.org/SaiGonSoftware/Awesome-CMS-Core)  |
+| Travis       | Linux / MacOS | [![Build Status](https://travis-ci.org/SaiGonSoftware/Awesome-CMS-Core.svg?branch=master)](https://travis-ci.org/SaiGonSoftware/Awesome-CMS-Core)      |
 
 ## Code quality
 
@@ -27,10 +27,30 @@ Please read
 
 ## Contributors
 
-| [Tony Hudson](https://github.com/ngohungphuc)                  | [David Pine](https://github.com/IEvangelist)                        |
-| -------------------------------------------------------------- | ------------------------------------------------------------------- |
-| <img src="img/contributors/tony.jpg"  alt="tony" width="150"/> | <img src="img/contributors/davidpine.png" alt="tony" width="150" /> |
-
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/ngohungphuc.png?s=150">
+        <br>
+        <a href="https://github.com/ngohungphuc">Tony Hudson</a>
+        <p>Main Contributor</p>
+      </td>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/IEvangelist.png?s=150">
+        <br>
+        <a href="https://github.com/IEvangelis">David Pine</a>
+        <p>Contributor</p>
+      </td>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/AbelianKraun.png?s=150">
+        <br>
+        <a href="https://github.com/stuAbelianKraunartleeks">Mauro Valvano</a>
+        <p>Contributor</p>
+      </td>
+     </tr>
+  </tbody>
+</table>
 
 ## Progress
 I'm currently working hard on this backlog item [#340](https://github.com/SaiGonSoftware/Awesome-CMS-Core/issues/340)
