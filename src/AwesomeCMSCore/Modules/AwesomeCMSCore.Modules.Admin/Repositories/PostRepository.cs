@@ -191,7 +191,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 		{
 			try
 			{
-				if (postViewModel.Thumbnail.Length > 0)
+				if (postViewModel.Thumbnail != null && postViewModel.Thumbnail.Length > 0)
 				{
 					var mediaFileName = RandomString.GenerateRandomString(AppEnum.MinGeneratedAssetName);
 					var assetPath = await _assetService.UploadAssets(postViewModel.Thumbnail, mediaFileName);
