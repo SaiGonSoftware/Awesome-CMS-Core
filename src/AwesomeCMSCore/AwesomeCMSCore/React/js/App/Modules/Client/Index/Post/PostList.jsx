@@ -5,7 +5,7 @@ import moment from "moment/src/moment";
 import PostShare from "./PostShare.jsx";
 
 const PostList = props => {
-	const categories = JSON.parse(props.post.categories) || [];
+	const categories = JSON.parse(props.post.categories);
 	return (
 		<div className="main-post-area-holder">
 			<article className="post-details-holder layout-two-post-details-holder wow  fadeInUp">
@@ -15,7 +15,7 @@ const PostList = props => {
 							<img src="./images/No_Image_Available.jpg" alt="...." />
 						</div>
 					</div>
-					<div className="col-lg-7 col-md-7 col-sm-7 col-xs-12"> 
+					<div className="col-lg-7 col-md-7 col-sm-7 col-xs-12">
 						<div className="post-meta-category">
 							<ul className="tags">
 								{categories.map((categorie, index) => {
