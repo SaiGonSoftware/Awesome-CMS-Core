@@ -75,12 +75,14 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 				});
 
 			if (postViewModel.MediaViewModel != null)
+			{
 				postViewModel.MediaViewModel = new MediaViewModel
 				{
 					Name = post.Medias.Name,
 					Path = post.Medias.Path
 				};
-
+			}
+			
 			return postViewModel;
 		}
 
@@ -226,7 +228,9 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 				{
 					var existingMedia = await _unitOfWork.Repository<Media>().FindAsync(m => m.Id == post.Medias.Id);
 					if (existingMedia != null)
+					{
 						await _unitOfWork.Repository<Media>().DeleteAsync(existingMedia);
+					}
 
 					var mediaFileName = RandomString.GenerateRandomString(AppEnum.MinGeneratedAssetName);
 					var assetPath = await _assetService.UploadAssets(postViewModel.Thumbnail, mediaFileName);

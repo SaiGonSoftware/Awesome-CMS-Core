@@ -96,8 +96,8 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
 				consumer.Received += (model, ea) =>
 				{
 					var body = ea.Body;
-					dynamic message = JsonConvert.DeserializeObject(Encoding.UTF8.GetString(body));
-					Console.WriteLine(" [x] Received {0}", message.Message);
+					var message = Encoding.UTF8.GetString(body);
+					Console.WriteLine(" [x] Received {0}", message);
 					//using (var image = Image.Load(message))
 					//{
 					//	image.Mutate(x => x
@@ -113,7 +113,7 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
 					consumer: consumer);
 
 				Console.WriteLine(" Press [enter] to exit.");
-				//Console.ReadLine();
+				Console.ReadLine();
 			}
 		}
 	}
