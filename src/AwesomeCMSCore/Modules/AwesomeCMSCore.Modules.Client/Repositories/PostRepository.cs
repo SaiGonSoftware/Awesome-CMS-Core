@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AwesomeCMSCore.Modules.Client.Repositories
 {
-	public class PostRepository: IPostRepository
+	public class PostRepository : IPostRepository
 	{
 		private readonly IUserService _userService;
 		private readonly IUnitOfWork _unitOfWork;
@@ -54,10 +54,21 @@ namespace AwesomeCMSCore.Modules.Client.Repositories
 					RecentPost = _mapper.Map<Post, PostIndexViewModel>(recentPost),
 					Categories = categories
 				};
-				
+
+				foreach (var post in vm.Posts)
+				{
+					post.Categories = await _unitOfWork.Repository<PostOption>()
+						.Query().Where(po =>  po.Post.Id == post.Id && po.OptionType == PostOptionType.PostCategories)
+						.Select(x => x.Key).FirstOrDefaultAsync();
+
+					post.Tags = await _unitOfWork.Repository<PostOption>()
+					.Query().Where(po =>  po.Post.Id == post.Id && po.OptionType == PostOptionType.PostTags)
+					.Select(x => x.Key).FirstOrDefaultAsync();
+				}
+
 				return vm;
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				_logger.LogError(ex.Message, ex);
 				throw;
