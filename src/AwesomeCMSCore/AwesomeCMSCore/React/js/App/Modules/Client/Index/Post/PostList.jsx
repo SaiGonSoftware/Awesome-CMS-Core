@@ -6,13 +6,16 @@ import PostShare from "./PostShare.jsx";
 
 const PostList = props => {
 	const categories = JSON.parse(props.post.categories) || [];
+	const tags = JSON.parse(props.post.tags) || [];
+	const imageSrc = props.medias ? props.medias.path : "./images/No_Image_Available.jpg";
+
 	return (
 		<div className="main-post-area-holder">
 			<article className="post-details-holder layout-two-post-details-holder wow  fadeInUp">
 				<div className="row">
 					<div className="col-lg-5 col-md-5 col-sm-5 col-xs-12">
 						<div className="post-image">
-							<img src="./images/No_Image_Available.jpg" alt="...." />
+							<img src={imageSrc} alt="...." />
 						</div>
 					</div>
 					<div className="col-lg-7 col-md-7 col-sm-7 col-xs-12"> 
@@ -23,6 +26,15 @@ const PostList = props => {
 										<li key={index}>
 											<a href="#" className="tag">
 												{categorie}
+											</a>
+										</li>
+									);
+								})}
+								{tags.map((tag, index) => {
+									return (
+										<li key={index}>
+											<a href="#" className="tag">
+												{tag}
 											</a>
 										</li>
 									);
@@ -53,7 +65,8 @@ const PostList = props => {
 };
 
 PostList.propTypes = {
-	post: PropTypes.object
+	post: PropTypes.object,
+	medias: PropTypes.object
 };
 
 export default PostList;

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	 <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />
+    <ProjectReference Include="..\AwesomeCMSCore.Modules.Queue\AwesomeCMSCore.Modules.Queue.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Repositories\AwesomeCMSCore.Modules.Repositories.csproj" />
   </ItemGroup>
 
