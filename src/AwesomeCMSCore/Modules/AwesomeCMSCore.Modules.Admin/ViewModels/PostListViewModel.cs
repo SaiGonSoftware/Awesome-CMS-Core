@@ -1,4 +1,5 @@
 using System;
+using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.Enums;
 
 namespace AwesomeCMSCore.Modules.Admin.ViewModels
@@ -14,5 +15,6 @@ namespace AwesomeCMSCore.Modules.Admin.ViewModels
 		public PostStatus PostStatus { get; set; }
 	    public int Views { get; set; }
 		public DateTime DateCreated { get; set; }
-    }
+		public Media Medias { get; set; }
+	}
 }
