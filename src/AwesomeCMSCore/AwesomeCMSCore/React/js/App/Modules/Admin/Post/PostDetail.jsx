@@ -75,7 +75,7 @@ class PostDetail extends Component {
 				title: res.data.title,
 				shortDescription: res.data.shortDescription,
 				postContent: res.data.content,
-				imagePath: res.data.mediaViewModel.path
+				imagePath: res.data.mediaViewModel && res.data.mediaViewModel.path
 					? res.data.mediaViewModel.path
 					: null
 			});

@@ -74,11 +74,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 					options.AfterMap((src, dest) => { dest.PostOptionsDefaultViewModel = postOptions; });
 				});
 
-			postViewModel.MediaViewModel = new MediaViewModel
-			{
-				Name = post.Medias.Name,
-				Path = post.Medias.Path
-			};
+			if (postViewModel.MediaViewModel != null)
+				postViewModel.MediaViewModel = new MediaViewModel
+				{
+					Name = post.Medias.Name,
+					Path = post.Medias.Path
+				};
 
 			return postViewModel;
 		}
@@ -127,7 +128,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
 			var currentUser = await _userService.GetCurrentUserAsync();
 
-			var postData = _mapper.Map<PostViewModel, Post>(postViewModel, options =>
+			var postData = _mapper.Map<PostViewModel, Post>(postViewModel, post, options =>
 			{
 				options.AfterMap((src, dest) => dest.User = currentUser);
 			});
@@ -221,13 +222,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 		{
 			try
 			{
-				if (postViewModel.Thumbnail.Length > 0)
+				if (postViewModel.Thumbnail != null && postViewModel.Thumbnail.Length > 0)
 				{
 					var existingMedia = await _unitOfWork.Repository<Media>().FindAsync(m => m.Id == post.Medias.Id);
-					if(existingMedia != null)
-					{
+					if (existingMedia != null)
 						await _unitOfWork.Repository<Media>().DeleteAsync(existingMedia);
-					}
+
 					var mediaFileName = RandomString.GenerateRandomString(AppEnum.MinGeneratedAssetName);
 					var assetPath = await _assetService.UploadAssets(postViewModel.Thumbnail, mediaFileName);
 					var media = new Media
