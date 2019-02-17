@@ -45,7 +45,7 @@ Please read
       <td align="center" valign="top">
         <img width="150" height="150" src="https://github.com/AbelianKraun.png?s=150">
         <br>
-        <a href="https://github.com/stuAbelianKraunartleeks">Mauro Valvano</a>
+        <a href="https://github.com/AbelianKraun">Mauro Valvano</a>
         <p>Contributor</p>
       </td>
      </tr>
