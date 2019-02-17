@@ -16,5 +16,6 @@ namespace AwesomeCMSCore.Modules.Admin.ViewModels
 	    public int Views { get; set; }
 		public DateTime DateCreated { get; set; }
 		public Media Medias { get; set; }
+		public PostOption PostOptions { get; set; }
 	}
 }

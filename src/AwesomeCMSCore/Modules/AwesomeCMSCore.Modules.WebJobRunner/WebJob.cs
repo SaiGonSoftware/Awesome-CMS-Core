@@ -104,7 +104,7 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
 					var imageName = assetMessage.Split("\\")[1];
 					var s =  ProjectPath.ToApplicationPath(imageName);
 					var assetPath = $"{ProjectPath.GetApplicationRoot()}\\wwwroot\\{assetMessage}";
-					var path = "D:\\SourceCode\\Awesome-CMS-Core\\src\\AwesomeCMSCore\\AwesomeCMSCore";
+					var path = $"D:\\SourceCode\\Awesome-CMS-Core\\src\\AwesomeCMSCore\\AwesomeCMSCore\\wwwroot\\assets\\{imageName}";
 					using (var image = Image.Load(path))
 					{
 						image.Mutate(x => x

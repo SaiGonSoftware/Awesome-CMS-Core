@@ -5,7 +5,6 @@ import moment from "moment/src/moment";
 import PostShare from "./PostShare.jsx";
 
 const PostList = props => {
-	console.log(props);
 	const categories = JSON.parse(props.post.categories) || [];
 	const imageSrc = props.medias ? props.medias.path : "./images/No_Image_Available.jpg";
 
