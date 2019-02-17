@@ -128,9 +128,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 				Content =
 					"<!DOCTYPE html>\n<html>\n<head>\n</head>\n<body>\n<p><span style=\"color: #495762; font-family: Karla, Tahoma, sans-serif; font-size: 16px;\">MassTransit is a free, open source, lightweight message bus for creating distributed applications using the .NET framework. MassTransit provides an extensive set of features on top existing message transports, resulting in a developer friendly way to asynchronously connect services using message-based conversation patterns. Message-based communication is a reliable and scalable way to implement a service oriented architecture.</span></p>\n</body>\n</html>",
 				ShortDescription = "MassTransit",
-				Title = "MassTransit with ASP.Net Core 2.1",
-				Tags = "[\"ASP.Net\"]",
-				Categories = "[\"Web\"]"
+				Title = "MassTransit with ASP.Net Core 2.1"
 			};
 		}
 
@@ -188,7 +186,7 @@ namespace AwesomeCMSCore.Modules.Entities.Data
 
 				if (!context.PostOptions.Any())
 				{
-					await SeedCatAndTag(context).ConfigureAwait(false);
+					await SeedCatAndTag(context);
 				}
 			}
 		}

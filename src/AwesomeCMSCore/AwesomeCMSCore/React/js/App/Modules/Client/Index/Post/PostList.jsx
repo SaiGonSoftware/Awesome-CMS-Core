@@ -5,8 +5,8 @@ import moment from "moment/src/moment";
 import PostShare from "./PostShare.jsx";
 
 const PostList = props => {
-	console.log(props);
 	const categories = JSON.parse(props.post.categories) || [];
+	const tags = JSON.parse(props.post.tags) || [];
 	const imageSrc = props.medias ? props.medias.path : "./images/No_Image_Available.jpg";
 
 	return (
@@ -26,6 +26,15 @@ const PostList = props => {
 										<li key={index}>
 											<a href="#" className="tag">
 												{categorie}
+											</a>
+										</li>
+									);
+								})}
+								{tags.map((tag, index) => {
+									return (
+										<li key={index}>
+											<a href="#" className="tag">
+												{tag}
 											</a>
 										</li>
 									);
