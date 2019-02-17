@@ -3,6 +3,7 @@ using System.IO;
 using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Queue.Settings;
 using AwesomeCMSCore.Modules.WebJob.Settings;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

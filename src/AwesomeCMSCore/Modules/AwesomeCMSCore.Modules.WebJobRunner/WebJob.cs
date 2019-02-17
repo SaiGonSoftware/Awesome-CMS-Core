@@ -1,8 +1,10 @@
 using System;
 using System.Text;
+using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Queue.Settings;
 using AwesomeCMSCore.Modules.WebJob.Settings;
 using Hangfire;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -16,13 +18,13 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
     {
         private readonly IOptions<WebJobSettings> _webJobSettings;
         private readonly IOptions<QueueSettings> _queueSettings;
-        public WebJob(
+		public WebJob(
             IOptions<WebJobSettings> webJobSettings,
             IOptions<QueueSettings> queueSettings)
         {
             _webJobSettings = webJobSettings;
             _queueSettings = queueSettings;
-        }
+		}
 
         public void Run()
         {
@@ -96,15 +98,21 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
 				consumer.Received += (model, ea) =>
 				{
 					var body = ea.Body;
-					var message = Encoding.UTF8.GetString(body);
-					Console.WriteLine(" [x] Received {0}", message);
-					//using (var image = Image.Load(message))
-					//{
-					//	image.Mutate(x => x
-					//		 .Resize(image.Width / 2, image.Height / 2)
-					//		 .Grayscale());
-					//	image.Save("bar.jpg"); // Automatic encoder selected based on extension.
-					//}
+					var assetMessage = Encoding.UTF8.GetString(body);
+					Console.WriteLine(" [x] Received {0}", assetMessage);
+
+					var imageName = assetMessage.Split("\\")[1];
+					var s =  ProjectPath.ToApplicationPath(imageName);
+					var assetPath = $"{ProjectPath.GetApplicationRoot()}\\wwwroot\\{assetMessage}";
+					var path = "D:\\SourceCode\\Awesome-CMS-Core\\src\\AwesomeCMSCore\\AwesomeCMSCore";
+					using (var image = Image.Load(path))
+					{
+						image.Mutate(x => x
+							 .Resize(295, 205)
+							 .Grayscale());
+						image.Save(imageName);
+					}
+
 					channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
 				};
 

@@ -74,7 +74,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 					options.AfterMap((src, dest) => { dest.PostOptionsDefaultViewModel = postOptions; });
 				});
 
-			if (postViewModel.MediaViewModel != null)
+			if (post.Medias != null)
 			{
 				postViewModel.MediaViewModel = new MediaViewModel
 				{
