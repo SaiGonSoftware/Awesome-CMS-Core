@@ -20,7 +20,7 @@ const PostContainer = props => {
 										.vm
 										.posts
 										.map(post => {
-												return (<PostList key={post.id} post={post}/>)
+												return (<PostList key={post.id} post={post} medias={post.medias}/>)
 										})}
 						</div>
 						<div className="col-lg-4 col-md-4 col-sm-12 col-12">
