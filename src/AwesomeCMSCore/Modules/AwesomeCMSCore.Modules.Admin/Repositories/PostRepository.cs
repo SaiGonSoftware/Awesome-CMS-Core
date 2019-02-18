@@ -226,10 +226,13 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 			{
 				if (postViewModel.Thumbnail != null && postViewModel.Thumbnail.Length > 0)
 				{
-					var existingMedia = await _unitOfWork.Repository<Media>().FindAsync(m => m.Id == post.Medias.Id);
-					if (existingMedia != null)
+					if (post.Medias != null)
 					{
-						await _unitOfWork.Repository<Media>().DeleteAsync(existingMedia);
+						var existingMedia = await _unitOfWork.Repository<Media>().FindAsync(m => m.Id == post.Medias.Id);
+						if (existingMedia != null)
+						{
+							await _unitOfWork.Repository<Media>().DeleteAsync(existingMedia);
+						}
 					}
 
 					var mediaFileName = RandomString.GenerateRandomString(AppEnum.MinGeneratedAssetName);

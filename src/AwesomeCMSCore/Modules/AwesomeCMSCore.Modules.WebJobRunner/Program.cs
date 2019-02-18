@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Queue.Settings;
+using AwesomeCMSCore.Modules.Shared.Settings;
 using AwesomeCMSCore.Modules.WebJob.Settings;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -39,8 +40,9 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
                 .Build();
             serviceCollection.AddOptions();
 
-            serviceCollection.Configure<WebJobSettings>(settings => configuration.GetSection("WebJobSettings"));
-            serviceCollection.Configure<QueueSettings>(settings => configuration.GetSection("QueueSettings"));
+            serviceCollection.Configure<WebJobSettings>(configuration.GetSection("WebJobSettings"));
+            serviceCollection.Configure<QueueSettings>(configuration.GetSection("QueueSettings"));
+			serviceCollection.Configure<AssetSettings>(configuration.GetSection("AssetSettings"));
 
 			// add app
 			serviceCollection.AddTransient<WebJob>();

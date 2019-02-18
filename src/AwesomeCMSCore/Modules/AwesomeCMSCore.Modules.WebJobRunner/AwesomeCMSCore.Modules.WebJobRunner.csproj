@@ -26,6 +26,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
   </ItemGroup>
@@ -34,7 +35,14 @@
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Client\AwesomeCMSCore.Modules.Client.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Queue\AwesomeCMSCore.Modules.Queue.csproj" />
+    <ProjectReference Include="..\AwesomeCMSCore.Modules.Shared\AwesomeCMSCore.Modules.Shared.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.WebJob\AwesomeCMSCore.Modules.WebJob.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System">
+      <HintPath>System</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

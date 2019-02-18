@@ -27,6 +27,7 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 		{
 			try
 			{
+
 				var storePath = Path.Combine(_assetSettings.Value.StorePath, $"{fileName}.{file.ContentType.Split("/")[1]}");
 				using (var stream = new FileStream(storePath, FileMode.Create))
 				{
@@ -38,7 +39,7 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 				var queueOptions = new QueueOptions
 				{
 					QueueName = QueueName.ImageResizeProcessing.ToString(),
-					Message = assetPath,
+					Message = storePath,
 					IsObject = false,
 					RoutingKey = QueueName.ImageResizeProcessing.ToString()
 				};
