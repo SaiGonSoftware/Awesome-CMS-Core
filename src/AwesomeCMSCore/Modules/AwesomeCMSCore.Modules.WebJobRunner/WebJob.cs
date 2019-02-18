@@ -123,8 +123,7 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
 					using (var image = Image.Load(filePath))
 					{
 						image.Mutate(x => x
-							 .Resize(295, 205)
-							 .Grayscale());
+							 .Resize(295, 205));
 
 						image.Save(Path.Combine(_assetSettings.Value.AssetPath, fileInfo.Name));
 					}
