@@ -1,7 +1,9 @@
 using System;
+using System.IO;
 using System.Text;
 using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Queue.Settings;
+using AwesomeCMSCore.Modules.Shared.Settings;
 using AwesomeCMSCore.Modules.WebJob.Settings;
 using Hangfire;
 using Microsoft.AspNetCore.Hosting;
@@ -18,12 +20,16 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
     {
         private readonly IOptions<WebJobSettings> _webJobSettings;
         private readonly IOptions<QueueSettings> _queueSettings;
+		private readonly IOptions<AssetSettings> _assetSettings;
+
 		public WebJob(
             IOptions<WebJobSettings> webJobSettings,
-            IOptions<QueueSettings> queueSettings)
+            IOptions<QueueSettings> queueSettings,
+			IOptions<AssetSettings> assetSettings)
         {
             _webJobSettings = webJobSettings;
             _queueSettings = queueSettings;
+			_assetSettings = assetSettings;
 		}
 
         public void Run()
@@ -44,7 +50,12 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
         /// </summary>
         public void RunQueue()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+			var factory = new ConnectionFactory() {
+				HostName = _queueSettings.Value.Host,
+				UserName = _queueSettings.Value.Username,
+				Password = _queueSettings.Value.Password
+			};
+
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
@@ -80,7 +91,13 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
 
 		public void RunImageProcessQueue()
 		{
-			var factory = new ConnectionFactory() { HostName = "localhost" };
+			var factory = new ConnectionFactory()
+			{
+				HostName = _queueSettings.Value.Host,
+				UserName = _queueSettings.Value.Username,
+				Password = _queueSettings.Value.Password
+			};
+
 			using (var connection = factory.CreateConnection())
 			using (var channel = connection.CreateModel())
 			{
@@ -98,19 +115,18 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
 				consumer.Received += (model, ea) =>
 				{
 					var body = ea.Body;
-					var assetMessage = Encoding.UTF8.GetString(body);
-					Console.WriteLine(" [x] Received {0}", assetMessage);
+					var filePath = Encoding.UTF8.GetString(body);
+					Console.WriteLine(" [x] Received {0}", filePath);
 
-					var imageName = assetMessage.Split("\\")[1];
-					var s =  ProjectPath.ToApplicationPath(imageName);
-					var assetPath = $"{ProjectPath.GetApplicationRoot()}\\wwwroot\\{assetMessage}";
-					var path = $"D:\\SourceCode\\Awesome-CMS-Core\\src\\AwesomeCMSCore\\AwesomeCMSCore\\wwwroot\\assets\\{imageName}";
-					using (var image = Image.Load(path))
+					var fileInfo = new FileInfo(filePath);
+
+					using (var image = Image.Load(filePath))
 					{
 						image.Mutate(x => x
 							 .Resize(295, 205)
 							 .Grayscale());
-						image.Save(imageName);
+
+						image.Save(Path.Combine(_assetSettings.Value.AssetPath, fileInfo.Name));
 					}
 
 					channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
