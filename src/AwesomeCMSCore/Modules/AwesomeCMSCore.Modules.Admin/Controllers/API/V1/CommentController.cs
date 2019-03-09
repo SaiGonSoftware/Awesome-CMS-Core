@@ -27,7 +27,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
             return Ok(comments);
         }
 
-        [HttpPut("comment/{commentId}/{CommentStatus}")]
+        [HttpPut("{commentId}/{CommentStatus}")]
         public async Task<IActionResult> UpdateCommentStatus(int commentId, CommentStatus commentStatus)
         {
             var result = await _commentRepository.UpdateCommentStatus(commentId, commentStatus);

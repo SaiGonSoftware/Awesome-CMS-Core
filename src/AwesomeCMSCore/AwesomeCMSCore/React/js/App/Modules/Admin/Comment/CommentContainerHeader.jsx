@@ -15,7 +15,7 @@ const CommentContainerHeader = (props) => {
 										props.toggle('All');
 								}}>
 										All &nbsp;
-										<Badge color="secondary">{props.comments.numberOfComments}</Badge>
+										<Badge color="secondary">{props.comments.numberOfComments - props.comments.numberOfSpamComments - props.comments.numberOfDeletedComments}</Badge>
 								</NavLink>
 						</NavItem>
 						<NavItem>

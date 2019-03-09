@@ -71,7 +71,7 @@ class CommentContainer extends Component {
 												.classList
 												.add("btn-outline-success-active");
 
-										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${COMMENT_STATUS.Approved}`).then(res => {
+										Put(`${COMMENTS_ENDPOINT}/${commentId}/${COMMENT_STATUS.Approved}`).then(res => {
 												if (res.status === STATUS_CODE.Success) {
 														toastr.info("Edit comment status success");
 														this.setState({comments: updatedComments});
@@ -104,7 +104,7 @@ class CommentContainer extends Component {
 												.classList
 												.add("btn-outline-success-active");
 
-										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${COMMENT_STATUS.Approved}`).then(res => {
+										Put(`${COMMENTS_ENDPOINT}/${commentId}/${COMMENT_STATUS.Approved}`).then(res => {
 												if (res.status === STATUS_CODE.Success) {
 														toastr.info("Edit comment status success");
 														this.setState({comments: updatedComments});
@@ -140,7 +140,7 @@ class CommentContainer extends Component {
 												.classList
 												.remove("btn-outline-success-active");
 
-										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${COMMENT_STATUS.Pending}`).then(res => {
+										Put(`${COMMENTS_ENDPOINT}/${commentId}/${COMMENT_STATUS.Pending}`).then(res => {
 												if (res.status === STATUS_CODE.Success) {
 														toastr.info("Edit comment status success");
 														this.setState({comments: updatedComments});
@@ -171,7 +171,7 @@ class CommentContainer extends Component {
 												: updatedComments.numberOfSpamComments;
 										updatedComments.numberOfApprovedComments += 1;
 
-										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${COMMENT_STATUS.Approved}`).then(res => {
+										Put(`${COMMENTS_ENDPOINT}/${commentId}/${COMMENT_STATUS.Approved}`).then(res => {
 												if (res.status === STATUS_CODE.Success) {
 														toastr.info("Edit comment status success");
 														this.setState({comments: updatedComments});
@@ -213,7 +213,7 @@ class CommentContainer extends Component {
 												: updatedComments.numberOfDeletedComments;
 										updatedComments.numberOfApprovedComments += 1;
 
-										Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${COMMENT_STATUS.Approved}`).then(res => {
+										Put(`${COMMENTS_ENDPOINT}/${commentId}/${COMMENT_STATUS.Approved}`).then(res => {
 												if (res.status === STATUS_CODE.Success) {
 														toastr.info("Edit comment status success");
 														this.setState({comments: updatedComments});
@@ -275,7 +275,7 @@ class CommentContainer extends Component {
 										: updatedComments.numberOfApprovedComments;
 								updatedComments.numberOfSpamComments += 1;
 
-								Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${COMMENT_STATUS.Spam}`).then(res => {
+           Put(`${COMMENTS_ENDPOINT}/${commentId}/${COMMENT_STATUS.Spam}`).then(res => {
 										if (res.status === STATUS_CODE.Success) {
 												toastr.info("Edit comment status success");
 												this.setState({comments: updatedComments});
@@ -334,7 +334,7 @@ class CommentContainer extends Component {
 										: updatedComments.numberOfPendingComments;
 								updatedComments.numberOfDeletedComments += 1;
 
-								Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${COMMENT_STATUS.Trash}`).then(res => {
+								Put(`${COMMENTS_ENDPOINT}/${commentId}/${COMMENT_STATUS.Trash}`).then(res => {
 										if (res.status === STATUS_CODE.Success) {
 												toastr.info("Edit comment status success");
 												this.setState({comments: updatedComments});
@@ -383,7 +383,7 @@ class CommentContainer extends Component {
 										: updatedComments.numberOfApprovedComments;
 								updatedComments.numberOfDeletedComments += 1;
 
-								Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${COMMENT_STATUS.Trash}`).then(res => {
+								Put(`${COMMENTS_ENDPOINT}/${commentId}/${COMMENT_STATUS.Trash}`).then(res => {
 										if (res.status === STATUS_CODE.Success) {
 												toastr.info("Edit comment status success");
 												this.setState({comments: updatedComments});
@@ -427,7 +427,7 @@ class CommentContainer extends Component {
 										: updatedComments.numberOfSpamComments;
 								updatedComments.numberOfDeletedComments += 1;
 
-								Put(`${COMMENTS_ENDPOINT}/comment/${commentId}/${COMMENT_STATUS.Trash}`).then(res => {
+								Put(`${COMMENTS_ENDPOINT}/${commentId}/${COMMENT_STATUS.Trash}`).then(res => {
 										if (res.status === STATUS_CODE.Success) {
 												toastr.info("Edit comment status success");
 												this.setState({comments: updatedComments});
