@@ -1,3 +1,5 @@
+using AwesomeCMSCore.Modules.Entities.Enums;
+
 namespace AwesomeCMSCore.Modules.Entities.Entities
 {
 	public class Media : BaseEntity
@@ -8,6 +10,7 @@ namespace AwesomeCMSCore.Modules.Entities.Entities
 		public string Type { get; set; }
 		public bool IsDeleted { get; set; }
 		public int PostId { get; set; }
+		public StorageType StorageType { get; set; }
 		public virtual Post Post { get; set; }
 		public virtual User User { get; set; }
 	}
