@@ -28,9 +28,10 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 
 		public async Task<string> UploadAssets(IFormFile file, string fileName)
 		{
+			string storePath = "";
 			try
 			{
-				var storePath = Path.Combine(_assetSettings.Value.StorePath, $"{fileName}.{file.ContentType.Split("/")[1]}");
+				storePath = Path.Combine(_assetSettings.Value.StorePath, $"{fileName}.{file.ContentType.Split("/")[1]}");
 				using (var stream = new FileStream(storePath, FileMode.Create))
 				{
 					await file.CopyToAsync(stream);
@@ -45,13 +46,17 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 					image.Save(uploadFile);
 
 					var blobId = _googleDriveAPI.UploadFIle(uploadFile);
-
-					return blobId;
+					var drivePath = $"{_assetSettings.Value.GoogleDriveStorePath}{blobId}";
+					return drivePath;
 				}
 			}
 			catch (Exception ex)
 			{
 				throw ex;
+			}
+			finally
+			{
+				File.Delete(storePath);
 			}
 		}
 	}
