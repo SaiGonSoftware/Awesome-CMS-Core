@@ -44,6 +44,7 @@ using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using AwesomeCMSCore.Modules.Admin.Services;
 using AwesomeCMSCore.Modules.Shared;
 using AwesomeCMSCore.Modules.Shared.Settings;
+using AwesomeCMSCore.Modules.GoogleDriveAPI;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -164,7 +165,7 @@ namespace AwesomeCMSCore.Extension
 			services.AddScoped<Modules.Client.Repositories.IPostRepository, Modules.Client.Repositories.PostRepository>();
 			services.AddScoped<INewsLetterRepository, NewsLetterRepository>();
 			services.AddScoped<ISettingsRepository, SettingsRepository>();
-
+			services.AddScoped<IGoogleDriveAPI, GoogleDriveAPI>();
 			return services;
 		}
 

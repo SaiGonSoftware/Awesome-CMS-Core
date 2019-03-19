@@ -1,14 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
-using AwesomeCMSCore.Modules.Helper.Extensions;
+using AwesomeCMSCore.Modules.GoogleDriveAPI;
 using AwesomeCMSCore.Modules.Queue.Services;
-using AwesomeCMSCore.Modules.Queue.Settings;
 using AwesomeCMSCore.Modules.Shared.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace AwesomeCMSCore.Modules.Admin.Services
 {
@@ -16,11 +15,15 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 	{
 		private readonly IOptions<AssetSettings> _assetSettings;
 		private readonly IQueueService _queueService;
-
-		public AssetService(IOptions<AssetSettings> assetSettings, IQueueService queueService)
+		private readonly IGoogleDriveAPI _googleDriveAPI;
+		public AssetService(
+			IOptions<AssetSettings> assetSettings,
+			IQueueService queueService,
+			IGoogleDriveAPI googleDriveAPI)
 		{
 			_assetSettings = assetSettings;
 			_queueService = queueService;
+			_googleDriveAPI = googleDriveAPI;
 		}
 
 		public async Task<string> UploadAssets(IFormFile file, string fileName)
@@ -33,23 +36,22 @@ namespace AwesomeCMSCore.Modules.Admin.Services
 					await file.CopyToAsync(stream);
 				}
 
-				var assetPath = Path.Combine(_assetSettings.Value.AssetPath, $"{fileName}.{file.ContentType.Split("/")[1]}");
-
-				var queueOptions = new QueueOptions
+				using (var image = Image.Load(storePath))
 				{
-					QueueName = QueueName.ImageResizeProcessing.ToString(),
-					Message = storePath,
-					IsObject = false,
-					RoutingKey = QueueName.ImageResizeProcessing.ToString()
-				};
+					image.Mutate(x => x
+						 .Resize(295, 205));
 
-				_queueService.PublishMessage(queueOptions);
+					var uploadFile = Path.Combine(_assetSettings.Value.AssetPath, $"{fileName}.{file.ContentType.Split("/")[1]}");
+					image.Save(uploadFile);
 
-				return assetPath;
+					var blobId = _googleDriveAPI.UploadFIle(uploadFile);
+
+					return blobId;
+				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				throw ex;
 			}
 		}
 	}
