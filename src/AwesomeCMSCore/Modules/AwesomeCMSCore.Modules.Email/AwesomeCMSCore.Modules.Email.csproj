@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="MailBody" Version="1.1.4" />
-    <PackageReference Include="MailKit" Version="2.1.2" />
+    <PackageReference Include="MailKit" Version="2.1.3" />
   </ItemGroup>
 
 </Project>

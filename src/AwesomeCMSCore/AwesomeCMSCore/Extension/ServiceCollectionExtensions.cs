@@ -31,13 +31,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
-using Hangfire;
 using AwesomeCMSCore.Modules.Queue.Services;
 using AwesomeCMSCore.Modules.Queue.Settings;
 using AwesomeCMSCore.Modules.Scheduled;
 using AwesomeCMSCore.Modules.Scheduled.EmailService;
 using AwesomeCMSCore.Modules.Shared.Repositories;
-using Hangfire.SqlServer;
 using Microsoft.Extensions.Hosting;
 using GlobalConfiguration = AwesomeCMSCore.Infrastructure.Config.GlobalConfiguration;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
@@ -175,8 +173,6 @@ namespace AwesomeCMSCore.Extension
 			services.AddDbContextPool<ApplicationDbContext>(options =>
 				options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
 					b => b.MigrationsAssembly("AwesomeCMSCore")).UseOpenIddict());
-
-			services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("DefaultConnection")));
 
 			return services;
 		}

@@ -5,7 +5,6 @@ using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Queue.Settings;
 using AwesomeCMSCore.Modules.Shared.Settings;
 using AwesomeCMSCore.Modules.WebJob.Settings;
-using Hangfire;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -31,16 +30,6 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
             _queueSettings = queueSettings;
 			_assetSettings = assetSettings;
 		}
-
-        public void Run()
-        {
-            GlobalConfiguration.Configuration.UseSqlServerStorage(_webJobSettings.Value.DbConnectionString);
-
-            using (var server = new BackgroundJobServer())
-            {
-                Console.WriteLine("Hangfire Server started. Press any key to exit...");
-            }
-        }
 
 		public void RunImageProcessQueue()
 		{
