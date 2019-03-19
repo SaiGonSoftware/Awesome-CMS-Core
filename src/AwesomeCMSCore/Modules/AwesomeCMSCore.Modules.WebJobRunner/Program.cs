@@ -23,7 +23,6 @@ namespace AwesomeCMSCore.Modules.WebJobRunner
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             // entry to run app
-            //serviceProvider.GetService<WebJob>().RunQueue();
 			//serviceProvider.GetService<WebJob>().Run();
 			serviceProvider.GetService<WebJob>().RunImageProcessQueue();
 			Console.ReadLine();

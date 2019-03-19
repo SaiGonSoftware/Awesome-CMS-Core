@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Repositories\ICommentRepository.cs">
       <DependentUpon>Repositories\CommentRepository.cs</DependentUpon>
     </Compile>
@@ -22,10 +33,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="3.1.2" />
+	<PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0006" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Entities\AwesomeCMSCore.Modules.Entities.csproj" />
+    <ProjectReference Include="..\AwesomeCMSCore.Modules.GoogleDriveAPI\AwesomeCMSCore.Modules.GoogleDriveAPI.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Helper\AwesomeCMSCore.Modules.Helper.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Queue\AwesomeCMSCore.Modules.Queue.csproj" />
     <ProjectReference Include="..\AwesomeCMSCore.Modules.Repositories\AwesomeCMSCore.Modules.Repositories.csproj" />

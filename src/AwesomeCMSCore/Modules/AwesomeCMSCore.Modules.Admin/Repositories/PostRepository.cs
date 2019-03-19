@@ -206,6 +206,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 						Post = post,
 						PostId = post.Id,
 						Path = assetPath,
+						StorageType = StorageType.GoogleDrive,
 						Type = postViewModel.Thumbnail.ContentType,
 						User = await _userService.GetCurrentUserAsync()
 					};
@@ -245,6 +246,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 						Post = post,
 						PostId = post.Id,
 						Path = assetPath,
+						StorageType = StorageType.GoogleDrive,
 						Type = postViewModel.Thumbnail.ContentType,
 						User = await _userService.GetCurrentUserAsync()
 					};
