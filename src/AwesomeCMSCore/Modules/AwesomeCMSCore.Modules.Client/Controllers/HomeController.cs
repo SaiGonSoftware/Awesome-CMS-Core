@@ -1,5 +1,4 @@
 using AwesomeCMSCore.Modules.Queue.Services;
-using AwesomeCMSCore.Modules.Queue.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -21,14 +20,6 @@ namespace AwesomeCMSCore.Modules.Client.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-			var queueOptions = new QueueOptions
-			{
-				Message = "test",
-				QueueName = "hello",
-				RoutingKey = "hello"
-			};
-			_queueService.PublishMessage(queueOptions);
-			_logger.LogInformation("Index page says hello");
 			return View();
         }
     }

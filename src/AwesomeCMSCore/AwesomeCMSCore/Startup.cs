@@ -25,14 +25,22 @@ namespace AwesomeCMSCore
             _configuration = configuration;
             _hostingEnvironment = hostingEnvironment;
 
-            var builder = new ConfigurationBuilder();
+			var builder = new ConfigurationBuilder();
 
-            if (_hostingEnvironment.IsDevelopment())
-            {
-                builder.AddUserSecrets<Startup>();
-            }
+			if (_hostingEnvironment.IsDevelopment())
+			{
+				builder.AddUserSecrets<Startup>();
+			}
+			else
+			{
+				builder
+					.SetBasePath(hostingEnvironment.ContentRootPath)
+					.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+					.AddJsonFile($"appsettings.{hostingEnvironment.EnvironmentName}.json", optional: true)
+					.AddEnvironmentVariables();
+			}
 
-            _configuration = builder.Build();
+			_configuration = builder.Build();
 			hostingEnvironment.ConfigureNLog("nlog.config");
 		}
 
@@ -42,8 +50,8 @@ namespace AwesomeCMSCore
             services.LoadInstalledModules(_hostingEnvironment.ContentRootPath);
             services.InjectAppConfig(_configuration);
             services.AddCustomizedDataStore(_configuration);
-			services.AddCustomAuthentication();
-            services.InjectApplicationServices();
+			services.AddCustomAuthentication(_configuration);
+			services.InjectApplicationServices();
 	        services.RegisterBackgroundService(_configuration);
 			services.AddAutoMapper();
             //ModuleViewLocationExpander is used to help the view engine lookup up the right module folder the views
@@ -61,7 +69,6 @@ namespace AwesomeCMSCore
         {
             app.UseResponseCompression();
 			app.UseStaticFiles();
-            app.UseHangFire();
             app.SetupEnv(env);
             app.ConfigSwagger();
             app.ServeStaticModuleFile(GlobalConfiguration.Modules);

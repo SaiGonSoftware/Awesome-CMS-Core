@@ -31,13 +31,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
-using Hangfire;
 using AwesomeCMSCore.Modules.Queue.Services;
 using AwesomeCMSCore.Modules.Queue.Settings;
 using AwesomeCMSCore.Modules.Scheduled;
 using AwesomeCMSCore.Modules.Scheduled.EmailService;
 using AwesomeCMSCore.Modules.Shared.Repositories;
-using Hangfire.SqlServer;
 using Microsoft.Extensions.Hosting;
 using GlobalConfiguration = AwesomeCMSCore.Infrastructure.Config.GlobalConfiguration;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
@@ -45,6 +43,7 @@ using AwesomeCMSCore.Modules.Admin.Services;
 using AwesomeCMSCore.Modules.Shared;
 using AwesomeCMSCore.Modules.Shared.Settings;
 using AwesomeCMSCore.Modules.GoogleDriveAPI;
+using Microsoft.AspNetCore.Hosting;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -176,12 +175,10 @@ namespace AwesomeCMSCore.Extension
 				options.UseLazyLoadingProxies().UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
 					b => b.MigrationsAssembly("AwesomeCMSCore")).UseOpenIddict());
 
-			services.AddHangfire(x => x.UseSqlServerStorage(configuration.GetConnectionString("DefaultConnection")));
-
 			return services;
 		}
 
-		public static IServiceCollection AddCustomAuthentication(this IServiceCollection services)
+		public static IServiceCollection AddCustomAuthentication(this IServiceCollection services, IConfiguration configuration)
 		{
 			services
 				.AddIdentity<User, ApplicationRole>(options =>
@@ -278,7 +275,7 @@ namespace AwesomeCMSCore.Extension
 			services.AddAuthentication()
 				 .AddJwtBearer(options =>
 				 {
-					 options.Authority = "http://localhost:5000/";
+ 					 options.Authority = configuration["Authentication:Authority"];
 					 options.Audience = "resource_server";
 					 options.RequireHttpsMetadata = false;
 					 options.TokenValidationParameters = new TokenValidationParameters
@@ -394,14 +391,6 @@ namespace AwesomeCMSCore.Extension
 
 		public static IServiceCollection RegisterBackgroundService(this IServiceCollection services, IConfiguration configuration)
 		{
-			//JobStorage.Current = new SqlServerStorage(configuration.GetConnectionString("DefaultConnection"));
-			//var sp = services.BuildServiceProvider();
-			//var scheduledEmailService = sp.GetService<IScheduledEmailService>();
-			//RecurringJob.AddOrUpdate("SendSubscriptionEmail", () => scheduledEmailService.SendEmailBackground(), Cron.Minutely);
-
-			//another option
-			//services.AddHostedService<ScheduledEmailService>();
-
 			services.AddSingleton<IHostedService, ScheduledEmailService>();
 			return services;
 		}

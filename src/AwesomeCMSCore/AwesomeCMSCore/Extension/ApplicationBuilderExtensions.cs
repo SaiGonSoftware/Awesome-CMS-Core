@@ -6,7 +6,6 @@ using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using System.IO;
 using Exceptionless;
-using Hangfire;
 
 namespace AwesomeCMSCore.Extension
 {
@@ -97,14 +96,6 @@ namespace AwesomeCMSCore.Extension
                 c.SwaggerEndpoint($"/swagger/v1/swagger.json", "Awesome CMS Core API V1");
                 c.SwaggerEndpoint($"/swagger/v2/swagger.json", "Awesome CMS Core API V2");
             });
-
-            return app;
-        }
-
-        public static IApplicationBuilder UseHangFire(this IApplicationBuilder app)
-        {
-            app.UseHangfireServer();
-            app.UseHangfireDashboard();
 
             return app;
         }
