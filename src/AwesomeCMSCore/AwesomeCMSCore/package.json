@@ -6,8 +6,8 @@
     "author": "TonyHudson",
     "license": "MIT",
     "scripts": {
-        "prod": "SET NODE_ENV=production& webpack -p --mode=production",
-        "start": "webpack --mode=development",
+        "prod": "webpack -p --mode=production --config webpack.prod.js",
+        "start": "webpack --mode=development --config webpack.dev.js",
         "lint:js": "eslint \"React/js/**/*.{js,jsx}\" --color",
         "lint:style": "stylelint \"React/css/**/*.scss\" --syntax scss"
     },
@@ -70,6 +70,7 @@
         "react-select": "^1.2.1",
         "react-values": "^0.2.4",
         "reactstrap": "^6.3.0",
-        "toastr": "^2.1.4"
+        "toastr": "^2.1.4",
+        "webpack-merge": "^4.2.1"
     }
 }

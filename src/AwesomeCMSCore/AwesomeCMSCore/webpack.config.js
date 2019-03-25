@@ -118,6 +118,5 @@ module.exports = {
 				loader: "file-loader"
 			}
 		]
-	},
-	watch: true
+	}
 };
