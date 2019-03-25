@@ -16,7 +16,6 @@ import {
 axios.defaults.baseURL = process.env.BASE_URL;
 
 export function Get(url) {
-	console.log(process.env.BASE_URL)
 	const authHeader = initAuthHeaders();
 	const config = {
 		headers: {
