@@ -53,14 +53,14 @@ namespace AwesomeCMSCore
 			services.AddCustomAuthentication(_configuration);
 			services.InjectApplicationServices();
 	        services.RegisterBackgroundService(_configuration);
-			services.AddAutoMapper();
-            //ModuleViewLocationExpander is used to help the view engine lookup up the right module folder the views
-            services.Configure<RazorViewEngineOptions>(options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
+			services.AddAutoMapper(config => config.ValidateInlineMaps = false);
+			//ModuleViewLocationExpander is used to help the view engine lookup up the right module folder the views
+			services.Configure<RazorViewEngineOptions>(options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
             services.AddCustomizedMvc(GlobalConfiguration.Modules, _configuration, _hostingEnvironment);
             services.ConfigApiVersioning();
             services.IntegrateSwagger();
             services.RegisterGzip();
-            services.IntegrateRedis(_configuration);
+            //services.IntegrateRedis(_configuration);
 			services.AddSignalR();
 		}
 

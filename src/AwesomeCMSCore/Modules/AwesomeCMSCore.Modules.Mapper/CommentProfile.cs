@@ -8,7 +8,7 @@ namespace AwesomeCMSCore.Modules.Mapper
     {
         public CommentProfile()
         {
-            CreateMap<Comment, CommentDto>().ReverseMap();
-        }
+			CreateMap<Comment, CommentDto>(MemberList.None).ReverseMap();
+		}
     }
 }

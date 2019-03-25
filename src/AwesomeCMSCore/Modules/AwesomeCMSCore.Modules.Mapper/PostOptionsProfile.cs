@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 
@@ -8,7 +8,7 @@ namespace AwesomeCMSCore.Modules.Mapper
     {
         public PostOptionsProfile()
         {
-            CreateMap<PostOption, PostOptionsViewModel>().ReverseMap();
+			CreateMap<PostOption, PostOptionsViewModel>(MemberList.None).ReverseMap();
         }
     }
 }
