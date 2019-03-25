@@ -305,7 +305,7 @@ namespace AwesomeCMSCore.Extension
 		public static IServiceCollection InjectAppConfig(this IServiceCollection services, IConfiguration configuration)
 		{
 			services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
-			services.Configure<QueueSettings>(configuration.GetSection("QueueSettings"));
+			//services.Configure<QueueSettings>(configuration.GetSection("QueueSettings"));
 			services.Configure<AssetSettings>(configuration.GetSection("AssetSettings"));
 			return services;
 		}
