@@ -15,6 +15,10 @@ export function findObjectByKey(array, key, value) {
     return null;
 }
 
+export function isDevEnviroment() {
+	return process.env.NODE_ENV !== "production";
+}
+
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }

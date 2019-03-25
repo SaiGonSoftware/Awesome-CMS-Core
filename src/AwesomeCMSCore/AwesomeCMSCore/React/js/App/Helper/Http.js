@@ -13,6 +13,8 @@ import {
 	TOKEN_ENDPOINT
 } from './API_Endpoint/AccountEndpoint';
 
+axios.defaults.baseURL = process.env.BASE_URL;
+
 export function Get(url) {
 	const authHeader = initAuthHeaders();
 	const config = {
