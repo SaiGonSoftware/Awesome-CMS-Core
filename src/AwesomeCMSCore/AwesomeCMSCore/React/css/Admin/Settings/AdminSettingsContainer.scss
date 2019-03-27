@@ -1,12 +1,11 @@
 #admin-setting-wrapper {
     padding: 5%;
 
-    .nav-link {
-        background: #2f333e;
-        border-radius: 0;
+    .nav.flex-column.nav-pills {
+        background: white;
+    }
 
-        &:hover {
-            color: white;
-        }
+    .nav-link {
+        border-radius: 0;
     }
 }

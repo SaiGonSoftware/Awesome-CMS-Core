@@ -267,13 +267,13 @@ class NewPost extends Component {
 												<ACCButton
 													disabled={disabled}
 													label="Save as Drafted"
-													btnBlocked="btn-block"
+													class="btn-block"
 													onClick={e => this.newPost(e, POST_STATUS.Draft)}/>
 												<br/>
 												<ACCButton
 													disabled={disabled}
 													label="Published Post"
-													btnBlocked="btn-block"
+													class="btn-block"
 													onClick={e => this.newPost(e, POST_STATUS.Published)}/>
 											</div>
 										)

@@ -43,14 +43,14 @@ const PostList = props => {
 						</div>
 						<div className="post-title">
 							<h2>
-								<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">
+								<a href="#">
 									{props.post.title}
 								</a>
 							</h2>
 						</div>
 						<div className="post-meta-posted-date">
 							<p>
-								<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">
+								<a href="#">
 									{moment(props.post.dateCreated).format("DD MMMM YYYY")}
 								</a>
 							</p>

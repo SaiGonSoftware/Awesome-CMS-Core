@@ -41,5 +41,20 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 
 			return Ok();
 		}
+
+		[HttpGet("Social")]
+		public async Task<IActionResult> GetSocialSettings()
+		{
+			var result = await _settingsRepository.GetSocialProfileSettings();
+			return Ok(result);
+		}
+
+
+		[HttpPost("Social")]
+		public async Task<IActionResult> SaveSocialSettings([FromBody] SocialProfileSettings socialProfileSettings)
+		{
+			var result = await _settingsRepository.SaveSocialProfileSettings(socialProfileSettings);
+			return Ok(result);
+		}
 	}
 }

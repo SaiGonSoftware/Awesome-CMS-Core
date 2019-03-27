@@ -76,7 +76,7 @@ class ForgotPassword extends Component {
 																<ACCButton
 																		validationArr={this.validationArr}
 																		loading={loading}
-																		btnBlocked="btn-block"
+																		class="btn-block"
 																		label="Reset Password"/>
 														</div>
 												</form>

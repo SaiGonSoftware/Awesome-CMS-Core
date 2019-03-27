@@ -14,7 +14,7 @@ const Category = props => {
 												{categories.map((categorie, index) => {
 														return (
 																<li key={index}>
-																		<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">{categorie}</a>
+																		<a href="#">{categorie}</a>
 																</li>
 														)
 												})}

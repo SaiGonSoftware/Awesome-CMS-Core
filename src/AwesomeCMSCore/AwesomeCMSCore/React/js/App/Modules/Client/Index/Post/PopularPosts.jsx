@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const PopularPosts = props => {
+	const imageSrc = props.medias ? props.medias.path : "./images/No_Image_Available.jpg";
 		return (
 				<div className="widget widget-popular-post wow fadeInUp">
 						<div className="widget-content">
@@ -11,11 +12,11 @@ const PopularPosts = props => {
 								<div className="widget-extra-info-holder">
 										<div className="widget-posts">
 												<div className="post-thumb">
-														<img src="./Optimistic Blog Index_files/one.jpg" alt="....."/>
+														<img src={imageSrc} alt="....."/>
 												</div>
 												<div className="post-title">
 														<h5>
-																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">{props.popularPost.title}</a>
+																<a href="#">{props.popularPost.title}</a>
 														</h5>
 												</div>
 												<div className="post-view-count post-meta">
@@ -30,7 +31,8 @@ const PopularPosts = props => {
 }
 
 PopularPosts.propTypes = {
-		popularPost: PropTypes.object
+		popularPost: PropTypes.object,
+		medias: PropTypes.object
 }
 
 export default PopularPosts

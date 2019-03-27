@@ -14,7 +14,7 @@ const TrendingPosts = () => {
 												</div>
 												<div className="post-title">
 														<h5>
-																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
+																<a href="#">That Evening At Bali Beach Was Wounderful Then Any Other Mornings</a>
 														</h5>
 												</div>
 												<div className="post-view-count post-meta">
@@ -29,7 +29,7 @@ const TrendingPosts = () => {
 												</div>
 												<div className="post-title">
 														<h5>
-																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">5 Reasons Why Ladies Prefer To Have Brown Hair And Black Dress</a>
+																<a href="#">5 Reasons Why Ladies Prefer To Have Brown Hair And Black Dress</a>
 														</h5>
 												</div>
 												<div className="post-view-count post-meta">
@@ -44,7 +44,7 @@ const TrendingPosts = () => {
 												</div>
 												<div className="post-title">
 														<h5>
-																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">This post has just gone viral with many views</a>
+																<a href="#">This post has just gone viral with many views</a>
 														</h5>
 												</div>
 												<div className="post-view-count post-meta">
@@ -59,7 +59,7 @@ const TrendingPosts = () => {
 												</div>
 												<div className="post-title">
 														<h5>
-																<a href="https://offshorethemes.com/html/optimistic-blog/demo/index-two.php#">Lorem ipsum dolor sit amet, consectetur adipisicing elit</a>
+																<a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit</a>
 														</h5>
 												</div>
 												<div className="post-view-count post-meta">

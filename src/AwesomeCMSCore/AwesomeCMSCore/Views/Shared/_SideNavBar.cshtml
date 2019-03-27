@@ -10,7 +10,7 @@
         {
             <div class="avatar"><img src="~/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
             <div class="title">
-                <h1 class="h4">Hello @UserManager.GetUserName(User)!</h1>
+                <h1 class="h4">Hello @UserManager.GetUserName(User) </h1>
                 <p>You login as: </p>
             </div>
         }
@@ -20,23 +20,19 @@
         <li class="active"><a asp-action="Index" asp-controller="Portal"> <i class="icon-home"></i>Home </a></li>
         <li><a asp-controller="Post" asp-action="Index"> <i class="fa fa-thumb-tack"></i>Post </a></li>
         <li><a asp-controller="Comment" asp-action="Index"> <i class="fa fa-comments"></i>Comment </a></li>
-        <li><a> <i class="icon-interface-windows"></i>Theme </a></li>
         <li><a asp-action="Index" asp-controller="PostOptions"> <i class="fa fa-tags"></i>Tag & Categories</a></li>
         <li><a asp-action="Index" asp-controller="Account"> <i class="fa fa-user-plus"></i>Account </a></li>
-        <li><a asp-action="Index" asp-controller="Settings"> <i class="fa fa-cogs"></i>Setting </a></li>
-        <li>
+<!--         <li>
             <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
             <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                 <li><a href="#">Page</a></li>
                 <li><a href="#">Page</a></li>
                 <li><a href="#">Page</a></li>
             </ul>
-        </li>
+        </li> -->
+		<!--         <li><a> <i class="icon-interface-windows"></i>Theme </a></li> -->
     </ul><span class="heading">Extras</span>
     <ul class="list-unstyled">
-        <li> <a href="#"> <i class="icon-flask"></i>Demo </a></li>
-        <li> <a href="#"> <i class="icon-screen"></i>Demo </a></li>
-        <li> <a href="#"> <i class="icon-mail"></i>Demo </a></li>
-        <li> <a href="#"> <i class="icon-picture"></i>Demo </a></li>
+        <li><a asp-action="Index" asp-controller="Settings"> <i class="fa fa-cogs"></i>Setting </a></li>
     </ul>
 </nav>

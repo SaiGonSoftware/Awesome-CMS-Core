@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.Enums;
 using AwesomeCMSCore.Modules.Repositories;
+using Newtonsoft.Json;
 
 namespace AwesomeCMSCore.Modules.Admin.Repositories
 {
@@ -66,6 +68,65 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 			}
 
 			return true;
+		}
+
+		public async Task<SocialProfileSettings> GetSocialProfileSettings()
+		{
+			var result = await FindSocialProfileSettings();
+			var socialProfileSettings = JsonConvert.DeserializeObject<SocialProfileSettings>(result.Value);
+			return socialProfileSettings;
+		}
+
+		public async Task<bool> SaveSocialProfileSettings(SocialProfileSettings settings)
+		{
+			var socialSettings = JsonConvert.SerializeObject(settings);
+			var existingSettings = await FindSocialProfileSettings();
+			if (existingSettings == null)
+			{
+				using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+				{
+					try
+					{
+						var data = new Settings
+						{
+							SettingKey = SettingKey.Social,
+							Value = socialSettings
+						};
+						await _unitOfWork.Repository<Settings>().AddAsync(data);
+						transaction.Complete();
+					}
+					catch (Exception)
+					{
+						_unitOfWork.Rollback();
+						return false;
+					}
+				}
+			}
+			else
+			{
+				using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+				{
+					try
+					{
+						existingSettings.Value = socialSettings;
+						await _unitOfWork.Repository<Settings>().UpdateAsync(existingSettings);
+						transaction.Complete();
+					}
+					catch (Exception)
+					{
+						_unitOfWork.Rollback();
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
+		private async Task<Settings> FindSocialProfileSettings()
+		{
+			var result = await _unitOfWork.Repository<Settings>().FindAsync(s => s.SettingKey == SettingKey.Social);
+			return result;
 		}
 
 		private async Task<Settings> FindCronSetting()

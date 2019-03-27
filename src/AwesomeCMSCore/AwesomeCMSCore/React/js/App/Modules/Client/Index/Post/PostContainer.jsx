@@ -10,7 +10,6 @@ import AuthorDetail from 'Shared/AuthorDetail.jsx';
 import Facebook from 'Shared/Facebook.jsx';
 import Category from 'Shared/Category.jsx';
 import NewsLetter from 'Shared/NewsLetter.jsx';
-import TrendingPosts from 'Shared/TrendingPosts.jsx';
 
 const PostContainer = props => {
 		return (
@@ -27,16 +26,15 @@ const PostContainer = props => {
 								<aside className="sidebar">
 										<div className="sidebar-inner">
 												<AuthorDetail/>
-												<Social/>
 												<RecentPost recentPost={props.vm.recentPost}/> {props
 														.vm
 														.popularPosts
 														.map(popularPost => {
 																return (<PopularPosts key={popularPost.id} popularPost={popularPost}/>)
 														})}
+												<Social/>
 												<Facebook/>
 												<Category categories={props.vm.categories}/>
-												<TrendingPosts/>
 												<NewsLetter/>
 										</div>
 								</aside>

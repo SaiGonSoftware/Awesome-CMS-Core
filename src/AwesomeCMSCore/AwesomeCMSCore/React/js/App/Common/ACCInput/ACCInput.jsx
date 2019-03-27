@@ -21,7 +21,6 @@ const ACCInput = props => {
           onChange={props.onChange}
           onBlur={props.onBlur}
           value={props.value}
-          required={props.required}
           disabled={props.disabled}
         />
       </div>
