@@ -6,6 +6,11 @@ export function isDomExist(domName) {
     return document.getElementById(domName) !== null;
 }
 
+export function isDomsExist(domName) {
+	console.log(document.getElementsByClassName(domName) !== null)
+	return document.getElementsByClassName(domName) !== null;
+}
+
 export function findObjectByKey(array, key, value) {
     for (let i = 0; i < array.length; i++) {
         if (array[i][key] === value) {
