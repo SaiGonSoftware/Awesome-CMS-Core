@@ -123,6 +123,60 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 			return true;
 		}
 
+
+		public async Task<ProfileSetting> GetProfileSetting()
+		{
+			var result = await FindProfileSetting();
+			var profileSettings = JsonConvert.DeserializeObject<ProfileSetting>(result.Value);
+			return profileSettings;
+		}
+
+		public async Task<bool> SaveProfileSettings(ProfileSetting setting)
+		{
+			var profileSetting = JsonConvert.SerializeObject(setting);
+			var existingProfileSetting = await FindProfileSetting();
+			if (existingProfileSetting == null)
+			{
+				using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+				{
+					try
+					{
+						var data = new Settings
+						{
+							SettingKey = SettingKey.Profile,
+							Value = profileSetting
+						};
+						await _unitOfWork.Repository<Settings>().AddAsync(data);
+						transaction.Complete();
+					}
+					catch (Exception)
+					{
+						_unitOfWork.Rollback();
+						return false;
+					}
+				}
+			}
+			else
+			{
+				using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+				{
+					try
+					{
+						existingProfileSetting.Value = profileSetting;
+						await _unitOfWork.Repository<Settings>().UpdateAsync(existingProfileSetting);
+						transaction.Complete();
+					}
+					catch (Exception)
+					{
+						_unitOfWork.Rollback();
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
 		private async Task<Settings> FindSocialProfileSettings()
 		{
 			var result = await _unitOfWork.Repository<Settings>().FindAsync(s => s.SettingKey == SettingKey.Social);
@@ -132,6 +186,12 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 		private async Task<Settings> FindCronSetting()
 		{
 			return await _unitOfWork.Repository<Settings>().FindAsync(s => s.SettingKey == SettingKey.EmailSubscription);
+		}
+
+		private async Task<Settings> FindProfileSetting()
+		{
+			var result = await _unitOfWork.Repository<Settings>().FindAsync(s => s.SettingKey == SettingKey.Profile);
+			return result;
 		}
 	}
 }

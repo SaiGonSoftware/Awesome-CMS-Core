@@ -13,5 +13,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 		Task<bool> SaveCronSetting(string cronValue);
 		Task<SocialProfileSettings> GetSocialProfileSettings();
 		Task<bool> SaveSocialProfileSettings(SocialProfileSettings settings);
+		Task<ProfileSetting> GetProfileSetting();
+		Task<bool> SaveProfileSettings(ProfileSetting setting);
 	}
 }

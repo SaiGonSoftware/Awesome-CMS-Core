@@ -5,6 +5,7 @@ import {isDomExist} from "Helper/Util";
 
 import CronSetting from "./General/CronSetting.jsx";
 import SocialProfileSetting from "./Profile/SocialProfileSetting.jsx";
+import UserProfileSetting from "./Profile/UserProfileSetting.jsx";
 
 class AdminSettingsContainer extends Component {
 	constructor(props) {
@@ -38,12 +39,12 @@ class AdminSettingsContainer extends Component {
 							aria-selected="false">Social link</a>
 						<a
 							className="nav-link"
-							id="v-pills-messages-tab"
+							id="v-pills-profiles-tab"
 							data-toggle="pill"
-							href="#v-pills-messages"
+							href="#v-pills-profiles"
 							role="tab"
-							aria-controls="v-pills-messages"
-							aria-selected="false">Messages</a>
+							aria-controls="v-pills-profiles"
+							aria-selected="false">Profile</a>
 						<a
 							className="nav-link"
 							id="v-pills-settings-tab"
@@ -70,9 +71,11 @@ class AdminSettingsContainer extends Component {
 							aria-labelledby="v-pills-social-tab"><SocialProfileSetting/></div>
 						<div
 							className="tab-pane fade"
-							id="v-pills-messages"
+							id="v-pills-profiles"
 							role="tabpanel"
-							aria-labelledby="v-pills-messages-tab">2</div>
+							aria-labelledby="v-pills-profiles-tab">
+							<UserProfileSetting/>
+						</div>
 						<div
 							className="tab-pane fade"
 							id="v-pills-settings"
