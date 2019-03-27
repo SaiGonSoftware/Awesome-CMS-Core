@@ -6,6 +6,7 @@ import "./script";
 
 import * as signalR from '@aspnet/signalr';
  
+// eslint-disable-next-line no-unused-vars
 let connection = new signalR.HubConnectionBuilder()
     .withUrl("/cmscore")
     .build();

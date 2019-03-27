@@ -43,6 +43,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 		}
 
 		[HttpGet("Social")]
+		[AllowAnonymous]
 		public async Task<IActionResult> GetSocialSettings()
 		{
 			var result = await _settingsRepository.GetSocialProfileSettings();

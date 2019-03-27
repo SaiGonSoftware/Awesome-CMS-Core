@@ -13644,6 +13644,18 @@ footer .footer-inner .footer-block .footer-widget-content .social-networks .soci
 	background-color: #4267B2
 }
 
+.general-header .header-top-inner .social-networks ul li a[href*="linkedin.com"]::before,
+.sidebar .sidebar-inner .widget .widget-extra-info-holder .widget-author-social .social-links li a[href*="linkedin.com"]::before,
+footer .footer-inner .footer-block .footer-widget-content .social-networks .social-links li a[href*="linkedin.com"]::before {
+	content: "\f0e1";
+}
+
+.general-header .header-top-inner .social-networks ul li a[href*="linkedin.com"]:hover,
+.sidebar .sidebar-inner .widget .widget-extra-info-holder .widget-author-social .social-links li a[href*="linkedin.com"]:hover,
+footer .footer-inner .footer-block .footer-widget-content .social-networks .social-links li a[href*="linkedin.com"]:hover {
+	background-color:	#0274B3;
+}
+
 .general-header .header-top-inner .social-networks ul li a[href*="twitter.com"]:hover,
 .sidebar .sidebar-inner .widget .widget-extra-info-holder .widget-author-social .social-links li a[href*="twitter.com"]:hover,
 footer .footer-inner .footer-block .footer-widget-content .social-networks .social-links li a[href*="twitter.com"]:hover {
@@ -13673,6 +13685,7 @@ footer .footer-inner .footer-block .footer-widget-content .social-networks .soci
 .general-header .header-top-inner .social-networks ul li a[href*="youtube.com"]:hover::before,
 .general-header .header-top-inner .social-networks ul li a[href*="instagram.com"]:hover::before,
 .general-header .header-top-inner .social-networks ul li a[href*="snapchat.com"]:hover::before,
+.general-header .header-top-inner .social-networks ul li a[href*="linkedin.com"]:hover::before,
 .sidebar .sidebar-inner .widget .widget-extra-info-holder .widget-author-social .social-links li a[href*="facebook.com"]:hover::before,
 .sidebar .sidebar-inner .widget .widget-extra-info-holder .widget-author-social .social-links li a[href*="twitter.com"]:hover::before,
 .sidebar .sidebar-inner .widget .widget-extra-info-holder .widget-author-social .social-links li a[href*="youtube.com"]:hover::before,
