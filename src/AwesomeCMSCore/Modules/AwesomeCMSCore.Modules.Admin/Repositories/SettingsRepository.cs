@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.Enums;
+using AwesomeCMSCore.Modules.GoogleDriveAPI;
 using AwesomeCMSCore.Modules.Repositories;
+using AwesomeCMSCore.Modules.Shared.Settings;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace AwesomeCMSCore.Modules.Admin.Repositories
@@ -14,10 +18,17 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 	public class SettingsRepository: ISettingsRepository
 	{
 		private readonly IUnitOfWork _unitOfWork;
+		private readonly IGoogleDriveAPI _googleDriveAPI;
+		private readonly IOptions<AssetSettings> _assetSettings;
 
-		public SettingsRepository(IUnitOfWork unitOfWork)
+		public SettingsRepository(
+			IUnitOfWork unitOfWork,
+			IGoogleDriveAPI googleDriveAPI,
+			IOptions<AssetSettings> assetSettings)
 		{
 			_unitOfWork = unitOfWork;
+			_googleDriveAPI = googleDriveAPI;
+			_assetSettings = assetSettings;
 		}
 
 		public async Task<Settings> GetCronSetting()
@@ -133,7 +144,6 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 
 		public async Task<bool> SaveProfileSettings(ProfileSetting setting)
 		{
-			var profileSetting = JsonConvert.SerializeObject(setting);
 			var existingProfileSetting = await FindProfileSetting();
 			if (existingProfileSetting == null)
 			{
@@ -141,6 +151,14 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 				{
 					try
 					{
+						if(setting.Avatar != null)
+						{
+							var storePath = Path.Combine(_assetSettings.Value.StorePath, );
+							using (var stream = new FileStream(storePath, FileMode.Create))
+							{
+								await file.CopyToAsync(stream);
+							}
+						}
 						var data = new Settings
 						{
 							SettingKey = SettingKey.Profile,
