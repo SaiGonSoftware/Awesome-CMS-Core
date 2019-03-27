@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AwesomeCMSCore.Modules.Admin.Repositories;
 using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Client.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
@@ -21,13 +22,16 @@ namespace AwesomeCMSCore.Modules.Client.Repositories
 		private readonly IMapper _mapper;
 		private readonly string _currentUserId;
 		private readonly ILogger<PostRepository> _logger;
-
-		public PostRepository(IUserService userService,
+		private readonly ISettingsRepository _settingsRepository;
+		public PostRepository(
+			IUserService userService,
+			ISettingsRepository settingsRepository,
 			IUnitOfWork unitOfWork,
 			IMapper mapper,
 			ILogger<PostRepository> logger)
 		{
 			_userService = userService;
+			_settingsRepository = settingsRepository;
 			_unitOfWork = unitOfWork;
 			_mapper = mapper;
 			_currentUserId = _userService.GetCurrentUserGuid();
@@ -47,12 +51,15 @@ namespace AwesomeCMSCore.Modules.Client.Repositories
 					.Where(p => p.OptionType == PostOptionType.CategorieOptions)
 					.Select(x => x.Key).FirstOrDefaultAsync();
 
+				var socialProfileSettings = await _settingsRepository.GetSocialProfileSettings();
+
 				var vm = new IndexViewModel
 				{
 					Posts = _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(posts),
 					PopularPosts = _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(popularPost),
 					RecentPost = _mapper.Map<Post, PostIndexViewModel>(recentPost),
-					Categories = categories
+					Categories = categories,
+					SocialProfileSettings = socialProfileSettings
 				};
 
 				foreach (var post in vm.Posts)
