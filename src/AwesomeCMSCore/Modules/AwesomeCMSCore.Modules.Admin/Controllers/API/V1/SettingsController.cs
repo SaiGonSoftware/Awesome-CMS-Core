@@ -57,5 +57,26 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 			var result = await _settingsRepository.SaveSocialProfileSettings(socialProfileSettings);
 			return Ok(result);
 		}
+
+		[HttpGet("Profile")]
+		[AllowAnonymous]
+		public async Task<IActionResult> GetProfileSetting()
+		{
+			var result = await _settingsRepository.GetProfileSetting();
+			return Ok(result);
+		}
+
+
+		[HttpPost("Profile")]
+		public async Task<IActionResult> SaveProfileSettings([FromForm] ProfileSetting profileSetting)
+		{
+			var result = await _settingsRepository.SaveProfileSettings(profileSetting);
+
+			if( result)
+			{
+				return Ok(result);
+			}
+			return BadRequest();
+		}
 	}
 }

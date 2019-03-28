@@ -100,7 +100,7 @@ class ResetPassword extends Component {
 																<ACCButton
 																		validationArr={this.validationArr}
 																		loading={loading}
-																		class="btn-block"
+																		class="btn btn-primary btn-block"
 																		label="Reset Password"/>
 														</div>
 												</form>

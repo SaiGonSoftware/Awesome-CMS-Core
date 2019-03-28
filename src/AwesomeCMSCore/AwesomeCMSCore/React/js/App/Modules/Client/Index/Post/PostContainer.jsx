@@ -25,7 +25,7 @@ const PostContainer = props => {
 			<div className="col-lg-4 col-md-4 col-sm-12 col-12">
 				<aside className="sidebar">
 					<div className="sidebar-inner">
-						<AuthorDetail/>
+						<AuthorDetail author={props.vm.profileSetting}/>
 						<RecentPost recentPost={props.vm.recentPost}/> {props
 							.vm
 							.popularPosts

@@ -8,6 +8,7 @@ namespace AwesomeCMSCore.Modules.Entities.Enums
 	{
 		None = 0,
 		EmailSubscription = 1,
-		Social = 2
+		Social = 2,
+		Profile = 3
 	}
 }
