@@ -9,6 +9,10 @@ namespace AwesomeCMSCore.Modules.Client.ViewModels
 		public PostIndexViewModel RecentPost { get; set; }
 		public IEnumerable<PostListViewModel> PopularPosts { get; set; }
 		public SocialProfileSettings SocialProfileSettings { get; set; }
+		public ProfileSetting ProfileSetting { get; set; }
+		/// <summary>
+		/// TODO update to model
+		/// </summary>
 		public object Categories { get; set; }
 	}
 }

@@ -53,13 +53,16 @@ namespace AwesomeCMSCore.Modules.Client.Repositories
 
 				var socialProfileSettings = await _settingsRepository.GetSocialProfileSettings();
 
+				var authorProfile = await _settingsRepository.GetProfileSetting();
+
 				var vm = new IndexViewModel
 				{
 					Posts = _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(posts),
 					PopularPosts = _mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(popularPost),
 					RecentPost = _mapper.Map<Post, PostIndexViewModel>(recentPost),
 					Categories = categories,
-					SocialProfileSettings = socialProfileSettings
+					SocialProfileSettings = socialProfileSettings,
+					ProfileSetting = authorProfile
 				};
 
 				foreach (var post in vm.Posts)

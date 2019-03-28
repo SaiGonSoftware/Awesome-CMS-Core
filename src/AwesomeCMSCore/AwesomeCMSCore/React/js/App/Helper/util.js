@@ -7,7 +7,6 @@ export function isDomExist(domName) {
 }
 
 export function isDomsExist(domName) {
-	console.log(document.getElementsByClassName(domName) !== null)
 	return document.getElementsByClassName(domName) !== null;
 }
 

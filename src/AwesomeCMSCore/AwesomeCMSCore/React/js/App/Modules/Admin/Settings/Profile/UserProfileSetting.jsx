@@ -24,12 +24,13 @@ class UserProfileSetting extends Component {
 
 	componentDidMount() {
 		Get(SETTING_USERS_PROFILES_API).then(res => {
-			console.log(res.data.storePath);
 			this.setState({
-				userName: res.data.userName, 
-				shortIntro: res.data.shortIntro, 
-				jobTitle: res.data.jobTitle, 
-				avatar: res.data.storePath ? res.data.storePath : null
+				userName: res.data.userName,
+				shortIntro: res.data.shortIntro,
+				jobTitle: res.data.jobTitle,
+				avatar: res.data.storePath
+					? res.data.storePath
+					: null
 			});
 		});
 	}

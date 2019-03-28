@@ -1,47 +1,37 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const AuthorDetail = () => {
+import SocialLinks from "../../../Shared/SocialLinks.jsx"
+
+const AuthorDetail = (props) => {
+	if (props.author) {
 		return (
-				<div className="widget widget-about-me wow fadeInUp">
-						<div className="widget-content">
-								<div className="widget-about-me-profile">
-										<img src="./Optimistic Blog Index_files/profile.jpeg" alt="..."/>
-								</div>
-								<div className="widget-extra-info-holder">
-										<div className="widget-author-name">
-												<h3>Anuj Subedi</h3>
-												<span className="author-profession">Ghost Blogger</span>
-										</div>
-										<div className="widget-author-bio">
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-														tempor incididunt.</p>
-										</div>
-										<div className="widget-author-social">
-												<ul className="social-links">
-														<li>
-																<a href="https://facebook.com/"></a>
-														</li>
-														<li>
-																<a href="https://twitter.com/"></a>
-														</li>
-														<li>
-																<a href="https://instagram.com/"></a>
-														</li>
-														<li>
-																<a href="https://youtube.com/"></a>
-														</li>
-														<li>
-																<a href="https://snapchat.com/"></a>
-														</li>
-												</ul>
-										</div>
-										<div className="widget-author-signature">
-												<img src="./Optimistic Blog Index_files/signature-one.jpg" alt="..."/>
-										</div>
-								</div>
+			<div className="widget widget-about-me wow fadeInUp">
+				<div className="widget-content">
+					<div className="widget-about-me-profile">
+						<img src={props.author.storePath} alt={props.author.shortIntro}/>
+					</div>
+					<div className="widget-extra-info-holder">
+						<div className="widget-author-name">
+							<h3>{props.author.userName}</h3>
+							<span className="author-profession">{props.author.jobTitle}</span>
 						</div>
+						<div className="widget-author-bio">
+							<p>{props.author.shortIntro}</p>
+						</div>
+						<div className="widget-author-social">
+							<SocialLinks/>
+						</div>
+					</div>
 				</div>
+			</div>
 		)
+	} else {
+		return null;
+	}
 }
 
+AuthorDetail.propTypes = {
+	author: PropTypes.object
+}
 export default AuthorDetail

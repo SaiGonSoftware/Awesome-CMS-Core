@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Editor} from '@tinymce/tinymce-react';
-import {APP_CONFIG} from './../../Helper/Config';
+import {APP_CONFIG} from 'Helper/Config';
 
 const ACCEditor = (props) => {
     return (<Editor
