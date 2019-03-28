@@ -8,6 +8,8 @@ using AwesomeCMSCore.Modules.Admin.ViewModels;
 using AwesomeCMSCore.Modules.Entities.Entities;
 using AwesomeCMSCore.Modules.Entities.Enums;
 using AwesomeCMSCore.Modules.GoogleDriveAPI;
+using AwesomeCMSCore.Modules.Helper.Enum;
+using AwesomeCMSCore.Modules.Helper.Extensions;
 using AwesomeCMSCore.Modules.Repositories;
 using AwesomeCMSCore.Modules.Shared.Settings;
 using Microsoft.Extensions.Options;
@@ -15,19 +17,16 @@ using Newtonsoft.Json;
 
 namespace AwesomeCMSCore.Modules.Admin.Repositories
 {
-	public class SettingsRepository: ISettingsRepository
+	public class SettingsRepository : ISettingsRepository
 	{
 		private readonly IUnitOfWork _unitOfWork;
-		private readonly IGoogleDriveAPI _googleDriveAPI;
 		private readonly IOptions<AssetSettings> _assetSettings;
 
 		public SettingsRepository(
 			IUnitOfWork unitOfWork,
-			IGoogleDriveAPI googleDriveAPI,
 			IOptions<AssetSettings> assetSettings)
 		{
 			_unitOfWork = unitOfWork;
-			_googleDriveAPI = googleDriveAPI;
 			_assetSettings = assetSettings;
 		}
 
@@ -134,43 +133,38 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 			return true;
 		}
 
-
 		public async Task<ProfileSetting> GetProfileSetting()
 		{
 			var result = await FindProfileSetting();
-			var profileSettings = JsonConvert.DeserializeObject<ProfileSetting>(result.Value);
+			var profileSettings = result != null ? JsonConvert.DeserializeObject<ProfileSetting>(result.Value) : null;
 			return profileSettings;
 		}
 
 		public async Task<bool> SaveProfileSettings(ProfileSetting setting)
 		{
 			var existingProfileSetting = await FindProfileSetting();
+
 			if (existingProfileSetting == null)
 			{
 				using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
 				{
 					try
 					{
-						if(setting.Avatar != null)
-						{
-							var storePath = Path.Combine(_assetSettings.Value.StorePath, );
-							using (var stream = new FileStream(storePath, FileMode.Create))
-							{
-								await file.CopyToAsync(stream);
-							}
-						}
+						var profileSetting = await ProcessProfileSettingsModel(setting);
+
 						var data = new Settings
 						{
 							SettingKey = SettingKey.Profile,
-							Value = profileSetting
+							Value = JsonConvert.SerializeObject(profileSetting)
 						};
+
 						await _unitOfWork.Repository<Settings>().AddAsync(data);
 						transaction.Complete();
 					}
-					catch (Exception)
+					catch (Exception ex)
 					{
 						_unitOfWork.Rollback();
-						return false;
+						throw ex;
 					}
 				}
 			}
@@ -180,14 +174,17 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 				{
 					try
 					{
-						existingProfileSetting.Value = profileSetting;
+						var profileSetting = await ProcessProfileSettingsModel(setting);
+
+						existingProfileSetting.Value = JsonConvert.SerializeObject(profileSetting);
+
 						await _unitOfWork.Repository<Settings>().UpdateAsync(existingProfileSetting);
 						transaction.Complete();
 					}
-					catch (Exception)
+					catch (Exception ex)
 					{
 						_unitOfWork.Rollback();
-						return false;
+						throw ex;
 					}
 				}
 			}
@@ -210,6 +207,31 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 		{
 			var result = await _unitOfWork.Repository<Settings>().FindAsync(s => s.SettingKey == SettingKey.Profile);
 			return result;
+		}
+
+		private async Task<ProfileSetting> ProcessProfileSettingsModel(ProfileSetting setting)
+		{
+			var profileSetting = new ProfileSetting
+			{
+				JobTitle = setting.JobTitle,
+				ShortIntro = setting.ShortIntro,
+				UserName = setting.UserName,
+				StorePath = null
+			};
+
+			if (setting.Avatar != null)
+			{
+				var fileName = $"{RandomString.GenerateRandomString(AppEnum.MinGeneratedAssetName)}.{setting.Avatar.ContentType.Split("/")[1]}";
+				var storePath = Path.Combine(_assetSettings.Value.StorePath, fileName);
+				using (var stream = new FileStream(storePath, FileMode.Create))
+				{
+					await setting.Avatar.CopyToAsync(stream);
+				}
+
+				profileSetting.StorePath = $"./assets/{fileName}";
+			}
+
+			return profileSetting;
 		}
 	}
 }

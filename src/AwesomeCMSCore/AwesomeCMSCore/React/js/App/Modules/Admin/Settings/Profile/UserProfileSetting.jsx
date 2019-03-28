@@ -24,11 +24,17 @@ class UserProfileSetting extends Component {
 
 	componentDidMount() {
 		Get(SETTING_USERS_PROFILES_API).then(res => {
-			this.setState({userName: res.data.userName, shortIntro: res.data.shortIntro, jobTitle: res.data.jobTitle, avatar: res.data.avatar});
+			console.log(res.data.storePath);
+			this.setState({
+				userName: res.data.userName, 
+				shortIntro: res.data.shortIntro, 
+				jobTitle: res.data.jobTitle, 
+				avatar: res.data.storePath ? res.data.storePath : null
+			});
 		});
 	}
 
-	handleImagePreview = thumbnail => {
+	handleImagePreview = avatar => {
 		this.clearImageState();
 
 		// eslint-disable-next-line no-undef
@@ -38,25 +44,36 @@ class UserProfileSetting extends Component {
 			$("#thumbnail-preview").attr("src", e.target.result);
 		};
 
-		this.setState({thumbnail});
-		reader.readAsDataURL(thumbnail);
+		this.setState({avatar});
+		reader.readAsDataURL(avatar);
 	};
 
 	removeImage = () => {
 		this.clearImageState();
 	};
 
+	clearImageState = () => {
+		this.setState({avatar: null});
+		this.setState({
+			resetting: true
+		}, () => {
+			this.setState({resetting: false});
+		});
+	};
+
 	saveProfileSettings = e => {
 		e.preventDefault();
-		let socialProfileSettings = {
-			userName: this.state.userName,
-			shortIntro: this.state.shortIntro,
-			jobTitle: this.state.jobTitle,
-			avatar: this.state.avatar
-		};
+		// eslint-disable-next-line no-undef
+		const formdata = new FormData();
+		formdata.append("UserName", this.state.userName);
+		formdata.append("ShortIntro", this.state.shortIntro);
+		formdata.append("JobTitle", this.state.jobTitle);
+		if (this.state.avatar) {
+			formdata.append("Avatar", this.state.avatar);
+		}
 
 		PostWithSpinner
-			.call(this, SETTING_USERS_PROFILES_API, socialProfileSettings)
+			.call(this, SETTING_USERS_PROFILES_API, formdata, 'multipart/form-data')
 			.then(res => {
 				if (res.status === STATUS_CODE.Success) {
 					toastr.success("Save Settings complete");
@@ -78,7 +95,7 @@ class UserProfileSetting extends Component {
 		} = this.state;
 
 		return (
-			<form onSubmit={this.saveProfileSettings}>
+			<form encType="multipart/form-data" method="post">
 				<div className="card">
 					<div className="card-body">
 						<p>
@@ -160,7 +177,7 @@ class UserProfileSetting extends Component {
 															onClick={this.removeImage}
 															aria-hidden="true"></i>
 														<div className="card-body">
-															<img id="thumbnail-preview" src=""/>
+															<img id="thumbnail-preview" src={avatar}/>
 															<div className="card-body">
 																<p className="card-text">
 																	Please note that image will be resize when upload
@@ -178,7 +195,8 @@ class UserProfileSetting extends Component {
 						<ACCButton
 							loading={loading}
 							class="btn btn-outline-primary pull-right"
-							label="Save Settings"/>
+							label="Save Settings"
+							onClick={e => this.saveProfileSettings(e)}/>
 					</div>
 				</div>
 			</form>

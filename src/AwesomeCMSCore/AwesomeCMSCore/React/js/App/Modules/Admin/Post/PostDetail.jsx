@@ -316,7 +316,7 @@ class PostDetail extends Component {
 									</Row>
 									<Row className="postFooter">
 										<Col md="12">
-											<ACCButton loading={loading} btnBlocked="btn-block" label="Save Post"/>
+											<ACCButton loading={loading} class="btn btn-primary btn-block" label="Save Post"/>
 										</Col>
 									</Row>
 								</Col>

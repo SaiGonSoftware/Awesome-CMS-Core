@@ -68,10 +68,15 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 
 
 		[HttpPost("Profile")]
-		public async Task<IActionResult> SaveProfileSettings([FromBody] ProfileSetting profileSetting)
+		public async Task<IActionResult> SaveProfileSettings([FromForm] ProfileSetting profileSetting)
 		{
 			var result = await _settingsRepository.SaveProfileSettings(profileSetting);
-			return Ok(result);
+
+			if( result)
+			{
+				return Ok(result);
+			}
+			return BadRequest();
 		}
 	}
 }

@@ -135,7 +135,7 @@ class LoginForm extends Component {
                 <ACCButton
                   validationArr={this.validationArr}
                   loading={loading}
-                  class="btn-block"
+                  class="btn btn-primary btn-block"
                   label="Login"/>
                 <br/>
                 <a href="/Account/ForgotPassword">Forgot Password ?</a>
