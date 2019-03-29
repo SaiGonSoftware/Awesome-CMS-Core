@@ -82,4 +82,7 @@
     </Content>
   </ItemGroup>
 
+	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+      	<Exec Command="npm run prod" />
+  	</Target>
 </Project>
