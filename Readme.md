@@ -16,7 +16,6 @@ Awesome CMS Core provide lastest trend of technology like .Net Core, React, Webp
 
 | Platform   | Status                                                                                                                                                                                                                                                                     |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| codefactor | [![CodeFactor](https://www.codefactor.io/repository/github/awesome-cms-core/awesome-cms-core/badge)](https://www.codefactor.io/repository/github/awesome-cms-core/awesome-cms-core)                                                                                        |
 | codacy     | [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5781d47d0e8f499b8a7fbd167105e4f7)](https://www.codacy.com/app/ngohungphuc95/Awesome-CMS-Core?utm_source=github.com&utm_medium=referral&utm_content=Awesome-CMS-Core/Awesome-CMS-Core&utm_campaign=Badge_Grade) |
 
 ## Docs
@@ -52,59 +51,7 @@ Please read
   </tbody>
 </table>
 
+
 ## Progress
-I'm currently working hard on this backlog item [#358](https://github.com/SaiGonSoftware/Awesome-CMS-Core/pull/358)
 
-## App insider (Continue to Update)
-
-## Client UI (work in progress)
-
-### Login page for admin
-
-<img src="img/login.png"/>
-
----
-
-### Portal index
-
-<img src="img/portal.png"/>
-
----
-
-### Settings
-
-Allow admin to input cron setting
-
-<img src="img/cron-setting.png">
-
-### Manage Account
-
-<img src="img/forgot-pass.png"/>
-<img src="img/add new user.png">
-<img src="img/add-user-roles.png">
-<img src="img/manage-account.png"/>
-<img src="img/edit-role.png"/>
-
----
-
-### Tag & Categories manage page
-
-<img src="img/tag&cat.png"/>
-
----
-
-### Post Manage
-
-<img src="img/post management.png"/>
-
-<img src="img/post detail.png"/>
-
----
-
-### Manage comment
-
-<img src="img/Manage comments.png"/>
-
-<img src="img/Reply comment.png">
-
----
+To be updated
