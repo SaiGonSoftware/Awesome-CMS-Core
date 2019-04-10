@@ -37,13 +37,13 @@ namespace AwesomeCMSCore.Modules.Shared.Repositories
 			{
 				try
 				{
-					var isEmailExists =  _unitOfWork.Repository<NewsLetter>().Exist(em => em.Email == email);
+					var isEmailExists = _unitOfWork.Repository<NewsLetter>().Exist(em => em.Email == email);
 					if (isEmailExists)
 					{
 						return false;
 					}
 
-					await _unitOfWork.Repository<NewsLetter>().AddAsync(new NewsLetter {Email = email});
+					await _unitOfWork.Repository<NewsLetter>().AddAsync(new NewsLetter { Email = email });
 					transaction.Complete();
 
 					return true;

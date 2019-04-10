@@ -6,14 +6,14 @@ using RabbitMQ.Client;
 
 namespace AwesomeCMSCore.Modules.Queue.Services
 {
-    public class QueueService : IQueueService
-    {
-        private readonly IOptions<QueueSettings> _queueSetting;
+	public class QueueService : IQueueService
+	{
+		private readonly IOptions<QueueSettings> _queueSetting;
 
-        public QueueService(IOptions<QueueSettings> queueSetting)
-        {
-            _queueSetting = queueSetting;
-        }
+		public QueueService(IOptions<QueueSettings> queueSetting)
+		{
+			_queueSetting = queueSetting;
+		}
 
 		/// <summary>
 		/// The default exchange is a direct exchange with no name (empty string) pre-declared by the broker
@@ -23,24 +23,24 @@ namespace AwesomeCMSCore.Modules.Queue.Services
 		/// </summary>
 		/// <param name="queueOptions"></param>
 		public void PublishMessage(QueueOptions queueOptions)
-        {
+		{
 			var mess = string.Empty;
 
 			var factory = new ConnectionFactory()
-            {
-                HostName = _queueSetting.Value.Host,
-                UserName = _queueSetting.Value.Username,
-                Password = _queueSetting.Value.Password,
-            };
+			{
+				HostName = _queueSetting.Value.Host,
+				UserName = _queueSetting.Value.Username,
+				Password = _queueSetting.Value.Password,
+			};
 
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: queueOptions.QueueName,
-                    durable: true,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+			using (var connection = factory.CreateConnection())
+			using (var channel = connection.CreateModel())
+			{
+				channel.QueueDeclare(queue: queueOptions.QueueName,
+					durable: true,
+					exclusive: false,
+					autoDelete: false,
+					arguments: null);
 
 				if (queueOptions.IsObject)
 				{
@@ -48,17 +48,17 @@ namespace AwesomeCMSCore.Modules.Queue.Services
 					mess = JsonConvert.SerializeObject(new QueueMessage { Message = queueOptions.Message });
 				}
 
-                var body = Encoding.UTF8.GetBytes(mess == string.Empty ? queueOptions.Message : mess);
+				var body = Encoding.UTF8.GetBytes(mess == string.Empty ? queueOptions.Message : mess);
 
-                // Message durability setup
-                var properties = channel.CreateBasicProperties();
-                properties.Persistent = true;
+				// Message durability setup
+				var properties = channel.CreateBasicProperties();
+				properties.Persistent = true;
 
-                channel.BasicPublish(exchange: queueOptions.ExchangeType,
-                    routingKey: queueOptions.RoutingKey,
-                    basicProperties: properties,
-                    body: body);
-            }
-        }
-    }
+				channel.BasicPublish(exchange: queueOptions.ExchangeType,
+					routingKey: queueOptions.RoutingKey,
+					basicProperties: properties,
+					body: body);
+			}
+		}
+	}
 }

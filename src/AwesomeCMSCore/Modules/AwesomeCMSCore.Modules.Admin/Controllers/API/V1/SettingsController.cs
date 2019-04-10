@@ -15,7 +15,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 	[ApiVersion("1.0")]
 	[ApiExplorerSettings(GroupName = "v1")]
 	[Route("api/v{version:apiVersion}/Settings/")]
-	public class SettingsController: Controller
+	public class SettingsController : Controller
 	{
 		private readonly ISettingsRepository _settingsRepository;
 		public SettingsController(ISettingsRepository settingsRepository)
@@ -29,14 +29,14 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 			var result = await _settingsRepository.GetCronSetting();
 			return Ok(result);
 		}
-		
+
 		[HttpPost("Cron"), ValidModel]
 		public async Task<IActionResult> SaveCronSetting([FromBody]CronSetting cronSetting)
 		{
 			var result = await _settingsRepository.SaveCronSetting(cronSetting.CronValue);
 			if (!result)
 			{
-				return BadRequest(); 
+				return BadRequest();
 			}
 
 			return Ok();
@@ -72,7 +72,7 @@ namespace AwesomeCMSCore.Modules.Admin.Controllers.API.V1
 		{
 			var result = await _settingsRepository.SaveProfileSettings(profileSetting);
 
-			if( result)
+			if (result)
 			{
 				return Ok(result);
 			}

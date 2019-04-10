@@ -30,7 +30,7 @@ namespace AwesomeCMSCore.Modules.Shared.Controllers.V1
 
 			if (!result)
 			{
-				return BadRequest(); 
+				return BadRequest();
 			}
 
 			return Ok();

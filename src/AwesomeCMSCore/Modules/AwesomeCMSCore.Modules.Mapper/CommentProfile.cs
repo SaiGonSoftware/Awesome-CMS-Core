@@ -4,11 +4,11 @@ using AwesomeCMSCore.Modules.Entities.Entities;
 
 namespace AwesomeCMSCore.Modules.Mapper
 {
-    public class CommentProfile : Profile
-    {
-        public CommentProfile()
-        {
+	public class CommentProfile : Profile
+	{
+		public CommentProfile()
+		{
 			CreateMap<Comment, CommentDto>(MemberList.None).ReverseMap();
 		}
-    }
+	}
 }

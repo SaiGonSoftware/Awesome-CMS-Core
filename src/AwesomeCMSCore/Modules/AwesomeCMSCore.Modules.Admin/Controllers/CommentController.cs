@@ -2,11 +2,11 @@
 
 namespace AwesomeCMSCore.Modules.Admin.Controllers
 {
-    public class CommentController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
+	public class CommentController : Controller
+	{
+		public IActionResult Index()
+		{
+			return View();
+		}
+	}
 }

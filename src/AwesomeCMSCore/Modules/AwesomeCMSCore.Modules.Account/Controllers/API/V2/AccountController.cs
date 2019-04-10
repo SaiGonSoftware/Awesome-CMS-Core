@@ -10,52 +10,52 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeCMSCore.Modules.Account.Controllers.API.V2
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [ApiVersion("2.0")]
-    [ApiExplorerSettings(GroupName = "v2")]
-    [Route("api/v{version:apiVersion}/account/[action]")]
-    public class AccountController : Controller
-    {
-        private readonly IEmailSender _emailSender;
-        private readonly IAccountRepository _accountRepository;
-        private readonly IUserService _userService;
+	[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+	[ApiVersion("2.0")]
+	[ApiExplorerSettings(GroupName = "v2")]
+	[Route("api/v{version:apiVersion}/account/[action]")]
+	public class AccountController : Controller
+	{
+		private readonly IEmailSender _emailSender;
+		private readonly IAccountRepository _accountRepository;
+		private readonly IUserService _userService;
 
-        public AccountController(
-            IEmailSender emailSender,
-            IAccountRepository accountRepository,
-            IUserService userService)
-        {
-            _emailSender = emailSender;
-            _accountRepository = accountRepository;
-            _userService = userService;
-        }
+		public AccountController(
+			IEmailSender emailSender,
+			IAccountRepository accountRepository,
+			IUserService userService)
+		{
+			_emailSender = emailSender;
+			_accountRepository = accountRepository;
+			_userService = userService;
+		}
 
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
-        {
-            var user = await _userService.FindByNameAsync(model.Username);
-            if (!user.EmailConfirmed)
-            {
-                return StatusCode(AppStatusCode.EmailNotConfirmed);
-            }
+		[HttpPost]
+		[AllowAnonymous]
+		public async Task<IActionResult> Login([FromBody] LoginViewModel model)
+		{
+			var user = await _userService.FindByNameAsync(model.Username);
+			if (!user.EmailConfirmed)
+			{
+				return StatusCode(AppStatusCode.EmailNotConfirmed);
+			}
 
-            var result = await _userService.PasswordSignInAsync(model.Username, model.Password,
-                model.RememberMe, true);
+			var result = await _userService.PasswordSignInAsync(model.Username, model.Password,
+				model.RememberMe, true);
 
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
+			if (result.Succeeded)
+			{
+				return Ok();
+			}
 
-            await _userService.SetLockoutEnabledAsync(user, true);
+			await _userService.SetLockoutEnabledAsync(user, true);
 
-            if (result.IsLockedOut)
-            {
-                return StatusCode(AppStatusCode.Forbid);
-            }
+			if (result.IsLockedOut)
+			{
+				return StatusCode(AppStatusCode.Forbid);
+			}
 
-            return BadRequest();
-        }
-    }
+			return BadRequest();
+		}
+	}
 }

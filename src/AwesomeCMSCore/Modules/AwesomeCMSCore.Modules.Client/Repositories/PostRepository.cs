@@ -68,11 +68,11 @@ namespace AwesomeCMSCore.Modules.Client.Repositories
 				foreach (var post in vm.Posts)
 				{
 					post.Categories = await _unitOfWork.Repository<PostOption>()
-						.Query().Where(po =>  po.Post.Id == post.Id && po.OptionType == PostOptionType.PostCategories)
+						.Query().Where(po => po.Post.Id == post.Id && po.OptionType == PostOptionType.PostCategories)
 						.Select(x => x.Key).FirstOrDefaultAsync();
 
 					post.Tags = await _unitOfWork.Repository<PostOption>()
-					.Query().Where(po =>  po.Post.Id == post.Id && po.OptionType == PostOptionType.PostTags)
+					.Query().Where(po => po.Post.Id == post.Id && po.OptionType == PostOptionType.PostTags)
 					.Select(x => x.Key).FirstOrDefaultAsync();
 				}
 

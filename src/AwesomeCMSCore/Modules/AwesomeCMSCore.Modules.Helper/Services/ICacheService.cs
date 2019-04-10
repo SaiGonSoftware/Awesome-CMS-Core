@@ -2,7 +2,7 @@
 
 namespace AwesomeCMSCore.Modules.Helper.Services
 {
-    public interface ICacheService: IDistributedCache
-    {
-    }
+	public interface ICacheService : IDistributedCache
+	{
+	}
 }

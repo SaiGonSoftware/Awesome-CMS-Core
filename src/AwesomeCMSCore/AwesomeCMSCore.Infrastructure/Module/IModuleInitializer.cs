@@ -2,8 +2,8 @@
 
 namespace AwesomeCMSCore.Infrastructure.Module
 {
-    public interface IModuleInitializer
-    {
-        void Init(IServiceCollection serviceCollection);
-    }
+	public interface IModuleInitializer
+	{
+		void Init(IServiceCollection serviceCollection);
+	}
 }

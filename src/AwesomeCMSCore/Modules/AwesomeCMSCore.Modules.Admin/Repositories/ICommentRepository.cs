@@ -4,10 +4,10 @@ using AwesomeCMSCore.Modules.Entities.Enums;
 
 namespace AwesomeCMSCore.Modules.Admin.Repositories
 {
-  public interface ICommentRepository
-  {
-	Task<CommentDefaultViewModel> GetAllComments();
-	Task<bool> UpdateCommentStatus(int commentId, CommentStatus commentStatus);
-	Task<bool> ReplyComment(CommentReplyViewModel replyViewModel);
-  }
+	public interface ICommentRepository
+	{
+		Task<CommentDefaultViewModel> GetAllComments();
+		Task<bool> UpdateCommentStatus(int commentId, CommentStatus commentStatus);
+		Task<bool> ReplyComment(CommentReplyViewModel replyViewModel);
+	}
 }

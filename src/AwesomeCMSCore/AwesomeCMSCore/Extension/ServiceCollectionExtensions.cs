@@ -275,7 +275,7 @@ namespace AwesomeCMSCore.Extension
 			services.AddAuthentication()
 				 .AddJwtBearer(options =>
 				 {
- 					 options.Authority = configuration["Authentication:Authority"];
+					 options.Authority = configuration["Authentication:Authority"];
 					 options.Audience = "resource_server";
 					 options.RequireHttpsMetadata = false;
 					 options.TokenValidationParameters = new TokenValidationParameters

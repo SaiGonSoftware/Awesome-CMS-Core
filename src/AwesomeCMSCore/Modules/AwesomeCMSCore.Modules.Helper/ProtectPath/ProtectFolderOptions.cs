@@ -2,8 +2,8 @@
 
 namespace AwesomeCMSCore.Modules.Helper.ProtectPath
 {
-    public class ProtectFolderOptions
-    {
-        public PathString Path { get; set; }
-    }
+	public class ProtectFolderOptions
+	{
+		public PathString Path { get; set; }
+	}
 }

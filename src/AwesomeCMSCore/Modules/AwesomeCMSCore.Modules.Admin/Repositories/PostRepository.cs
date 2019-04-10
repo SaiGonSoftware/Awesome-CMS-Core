@@ -82,7 +82,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 					Path = post.Medias.Path
 				};
 			}
-			
+
 			return postViewModel;
 		}
 

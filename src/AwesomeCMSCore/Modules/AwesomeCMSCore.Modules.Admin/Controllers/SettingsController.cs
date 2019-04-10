@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AwesomeCMSCore.Modules.Admin.Controllers
 {
 	[Authorize]
-    public class SettingsController : Controller
+	public class SettingsController : Controller
 	{
 		public IActionResult Index()
 		{

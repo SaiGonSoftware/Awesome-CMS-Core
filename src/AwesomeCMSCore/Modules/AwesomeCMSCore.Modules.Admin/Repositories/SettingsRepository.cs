@@ -83,7 +83,7 @@ namespace AwesomeCMSCore.Modules.Admin.Repositories
 		public async Task<SocialProfileSettings> GetSocialProfileSettings()
 		{
 			var result = await FindSocialProfileSettings();
-			var socialProfileSettings = result != null ?  JsonConvert.DeserializeObject<SocialProfileSettings>(result.Value) : null;
+			var socialProfileSettings = result != null ? JsonConvert.DeserializeObject<SocialProfileSettings>(result.Value) : null;
 			return socialProfileSettings;
 		}
 

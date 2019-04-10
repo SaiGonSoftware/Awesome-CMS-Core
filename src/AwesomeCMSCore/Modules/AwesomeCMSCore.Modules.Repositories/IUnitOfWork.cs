@@ -2,12 +2,12 @@
 
 namespace AwesomeCMSCore.Modules.Repositories
 {
-    public interface IUnitOfWork
-    {
-        IGenericRepository<T> Repository<T>() where T : class;
+	public interface IUnitOfWork
+	{
+		IGenericRepository<T> Repository<T>() where T : class;
 
-        Task<int> Commit();
+		Task<int> Commit();
 
-        void Rollback();
-    }
+		void Rollback();
+	}
 }
