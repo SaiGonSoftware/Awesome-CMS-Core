@@ -1,4 +1,4 @@
-# Awesome CMS Core [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/thangchung/awesome-dotnet-core#cms)[![Backers on Open Collective](https://opencollective.com/awesomecmscore/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/awesomecmscore/sponsors/badge.svg)](#sponsors)
+# Awesome CMS Core [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/thangchung/awesome-dotnet-core#cms) [![Backers on Open Collective](https://opencollective.com/awesomecmscore/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/awesomecmscore/sponsors/badge.svg)](#sponsors)
 
 Awesome CMS Core is an open source CMS built using ASP.Net Core & ReactJS with module seperation concern in mind.
 Awesome CMS Core provide lastest trend of technology like .Net Core, React, Webpack, SASS, Background Job, Queue.
